@@ -1,0 +1,24 @@
+/**
+ * Theme Name: Advice 2025
+ * Description: Een moderne WordPress boilerplate template met Tailwind 4.1, ACF flexible content en Gutenberg ondersteuning.
+ * Author: Advice
+ * Version: 1.0.0
+ * Requires at least: 6.0
+ * Tested up to: 6.4
+ * Requires PHP: 8.0
+ * License: GPL v2 or later
+ * Text Domain: advice2025
+ */
+
+/*
+ * Dit bestand bevat alleen de WordPress theme informatie.
+ * Alle styles worden geladen vanuit assets/css/style.css (gecompileerd door Tailwind CLI).
+ */
+
+ .gutenberg-content {
+    h1,h2,h3,h4,h5,h6 {
+        &:after {
+            display: none;
+        }
+    }
+ }

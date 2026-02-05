@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Zapf Dingbats';
+  src: url('../fonts/ZapfDingbats.woff2') format('woff2'),
+    url('../fonts/ZapfDingbats.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

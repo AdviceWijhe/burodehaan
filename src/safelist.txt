@@ -1,0 +1,10 @@
+grid-cols-4
+grid-cols-5
+pb-[60px]
+pb-[80px]
+pb-[100px]
+pb-[120px]
+lg:pb-[80px]
+
+lg:pb-[160px]
+lg:pb-[260px]

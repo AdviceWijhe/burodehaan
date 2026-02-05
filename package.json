@@ -1,0 +1,29 @@
+{
+  "name": "advice2025",
+  "version": "1.0.0",
+  "description": "Een moderne WordPress boilerplate template met Tailwind 4.1, ACF flexible content en Gutenberg ondersteuning.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/style.css",
+    "watch": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/style.css --watch",
+    "build:prod": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/style.css --minify"
+  },
+  "keywords": [
+    "wordpress",
+    "theme",
+    "tailwind",
+    "acf",
+    "gutenberg",
+    "responsive"
+  ],
+  "author": "Advice",
+  "license": "GPL-2.0-or-later",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "tailwindcss-intersect": "^2.2.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.18",
+    "tailwindcss-animated": "^2.0.0"
+  }
+}

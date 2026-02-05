@@ -1,0 +1,23 @@
+# Ensure CSS files are served with correct MIME type
+<FilesMatch "\.(css)$">
+    Header set Content-Type "text/css"
+</FilesMatch>
+
+# Enable compression for CSS files
+<IfModule mod_deflate.c>
+    <FilesMatch "\.(css|js)$">
+        SetOutputFilter DEFLATE
+    </FilesMatch>
+</IfModule>
+
+# Set cache headers for static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# Ensure files are readable
+<FilesMatch "\.(css|js)$">
+    Require all granted
+</FilesMatch>

@@ -1,0 +1,432 @@
+<?php
+/**
+ * Custom Tailwind CSS Nav Walker for Dropdowns
+ */
+class Advice2025_Nav_Walker extends Walker_Nav_Menu {
+    
+    private $dropdown_item_count = 0;
+    
+    // Start Level - Add dropdown container
+    function start_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        
+        if ($depth == 0) {
+            // Count dropdown items first
+            $this->dropdown_item_count = 0;
+            
+            // Full viewport width dropdown container outside navbar
+            global $current_dropdown_id;
+            $dropdown_class = $current_dropdown_id ? "dropdown-menu-" . $current_dropdown_id : "dropdown-menu";
+            $output .= "\n$indent<div class=\"dropdown-menu {$dropdown_class} fixed left-0 top-full w-screen bg-white backdrop-blur-md opacity-0 invisible transform transition-all duration-300 z-50\">\n";
+			$output .= "$indent\t<div class=\"container-fluid mx-auto px-[100px] py-[80px] max-h-[80vh] overflow-y-auto overscroll-contain\">\n";
+            $output .= "$indent\t\t<div class=\"grid gap-6\" data-dropdown-grid data-dropdown-id=\"{$current_dropdown_id}\">\n";
+        } else {
+            $output .= "\n$indent<ul class=\"dropdown-submenu\">\n";
+        }
+    }
+
+    // End Level
+    function end_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        
+        if ($depth == 0) {
+            // Determine grid columns based on item count
+            // Show 4 columns when there are 4 or fewer items, otherwise 5 columns
+            $grid_cols = $this->dropdown_item_count <= 4 ? 'grid-cols-4' : 'grid-cols-5';
+            
+            $output .= "$indent\t\t</div>\n";
+            $output .= "$indent\t</div>\n";
+            $output .= "$indent</div>\n";
+            
+            // Get the current dropdown ID from global variable
+            global $current_dropdown_id;
+            $dropdown_id = $current_dropdown_id ? $current_dropdown_id : '';
+            
+            // Add JavaScript to update the grid classes immediately for this dropdown
+            $output .= "<script>(function(){\n";
+            $output .= "  var grid = document.querySelector('[data-dropdown-grid][data-dropdown-id=\"{$dropdown_id}\"]');\n";
+            $output .= "  if (!grid) return;\n";
+            $output .= "  grid.classList.remove('grid-cols-4','grid-cols-5');\n";
+            $output .= "  grid.classList.add('{$grid_cols}');\n";
+            $output .= "  // Fallback for when CSS class isn't present yet: set explicit columns\n";
+            $output .= "  var cols = '{$grid_cols}' === 'grid-cols-4' ? 4 : 5;\n";
+            $output .= "  grid.style.gridTemplateColumns = 'repeat(' + cols + ', minmax(0, 1fr))';\n";
+            $output .= "  grid.setAttribute('data-item-count','{$this->dropdown_item_count}');\n";
+            $output .= "})();</script>\n";
+            
+            // Non-JS fallback: set grid-template-columns via CSS for this specific dropdown
+            $cols_num = ($this->dropdown_item_count <= 4) ? 4 : 5;
+            $output .= "<style>[data-dropdown-grid][data-dropdown-id=\"{$dropdown_id}\"]{grid-template-columns:repeat({$cols_num},minmax(0,1fr))}</style>\n";
+        } else {
+            $output .= "$indent</ul>\n";
+        }
+    }
+
+    // Start Element
+    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $indent = ($depth) ? str_repeat("\t", $depth) : '';
+
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+        $classes[] = 'menu-item-' . $item->ID;
+
+        // Check if item has children
+        $has_children = in_array('menu-item-has-children', $classes);
+        
+        // Apply filters
+        $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
+        
+        // Add dropdown functionality classes
+        if ($has_children && $depth == 0) {
+            $class_names .= ' relative has-dropdown';
+        }
+        
+        $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
+
+        $id = apply_filters('nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args);
+        $id = $id ? ' id="' . esc_attr($id) . '"' : '';
+        
+        // Add data attributes for JavaScript dropdown functionality
+        $data_attrs = '';
+        if ($has_children && $depth == 0) {
+            $data_attrs = ' data-has-dropdown="true" data-dropdown-id="menu-item-' . $item->ID . '"';
+            // Store the dropdown ID in a global variable for the start_lvl function
+            global $current_dropdown_id;
+            $current_dropdown_id = $item->ID;
+        }
+
+        if ($depth == 0) {
+            // Ensure flex item doesn't expand due to wide fixed dropdown child
+            // Append min-w-0 to prevent intrinsic sizing from pushing siblings apart
+            $li_class_names = $class_names ? str_replace('class="', 'class="min-w-0 ', $class_names) : ' class="min-w-0"';
+            $output .= $indent . '<li' . $id . $li_class_names . $data_attrs .'>';
+        } else {
+            // For dropdown items, we don't need li tags since we're using a div grid
+            $output .= $indent . '<div' . $id . $class_names .'>';
+        }
+
+        // Determine if this item is current/active (covers singular, archive, ancestors, etc.)
+        $is_current = false;
+        foreach ($classes as $menu_class) {
+            if (strpos($menu_class, 'current-') === 0) {
+                $is_current = true;
+                break;
+            }
+        }
+
+        $attributes  = ! empty($item->attr_title) ? ' title="'  . esc_attr($item->attr_title) .'"' : '';
+        $attributes .= ! empty($item->target)     ? ' target="' . esc_attr($item->target     ) .'"' : '';
+        $attributes .= ! empty($item->xfn)        ? ' rel="'    . esc_attr($item->xfn        ) .'"' : '';
+        $attributes .= ! empty($item->url)        ? ' href="'   . esc_attr($item->url        ) .'"' : '';
+
+        $item_output = isset($args->before) ? $args->before : '';
+        
+        // Different styles for different depths
+        if ($depth == 0) {
+            // Top level items
+            $link_classes = 'nav-link relative px-4 py-2 min-h-[96px] text-white tracking-wide transition-all duration-300 flex items-center min-w-0';
+            
+            if ($has_children) {
+                $link_classes .= ' ';
+            }
+        } else {
+            // Count dropdown items
+            $this->dropdown_item_count++;
+            
+            // Dropdown items - full width cards with images
+            $link_classes = 'dropdown-link block bg-white group/submenu  transition-all duration-300 h-full';
+        }
+
+        // Add active class to the link if this item is current (including archives)
+        if ($is_current) {
+            $link_classes .= ' is-active';
+        }
+
+        $item_output .= '<a' . $attributes . ' class="' . $link_classes . '">';
+        
+        // Different content for different depths
+        if ($depth == 0) {
+            // Top level items
+            $item_output .= (isset($args->link_before) ? $args->link_before : '') . '<span>' . apply_filters('the_title', $item->title, $item->ID) . '</span>' . (isset($args->link_after) ? $args->link_after : '');
+            
+            // Add dropdown arrow for parent items
+            if ($has_children) {
+                $item_output .= '<svg class="w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>';
+            }
+        } else {
+            // Dropdown items with image and content
+            $featured_image = get_the_post_thumbnail_url($item->object_id, 'large');
+            $description = get_post_meta($item->ID, '_menu_item_description', true);
+            
+            // Card content with image
+            $item_output .= '<div class="flex flex-col h-full">';
+            
+            // Image section
+            if ($featured_image) {
+                $item_output .= '<div class="aspect-video mb-[32px] overflow-hidden bg-gray-100 group-hover/submenu:scale-90 transition-transform duration-300">';
+                $item_output .= '<img src="' . esc_url($featured_image) . '" alt="' . esc_attr($item->title) . '" class="w-full h-full object-cover group-hover/submenu:scale-125 transition-transform duration-300">';
+                $item_output .= '</div>';
+            } else {
+                // Fallback placeholder
+                $item_output .= '<div class="aspect-video mb-[32px] overflow-hidden  bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">';
+                $item_output .= '<svg class="w-8 h-8 text-white-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
+                $item_output .= '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>';
+                $item_output .= '</svg>';
+                $item_output .= '</div>';
+            }
+            
+            // Content section met pijlen-animatie zoals productkaart
+            $item_output .= '<div class="flex-1 flex-wrap">';
+            $item_output .= '<div class="js-title-container overflow-hidden">';
+            $item_output .= '<div class="span w-full items-center transition-transform duration-300 group-hover/submenu:-translate-x-[38px]  ">';
+            // $item_output .= '<svg class="mt-[4px]" xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none" aria-hidden="true" focusable="false">';
+            // $item_output .= '<path d="M18 7.88477V7.88574L10.1152 15.7705L8.53809 14.1934L13.8105 8.9209H0V6.69043H13.6514L8.53809 1.57715L10.1152 0L18 7.88477Z" fill="#E1322C"></path>';
+            // $item_output .= '</svg>';
+            $item_output .= '<h4 class="text-white transition-colors  gap-[10px] duration-200 mb-1 lg:mb-0 flex items-baseline ml-[10px] text-wrap with-arrows">'
+                . '<span>' . apply_filters('the_title', $item->title, $item->ID) . '</span>'
+                . '</h4>';
+            // $item_output .= '<svg class="mt-[4px]" xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none" aria-hidden="true" focusable="false">';
+            // $item_output .= '<path d="M18 7.88477V7.88574L10.1152 15.7705L8.53809 14.1934L13.8105 8.9209H0V6.69043H13.6514L8.53809 1.57715L10.1152 0L18 7.88477Z" fill="#E1322C"></path>';
+            // $item_output .= '</svg>';
+            $item_output .= '</div>';
+            $item_output .= '</div>';
+            // Inline script om breedte te zetten op (titelbreedte + 38px)
+            // $item_output .= "<script>(function(){\n"
+            //     . "  var root = document.currentScript ? document.currentScript.closest('a.dropdown-link') : null;\n"
+            //     . "  if (!root) return;\n"
+            //     . "  var container = root.querySelector('.js-title-container');\n"
+            //     . "  var title = root.querySelector('h4');\n"
+            //     . "  if (!container || !title) return;\n"
+            //     . "  function updateWidth(){\n"
+            //     . "    var w = Math.ceil(title.getBoundingClientRect().width) + 38 - 1;\n"
+            //     . "    container.style.width = w + 'px';\n"
+            //     . "  }\n"
+            //     . "  updateWidth();\n"
+            //     . "  window.addEventListener('resize', updateWidth, { passive: true });\n"
+            //     . "  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(updateWidth).catch(function(){}); }\n"
+            //     . "})();</script>";
+            
+            if ($description) {
+                $item_output .= '<p class="text-sm text-gray-600 line-clamp-2">' . esc_html($description) . '</p>';
+            }
+            
+            $item_output .= '</div>';
+            $item_output .= '</div>';
+        }
+        
+        $item_output .= '</a>';
+        
+        // Add nav indicator for top level items (not dropdowns)
+        if ($depth == 0 && !$has_children) {
+            $item_output .= '<span class="nav-indicator absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-300 transform -translate-x-1/2"></span>';
+        }
+        
+        $item_output .= isset($args->after) ? $args->after : '';
+
+        $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+    }
+
+    // End Element
+    function end_el(&$output, $item, $depth = 0, $args = null) {
+        if ($depth == 0) {
+            $output .= "</li>\n";
+        } else {
+            $output .= "</div>\n";
+        }
+    }
+}
+
+/**
+ * Mobile Tailwind CSS Nav Walker for Accordion-style Dropdowns
+ */
+class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
+    
+    private $mobile_dropdown_item_count = 0;
+    // Start Level - Add accordion container for mobile
+    function start_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        
+        if ($depth == 0) {
+			// Reset item count for this dropdown
+			$this->mobile_dropdown_item_count = 0;
+			// Mobile accordion dropdown container
+			$output .= "\n$indent<div class=\"mobile-dropdown overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0\">\n";
+			$output .= "$indent\t<div class=\"pt-2 pb-4\">\n";
+			// Attach identifier to the list for JS/CSS targeting
+			global $current_mobile_dropdown_id;
+			$dropdown_id_attr = isset($current_mobile_dropdown_id) ? " data-mobile-dropdown-id=\"mobile-menu-item-{$current_mobile_dropdown_id}\"" : '';
+			$output .= "$indent\t\t<ul class=\"space-y-3 max-h-[70vh] overflow-y-auto overscroll-contain\" data-mobile-dropdown-list$dropdown_id_attr>\n";
+        } else {
+            $output .= "\n$indent<ul class=\"mobile-submenu pl-4 mt-2 space-y-2\">\n";
+        }
+    }
+
+    // End Level
+    function end_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        
+        if ($depth == 0) {
+            $output .= "$indent\t\t</ul>\n";
+            $output .= "$indent\t</div>\n";
+			$output .= "$indent</div>\n";
+			// Switch layout based on item count (<=4 => large image cards)
+			global $current_mobile_dropdown_id;
+			$dropdown_id = isset($current_mobile_dropdown_id) ? $current_mobile_dropdown_id : '';
+			$output .= "<script>(function(){\n";
+			$output .= "  var list = document.querySelector('[data-mobile-dropdown-list][data-mobile-dropdown-id=\"mobile-menu-item-{$dropdown_id}\"]');\n";
+			$output .= "  if (!list) return;\n";
+			$output .= "  var count = {$this->mobile_dropdown_item_count} || 0;\n";
+			$output .= "  list.setAttribute('data-item-count', String(count));\n";
+			$output .= "  if (count > 0 && count <= 4) { list.classList.add('layout-large'); } else { list.classList.remove('layout-large'); }\n";
+			$output .= "})();</script>\n";
+			// Scoped CSS for that specific dropdown id
+			$output .= "<style>[data-mobile-dropdown-list][data-mobile-dropdown-id=\"mobile-menu-item-{$dropdown_id}\"].layout-large .mobile-card{flex-direction:column;gap:0.75rem}[data-mobile-dropdown-list][data-mobile-dropdown-id=\"mobile-menu-item-{$dropdown_id}\"].layout-large .mobile-thumb{width:100%;height:auto;aspect-ratio:16/9;border-radius:0.5rem}[data-mobile-dropdown-list][data-mobile-dropdown-id=\"mobile-menu-item-{$dropdown_id}\"].layout-large .mobile-content h3{font-size:1rem}</style>\n";
+        } else {
+            $output .= "$indent</ul>\n";
+        }
+    }
+
+    // Start Element
+    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $indent = ($depth) ? str_repeat("\t", $depth) : '';
+
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+        $classes[] = 'mb-0! menu-item-' . $item->ID;
+
+        // Mark archive menu item as active on single case posts
+        if (is_singular('case') && !empty($item->url)) {
+            $case_archive_url = get_post_type_archive_link('case');
+            if ($case_archive_url) {
+                $item_url = untrailingslashit($item->url);
+                $archive_url = untrailingslashit($case_archive_url);
+                
+                if ($item_url === $archive_url) {
+                    $classes[] = 'current-menu-item';
+                    $classes[] = 'current_page_parent';
+                }
+            }
+        }
+
+        // Check if item has children
+        $has_children = in_array('menu-item-has-children', $classes);
+        
+        // Apply filters
+        $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
+        
+        // Add mobile-specific classes
+        if ($has_children && $depth == 0) {
+            $class_names .= ' mobile-has-dropdown';
+        }
+        
+        $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
+
+        $id = apply_filters('nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args);
+        $id = $id ? ' id="' . esc_attr($id) . '"' : '';
+        
+        // Add data attributes for mobile accordion functionality
+        $data_attrs = '';
+        if ($has_children && $depth == 0) {
+			$data_attrs = ' data-mobile-dropdown="true" data-mobile-dropdown-id="mobile-menu-item-' . $item->ID . '"';
+			// Store current dropdown id so start_lvl can add it to UL
+			global $current_mobile_dropdown_id;
+			$current_mobile_dropdown_id = $item->ID;
+        }
+
+        $output .= $indent . '<li' . $id . $class_names . $data_attrs .'>';
+
+        // Determine if this item is current/active
+        $is_current = false;
+        foreach ($classes as $menu_class) {
+            if (strpos($menu_class, 'current-') === 0) {
+                $is_current = true;
+                break;
+            }
+        }
+
+        $attributes  = ! empty($item->attr_title) ? ' title="'  . esc_attr($item->attr_title) .'"' : '';
+        $attributes .= ! empty($item->target)     ? ' target="' . esc_attr($item->target     ) .'"' : '';
+        $attributes .= ! empty($item->xfn)        ? ' rel="'    . esc_attr($item->xfn        ) .'"' : '';
+        $attributes .= ! empty($item->url)        ? ' href="'   . esc_attr($item->url        ) .'"' : '';
+
+        $item_output = isset($args->before) ? $args->before : '';
+        
+        // Different styles for different depths
+        if ($depth == 0) {
+            // Top level items - mobile style
+            $link_classes = 'mobile-nav-link block px-[20px] py-[20px] text-white transition-all duration-300 flex items-center justify-between';
+            
+            if ($has_children) {
+                $link_classes .= ' cursor-pointer';
+            }
+		} else {
+			// Count items and add a hook class for styling
+			$this->mobile_dropdown_item_count++;
+			// Dropdown items - mobile card style
+			$link_classes = 'mobile-dropdown-link mobile-dropdown-item block  py-[20px] border-b border-light-blue/20 transition-all duration-300 hover:bg-light-blue/25';
+        }
+
+        // Add active class to the link if this item is current
+        if ($is_current) {
+            $link_classes .= ' is-active text-red';
+        }
+
+        $item_output .= '<a' . $attributes . ' class="' . $link_classes . '">';
+        
+        // Different content for different depths
+        if ($depth == 0) {
+            // Top level items
+            $item_output .= (isset($args->link_before) ? $args->link_before : '') . '<span>' . apply_filters('the_title', $item->title, $item->ID) . '</span>' . (isset($args->link_after) ? $args->link_after : '');
+            
+            // Add mobile dropdown arrow for parent items
+            if ($has_children) {
+                $item_output .= '<svg class="transition-transform duration-200 mobile-dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="6" height="9" viewBox="0 0 6 9" fill="none">
+<path d="M1.06055 -4.6358e-08L5.30371 4.24219L1.06055 8.48437L-4.6358e-08 7.42383L3.18164 4.24219L-3.24506e-07 1.06055L1.06055 -4.6358e-08Z" fill="#96ACC0"/>
+</svg>';
+            }
+		} else {
+			// Dropdown items with mobile-friendly layout
+			$featured_image = get_the_post_thumbnail_url($item->object_id, 'medium');
+            $description = get_post_meta($item->ID, '_menu_item_description', true);
+            
+            // Mobile card content
+			$item_output .= '<div class="flex items-center gap-3 mobile-card">';
+            
+            // Image section - smaller for mobile
+            // if ($featured_image) {
+			// 	$item_output .= '<div class="mobile-thumb flex-shrink-0 aspect-square max-w-24 overflow-hidden  bg-gray-100">';
+            //     $item_output .= '<img src="' . esc_url($featured_image) . '" alt="' . esc_attr($item->title) . '" class="w-full h-full object-cover">';
+            //     $item_output .= '</div>';
+            // } else {
+            //     // Fallback placeholder - smaller for mobile
+			// 	$item_output .= '<div class="mobile-thumb flex-shrink-0 w-24 h-24 overflow-hidden bg-blue flex items-center justify-center">';
+
+            //     $item_output .= '</div>';
+            // }
+            
+            // Content section
+			$item_output .= '<div class="mobile-content flex-1 min-w-0">';
+            $item_output .= '<span class=" text-white mb-1 flex items-center justify-between gap-2">'
+                . '<span class="truncate">' . apply_filters('the_title', $item->title, $item->ID) . '</span>'
+                . '</span>';
+            
+            if ($description) {
+                $item_output .= '<p class="text-xs text-gray-600 line-clamp-2">' . esc_html($description) . '</p>';
+            }
+            
+            $item_output .= '</div>';
+            $item_output .= '</div>';
+        }
+        
+        $item_output .= '</a>';
+        
+        $item_output .= isset($args->after) ? $args->after : '';
+
+        $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+    }
+
+    // End Element
+    function end_el(&$output, $item, $depth = 0, $args = null) {
+        $output .= "</li>\n";
+    }
+}
