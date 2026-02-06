@@ -15,7 +15,7 @@
     
 
 
-    <header id="masthead" class="site-header bg-white relative">
+    <header id="masthead" class="site-header bg-white relative z-50" style="z-index: 50;">
         <?php
         // Get customizer settings
         $header_layout = get_theme_mod('header_layout', 'layout-1');

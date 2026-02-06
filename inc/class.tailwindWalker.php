@@ -215,17 +215,40 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
             $featured_image = get_the_post_thumbnail_url($item->object_id, 'large');
             $description = get_post_meta($item->ID, '_menu_item_description', true);
             
+            // Get icon settings
+            $icon_type = get_post_meta($item->ID, '_menu_item_icon_type', true);
+            $fa_icon = get_post_meta($item->ID, '_menu_item_fa_icon', true);
+            $custom_icon = get_post_meta($item->ID, '_menu_item_custom_icon', true);
+            
             // Card content with image
             $item_output .= '<div class="flex flex-col h-full">';
             
-            // Image section
-            if ($featured_image) {
+            // Image section (priority: custom icon > featured image > Font Awesome icon > placeholder)
+            $has_custom_visual = false;
+            
+            if ($icon_type === 'custom' && !empty($custom_icon)) {
+                // Custom icon image
+                $item_output .= '<div class="aspect-video mb-[32px] overflow-hidden bg-gray-50 flex items-center justify-center p-8">';
+                $item_output .= '<img src="' . esc_url($custom_icon) . '" alt="' . esc_attr($item->title) . '" class="max-w-full max-h-full object-contain">';
+                $item_output .= '</div>';
+                $has_custom_visual = true;
+            } elseif ($featured_image) {
+                // Featured image from post
                 $item_output .= '<div class="aspect-video mb-[32px] overflow-hidden bg-gray-100 group-hover/submenu:scale-90 transition-transform duration-300">';
                 $item_output .= '<img src="' . esc_url($featured_image) . '" alt="' . esc_attr($item->title) . '" class="w-full h-full object-cover group-hover/submenu:scale-125 transition-transform duration-300">';
                 $item_output .= '</div>';
-            } else {
+                $has_custom_visual = true;
+            } elseif ($icon_type === 'fontawesome' && !empty($fa_icon)) {
+                // Font Awesome icon as main visual
+                $item_output .= '<div class="aspect-video mb-[32px] overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">';
+                $item_output .= '<i class="' . esc_attr($fa_icon) . '" style="font-size: 48px; color: #131611;"></i>';
+                $item_output .= '</div>';
+                $has_custom_visual = true;
+            }
+            
+            if (!$has_custom_visual) {
                 // Fallback placeholder
-                $item_output .= '<div class="aspect-video mb-[32px] overflow-hidden  bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">';
+                $item_output .= '<div class="aspect-video mb-[32px] overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">';
                 $item_output .= '<svg class="w-8 h-8 text-white-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
                 $item_output .= '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>';
                 $item_output .= '</svg>';
@@ -445,24 +468,24 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
 			$featured_image = get_the_post_thumbnail_url($item->object_id, 'medium');
             $description = get_post_meta($item->ID, '_menu_item_description', true);
             
+            // Get icon settings
+            $icon_type = get_post_meta($item->ID, '_menu_item_icon_type', true);
+            $fa_icon = get_post_meta($item->ID, '_menu_item_fa_icon', true);
+            $custom_icon = get_post_meta($item->ID, '_menu_item_custom_icon', true);
+            
             // Mobile card content
 			$item_output .= '<div class="flex items-center gap-3 mobile-card">';
             
-            // Image section - smaller for mobile
-            // if ($featured_image) {
-			// 	$item_output .= '<div class="mobile-thumb flex-shrink-0 aspect-square max-w-24 overflow-hidden  bg-gray-100">';
-            //     $item_output .= '<img src="' . esc_url($featured_image) . '" alt="' . esc_attr($item->title) . '" class="w-full h-full object-cover">';
-            //     $item_output .= '</div>';
-            // } else {
-            //     // Fallback placeholder - smaller for mobile
-			// 	$item_output .= '<div class="mobile-thumb flex-shrink-0 w-24 h-24 overflow-hidden bg-blue flex items-center justify-center">';
-
-            //     $item_output .= '</div>';
-            // }
+            // Icon section (optional) - show icon next to text
+            if ($icon_type === 'fontawesome' && !empty($fa_icon)) {
+                $item_output .= '<span class="menu-item-icon flex-shrink-0"><i class="' . esc_attr($fa_icon) . '" style="font-size: 20px; color: #96ACC0;"></i></span>';
+            } elseif ($icon_type === 'custom' && !empty($custom_icon)) {
+                $item_output .= '<span class="menu-item-icon flex-shrink-0"><img src="' . esc_url($custom_icon) . '" alt="" style="width: 24px; height: 24px; object-fit: contain;" /></span>';
+            }
             
             // Content section
 			$item_output .= '<div class="mobile-content flex-1 min-w-0">';
-            $item_output .= '<span class=" text-white mb-1 flex items-center justify-between gap-2">'
+            $item_output .= '<span class="text-white mb-1 flex items-center justify-between gap-2">'
                 . '<span class="truncate">' . apply_filters('the_title', $item->title, $item->ID) . '</span>'
                 . '</span>';
             

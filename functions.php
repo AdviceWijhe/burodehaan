@@ -1304,50 +1304,172 @@ function advice2025_sanitize_topbar_style($input) {
  * Add Mega Menu Custom Fields to Menu Items
  */
 function advice2025_add_menu_item_custom_fields($item_id, $item, $depth, $args) {
-    // Only add fields to top-level items (depth 0)
-    if ($depth != 0) {
-        return;
-    }
-    
     // Get saved values
     $enable_mega_menu = get_post_meta($item_id, '_menu_item_enable_mega_menu', true);
     $mega_menu_cta_text = get_post_meta($item_id, '_menu_item_mega_menu_cta_text', true);
     $mega_menu_cta_url = get_post_meta($item_id, '_menu_item_mega_menu_cta_url', true);
+    $icon_type = get_post_meta($item_id, '_menu_item_icon_type', true) ?: 'none';
+    $fa_icon = get_post_meta($item_id, '_menu_item_fa_icon', true);
+    $custom_icon = get_post_meta($item_id, '_menu_item_custom_icon', true);
+    
+    // Top-level items: Mega Menu options
+    if ($depth == 0) {
+        ?>
+        <p class="field-enable-mega-menu description description-wide" style="margin: 10px 0;">
+            <label for="edit-menu-item-enable-mega-menu-<?php echo $item_id; ?>">
+                <input type="checkbox" 
+                       id="edit-menu-item-enable-mega-menu-<?php echo $item_id; ?>" 
+                       name="menu-item-enable-mega-menu[<?php echo $item_id; ?>]" 
+                       value="1" 
+                       <?php checked($enable_mega_menu, '1'); ?> />
+                <?php _e('Enable Mega Menu (100% width)', 'advice2025'); ?>
+            </label>
+        </p>
+        
+        <p class="field-mega-menu-cta-text description description-wide" style="margin: 10px 0;">
+            <label for="edit-menu-item-mega-menu-cta-text-<?php echo $item_id; ?>">
+                <?php _e('Mega Menu CTA Text', 'advice2025'); ?><br />
+                <input type="text" 
+                       id="edit-menu-item-mega-menu-cta-text-<?php echo $item_id; ?>" 
+                       class="widefat" 
+                       name="menu-item-mega-menu-cta-text[<?php echo $item_id; ?>]" 
+                       value="<?php echo esc_attr($mega_menu_cta_text); ?>" 
+                       placeholder="<?php _e('Optional CTA button text', 'advice2025'); ?>" />
+            </label>
+        </p>
+        
+        <p class="field-mega-menu-cta-url description description-wide" style="margin: 10px 0;">
+            <label for="edit-menu-item-mega-menu-cta-url-<?php echo $item_id; ?>">
+                <?php _e('Mega Menu CTA URL', 'advice2025'); ?><br />
+                <input type="text" 
+                       id="edit-menu-item-mega-menu-cta-url-<?php echo $item_id; ?>" 
+                       class="widefat" 
+                       name="menu-item-mega-menu-cta-url[<?php echo $item_id; ?>]" 
+                       value="<?php echo esc_attr($mega_menu_cta_url); ?>" 
+                       placeholder="<?php _e('Optional CTA button URL', 'advice2025'); ?>" />
+            </label>
+        </p>
+        <?php
+    }
+    
+    // All items: Icon options
     ?>
-    <p class="field-enable-mega-menu description description-wide" style="margin: 10px 0;">
-        <label for="edit-menu-item-enable-mega-menu-<?php echo $item_id; ?>">
-            <input type="checkbox" 
-                   id="edit-menu-item-enable-mega-menu-<?php echo $item_id; ?>" 
-                   name="menu-item-enable-mega-menu[<?php echo $item_id; ?>]" 
-                   value="1" 
-                   <?php checked($enable_mega_menu, '1'); ?> />
-            <?php _e('Enable Mega Menu (100% width)', 'advice2025'); ?>
-        </label>
-    </p>
-    
-    <p class="field-mega-menu-cta-text description description-wide" style="margin: 10px 0;">
-        <label for="edit-menu-item-mega-menu-cta-text-<?php echo $item_id; ?>">
-            <?php _e('Mega Menu CTA Text', 'advice2025'); ?><br />
-            <input type="text" 
-                   id="edit-menu-item-mega-menu-cta-text-<?php echo $item_id; ?>" 
-                   class="widefat" 
-                   name="menu-item-mega-menu-cta-text[<?php echo $item_id; ?>]" 
-                   value="<?php echo esc_attr($mega_menu_cta_text); ?>" 
-                   placeholder="<?php _e('Optional CTA button text', 'advice2025'); ?>" />
-        </label>
-    </p>
-    
-    <p class="field-mega-menu-cta-url description description-wide" style="margin: 10px 0;">
-        <label for="edit-menu-item-mega-menu-cta-url-<?php echo $item_id; ?>">
-            <?php _e('Mega Menu CTA URL', 'advice2025'); ?><br />
-            <input type="text" 
-                   id="edit-menu-item-mega-menu-cta-url-<?php echo $item_id; ?>" 
-                   class="widefat" 
-                   name="menu-item-mega-menu-cta-url[<?php echo $item_id; ?>]" 
-                   value="<?php echo esc_attr($mega_menu_cta_url); ?>" 
-                   placeholder="<?php _e('Optional CTA button URL', 'advice2025'); ?>" />
-        </label>
-    </p>
+    <div class="menu-item-icon-options" style="border-top: 1px solid #ddd; margin-top: 15px; padding-top: 15px;">
+        <p class="description description-wide" style="margin: 10px 0;">
+            <strong><?php _e('Menu Item Icon', 'advice2025'); ?></strong>
+        </p>
+        
+        <p class="field-icon-type description description-wide" style="margin: 10px 0;">
+            <label for="edit-menu-item-icon-type-<?php echo $item_id; ?>">
+                <?php _e('Icon Type', 'advice2025'); ?><br />
+                <select id="edit-menu-item-icon-type-<?php echo $item_id; ?>" 
+                        name="menu-item-icon-type[<?php echo $item_id; ?>]" 
+                        class="widefat menu-icon-type-select"
+                        data-item-id="<?php echo $item_id; ?>">
+                    <option value="none" <?php selected($icon_type, 'none'); ?>><?php _e('No Icon', 'advice2025'); ?></option>
+                    <option value="fontawesome" <?php selected($icon_type, 'fontawesome'); ?>><?php _e('Font Awesome Icon', 'advice2025'); ?></option>
+                    <option value="custom" <?php selected($icon_type, 'custom'); ?>><?php _e('Custom Image', 'advice2025'); ?></option>
+                </select>
+            </label>
+        </p>
+        
+        <div class="menu-icon-fontawesome-field" 
+             id="menu-icon-fontawesome-<?php echo $item_id; ?>" 
+             style="display: <?php echo ($icon_type === 'fontawesome') ? 'block' : 'none'; ?>;">
+            <p class="field-fa-icon description description-wide" style="margin: 10px 0;">
+                <label for="edit-menu-item-fa-icon-<?php echo $item_id; ?>">
+                    <?php _e('Font Awesome Icon Class', 'advice2025'); ?><br />
+                    <input type="text" 
+                           id="edit-menu-item-fa-icon-<?php echo $item_id; ?>" 
+                           class="widefat menu-fa-icon-input" 
+                           name="menu-item-fa-icon[<?php echo $item_id; ?>]" 
+                           value="<?php echo esc_attr($fa_icon); ?>" 
+                           placeholder="fa-solid fa-home" />
+                    <span class="description">
+                        <?php _e('Examples: fa-solid fa-home, fa-regular fa-user, fa-brands fa-wordpress', 'advice2025'); ?><br />
+                        <a href="https://fontawesome.com/search?o=r&m=free" target="_blank"><?php _e('Browse Font Awesome Icons', 'advice2025'); ?></a>
+                    </span>
+                </label>
+            </p>
+            
+            <?php if ($fa_icon) : ?>
+            <p class="description" style="margin: 10px 0;">
+                <strong><?php _e('Preview:', 'advice2025'); ?></strong><br />
+                <i class="<?php echo esc_attr($fa_icon); ?>" style="font-size: 24px; margin-top: 5px;"></i>
+            </p>
+            <?php endif; ?>
+            
+            <p class="description" style="margin: 10px 0;">
+                <strong><?php _e('Popular Icons:', 'advice2025'); ?></strong><br />
+                <button type="button" class="button button-small fa-icon-insert" data-icon="fa-solid fa-home" data-item-id="<?php echo $item_id; ?>">
+                    <i class="fa-solid fa-home"></i> Home
+                </button>
+                <button type="button" class="button button-small fa-icon-insert" data-icon="fa-solid fa-user" data-item-id="<?php echo $item_id; ?>">
+                    <i class="fa-solid fa-user"></i> User
+                </button>
+                <button type="button" class="button button-small fa-icon-insert" data-icon="fa-solid fa-envelope" data-item-id="<?php echo $item_id; ?>">
+                    <i class="fa-solid fa-envelope"></i> Mail
+                </button>
+                <button type="button" class="button button-small fa-icon-insert" data-icon="fa-solid fa-phone" data-item-id="<?php echo $item_id; ?>">
+                    <i class="fa-solid fa-phone"></i> Phone
+                </button>
+                <button type="button" class="button button-small fa-icon-insert" data-icon="fa-solid fa-cog" data-item-id="<?php echo $item_id; ?>">
+                    <i class="fa-solid fa-cog"></i> Settings
+                </button>
+                <button type="button" class="button button-small fa-icon-insert" data-icon="fa-solid fa-shopping-cart" data-item-id="<?php echo $item_id; ?>">
+                    <i class="fa-solid fa-shopping-cart"></i> Cart
+                </button>
+                <button type="button" class="button button-small fa-icon-insert" data-icon="fa-solid fa-heart" data-item-id="<?php echo $item_id; ?>">
+                    <i class="fa-solid fa-heart"></i> Heart
+                </button>
+                <button type="button" class="button button-small fa-icon-insert" data-icon="fa-solid fa-star" data-item-id="<?php echo $item_id; ?>">
+                    <i class="fa-solid fa-star"></i> Star
+                </button>
+                <button type="button" class="button button-small fa-icon-insert" data-icon="fa-solid fa-check" data-item-id="<?php echo $item_id; ?>">
+                    <i class="fa-solid fa-check"></i> Check
+                </button>
+                <button type="button" class="button button-small fa-icon-insert" data-icon="fa-solid fa-building" data-item-id="<?php echo $item_id; ?>">
+                    <i class="fa-solid fa-building"></i> Building
+                </button>
+            </p>
+        </div>
+        
+        <div class="menu-icon-custom-field" 
+             id="menu-icon-custom-<?php echo $item_id; ?>" 
+             style="display: <?php echo ($icon_type === 'custom') ? 'block' : 'none'; ?>;">
+            <p class="field-custom-icon description description-wide" style="margin: 10px 0;">
+                <label for="edit-menu-item-custom-icon-<?php echo $item_id; ?>">
+                    <?php _e('Custom Icon Image', 'advice2025'); ?><br />
+                    <input type="hidden" 
+                           id="edit-menu-item-custom-icon-<?php echo $item_id; ?>" 
+                           name="menu-item-custom-icon[<?php echo $item_id; ?>]" 
+                           value="<?php echo esc_attr($custom_icon); ?>" 
+                           class="menu-custom-icon-input" />
+                    <button type="button" 
+                            class="button upload-icon-button" 
+                            data-item-id="<?php echo $item_id; ?>">
+                        <?php _e('Upload Icon', 'advice2025'); ?>
+                    </button>
+                    <button type="button" 
+                            class="button remove-icon-button" 
+                            data-item-id="<?php echo $item_id; ?>"
+                            style="<?php echo empty($custom_icon) ? 'display:none;' : ''; ?>">
+                        <?php _e('Remove Icon', 'advice2025'); ?>
+                    </button>
+                </label>
+            </p>
+            
+            <?php if ($custom_icon) : ?>
+            <p class="custom-icon-preview" id="custom-icon-preview-<?php echo $item_id; ?>" style="margin: 10px 0;">
+                <img src="<?php echo esc_url($custom_icon); ?>" style="max-width: 60px; max-height: 60px; display: block;" alt="Icon Preview" />
+            </p>
+            <?php else : ?>
+            <p class="custom-icon-preview" id="custom-icon-preview-<?php echo $item_id; ?>" style="margin: 10px 0; display: none;">
+                <img src="" style="max-width: 60px; max-height: 60px; display: block;" alt="Icon Preview" />
+            </p>
+            <?php endif; ?>
+        </div>
+    </div>
     <?php
 }
 add_action('wp_nav_menu_item_custom_fields', 'advice2025_add_menu_item_custom_fields', 10, 4);
@@ -1372,5 +1494,92 @@ function advice2025_save_menu_item_custom_fields($menu_id, $menu_item_db_id, $ar
     if (isset($_POST['menu-item-mega-menu-cta-url'][$menu_item_db_id])) {
         update_post_meta($menu_item_db_id, '_menu_item_mega_menu_cta_url', esc_url_raw($_POST['menu-item-mega-menu-cta-url'][$menu_item_db_id]));
     }
+    
+    // Save icon type
+    if (isset($_POST['menu-item-icon-type'][$menu_item_db_id])) {
+        $icon_type = sanitize_text_field($_POST['menu-item-icon-type'][$menu_item_db_id]);
+        update_post_meta($menu_item_db_id, '_menu_item_icon_type', $icon_type);
+    }
+    
+    // Save Font Awesome icon
+    if (isset($_POST['menu-item-fa-icon'][$menu_item_db_id])) {
+        update_post_meta($menu_item_db_id, '_menu_item_fa_icon', sanitize_text_field($_POST['menu-item-fa-icon'][$menu_item_db_id]));
+    }
+    
+    // Save custom icon
+    if (isset($_POST['menu-item-custom-icon'][$menu_item_db_id])) {
+        update_post_meta($menu_item_db_id, '_menu_item_custom_icon', esc_url_raw($_POST['menu-item-custom-icon'][$menu_item_db_id]));
+    }
 }
 add_action('wp_update_nav_menu_item', 'advice2025_save_menu_item_custom_fields', 10, 3);
+
+/**
+ * Enqueue admin scripts for menu icon functionality
+ */
+function advice2025_enqueue_menu_icon_admin_scripts($hook) {
+    if ('nav-menus.php' !== $hook) {
+        return;
+    }
+    
+    wp_enqueue_media();
+    
+    wp_add_inline_script('jquery', "
+        jQuery(document).ready(function($) {
+            // Toggle icon fields based on type selection
+            $(document).on('change', '.menu-icon-type-select', function() {
+                var itemId = $(this).data('item-id');
+                var iconType = $(this).val();
+                
+                $('#menu-icon-fontawesome-' + itemId).hide();
+                $('#menu-icon-custom-' + itemId).hide();
+                
+                if (iconType === 'fontawesome') {
+                    $('#menu-icon-fontawesome-' + itemId).show();
+                } else if (iconType === 'custom') {
+                    $('#menu-icon-custom-' + itemId).show();
+                }
+            });
+            
+            // Insert Font Awesome icon class on button click
+            $(document).on('click', '.fa-icon-insert', function(e) {
+                e.preventDefault();
+                var itemId = $(this).data('item-id');
+                var iconClass = $(this).data('icon');
+                $('#edit-menu-item-fa-icon-' + itemId).val(iconClass);
+            });
+            
+            // Media uploader for custom icons
+            $(document).on('click', '.upload-icon-button', function(e) {
+                e.preventDefault();
+                var button = $(this);
+                var itemId = button.data('item-id');
+                
+                var frame = wp.media({
+                    title: 'Select or Upload Icon',
+                    button: { text: 'Use this icon' },
+                    multiple: false,
+                    library: { type: 'image' }
+                });
+                
+                frame.on('select', function() {
+                    var attachment = frame.state().get('selection').first().toJSON();
+                    $('#edit-menu-item-custom-icon-' + itemId).val(attachment.url);
+                    $('#custom-icon-preview-' + itemId).show().find('img').attr('src', attachment.url);
+                    $('.remove-icon-button[data-item-id=\"' + itemId + '\"]').show();
+                });
+                
+                frame.open();
+            });
+            
+            // Remove custom icon
+            $(document).on('click', '.remove-icon-button', function(e) {
+                e.preventDefault();
+                var itemId = $(this).data('item-id');
+                $('#edit-menu-item-custom-icon-' + itemId).val('');
+                $('#custom-icon-preview-' + itemId).hide().find('img').attr('src', '');
+                $(this).hide();
+            });
+        });
+    ");
+}
+add_action('admin_enqueue_scripts', 'advice2025_enqueue_menu_icon_admin_scripts');

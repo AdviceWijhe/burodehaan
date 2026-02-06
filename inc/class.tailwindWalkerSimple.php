@@ -207,6 +207,20 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
 
         $item_output .= '<a' . $attributes . ' class="' . $link_classes . '">';
         
+        // Get icon settings
+        $icon_type = get_post_meta($item->ID, '_menu_item_icon_type', true);
+        $fa_icon = get_post_meta($item->ID, '_menu_item_fa_icon', true);
+        $custom_icon = get_post_meta($item->ID, '_menu_item_custom_icon', true);
+        
+        // Add icon if set (only for dropdown items)
+        if ($depth > 0 && $icon_type && $icon_type !== 'none') {
+            if ($icon_type === 'fontawesome' && !empty($fa_icon)) {
+                $item_output .= '<span class="menu-item-icon mr-3"><i class="' . esc_attr($fa_icon) . '" style="font-size: 18px;"></i></span>';
+            } elseif ($icon_type === 'custom' && !empty($custom_icon)) {
+                $item_output .= '<span class="menu-item-icon mr-3"><img src="' . esc_url($custom_icon) . '" alt="" style="width: 24px; height: 24px; object-fit: contain;" /></span>';
+            }
+        }
+        
         // Menu item title
         $item_output .= (isset($args->link_before) ? $args->link_before : '') 
             . '<span>' . apply_filters('the_title', $item->title, $item->ID) . '</span>' 
