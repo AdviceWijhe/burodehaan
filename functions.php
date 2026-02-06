@@ -81,6 +81,7 @@ function advice2025_setup() {
     // Register navigation menus
     register_nav_menus(array(
         'primary' => __('Primary Menu', 'advice2025'),
+        'topbar-menu' => __('Topbar Menu', 'advice2025'),
         'footer-menu-1' => __('Footer Menu 1', 'advice2025'),
         'footer-menu-2' => __('Footer Menu 2', 'advice2025'),
         'footer-menu-3' => __('Footer Menu 3', 'advice2025'),
@@ -255,6 +256,15 @@ wp_enqueue_style(
     wp_enqueue_script(
         'advice2025-dropdown',
         get_template_directory_uri() . '/assets/js/dropdown-menu.js',
+        array(),
+        wp_get_theme()->get('Version'),
+        true
+    );
+
+    // Header Navigation JavaScript
+    wp_enqueue_script(
+        'advice2025-header-navigation',
+        get_template_directory_uri() . '/js/header-navigation.js',
         array(),
         wp_get_theme()->get('Version'),
         true
@@ -1175,3 +1185,117 @@ function ajax_load_popup_form() {
 // Registreer AJAX handlers (voor ingelogde en niet-ingelogde gebruikers)
 add_action('wp_ajax_load_popup_form', 'ajax_load_popup_form');
 add_action('wp_ajax_nopriv_load_popup_form', 'ajax_load_popup_form');
+
+/**
+ * WordPress Customizer - Header Settings
+ * Voeg controles toe voor het instellen van verschillende header layouts
+ */
+function advice2025_customize_register($wp_customize) {
+    // Add Header Settings Section
+    $wp_customize->add_section('advice2025_header_settings', array(
+        'title'    => __('Header Instellingen', 'advice2025'),
+        'priority' => 30,
+    ));
+
+    // Header Layout Selection
+    $wp_customize->add_setting('header_layout', array(
+        'default'           => 'layout-1',
+        'sanitize_callback' => 'advice2025_sanitize_header_layout',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('header_layout', array(
+        'label'       => __('Header Layout', 'advice2025'),
+        'description' => __('Kies het gewenste header layout', 'advice2025'),
+        'section'     => 'advice2025_header_settings',
+        'type'        => 'select',
+        'choices'     => array(
+            'layout-1' => __('Layout 1: Logo links + Menu rechts + Topbar', 'advice2025'),
+            'layout-2' => __('Layout 2: Logo + Menu links + Button rechts + Topbar', 'advice2025'),
+            'layout-3' => __('Layout 3: Logo links + Buttons rechts + Menu gecentreerd onder', 'advice2025'),
+            'layout-4' => __('Layout 4: Logo links + Menu gecentreerd + Buttons rechts', 'advice2025'),
+        ),
+    ));
+
+    // Enable/Disable Topbar
+    $wp_customize->add_setting('header_enable_topbar', array(
+        'default'           => true,
+        'sanitize_callback' => 'advice2025_sanitize_checkbox',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('header_enable_topbar', array(
+        'label'       => __('Topbar Activeren', 'advice2025'),
+        'description' => __('Schakel de topbar in of uit', 'advice2025'),
+        'section'     => 'advice2025_header_settings',
+        'type'        => 'checkbox',
+    ));
+
+    // Container Width Setting
+    $wp_customize->add_setting('header_container_width', array(
+        'default'           => 'full-width',
+        'sanitize_callback' => 'advice2025_sanitize_container_width',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('header_container_width', array(
+        'label'       => __('Container Breedte', 'advice2025'),
+        'description' => __('Bepaal of de header binnen of buiten de container valt', 'advice2025'),
+        'section'     => 'advice2025_header_settings',
+        'type'        => 'select',
+        'choices'     => array(
+            'full-width' => __('Volledige breedte (buiten container)', 'advice2025'),
+            'contained'  => __('Binnen container', 'advice2025'),
+        ),
+    ));
+
+    // Topbar Style (for layouts that support it)
+    $wp_customize->add_setting('header_topbar_style', array(
+        'default'           => 'voordelen',
+        'sanitize_callback' => 'advice2025_sanitize_topbar_style',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('header_topbar_style', array(
+        'label'       => __('Topbar Stijl', 'advice2025'),
+        'description' => __('Kies welke informatie in de topbar wordt weergegeven', 'advice2025'),
+        'section'     => 'advice2025_header_settings',
+        'type'        => 'select',
+        'choices'     => array(
+            'voordelen'       => __('Voordelen (Layout 1)', 'advice2025'),
+            'contact-info'    => __('Contact informatie (Layout 2)', 'advice2025'),
+        ),
+    ));
+}
+add_action('customize_register', 'advice2025_customize_register');
+
+/**
+ * Sanitize header layout
+ */
+function advice2025_sanitize_header_layout($input) {
+    $valid = array('layout-1', 'layout-2', 'layout-3', 'layout-4');
+    return in_array($input, $valid, true) ? $input : 'layout-1';
+}
+
+/**
+ * Sanitize checkbox
+ */
+function advice2025_sanitize_checkbox($input) {
+    return ($input === true || $input === '1') ? true : false;
+}
+
+/**
+ * Sanitize container width
+ */
+function advice2025_sanitize_container_width($input) {
+    $valid = array('full-width', 'contained');
+    return in_array($input, $valid, true) ? $input : 'full-width';
+}
+
+/**
+ * Sanitize topbar style
+ */
+function advice2025_sanitize_topbar_style($input) {
+    $valid = array('voordelen', 'contact-info');
+    return in_array($input, $valid, true) ? $input : 'voordelen';
+}
