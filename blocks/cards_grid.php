@@ -236,7 +236,6 @@ $backgroundPatroon = 'pink';
           <div class="swiper-wrapper lg:!grid lg:grid-cols-3 gap-0 lg:gap-4 relative">
             <?php foreach($items as $item) : ?>
               <div class="swiper-slide w-full text-white px-[20px] lg:px-[60px] py-[40px] lg:py-[60px] flex flex-col items-start relative overflow-hidden">
-              <?= get_template_part('template-parts/core/backgrounds', null, array('color' => 'pink', 'scale' => '30', 'scaleLg' => '40')) ?>
               <?php 
               $icoon = $item['icoon'];
               if ($icoon && isset($icoon['ID'])) {

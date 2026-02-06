@@ -49,6 +49,13 @@ function advice2025_get_color_palette() {
             'slug'  => 'quaternary',
             'color' => 'rgb(9 35 84)',
         ),
+        array(
+            'name'  => __('Light', 'advice2025'),
+            'slug'  => 'light',
+            'color' => 'rgba(216, 214, 212, 0.40)',
+        ),
+
+        
     );
 }
 

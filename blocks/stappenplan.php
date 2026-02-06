@@ -1,6 +1,5 @@
 <section class="stappenplan <?php echo get_spacing_bottom_class(); ?> relative text-white pt-[60px] lg:pt-0 mb-[60px] lg:mb-0" data-stappenplan-section>
   <div class="absolute lg:sticky inset-0 lg:top-0 lg:left-0 w-full h-full lg:h-screen overflow-hidden pointer-events-none -z-10">
-    <?= get_template_part('template-parts/core/backgrounds', null, array('color' => 'blue', 'scale' => '80')) ?>
   </div>
   <div class="container mx-auto relative pt-[60px] lg:pt-[100px]">
     <div class="flex flex-col lg:flex-row items-start lg:gap-[60px] lg:-mt-[calc(100vh-100px)]">

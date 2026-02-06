@@ -72,7 +72,6 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
             
             <div class="js-it-content relative w-full pt-[40px] lg:pt-[60px] overflow-hidden default-content <?php if($background_color) { echo 'flex flex-col justify-center items-start';} ?>  lg:py-[60px]  text-<?= $text_color ?>  <?php echo $content_first ? 'order-1 lg:order-1' : 'order-1 lg:order-2'; ?> <?php echo $content_margin; ?> <?= $text_width ?>">
               <div class="bg-<?php echo $background_color; ?> absolute w-full <?php echo $content_first ? 'right-0' : 'left-0'; ?> top-0 h-full"></div>
-              <?= get_template_part('template-parts/core/backgrounds', null, array('color' => $background_color, 'scale' => '43', 'scaleLg' => '60')) ?>
                 
                 
                   <?php if ($heading) : ?>

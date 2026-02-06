@@ -75,7 +75,7 @@ if (!empty($soort_vacature)) {
 }
 ?>
 
-<a href="<?php echo get_permalink($vacature->ID); ?>" class="vacature-item group bg-primary p-[20px]! transition-all duration-300 flex gap-6 justify-between items-center shadow-md hover:shadow-lg rounded-[16px]">
+<a href="<?php echo get_permalink($vacature->ID); ?>" class="vacature-item group bg-light p-[20px]! transition-all duration-300 flex gap-6 justify-between items-center shadow-md hover:shadow-lg rounded-[16px]">
                           
     <!-- Linker kant: Titel -->
     <div class="flex-1">

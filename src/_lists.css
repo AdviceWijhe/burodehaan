@@ -1,0 +1,36 @@
+/* ==========================================================================
+   List Styling
+   ========================================================================== */
+
+ul.wp-block-list {
+  list-style-type: square;
+  padding-left: 1.2rem;
+  li {
+    padding-bottom: 20px;
+    padding-inline-start: 10px;
+    &::marker {
+      color: var(--color-red);
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+}
+
+ol.wp-block-list {
+  list-style-type: decimal;
+  padding-left: 1.2rem;
+  li {
+    padding-bottom: 20px;
+    padding-inline-start: 10px;
+    &::marker {
+      margin-right: 13px;
+      color: var(--color-red);
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+}

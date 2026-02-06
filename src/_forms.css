@@ -1,0 +1,339 @@
+/* ==========================================================================
+   Form Styling - Gravity Forms
+   ========================================================================== */
+
+@layer components {
+  /* Gravity Forms: basis styling volgens Figma */
+  .gform_wrapper {
+    label, .gfield_label {
+      color: var(--color-blue);
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .gf_progressbar_wrapper {
+      /* Style de progressbar */
+      .gf_progressbar {
+        background-color: var(--color-gray-200);
+        border-radius: 4px;
+        height: 10px;
+        width: 100%;
+      }
+      .gf_progressbar_percentage {
+        background-color: var(--color-red-600);
+        height: 10px;
+        border-radius: 4px;
+      }
+
+      .gf_progressbar {
+        margin: 10px 0;
+
+        span {
+          display: none;
+        }
+      }
+    }
+
+    .gform-page-footer {
+      margin-top: 24px;
+    }
+
+    .gfield_description {
+      margin-bottom: 12px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="number"],
+    input[type="password"],
+    select,
+    textarea,
+    .ginput_container input:not([type="radio"],[type="checkbox"]),
+    .ginput_container select,
+    .ginput_container textarea {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+      border-radius: 4px;
+      color: var(--color-blue-950);
+      width: 100%;
+      padding: 0 12px;
+      height: 47px;
+    }
+
+    textarea,
+    .ginput_container textarea {
+      height: 200px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      resize: vertical;
+    }
+
+    /* File Upload Styling volgens Figma */
+    .gfield--input-type-fileupload {
+      /* Label styling */
+      .gfield_label {
+        color: var(--color-blue);
+        font-family: var(--font-family-primary);
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 1.4;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      /* Description text */
+      .gfield_description {
+        color: var(--color-blue);
+        font-family: var(--font-family-primary);
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 1.4;
+        margin-top: 8px;
+        display: block;
+      }
+
+      /* Main container */
+      .ginput_container {
+        position: relative;
+      }
+
+      /* Style gravity forms radio buttons */
+      .gform_radio {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        label {
+          font-size: 13px;
+          line-height: 1.4;
+        }
+        input[type="radio"] {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          border: 1px solid var(--color-gray-200);
+          background-color: var(--color-white);
+        }
+      }
+
+      /* Drag drop area styling */
+      .gform_drop_area {
+        background-color: var(--color-white);
+        border: 1px dashed #b3c0c6;
+        border-radius: 4px;
+        height: 127px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        padding: 40px 40px;
+        padding-left: 80px;
+        text-align: center;
+        transition: border-color 0.3s ease;
+
+        &:hover {
+          border-color: var(--color-blue);
+        }
+
+        /* Upload icon */
+        &::before {
+          content: '';
+          position: absolute;
+          left: 40px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 24px;
+          height: 24px;
+          background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 0 15 20" fill="none"><path d="M8.75 0H0V20H15V6.25H8.75V0ZM10 0V5H15L10 0ZM8.4375 15.9375V16.875H6.5625V15.9375V11.9492L5.35156 13.1602L4.6875 13.8242L3.36328 12.5L4.02734 11.8359L6.83984 9.02344L7.50391 8.35938L8.16797 9.02344L10.9805 11.8359L11.6445 12.5L10.3125 13.8242L9.64844 13.1602L8.4375 11.9492V15.9375Z" fill="%23092354"/></svg>');
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+      }
+
+      /* Drop instructions text */
+      .gform_drop_instructions {
+        color: var(--color-blue);
+        font-family: var(--font-family-primary);
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 1.5;
+        margin-right: 8px;
+      }
+
+      /* Browse button styling */
+      .gform_button_select_files {
+        background-color: var(--color-white);
+        border: 1px solid #d6dde1;
+        border-radius: 4px;
+        padding: 12px 16px;
+        font-family: var(--font-family-primary);
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--color-blue);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 2;
+
+        &:hover {
+          border-color: var(--color-blue);
+          background-color: var(--color-blue-50);
+        }
+
+        &:focus {
+          outline: 2px solid var(--color-blue);
+          outline-offset: 2px;
+        }
+      }
+
+      /* Hide the actual file input */
+      .moxie-shim {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        opacity: 0 !important;
+        z-index: 3 !important;
+        cursor: pointer !important;
+      }
+
+      /* File upload rules styling */
+      .gform_fileupload_rules {
+        color: var(--color-gray-600);
+        font-size: 12px;
+        margin-top: 8px;
+        display: block;
+      }
+
+      /* Preview list styling */
+      .ginput_preview_list {
+        margin-top: 16px;
+        
+        li {
+          background-color: var(--color-gray-50);
+          border: 1px solid var(--color-gray-200);
+          border-radius: 4px;
+          padding: 8px 12px;
+          margin-bottom: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+    }
+
+    /* Grid: 2 kolommen op >=1024px */
+    .gform_fields {
+      display: grid;
+      /* grid-template-columns: 1fr; */
+      gap: 24px 24px;
+
+      
+    }
+
+    @media (min-width: 1024px) {
+      .gform_fields {
+        /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+        display: flex;
+        flex-wrap: wrap;
+        .gfield--width-half { width: calc(50% - 12px);}
+        .gfield--width-full { width: 100%;}
+        .gfield--width-third { width: calc(33.33% - 16px);}
+        .gfield--width-two-thirds { width: calc(66.66% - 16px);}
+
+
+        .ginput_complex {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 24px;
+          .ginput_container {
+            width: 100%;
+          }
+        }
+        
+      }
+      /* Laat bericht/textarea 2 kolommen beslaan */
+      .gfield--type-textarea,
+      .gfield.contains-textarea {
+        grid-column: 1 / -1;
+      }
+    }
+    
+    /* Error states */
+    .gform_validation_errors {
+      background-color: var(--color-red-50) !important;
+      border: 1px solid var(--color-red-200) !important;
+      border-radius: 4px !important;
+      color: var(--color-red-900) !important;
+      padding: 16px !important;
+      margin-bottom: 20px !important;
+      
+      h2 {
+        color: var(--color-red-900) !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        margin: 0 0 8px 0 !important;
+        line-height: 1.4 !important;
+      }
+      ol {
+        margin: 0 !important;
+        padding-left: 18px !important;
+        li {
+          margin: 4px 0 !important;
+          a {
+            color: var(--color-red-800) !important;
+            text-decoration: underline !important;
+            &:hover {
+              color: var(--color-red-900) !important;
+            }
+          }
+        }
+      }
+    }
+
+    /* Veldfouten */
+    .gfield.gfield_error {
+      .gfield_label {
+        color: var(--color-red-900) !important;
+      }
+      .ginput_container input,
+      .ginput_container select,
+      .ginput_container textarea {
+        border-color: var(--color-red-400) !important;
+        background-color: var(--color-red-50) !important;
+      }
+    }
+
+    /* Aria-invalid fallback */
+    input[aria-invalid="true"],
+    select[aria-invalid="true"],
+    textarea[aria-invalid="true"] {
+      border-color: var(--color-red-400) !important;
+      background-color: var(--color-red-50) !important;
+    }
+
+    /* Validatiebericht onder veld */
+    .gfield_description.validation_message,
+    .validation_message {
+      color: var(--color-red-900) !important;
+      font-size: 12px !important;
+      line-height: 1.4 !important;
+      margin-top: 6px !important;
+    }
+
+    /* Verplicht indicator */
+    .gfield_required {
+      color: var(--color-red-600) !important;
+    }
+  }
+
+  .gform-footer {
+    margin-top: 28px;
+  }
+}

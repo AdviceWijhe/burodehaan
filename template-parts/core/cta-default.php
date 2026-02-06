@@ -6,7 +6,6 @@ include locate_template('template-parts/core/cta-get-data.php');
 <section class="cta <?php echo get_spacing_bottom_class(); ?> <?php echo isset($args['cta_type']) ? '' : 'mt-[20px]'; ?>">
     <div class="container mx-auto lg:p-0!">
         <div class="flex flex-col items-center lg:flex-row bg-blue p-[20px] lg:p-0 overflow-hidden relative py-[60px] lg:py-0!">
-            <?= get_template_part('template-parts/core/backgrounds', null, array('color' => 'blue', 'scale' => '35', 'scaleLg' => '50')) ?>
             <?php if (!empty($cta_afbeelding) && !empty($cta_afbeelding['url'])): ?>
                 <div class="cta__image order-2 lg:order-1 aspect-square w-[99px]  lg:w-[260px] relative">
                     <?php 

@@ -27,7 +27,6 @@
                     </div>
                 </div>
                 <div class="w-full lg:w-9/12 px-[20px]  py-[60px] lg:px-[83px] flex flex-col justify-center relative overflow-hidden">
-                <?= get_template_part('template-parts/core/backgrounds', null, array('color' => 'pink', 'scale' => '30', 'scaleLg' => '50')) ?>
                     <div class="quote-text text-white title-large relative">
                         <?= get_sub_field('quote'); ?>
 

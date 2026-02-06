@@ -1,0 +1,119 @@
+/* ==========================================================================
+   WordPress Gutenberg Blocks
+   ========================================================================== */
+
+/* Enhanced Prose Styles */
+.prose {
+    color: #374151;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: #111827;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.prose a {
+    color: var(--color-red-600);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.prose a:hover {
+    color: var(--color-red-600);
+    text-decoration: underline;
+}
+
+.prose p {
+  margin-bottom: 1rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Quote Block */
+.wp-block-quote {
+    border-left: 4px solid var(--color-red-600);
+    padding-left: 1.5rem;
+    font-style: italic;
+    background: #f8fafc;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0.5rem;
+}
+
+.wp-block-pullquote {
+    border-top: 4px solid var(--color-red-600);
+    border-bottom: 4px solid var(--color-red-600);
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 1.25rem;
+    font-style: italic;
+}
+
+/* Button Block */
+.wp-block-button .wp-block-button__link {
+    background-color: var(--color-red-600);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.wp-block-button .wp-block-button__link:hover {
+    background-color: var(--color-red-600-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* Image Block */
+.wp-block-image {
+    margin: 2rem 0;
+}
+
+.wp-block-image img {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* ACF Gutenberg Blocks */
+.acf-gutenberg {
+  p, h1, h2, h3, h4, h5, h6 {
+    @media (min-width: 1024px) {
+      
+      padding: 0 calc(25 * 0.25rem); 
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 20px;
+    margin-top: 40px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+/* Table Block */
+.wp-block-table {
+  margin-top: 40px;
+  @media (min-width: 1024px) {
+    margin-top: 80px;
+    padding: 0 calc(25 * 0.25rem); 
+  }
+  table {
+    border-color: #fff;
+  }
+  tr {
+    background-color: var(--color-gray-100);
+    border-color: #fff;
+  }
+
+  td {
+    border-color: #fff;
+    padding: 20px;
+    width: auto;
+    vertical-align: top !important;
+  }
+}

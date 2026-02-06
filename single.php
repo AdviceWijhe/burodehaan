@@ -69,7 +69,6 @@ get_header(); ?>
                     <?php if(get_field('header')['usps']) : ?>
 
                 <div class="bg-pink flex flex-wrap gap-2 justify-center items-center flex-col lg:flex-row relative overflow-hidden lg:py-[60px]">
-                    <?= get_template_part('template-parts/core/backgrounds', null, array('color' => 'pink', 'scale' => '35')) ?>
                     <?php foreach(get_field('header')['usps'] as $usp) : ?>
                         <div class="usp flex gap-2 items-center flex-1 w-[calc(100%-40px)] justify-center flex-col border-b lg:border-b-0 border-white/30 lg:border-r text-white py-[40px] relative z-10">
                         

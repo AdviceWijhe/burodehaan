@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Swiper/Slider Components
+   ========================================================================== */
+
+/* Logo Slider Styles */
+.logo-slider-swiper {
+  @apply overflow-hidden;
+}
+
+.logo-slider-swiper .swiper-slide {
+  width: calc((100% - (5 * 36px)) / 6) !important;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1023px) {
+  .logo-slider-swiper .swiper-slide {
+    width: auto !important;
+  }
+}
+
+/* Zwart-wit filter voor afbeeldingen */
+.grayscale {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+
+/* Swiper Pagination */
+.swiper-pagination {
+  position: relative !important;
+  text-align: left !important;
+
+  .swiper-pagination-bullet {
+    background-color: var(--color-gray-300) !important;
+    opacity: 1 !important;
+    width: 6px !important;
+    height: 6px !important;
+    transition: 0.5s ease width !important;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: var(--color-red-600) !important;
+    width: 20px !important;
+    border-radius: 5px !important;
+  }
+}
+
+/* Swiper Controls */
+.swiper-controls {
+
+  position: relative;
+  .swiper-next, .swiper-prev {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-gray-300);
+    transition: all 0.3s ease;
+
+    &.swiper-button-lock {
+      display: none;
+    }
+
+    svg {
+      height: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      /* background-color: var(--color-blue); */
+      border-color: var(--color-blue);
+      cursor: pointer !important;
+
+      svg {
+        transform: translateX(8px);
+        
+        path {
+
+        }
+    }
+  }
+}
+}

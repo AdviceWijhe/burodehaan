@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Utility Classes - Accessibility, Print Styles
+   ========================================================================== */
+
+/* Accessibility Improvements */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus {
+    position: fixed;
+    top: 0;
+    left: 6px;
+    width: auto;
+    height: auto;
+    z-index: 999999;
+    padding: 8px 16px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 0 0 4px 4px;
+}
+
+/* Print Styles */
+@media print {
+    .site-header,
+    .site-footer,
+    .mobile-menu-button {
+        display: none !important;
+    }
+    
+    .site-main {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}

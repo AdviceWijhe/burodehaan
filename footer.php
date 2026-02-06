@@ -1,5 +1,4 @@
-    <footer id="colophon" class="site-footer bg-blue text-white mt-auto relative overflow-hidden">
-    <?= get_template_part('template-parts/core/backgrounds', null, array('color' => 'primary', 'scale' => '60', 'scaleLg' => '100')) ?>
+    <footer id="colophon" class="site-footer bg-light mt-auto relative overflow-hidden">
     <div class="container mx-auto py-20! lg:py-25! relative z-10">
     <div class="w-full mb-[80px]">
             <!-- Site logo from customizer -->

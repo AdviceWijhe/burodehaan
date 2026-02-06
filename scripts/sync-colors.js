@@ -10,7 +10,7 @@ const path = require('path');
 
 // Paths
 const functionsPath = path.join(__dirname, '../functions.php');
-const inputCssPath = path.join(__dirname, '../src/input.css');
+const inputCssPath = path.join(__dirname, '../src/_variables.css');
 
 // Markers for injection
 const START_MARKER = '/* AUTO-GENERATED COLORS - DO NOT EDIT MANUALLY */';

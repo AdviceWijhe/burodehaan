@@ -9,7 +9,6 @@
 <section class="cta <?php echo get_spacing_bottom_class(); ?>">
   
   <div class=" mx-auto bg-blue relative overflow-hidden">
-  <?= get_template_part('template-parts/core/backgrounds', null, array('color' => 'blue', 'scale' => '45', 'scaleLg' => '60')) ?>
     <div class="flex flex-col lg:items-center justify-center relative py-[60px] lg:py-[160px] ">
       <div class="w-full max-w-[700px]  text-white text-center mx-auto px-[20px] lg:px-0">
         <h2 class="headline-medium text-white mb-[32px]! max-w-[579px] mx-auto"><?= get_sub_field('titel') ?></h2>

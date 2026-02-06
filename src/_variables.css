@@ -1,0 +1,35 @@
+/* ==========================================================================
+   CSS Variables & Theme Configuration
+   ========================================================================== */
+
+/* Custom CSS Variables */
+:root {
+	/* AUTO-GENERATED COLORS - DO NOT EDIT MANUALLY */
+	--color-black: rgb(0 0 0);
+	--color-white: rgb(255 255 255);
+	--color-primary: #FF5822;
+	--color-secondary: rgb(19, 22, 17);
+	--color-tertiary: #638A8C;
+	--color-quaternary: rgb(9 35 84);
+	--color-light: rgba(216, 214, 212, 0.40);
+	/* END AUTO-GENERATED COLORS */
+
+    --font-family-primary: "Open Sans", "Roboto", sans-serif;
+/* 
+    --color-black: rgb(0 0 0);
+      --color-white: rgb(255 255 255);
+      --color-primary: rgb(235 238 240);
+      --color-secondary: rgb(225 50 44);
+      --color-tertiary: rgb(66 171 65);
+      --color-quaternary: rgb(9 35 84); */
+}
+
+@theme {
+  --color-black: rgb(0 0 0);
+  --color-white: rgb(255 255 255);
+  --color-primary: rgb(235 238 240);
+  --color-secondary: rgb(235 238 240);
+  --color-tertiary: rgb(66 171 65);
+  --color-quaternary: rgb(9 35 84);
+  --color-light: rgba(216, 214, 212, 0.40);
+}
