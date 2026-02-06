@@ -38,6 +38,7 @@ class HeaderNavigation {
         this.initMobileMenu();
         this.initDesktopDropdowns();
         this.initMobileDrilldown();
+        this.initFloatingNav();
         this.setupEventListeners();
         
         // Initial setup
@@ -51,6 +52,27 @@ class HeaderNavigation {
         
         // Expose reset function globally
         window.resetHeader = () => this.resetHeader();
+    }
+    
+    /**
+     * Floating Navigation Sticky Behavior
+     */
+    initFloatingNav() {
+        const floatingNav = document.querySelector('.navigation-wrapper-floating');
+        if (!floatingNav) return;
+        
+        // Add class for sticky behavior
+        floatingNav.classList.add('header-floating-sticky');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 50) {
+                floatingNav.classList.add('is-scrolled');
+            } else {
+                floatingNav.classList.remove('is-scrolled');
+            }
+        }, { passive: true });
     }
     
     /**

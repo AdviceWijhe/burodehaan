@@ -1214,6 +1214,7 @@ function advice2025_customize_register($wp_customize) {
             'layout-2' => __('Layout 2: Logo + Menu links + Button rechts + Topbar', 'advice2025'),
             'layout-3' => __('Layout 3: Logo links + Buttons rechts + Menu gecentreerd onder', 'advice2025'),
             'layout-4' => __('Layout 4: Logo links + Menu gecentreerd + Buttons rechts', 'advice2025'),
+            'layout-5' => __('Layout 5: Floating menubalk (binnen container, 40px ruimte boven)', 'advice2025'),
         ),
     ));
 
@@ -1273,7 +1274,7 @@ add_action('customize_register', 'advice2025_customize_register');
  * Sanitize header layout
  */
 function advice2025_sanitize_header_layout($input) {
-    $valid = array('layout-1', 'layout-2', 'layout-3', 'layout-4');
+    $valid = array('layout-1', 'layout-2', 'layout-3', 'layout-4', 'layout-5');
     return in_array($input, $valid, true) ? $input : 'layout-1';
 }
 

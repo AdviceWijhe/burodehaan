@@ -12,14 +12,23 @@
 <?php wp_body_open(); ?>
 
 <div id="page" class="site flex flex-col min-h-screen">
+    <?php
+
+ // Get customizer settings
+ $header_layout = get_theme_mod('header_layout', 'layout-1');
+ $enable_topbar = get_theme_mod('header_enable_topbar', true);
+
+ $header_class .= 'relative bg-white';
+ if ($header_layout === 'layout-5') {
     
+    $header_class = 'site-header fixed! left-1/2 -translate-x-1/2 w-full top-0 z-50';
+ }
+?>
 
 
-    <header id="masthead" class="site-header bg-white relative z-50" style="z-index: 50;">
+    <header id="masthead" class="<?= $header_class ?>" style="z-index: 50;">
         <?php
-        // Get customizer settings
-        $header_layout = get_theme_mod('header_layout', 'layout-1');
-        $enable_topbar = get_theme_mod('header_enable_topbar', true);
+       
         
         // Display Topbar if enabled
         if ($enable_topbar) {

@@ -37,6 +37,15 @@ Kies uit 4 verschillende layouts:
 
 **Gebaseerd op Figma:** https://www.figma.com/design/EnnctIvaE527aCXNcA9xjX/Standaard-website?node-id=2020-646
 
+#### Layout 5: Floating menubalk (binnen container)
+- Zwevende menubalk met 40px ruimte bovenaan
+- Volledig binnen container
+- Logo links, navigatie gecentreerd, buttons rechts
+- Witte achtergrond met shadow voor floating effect
+- Afgeronde hoeken
+- Optioneel sticky gedrag met enhanced shadow bij scrollen
+- Automatisch sticky on scroll (verkleint padding van 40px naar 10px)
+
 ### 2. Topbar Activeren
 Schakel de topbar in of uit. De topbar verschijnt boven de hoofdnavigatie.
 
@@ -89,6 +98,7 @@ template-parts/headers/
 ├── nav-layout-2.php     # Navigation Layout 2
 ├── nav-layout-3.php     # Navigation Layout 3
 ├── nav-layout-4.php     # Navigation Layout 4
+├── nav-layout-5.php     # Navigation Layout 5 (Floating)
 └── README.md            # Deze documentatie
 ```
 
@@ -126,8 +136,10 @@ Om de verschillende layouts te testen:
 - Voor Layout 1 werkt de topbar stijl "Voordelen" het beste
 - Voor Layout 2 werkt de topbar stijl "Contact informatie" het beste
 - Layout 3 en 4 hebben geen standaard topbar ontwerp in de Figma maar kunnen wel de topbar gebruiken
+- Layout 5 (Floating) werkt het beste zonder topbar voor een clean, modern look
 - Gebruik de "Binnen container" optie voor een meer gecentreerde look
 - Gebruik "Volledige breedte" voor een edge-to-edge design
+- Layout 5 heeft automatisch sticky gedrag met enhanced shadow bij scrollen
 
 ## Support
 
