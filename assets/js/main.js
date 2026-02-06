@@ -576,6 +576,11 @@
       toggle.setAttribute("aria-expanded", "false");
       answer.setAttribute("aria-hidden", "true");
       answer.style.maxHeight = "0";
+      
+      // Herstel border-radius: verwijder rounded-b-none en voeg rounded-b-[16px] toe
+      toggle.classList.remove("rounded-b-none");
+      toggle.classList.add("rounded-b-[16px]");
+      
       if (verticalLine) verticalLine.style.transform = "rotate(0deg)";
       if (horizontalLine) horizontalLine.style.opacity = "1";
     }
@@ -593,7 +598,23 @@
 
       toggle.setAttribute("aria-expanded", "true");
       answer.setAttribute("aria-hidden", "false");
-      answer.style.maxHeight = answer.scrollHeight + "px";
+      
+      // Verwijder border-radius onderkant van button: verwijder rounded-b-[16px] en voeg rounded-b-none toe
+      toggle.classList.remove("rounded-b-[16px]");
+      toggle.classList.add("rounded-b-none");
+      
+      // Tijdelijk max-height verwijderen om correcte scrollHeight te krijgen
+      const currentMaxHeight = answer.style.maxHeight;
+      answer.style.maxHeight = "none";
+      const height = answer.scrollHeight;
+      answer.style.maxHeight = currentMaxHeight;
+      
+      // Force reflow
+      answer.offsetHeight;
+      
+      // Nu de animatie starten met de correcte hoogte
+      answer.style.maxHeight = height + "px";
+      
       if (verticalLine) verticalLine.style.transform = "rotate(90deg)";
       if (horizontalLine) horizontalLine.style.opacity = "1";
     }

@@ -9,110 +9,22 @@
 /* Custom CSS Variables */
 :root {
     --font-family-primary: "Open Sans", "Roboto", sans-serif;
-
+/* 
     --color-black: rgb(0 0 0);
       --color-white: rgb(255 255 255);
-      --color-red: rgb(225 50 44);
-      --color-gray: rgb(235 238 240);
-      --color-green: rgb(66 171 65);
-      --color-blue: rgb(9 35 84);
-      --color-blue-50: rgb(239 248 255);
-      --color-blue-100: rgb(212 238 255);
-      --color-blue-200: rgb(178 227 255);
-      --color-blue-300: rgb(125 211 255);
-      --color-blue-400: rgb(64 184 255);
-      --color-blue-500: rgb(20 149 255);
-      --color-blue-600: rgb(0 114 255);
-      --color-blue-700: rgb(0 90 255);
-      --color-blue-800: rgb(0 72 205);
-      --color-blue-900: rgb(8 65 160);
-      --color-blue-950: rgb(9 35 84);
-      --color-red-50: rgb(254 242 242);
-      --color-red-100: rgb(255 226 225);
-      --color-red-200: rgb(255 203 201);
-      --color-red-300: rgb(254 166 163);
-      --color-red-400: rgb(251 115 110);
-      --color-red-500: rgb(242 71 65);
-      --color-red-600: rgb(225 50 44);
-      --color-red-700: rgb(188 30 25);
-      --color-red-800: rgb(156 28 24);
-      --color-red-900: rgb(129 30 27);
-      --color-red-950: rgb(70 11 9);
-      --color-gray-50: rgb(246 248 249);
-      --color-gray-100: rgb(235 238 240);
-      --color-gray-200: rgb(214 221 225);
-      --color-gray-300: rgb(179 192 198);
-      --color-gray-400: rgb(137 158 167);
-      --color-gray-500: rgb(107 130 140);
-      --color-gray-600: rgb(85 105 116);
-      --color-gray-700: rgb(70 86 94);
-      --color-gray-800: rgb(60 73 80);
-      --color-gray-900: rgb(54 63 68);
-      --color-gray-950: rgb(36 41 45);
-      --color-green-50: rgb(242 251 242);
-      --color-green-100: rgb(227 246 226);
-      --color-green-200: rgb(199 236 198);
-      --color-green-300: rgb(154 220 153);
-      --color-green-400: rgb(102 195 101);
-      --color-green-500: rgb(66 171 65);
-      --color-green-600: rgb(49 137 48);
-      --color-green-700: rgb(40 109 40);
-      --color-green-800: rgb(36 87 36);
-      --color-green-900: rgb(31 72 32);
-      --color-green-950: rgb(12 39 13);
+      --color-primary: rgb(235 238 240);
+      --color-secondary: rgb(225 50 44);
+      --color-tertiary: rgb(66 171 65);
+      --color-quaternary: rgb(9 35 84); */
 }
 
 @theme {
-      --color-black: rgb(0 0 0);
-        --color-white: rgb(255 255 255);
-        --color-red: rgb(225 50 44);
-        --color-gray: rgb(235 238 240);
-        --color-green: rgb(66 171 65);
-        --color-blue: rgb(9 35 84);
-  --color-blue-50: rgb(239 248 255);
-  --color-blue-100: rgb(212 238 255);
-  --color-blue-200: rgb(178 227 255);
-  --color-blue-300: rgb(125 211 255);
-  --color-blue-400: rgb(64 184 255);
-  --color-blue-500: rgb(20 149 255);
-  --color-blue-600: rgb(0 114 255);
-  --color-blue-700: rgb(0 90 255);
-  --color-blue-800: rgb(0 72 205);
-  --color-blue-900: rgb(8 65 160);
-  --color-blue-950: rgb(9 35 84);
-  --color-red-50: rgb(254 242 242);
-  --color-red-100: rgb(255 226 225);
-  --color-red-200: rgb(255 203 201);
-  --color-red-300: rgb(254 166 163);
-  --color-red-400: rgb(251 115 110);
-  --color-red-500: rgb(242 71 65);
-  --color-red-600: rgb(225 50 44);
-  --color-red-700: rgb(188 30 25);
-  --color-red-800: rgb(156 28 24);
-  --color-red-900: rgb(129 30 27);
-  --color-red-950: rgb(70 11 9);
-  --color-gray-50: rgb(246 248 249);
-  --color-gray-100: rgb(235 238 240);
-  --color-gray-200: rgb(214 221 225);
-  --color-gray-300: rgb(179 192 198);
-  --color-gray-400: rgb(137 158 167);
-  --color-gray-500: rgb(107 130 140);
-  --color-gray-600: rgb(85 105 116);
-  --color-gray-700: rgb(70 86 94);
-  --color-gray-800: rgb(60 73 80);
-  --color-gray-900: rgb(54 63 68);
-  --color-gray-950: rgb(36 41 45);
-  --color-green-50: rgb(242 251 242);
-  --color-green-100: rgb(227 246 226);
-  --color-green-200: rgb(199 236 198);
-  --color-green-300: rgb(154 220 153);
-  --color-green-400: rgb(102 195 101);
-  --color-green-500: rgb(66 171 65);
-  --color-green-600: rgb(49 137 48);
-  --color-green-700: rgb(40 109 40);
-  --color-green-800: rgb(36 87 36);
-  --color-green-900: rgb(31 72 32);
-  --color-green-950: rgb(12 39 13);
+  --color-black: rgb(0 0 0);
+  --color-white: rgb(255 255 255);
+  --color-primary: ;
+  --color-secondary: rgb(235 238 240);
+  --color-tertiary: rgb(66 171 65);
+  --color-quaternary: rgb(9 35 84);
 }
 
 @source inline("grid-cols-{4,5}");
@@ -616,46 +528,79 @@ h1, h2, h3, h4, h5, h6, .headline-large, .headline-medium, .headline-small {
 }
 
 h1, .headline-large {
-  font-size: clamp(2.625rem, calc(.7619vw + 2.4393rem), 3.125rem);
+  font-size: clamp(36px, calc(28px + 2.5vw), 64px);
+  line-height: 100%;
 }
 
 h2, .headline-medium {
-  font-size: clamp(1.875rem, calc(.5714vw + 1.7357rem), 2.25rem);
-
-  &:after {
-    font-size: calc(clamp(1.875rem, calc(.5714vw + 1.7357rem), 2.25rem) / 100 * 22 * 1.8);
-    
-  }
+  font-size: clamp(28px, calc(21.143px + 2.143vw), 52px);
+  line-height: 100%;
 }
 
 h3, .headline-small {
-  font-size: clamp(1.25rem, calc(.1905vw + 1.2036rem), 1.375rem);
-  font-weight: 400;
-
-&:after {
-    font-size: calc(clamp(1.25rem, calc(.1905vw + 1.2036rem), 1.375rem) / 100 * 22 * 1.8);
-
-  }
+  font-size: clamp(20px, calc(18.857px + 0.357vw), 24px);
 }
 
 h4, .title-large {
-  font-size: clamp(1.125rem, calc(.1905vw + 1.0786rem), 1.25rem);
-  line-height: 140%;
-
-  
+  font-size: clamp(20px, calc(18.857px + 0.357vw), 24px);
+  line-height: 100%;
 }
 
 h5, .title-medium {
-  font-size: clamp(1rem, calc(.1905vw + .9536rem), 1.125rem);
-  line-height: 140%;
-  font-weight: 400;
+  font-size: clamp(18px, calc(17.429px + 0.179vw), 20px);
 }
 
 h6, .title-small {
-  font-size: clamp(.875rem, calc(.1905vw + .8286rem), 1rem);
-  line-height: 140%;
- 
- 
+  font-size: clamp(18px, calc(17.429px + 0.179vw), 20px);
+}
+
+.label-medium {
+  font-family: var(--font-family-primary);
+  font-size: clamp(14px, calc(13.429px + 0.179vw), 16px);
+  line-height: 100%;
+  font-weight: 500;
+}
+
+.body-large {
+  font-family: var(--font-family-primary);
+  font-size: clamp(15px, calc(14.143px + 0.268vw), 18px);
+  line-height: 160%;
+  font-weight: 400;
+}
+
+.body-large-bold {
+  font-family: var(--font-family-primary);
+  font-size: clamp(15px, calc(14.143px + 0.268vw), 18px);
+  line-height: 160%;
+  font-weight: 500;
+}
+
+.body-medium {
+  font-family: var(--font-family-primary);
+  font-size: clamp(14px, calc(13.429px + 0.179vw), 16px);
+  line-height: 160%;
+  font-weight: 400;
+}
+
+.body-medium-bold {
+  font-family: var(--font-family-primary);
+  font-size: clamp(14px, calc(13.429px + 0.179vw), 16px);
+  line-height: 160%;
+  font-weight: 500;
+}
+
+.body-small {
+  font-family: var(--font-family-primary);
+  font-size: clamp(13px, calc(12.714px + 0.089vw), 14px);
+  line-height: 160%;
+  font-weight: 400;
+}
+
+.body-small-bold {
+  font-family: var(--font-family-primary);
+  font-size: clamp(13px, calc(12.714px + 0.089vw), 14px);
+  line-height: 160%;
+  font-weight: 500;
 }
 
 p {

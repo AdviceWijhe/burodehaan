@@ -10,6 +10,48 @@ if (!defined('ABSPATH')) {
 
 include_once 'inc/class.tailwindWalker.php';
 include_once 'inc/class.tailwindWalkerSimple.php';
+
+/**
+ * Get theme color palette
+ * Centrale functie die de kleuren array retourneert voor gebruik in editor en CSS variables
+ * 
+ * @return array Array met kleuren voor editor color palette
+ */
+function advice2025_get_color_palette() {
+    return array(
+        array(
+            'name'  => __('Black', 'advice2025'),
+            'slug'  => 'black',
+            'color' => 'rgb(0 0 0)',
+        ),
+        array(
+            'name'  => __('White', 'advice2025'),
+            'slug'  => 'white',
+            'color' => 'rgb(255 255 255)',
+        ),
+        array(
+            'name'  => __('Primary', 'advice2025'),
+            'slug'  => 'primary',
+            'color' => 'rgb(235 238 240)',
+        ),
+        array(
+            'name'  => __('Secondary', 'advice2025'),
+            'slug'  => 'secondary',
+            'color' => 'rgb(225 50 44)',
+        ),
+        array(
+            'name'  => __('Tertiary', 'advice2025'),
+            'slug'  => 'tertiary',
+            'color' => 'rgb(66 171 65)',
+        ),
+        array(
+            'name'  => __('Quaternary', 'advice2025'),
+            'slug'  => 'quaternary',
+            'color' => 'rgb(9 35 84)',
+        ),
+    );
+}
+
 /**
  * Theme setup
  */
@@ -24,45 +66,9 @@ function advice2025_setup() {
         'gallery',
         'caption',
     ));
-
+    
     // Expose theme colors to the block editor / ACFE color pickers
-    add_theme_support('editor-color-palette', array(
-        array(
-            'name'  => __('Primary', 'advice2025'),
-            'slug'  => 'primary',
-            'color' => '#0A2031', // matches --color-primary
-        ),
-        array(
-            'name'  => __('Secondary', 'advice2025'),
-            'slug'  => 'secondary',
-            'color' => '#480E25', // matches --color-secondary
-        ),
-        array(
-            'name'  => __('Blue', 'advice2025'),
-            'slug'  => 'blue',
-            'color' => '#00344C', // matches --color-blue
-        ),
-        array(
-            'name'  => __('Light Blue', 'advice2025'),
-            'slug'  => 'light-blue',
-            'color' => '#96ACC0', // matches --color-light-blue
-        ),
-        array(
-            'name'  => __('Pink', 'advice2025'),
-            'slug'  => 'pink',
-            'color' => '#6C0733', // matches --color-pink
-        ),
-        array(
-            'name'  => __('Light Pink', 'advice2025'),
-            'slug'  => 'light-pink',
-            'color' => '#DB9EB4', // matches --color-light-pink
-        ),
-        array(
-            'name'  => __('White', 'advice2025'),
-            'slug'  => 'white',
-            'color' => '#ffffff', // matches --color-white
-        ),
-    ));
+    add_theme_support('editor-color-palette', advice2025_get_color_palette());
     
     // Add support for custom logo
     add_theme_support('custom-logo', array(
@@ -82,6 +88,34 @@ function advice2025_setup() {
     ));
 }
 add_action('after_setup_theme', 'advice2025_setup');
+
+/**
+ * Output theme colors as CSS root variables
+ * Maakt CSS root variables aan op basis van de editor color palette
+ */
+function advice2025_output_color_variables() {
+    // Haal de color palette op via de helper functie
+    $color_palette = advice2025_get_color_palette();
+    
+    // Genereer CSS root variables
+    echo '<style id="advice2025-color-variables">';
+    echo ':root {';
+    
+    foreach ($color_palette as $color) {
+        $slug = isset($color['slug']) ? $color['slug'] : '';
+        $color_value = isset($color['color']) ? $color['color'] : '';
+        
+        if ($slug && $color_value) {
+            // Converteer slug naar CSS variable naam (bijv. 'light-blue' -> '--color-light-blue')
+            $css_var_name = '--color-' . esc_attr($slug);
+            echo "\n\t" . $css_var_name . ': ' . esc_attr($color_value) . ';';
+        }
+    }
+    
+    echo "\n" . '}';
+    echo '</style>';
+}
+add_action('wp_head', 'advice2025_output_color_variables', 1);
 
 /**
  * Enqueue scripts and styles

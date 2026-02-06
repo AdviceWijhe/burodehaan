@@ -3124,8 +3124,8 @@
                             "label": "Formulier",
                             "name": "formulier",
                             "aria-label": "",
-                            "type": "forms",
-                            "instructions": "",
+                            "type": "text",
+                            "instructions": "Vul hier de shortcode in van het Gravity forms formulier",
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
@@ -3133,10 +3133,12 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "return_format": "post_object",
-                            "allow_null": 0,
-                            "multiple": 0,
-                            "allow_in_bindings": 0
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
                         },
                         {
                             "key": "field_69132b05f641c",
@@ -3361,45 +3363,6 @@
                             "placeholder": "",
                             "prepend": "",
                             "append": ""
-                        },
-                        {
-                            "key": "field_6914689d1c039",
-                            "label": "FAQ",
-                            "name": "faq",
-                            "aria-label": "",
-                            "type": "post_object",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "post_type": [
-                                "faq"
-                            ],
-                            "post_status": [
-                                "publish"
-                            ],
-                            "taxonomy": "",
-                            "return_format": "object",
-                            "multiple": 1,
-                            "min": "",
-                            "max": "",
-                            "save_custom": 0,
-                            "save_post_status": "publish",
-                            "acfe_add_post": 0,
-                            "acfe_edit_post": 0,
-                            "acfe_bidirectional": {
-                                "acfe_bidirectional_enabled": "0"
-                            },
-                            "allow_null": 1,
-                            "allow_in_bindings": 0,
-                            "bidirectional": 0,
-                            "ui": 1,
-                            "bidirectional_target": [],
-                            "save_post_type": ""
                         }
                     ],
                     "min": "",
@@ -4319,5 +4282,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1766498751
+    "modified": 1770300042
 }

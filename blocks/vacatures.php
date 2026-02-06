@@ -33,7 +33,7 @@ if ($vacatures) : ?>
                 <div class="mb-8 lg:mb-12 flex flex-wrap gap-3">
                     <?php foreach ($filter_options as $value => $label) : ?>
                         <button 
-                            class="vacature-filter-btn px-6 py-3 rounded-full border-2 border-black/30 text-black hover:border-black hover:bg-black/5 transition-all duration-300 <?php echo $value === 'alle' ? 'active bg-black/10 border-black' : ''; ?>"
+                            class="vacature-filter-btn px-6 py-3 rounded-[4px] border-2 border-black/30 text-black hover:border-black hover:bg-black/5 transition-all duration-300 <?php echo $value === 'alle' ? 'active bg-black/10 border-black' : ''; ?>"
                             data-filter="<?php echo esc_attr($value); ?>"
                             type="button">
                             <?php echo esc_html($label); ?>

@@ -9,7 +9,7 @@ $image = get_sub_field('afbeelding');
 
 <div class="flex flex-col-reverse lg:flex-row items-stretch">
 
-  <div class="w-full lg:w-6/12 p-[20px] pb-[60px] lg:px-[60px] lg:py-[60px] xl:px-[80px] xl:py-[80px] text-white flex flex-col justify-between">
+  <div class="w-full lg:w-6/12 p-[20px] pb-[60px] lg:px-[60px] lg:py-[60px] xl:px-[80px] xl:py-[80px] text-black flex flex-col justify-between">
   <div class="relative z-1 mb-3 lg:mb-12">
     <!-- yoast breadcrumbs -->
     <?php if (function_exists('yoast_breadcrumb')) {
@@ -17,7 +17,7 @@ $image = get_sub_field('afbeelding');
     } ?>
   </div>
   <div class="mt-[46px] lg:mt-[60px] xl:mt-0">
-    <h1 class="text-white mb-[32px]"><?= get_sub_field('titel') ?></h1>
+    <h1 class="text-black mb-[32px]"><?= get_sub_field('titel') ?></h1>
 
    <div class="body-large max-w-[630px]"><?= get_sub_field('content') ?></div> 
 

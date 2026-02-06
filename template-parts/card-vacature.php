@@ -75,7 +75,7 @@ if (!empty($soort_vacature)) {
 }
 ?>
 
-<a href="<?php echo get_permalink($vacature->ID); ?>" class="vacature-item group bg-white py-[40px]! lg:py-[60px]! pl-[20px]! lg:pl-[60px]! pr-[20px]! lg:pr-[40px]! transition-all duration-300 flex gap-6 justify-between items-center shadow-md hover:shadow-lg">
+<a href="<?php echo get_permalink($vacature->ID); ?>" class="vacature-item group bg-primary p-[20px]! transition-all duration-300 flex gap-6 justify-between items-center shadow-md hover:shadow-lg rounded-[16px]">
                           
     <!-- Linker kant: Titel -->
     <div class="flex-1">
@@ -89,23 +89,23 @@ if (!empty($soort_vacature)) {
     <!-- Midden: Badges met aantal_uren, locatie en soort_vacature -->
     <div class="flex-shrink-0 flex items-center gap-3">
         <?php if (!empty($aantal_uren)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-full text-sm font-medium whitespace-nowrap">
+            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-[4px] text-sm font-medium whitespace-nowrap">
                 <?php echo esc_html($aantal_uren . ' uur'); ?>
             </span>
         <?php endif; ?>
         
         <?php if (!empty($locatie)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-full text-sm font-medium whitespace-nowrap">
+            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-[4px] text-sm font-medium whitespace-nowrap">
                 <?php echo esc_html($locatie); ?>
             </span>
         <?php endif; ?>
         
         <?php if (!empty($soort_label)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-full text-sm font-medium whitespace-nowrap">
+            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-[4px] text-sm font-medium whitespace-nowrap">
                 <?php echo esc_html($soort_label); ?>
             </span>
         <?php elseif (!empty($soort_vacature)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-full text-sm font-medium whitespace-nowrap">
+            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-[4px] text-sm font-medium whitespace-nowrap">
                 <?php echo esc_html(ucfirst($soort_vacature)); ?>
             </span>
         <?php endif; ?>
