@@ -1,13 +1,54 @@
 <?php 
-// HOW TO USE:  get_template_part('template-parts/core/buttons', null, array('buttons' => array(array('link' => array('url' => '/offerte-aanvragen/', 'title' => 'Offerte aanvragen'), 'knop_kleur' => 'pink')))) 
-// 
-// 
-// 
-// 
+/**
+ * Buttons Template Part
+ * 
+ * HOW TO USE:
+ * 
+ * 1. Direct met buttons array:
+ *    get_template_part('template-parts/core/buttons', null, [
+ *        'buttons' => [
+ *            ['link' => ['url' => '/offerte/', 'title' => 'Offerte'], 'knop_kleur' => 'pink']
+ *        ]
+ *    ]);
+ * 
+ * 2. Via ACF field name (voor repeater/flexible content):
+ *    get_template_part('template-parts/core/buttons', null, [
+ *        'field_name' => 'buttons',
+ *        'post_id' => 123  // optioneel, default is current post
+ *    ]);
+ * 
+ * 3. Binnen ACF repeater loop (gebruikt get_sub_field als fallback):
+ *    while(have_rows('mijn_repeater')) {
+ *        the_row();
+ *        get_template_part('template-parts/core/buttons');
+ *    }
+ */
 
+// Flexibele button data handling
+$buttons = null;
 
+// 1. Eerst kijken naar direct meegegeven buttons array
+if (isset($args['buttons']) && is_array($args['buttons'])) {
+    $buttons = $args['buttons'];
+}
+// 2. Dan kijken naar field_name parameter (voor repeater/flexible content)
+elseif (isset($args['field_name'])) {
+    $post_id = $args['post_id'] ?? get_the_ID();
+    // Probeer eerst get_sub_field (binnen repeater context)
+    if (function_exists('get_sub_field') && get_row_index()) {
+        $buttons = get_sub_field($args['field_name']);
+    }
+    // Anders gebruik get_field
+    if (!$buttons && function_exists('get_field')) {
+        $buttons = get_field($args['field_name'], $post_id);
+    }
+}
+// 3. Fallback naar sub_field 'buttons' (binnen flexible content/repeater)
+elseif (function_exists('get_sub_field')) {
+    $buttons = get_sub_field('buttons');
+}
 
-$buttons = $args['buttons'] ?? get_sub_field('buttons');
+// Overige parameters
 $no_margin = $args['no_margin'] ?? false;
 $align_items = $args['align_items'] ?? 'start'; // 'start' of 'stretch'
 $full_width = $args['full_width'] ?? null; // null = auto (stretch), true = altijd w-full, false = nooit w-full
