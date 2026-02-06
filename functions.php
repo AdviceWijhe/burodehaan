@@ -1187,6 +1187,23 @@ add_action('wp_ajax_load_popup_form', 'ajax_load_popup_form');
 add_action('wp_ajax_nopriv_load_popup_form', 'ajax_load_popup_form');
 
 /**
+ * Wijs automatisch posts.php template toe aan de WordPress posts archive pagina
+ * Werkt voor de standaard blog/berichten pagina
+ */
+function advice2025_assign_posts_template($template) {
+    // Check of we op de posts archive pagina zijn (blog/berichten pagina)
+    if (is_home() && !is_front_page()) {
+        $posts_template = locate_template('posts.php');
+        if ($posts_template) {
+            return $posts_template;
+        }
+    }
+    
+    return $template;
+}
+add_filter('template_include', 'advice2025_assign_posts_template', 99);
+
+/**
  * WordPress Customizer - Header Settings
  * Voeg controles toe voor het instellen van verschillende header layouts
  */
