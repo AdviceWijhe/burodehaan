@@ -426,16 +426,24 @@ class HeaderNavigation {
         if (!this.overlay || !this.primaryMenu) return;
         
         let hoverCount = 0;
-        const parents = this.primaryMenu.querySelectorAll(':scope > li.has-dropdown, :scope > li[data-has-dropdown="true"]');
+        const parents = this.primaryMenu.querySelectorAll(':scope > li.has-dropdown, :scope > li.has-mega-menu, :scope > li[data-has-dropdown="true"]');
         
         const showOverlay = () => {
             this.overlay.classList.remove('opacity-0', 'invisible');
             this.overlay.classList.add('opacity-100', 'visible');
+            // Enable pointer events when visible
+            this.overlay.style.pointerEvents = 'auto';
         };
         
         const hideOverlay = () => {
             this.overlay.classList.remove('opacity-100', 'visible');
             this.overlay.classList.add('opacity-0', 'invisible');
+            // Disable pointer events when hidden to prevent interference
+            setTimeout(() => {
+                if (this.overlay.classList.contains('invisible')) {
+                    this.overlay.style.pointerEvents = 'none';
+                }
+            }, 300); // Wait for transition to complete
         };
         
         parents.forEach((li) => {
@@ -450,7 +458,7 @@ class HeaderNavigation {
             // Mouse leave on parent
             li.addEventListener('mouseleave', (e) => {
                 if (window.innerWidth < 1024) return;
-                const dropdown = li.querySelector(':scope > .dropdown-menu');
+                const dropdown = li.querySelector(':scope > .dropdown-menu, :scope > .mega-menu');
                 const toEl = e.relatedTarget;
                 if (dropdown && toEl && dropdown.contains(toEl)) {
                     return;
@@ -475,8 +483,8 @@ class HeaderNavigation {
                 }
             });
             
-            // Handle dropdown hover separately
-            const dropdown = li.querySelector(':scope > .dropdown-menu');
+            // Handle dropdown hover separately (including mega menus)
+            const dropdown = li.querySelector(':scope > .dropdown-menu, :scope > .mega-menu');
             if (dropdown) {
                 dropdown.addEventListener('mouseenter', () => {
                     if (window.innerWidth < 1024) return;
@@ -498,24 +506,29 @@ class HeaderNavigation {
             }
         });
         
-        // Click overlay to close
+        // Click overlay to close - but don't interfere with menu hovers
         this.overlay.addEventListener('click', () => {
             hideOverlay();
+            hoverCount = 0;
             parents.forEach(li => li.classList.remove('dropdown-active'));
         });
         
-        // Prevent navigation on parent links (desktop only)
+        // Prevent navigation on parent links (desktop only) - but allow hover to work
         document.addEventListener('click', (e) => {
             const anchor = e.target.closest('a');
             if (!anchor) return;
-            if (anchor.closest('.dropdown-menu')) return;
+            
+            // Allow clicks inside dropdown/mega menu content
+            if (anchor.closest('.dropdown-menu') || anchor.closest('.mega-menu')) return;
             
             const li = anchor.closest('li');
             const isTopLevelParent = li && li.parentElement && li.parentElement.id === 'primary-menu' && (
-                li.classList.contains('has-dropdown') ||
+                li.classList.contains('has-dropdown') || 
+                li.classList.contains('has-mega-menu') ||
                 (li.dataset && li.dataset.hasDropdown === 'true')
             );
             
+            // Only prevent navigation on the parent link itself, not elsewhere
             if (isTopLevelParent && window.innerWidth >= 1024) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -524,6 +537,24 @@ class HeaderNavigation {
                 }
             }
         }, true);
+        
+        // Ensure hover still works after clicks elsewhere on page
+        document.addEventListener('click', (e) => {
+            // Don't interfere if clicking on menu items or dropdowns
+            if (e.target.closest('.main-navigation') || 
+                e.target.closest('.dropdown-menu') || 
+                e.target.closest('.mega-menu') ||
+                e.target.closest('#dropdown-overlay')) {
+                return;
+            }
+            
+            // Click outside menu - just hide overlay, don't block future hovers
+            if (hoverCount > 0) {
+                hideOverlay();
+                hoverCount = 0;
+                parents.forEach(li => li.classList.remove('dropdown-active'));
+            }
+        });
     }
     
     /**

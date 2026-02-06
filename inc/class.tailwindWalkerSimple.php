@@ -26,14 +26,15 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         if ($depth == 0) {
             // Check if this is a mega menu
             if ($this->is_mega_menu) {
-                // Mega Menu - Full width with 100% screen width
-                $output .= "\n$indent<div class=\"dropdown-menu mega-menu fixed left-0 top-full w-screen bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover:opacity-100 hover:visible hover:delay-0\">\n";
+                // Mega Menu - Full width with 100% screen width (no padding-top to prevent gap)
+                // Remove transition-all to prevent unwanted transforms
+                $output .= "\n$indent<div class=\"dropdown-menu mega-menu fixed left-0 top-full w-screen bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-50 hover:opacity-100 hover:visible hover:delay-0\" style=\"transform: translateY(0);\">\n";
                 $output .= "$indent\t<div class=\"container mx-auto px-10 py-10\">\n";
                 $output .= "$indent\t\t<div class=\"flex gap-8\">\n";
                 $output .= "$indent\t\t\t<div class=\"flex-1\">\n";
                 $output .= "$indent\t\t\t\t<ul class=\"grid grid-cols-3 gap-6\">\n";
             } else {
-                // Regular dropdown menu
+                // Regular dropdown menu (pt-2 adds small gap for regular dropdowns)
                 $output .= "\n$indent<ul class=\"absolute left-0 top-full pt-2 min-w-[200px] bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 transition-visibility delay-200 z-50 py-2 hover:opacity-100 hover:visible hover:delay-0\">\n";
             }
         } else {
