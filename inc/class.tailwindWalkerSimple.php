@@ -26,10 +26,24 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         if ($depth == 0) {
             // Check if this is a mega menu
             if ($this->is_mega_menu) {
-                // Mega Menu - Full width with 100% screen width (no padding-top to prevent gap)
-                // Remove transition-all to prevent unwanted transforms
-                $output .= "\n$indent<div class=\"dropdown-menu mega-menu fixed left-0 top-full w-screen bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-50 hover:opacity-100 hover:visible hover:delay-0\" style=\"transform: translateY(0);\">\n";
-                $output .= "$indent\t<div class=\"container mx-auto px-10 py-10\">\n";
+                // Get container width setting and current layout
+                $container_width = get_theme_mod('header_container_width', 'full-width');
+                $header_layout = get_theme_mod('header_layout', 'layout-1');
+                
+                // Check if mega menu should be contained
+                $is_contained = ($container_width === 'contained' || $header_layout === 'layout-5');
+                
+                if ($is_contained) {
+                    // Mega Menu - Contained within navigation container
+                    // Use fixed positioning but centered and constrained to container width
+                    $output .= "\n$indent<div class=\"dropdown-menu mega-menu mega-menu-contained fixed left-1/2 top-full bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-50 hover:opacity-100 hover:visible hover:delay-0\" style=\"transform: translateX(-50%); width: 1440px; max-width: calc(100vw - 80px);\">\n";
+                    $output .= "$indent\t<div class=\"px-10 py-10\">\n";
+                } else {
+                    // Mega Menu - Full screen width
+                    $output .= "\n$indent<div class=\"dropdown-menu mega-menu mega-menu-full fixed left-0 right-0 top-full w-screen bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-50 hover:opacity-100 hover:visible hover:delay-0\" style=\"transform: translateY(0);\">\n";
+                    $output .= "$indent\t<div class=\"container mx-auto px-10 py-10\">\n";
+                }
+                
                 $output .= "$indent\t\t<div class=\"flex gap-8\">\n";
                 $output .= "$indent\t\t\t<div class=\"flex-1\">\n";
                 $output .= "$indent\t\t\t\t<ul class=\"grid grid-cols-3 gap-6\">\n";

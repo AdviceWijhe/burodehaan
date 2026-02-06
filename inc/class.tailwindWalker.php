@@ -21,15 +21,36 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
             global $current_dropdown_id;
             $dropdown_class = $current_dropdown_id ? "dropdown-menu-" . $current_dropdown_id : "dropdown-menu";
             
+            // Get container width setting and current layout
+            $container_width = get_theme_mod('header_container_width', 'full-width');
+            $header_layout = get_theme_mod('header_layout', 'layout-1');
+            
+            // Check if mega menu should be contained
+            $is_contained = ($container_width === 'contained' || $header_layout === 'layout-5');
+            
             if ($this->is_mega_menu) {
-                $output .= "\n$indent<div class=\"dropdown-menu mega-menu {$dropdown_class} fixed left-0 top-full w-screen bg-white backdrop-blur-md opacity-0 invisible transform transition-all duration-300 z-50\">\n";
-                $output .= "$indent\t<div class=\"container-fluid mx-auto px-[100px] py-[80px] max-h-[80vh] overflow-y-auto overscroll-contain\">\n";
+                if ($is_contained) {
+                    // Mega Menu - Contained
+                    $output .= "\n$indent<div class=\"dropdown-menu mega-menu mega-menu-contained {$dropdown_class} fixed left-1/2 top-full bg-white backdrop-blur-md opacity-0 invisible transition-opacity duration-300 z-50 rounded-lg\" style=\"transform: translateX(-50%); width: 1440px; max-width: calc(100vw - 80px);\">\n";
+                    $output .= "$indent\t<div class=\"px-[100px] py-[80px] max-h-[80vh] overflow-y-auto overscroll-contain\">\n";
+                } else {
+                    // Mega Menu - Full width
+                    $output .= "\n$indent<div class=\"dropdown-menu mega-menu mega-menu-full {$dropdown_class} fixed left-0 top-full w-screen bg-white backdrop-blur-md opacity-0 invisible transform transition-opacity duration-300 z-50\">\n";
+                    $output .= "$indent\t<div class=\"container-fluid mx-auto px-[100px] py-[80px] max-h-[80vh] overflow-y-auto overscroll-contain\">\n";
+                }
                 $output .= "$indent\t\t<div class=\"flex gap-8\">\n";
                 $output .= "$indent\t\t\t<div class=\"flex-1\">\n";
                 $output .= "$indent\t\t\t\t<div class=\"grid gap-6\" data-dropdown-grid data-dropdown-id=\"{$current_dropdown_id}\">\n";
             } else {
-                $output .= "\n$indent<div class=\"dropdown-menu {$dropdown_class} fixed left-0 top-full w-screen bg-white backdrop-blur-md opacity-0 invisible transform transition-all duration-300 z-50\">\n";
-                $output .= "$indent\t<div class=\"container-fluid mx-auto px-[100px] py-[80px] max-h-[80vh] overflow-y-auto overscroll-contain\">\n";
+                if ($is_contained) {
+                    // Regular dropdown - Contained
+                    $output .= "\n$indent<div class=\"dropdown-menu {$dropdown_class} fixed left-1/2 top-full bg-white backdrop-blur-md opacity-0 invisible transition-opacity duration-300 z-50 rounded-lg\" style=\"transform: translateX(-50%); width: 1440px; max-width: calc(100vw - 80px);\">\n";
+                    $output .= "$indent\t<div class=\"px-[100px] py-[80px] max-h-[80vh] overflow-y-auto overscroll-contain\">\n";
+                } else {
+                    // Regular dropdown - Full width
+                    $output .= "\n$indent<div class=\"dropdown-menu {$dropdown_class} fixed left-0 top-full w-screen bg-white backdrop-blur-md opacity-0 invisible transform transition-opacity duration-300 z-50\">\n";
+                    $output .= "$indent\t<div class=\"container-fluid mx-auto px-[100px] py-[80px] max-h-[80vh] overflow-y-auto overscroll-contain\">\n";
+                }
                 $output .= "$indent\t\t<div class=\"grid gap-6\" data-dropdown-grid data-dropdown-id=\"{$current_dropdown_id}\">\n";
             }
         } else {

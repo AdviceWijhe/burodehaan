@@ -119,7 +119,16 @@
     .main-navigation li.group:hover > .mega-menu {
         opacity: 1 !important;
         visibility: visible !important;
+    }
+    
+    /* Reset transform for full-width mega menus */
+    .main-navigation li.group:hover > .mega-menu-full {
         transform: translateY(0) !important;
+    }
+    
+    /* Preserve translateX centering for contained mega menus */
+    .main-navigation li.group:hover > .mega-menu-contained {
+        transform: translateX(-50%) !important;
     }
     
     /* Overlay should not interfere with menu positioning */
@@ -139,18 +148,31 @@
         top: 100% !important;
     }
     
-    /* Keep dropdown visible when hovering over it - also reset transform */
-    .dropdown-menu:hover,
-    .mega-menu:hover {
+    /* Keep dropdown visible when hovering over it - with correct transforms */
+    .mega-menu-full:hover {
         opacity: 1 !important;
         visibility: visible !important;
         transform: translateY(0) !important;
     }
     
+    .mega-menu-contained:hover {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateX(-50%) !important;
+    }
+    
+    .dropdown-menu:hover {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
     /* Reset transform on dropdown-active state */
-    .main-navigation li.dropdown-active > .dropdown-menu,
-    .main-navigation li.dropdown-active > .mega-menu {
+    .main-navigation li.dropdown-active > .mega-menu-full {
         transform: translateY(0) !important;
+    }
+    
+    .main-navigation li.dropdown-active > .mega-menu-contained {
+        transform: translateX(-50%) !important;
     }
     
     /* Ensure no gap between header and menu */
@@ -162,6 +184,11 @@
     .site-header {
         position: relative;
         z-index: 50;
+    }
+    
+    /* Contained mega menu should match container width */
+    .mega-menu-contained {
+        min-width: 1200px;
     }
 }
 </style>
