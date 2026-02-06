@@ -1204,6 +1204,184 @@ function advice2025_assign_posts_template($template) {
 add_filter('template_include', 'advice2025_assign_posts_template', 99);
 
 /**
+ * Post View Counter - Registreer views per sessie
+ */
+
+// Start sessie voor view tracking
+function advice2025_start_session() {
+    if (!session_id()) {
+        session_start();
+    }
+}
+add_action('init', 'advice2025_start_session', 1);
+
+// AJAX handler om post view te registreren
+function advice2025_register_post_view() {
+    // Security check
+    if (!isset($_POST['post_id']) || !is_numeric($_POST['post_id'])) {
+        wp_send_json_error(array('message' => 'Ongeldig post ID'));
+        return;
+    }
+    
+    $post_id = intval($_POST['post_id']);
+    
+    // Check of post bestaat
+    if (!get_post($post_id)) {
+        wp_send_json_error(array('message' => 'Post niet gevonden'));
+        return;
+    }
+    
+    // Start sessie als die nog niet bestaat
+    if (!session_id()) {
+        session_start();
+    }
+    
+    // Check of deze post al is bekeken in deze sessie
+    $viewed_posts = isset($_SESSION['viewed_posts']) ? $_SESSION['viewed_posts'] : array();
+    
+    if (!in_array($post_id, $viewed_posts)) {
+        // Voeg post toe aan bekeken posts in deze sessie
+        $viewed_posts[] = $post_id;
+        $_SESSION['viewed_posts'] = $viewed_posts;
+        
+        // Verhoog view count in post meta
+        $current_count = get_post_meta($post_id, '_post_view_count', true);
+        $new_count = $current_count ? intval($current_count) + 1 : 1;
+        update_post_meta($post_id, '_post_view_count', $new_count);
+        
+        wp_send_json_success(array(
+            'message' => 'View geregistreerd',
+            'view_count' => $new_count
+        ));
+    } else {
+        // Al bekeken in deze sessie
+        $current_count = get_post_meta($post_id, '_post_view_count', true);
+        wp_send_json_success(array(
+            'message' => 'Al bekeken in deze sessie',
+            'view_count' => $current_count ? intval($current_count) : 0
+        ));
+    }
+}
+add_action('wp_ajax_register_post_view', 'advice2025_register_post_view');
+add_action('wp_ajax_nopriv_register_post_view', 'advice2025_register_post_view');
+
+// Helper functie om view count op te halen
+function advice2025_get_post_view_count($post_id = null) {
+    if (!$post_id) {
+        $post_id = get_the_ID();
+    }
+    
+    $count = get_post_meta($post_id, '_post_view_count', true);
+    return $count ? intval($count) : 0;
+}
+
+// Enqueue script voor view tracking op single posts (alle post types)
+function advice2025_enqueue_post_view_tracker() {
+    if (is_single()) {
+        wp_enqueue_script(
+            'advice2025-post-view-tracker',
+            get_template_directory_uri() . '/assets/js/post-view-tracker.js',
+            array('jquery'),
+            wp_get_theme()->get('Version'),
+            true
+        );
+        
+        wp_localize_script('advice2025-post-view-tracker', 'postViewData', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'postId' => get_the_ID(),
+            'nonce' => wp_create_nonce('post_view_nonce')
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'advice2025_enqueue_post_view_tracker');
+
+/**
+ * Voeg View Count kolom toe aan posts lijst in admin
+ */
+
+// Voeg kolom toe aan posts lijst
+function advice2025_add_view_count_column($columns) {
+    $columns['view_count'] = __('Views', 'advice2025');
+    return $columns;
+}
+add_filter('manage_posts_columns', 'advice2025_add_view_count_column');
+add_filter('manage_pages_columns', 'advice2025_add_view_count_column');
+
+// Voeg view count kolom toe aan custom post types
+function advice2025_add_view_count_column_all_post_types($columns, $post_type) {
+    // Voeg toe aan alle post types behalve attachment
+    if ($post_type !== 'attachment') {
+        $columns['view_count'] = __('Views', 'advice2025');
+    }
+    return $columns;
+}
+add_filter('manage_posts_columns', 'advice2025_add_view_count_column_all_post_types', 10, 2);
+
+// Toon view count in de kolom
+function advice2025_show_view_count_column($column, $post_id) {
+    if ($column === 'view_count') {
+        $view_count = advice2025_get_post_view_count($post_id);
+        echo '<strong>' . number_format_i18n($view_count) . '</strong>';
+    }
+}
+add_action('manage_posts_custom_column', 'advice2025_show_view_count_column', 10, 2);
+add_action('manage_pages_custom_column', 'advice2025_show_view_count_column', 10, 2);
+
+// Maak kolom sorteerbaar
+function advice2025_make_view_count_column_sortable($columns) {
+    $columns['view_count'] = 'view_count';
+    return $columns;
+}
+add_filter('manage_edit-post_sortable_columns', 'advice2025_make_view_count_column_sortable');
+add_filter('manage_edit-page_sortable_columns', 'advice2025_make_view_count_column_sortable');
+
+// Handle sorting op view count
+function advice2025_sort_posts_by_view_count($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+    
+    if ($query->get('orderby') === 'view_count') {
+        $query->set('meta_key', '_post_view_count');
+        $query->set('orderby', 'meta_value_num');
+    }
+}
+add_action('pre_get_posts', 'advice2025_sort_posts_by_view_count');
+
+// Voeg view count meta box toe aan post editor
+function advice2025_add_view_count_meta_box() {
+    $post_types = get_post_types(array('public' => true), 'names');
+    foreach ($post_types as $post_type) {
+        if ($post_type !== 'attachment') {
+            add_meta_box(
+                'advice2025_view_count',
+                __('View Count', 'advice2025'),
+                'advice2025_view_count_meta_box_callback',
+                $post_type,
+                'side',
+                'default'
+            );
+        }
+    }
+}
+add_action('add_meta_boxes', 'advice2025_add_view_count_meta_box');
+
+// Meta box callback
+function advice2025_view_count_meta_box_callback($post) {
+    $view_count = advice2025_get_post_view_count($post->ID);
+    ?>
+    <div style="padding: 10px 0;">
+        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #2271b1;">
+            <?php echo number_format_i18n($view_count); ?>
+        </p>
+        <p style="margin: 5px 0 0 0; color: #646970; font-size: 13px;">
+            <?php _e('Totaal aantal views (per sessie)', 'advice2025'); ?>
+        </p>
+    </div>
+    <?php
+}
+
+/**
  * WordPress Customizer - Header Settings
  * Voeg controles toe voor het instellen van verschillende header layouts
  */
