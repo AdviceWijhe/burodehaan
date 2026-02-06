@@ -13,6 +13,10 @@ declare(strict_types=1);
  */
 class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
     
+    private $is_mega_menu = false;
+    private $mega_menu_cta_text = '';
+    private $mega_menu_cta_url = '';
+    
     /**
      * Start Level - Output dropdown container or submenu
      */
@@ -20,13 +24,21 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         $indent = str_repeat("\t", $depth);
         
         if ($depth == 0) {
-            // Top-level dropdown menu
-            // Uses group-hover on parent <li> to show/hide dropdown (scoped to that li)
-            // Small delay on hiding (200ms) to prevent accidental close
-            $output .= "\n$indent<ul class=\"absolute left-0 top-full pt-2 min-w-[200px] bg-white  shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 transition-visibility delay-200 z-50 py-2 hover:opacity-100 hover:visible hover:delay-0\">\n";
+            // Check if this is a mega menu
+            if ($this->is_mega_menu) {
+                // Mega Menu - Full width with 100% screen width
+                $output .= "\n$indent<div class=\"dropdown-menu mega-menu fixed left-0 top-full w-screen bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 hover:opacity-100 hover:visible hover:delay-0\">\n";
+                $output .= "$indent\t<div class=\"container mx-auto px-10 py-10\">\n";
+                $output .= "$indent\t\t<div class=\"flex gap-8\">\n";
+                $output .= "$indent\t\t\t<div class=\"flex-1\">\n";
+                $output .= "$indent\t\t\t\t<ul class=\"grid grid-cols-3 gap-6\">\n";
+            } else {
+                // Regular dropdown menu
+                $output .= "\n$indent<ul class=\"absolute left-0 top-full pt-2 min-w-[200px] bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 transition-visibility delay-200 z-50 py-2 hover:opacity-100 hover:visible hover:delay-0\">\n";
+            }
         } else {
             // Nested submenu
-            $output .= "\n$indent<ul class=\"absolute left-full top-0 ml-2 min-w-[200px] bg-white  shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 transition-visibility delay-200 z-50 py-2 hover:opacity-100 hover:visible hover:delay-0\">\n";
+            $output .= "\n$indent<ul class=\"absolute left-full top-0 ml-2 min-w-[200px] bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 transition-visibility delay-200 z-50 py-2 hover:opacity-100 hover:visible hover:delay-0\">\n";
         }
     }
 
@@ -35,7 +47,38 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
      */
     public function end_lvl(&$output, $depth = 0, $args = null): void {
         $indent = str_repeat("\t", $depth);
-        $output .= "$indent</ul>\n";
+        
+        if ($depth == 0 && $this->is_mega_menu) {
+            // Close mega menu structure
+            $output .= "$indent\t\t\t\t</ul>\n";
+            $output .= "$indent\t\t\t</div>\n";
+            
+            // Add CTA section if text and URL are provided
+            if (!empty($this->mega_menu_cta_text) && !empty($this->mega_menu_cta_url)) {
+                $output .= "$indent\t\t\t<div class=\"w-[300px] flex-shrink-0\">\n";
+                $output .= "$indent\t\t\t\t<div class=\"bg-gray-50 rounded-lg p-6 h-full flex flex-col justify-center items-start\">\n";
+                $output .= "$indent\t\t\t\t\t<h3 class=\"text-xl font-semibold text-[#131611] mb-4\">Ontdek meer</h3>\n";
+                $output .= "$indent\t\t\t\t\t<a href=\"" . esc_url($this->mega_menu_cta_url) . "\" class=\"inline-flex items-center gap-2 px-6 py-3 bg-[#FF5822] text-[#131611] rounded font-medium hover:opacity-90 transition-opacity\">\n";
+                $output .= "$indent\t\t\t\t\t\t<span>" . esc_html($this->mega_menu_cta_text) . "</span>\n";
+                $output .= "$indent\t\t\t\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+                $output .= "$indent\t\t\t\t\t\t\t<path d=\"M3 8H13M13 8L8 3M13 8L8 13\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n";
+                $output .= "$indent\t\t\t\t\t\t</svg>\n";
+                $output .= "$indent\t\t\t\t\t</a>\n";
+                $output .= "$indent\t\t\t\t</div>\n";
+                $output .= "$indent\t\t\t</div>\n";
+            }
+            
+            $output .= "$indent\t\t</div>\n";
+            $output .= "$indent\t</div>\n";
+            $output .= "$indent</div>\n";
+            
+            // Reset mega menu flags
+            $this->is_mega_menu = false;
+            $this->mega_menu_cta_text = '';
+            $this->mega_menu_cta_url = '';
+        } else {
+            $output .= "$indent</ul>\n";
+        }
     }
 
     /**
@@ -74,6 +117,17 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
 
         // Check if item has children
         $has_children = in_array('menu-item-has-children', $classes);
+        
+        // Check if mega menu is enabled (only for top-level items with children)
+        $enable_mega_menu = false;
+        if ($has_children && $depth == 0) {
+            $enable_mega_menu = get_post_meta($item->ID, '_menu_item_enable_mega_menu', true);
+            if ($enable_mega_menu) {
+                $this->is_mega_menu = true;
+                $this->mega_menu_cta_text = get_post_meta($item->ID, '_menu_item_mega_menu_cta_text', true);
+                $this->mega_menu_cta_url = get_post_meta($item->ID, '_menu_item_mega_menu_cta_url', true);
+            }
+        }
 
         // Apply filters
         $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
@@ -81,6 +135,11 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         // Add dropdown classes for top-level items with children
         if ($has_children && $depth == 0) {
             $class_names .= ' relative group';
+            if ($enable_mega_menu) {
+                $class_names .= ' has-mega-menu';
+            } else {
+                $class_names .= ' has-dropdown';
+            }
         }
         
         // Add relative positioning for dropdown items with nested children
@@ -130,13 +189,19 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
                 $link_classes .= ' text-white';
             }
         } else {
-            // Dropdown items - simpler styling
-            $link_classes = 'block px-4 py-2 text-[15px] leading-[1.8] font-medium transition-colors duration-300';
+            // Dropdown items - check if in mega menu
+            if ($this->is_mega_menu && $depth == 1) {
+                // Mega menu items - card style
+                $link_classes = 'block p-4 rounded-lg transition-all duration-300 hover:bg-gray-50 group/mega-item';
+            } else {
+                // Regular dropdown items
+                $link_classes = 'block px-4 py-2 text-[15px] leading-[1.8] font-medium transition-colors duration-300';
+            }
             
             if ($is_current) {
                 $link_classes .= ' text-light-blue bg-light-blue/10';
             } else {
-                $link_classes .= ' text-gray-800 hover:text-light-blue hover:bg-light-blue/5';
+                $link_classes .= ' text-gray-800 hover:text-light-blue';
             }
         }
 

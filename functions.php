@@ -1299,3 +1299,78 @@ function advice2025_sanitize_topbar_style($input) {
     $valid = array('voordelen', 'contact-info');
     return in_array($input, $valid, true) ? $input : 'voordelen';
 }
+
+/**
+ * Add Mega Menu Custom Fields to Menu Items
+ */
+function advice2025_add_menu_item_custom_fields($item_id, $item, $depth, $args) {
+    // Only add fields to top-level items (depth 0)
+    if ($depth != 0) {
+        return;
+    }
+    
+    // Get saved values
+    $enable_mega_menu = get_post_meta($item_id, '_menu_item_enable_mega_menu', true);
+    $mega_menu_cta_text = get_post_meta($item_id, '_menu_item_mega_menu_cta_text', true);
+    $mega_menu_cta_url = get_post_meta($item_id, '_menu_item_mega_menu_cta_url', true);
+    ?>
+    <p class="field-enable-mega-menu description description-wide" style="margin: 10px 0;">
+        <label for="edit-menu-item-enable-mega-menu-<?php echo $item_id; ?>">
+            <input type="checkbox" 
+                   id="edit-menu-item-enable-mega-menu-<?php echo $item_id; ?>" 
+                   name="menu-item-enable-mega-menu[<?php echo $item_id; ?>]" 
+                   value="1" 
+                   <?php checked($enable_mega_menu, '1'); ?> />
+            <?php _e('Enable Mega Menu (100% width)', 'advice2025'); ?>
+        </label>
+    </p>
+    
+    <p class="field-mega-menu-cta-text description description-wide" style="margin: 10px 0;">
+        <label for="edit-menu-item-mega-menu-cta-text-<?php echo $item_id; ?>">
+            <?php _e('Mega Menu CTA Text', 'advice2025'); ?><br />
+            <input type="text" 
+                   id="edit-menu-item-mega-menu-cta-text-<?php echo $item_id; ?>" 
+                   class="widefat" 
+                   name="menu-item-mega-menu-cta-text[<?php echo $item_id; ?>]" 
+                   value="<?php echo esc_attr($mega_menu_cta_text); ?>" 
+                   placeholder="<?php _e('Optional CTA button text', 'advice2025'); ?>" />
+        </label>
+    </p>
+    
+    <p class="field-mega-menu-cta-url description description-wide" style="margin: 10px 0;">
+        <label for="edit-menu-item-mega-menu-cta-url-<?php echo $item_id; ?>">
+            <?php _e('Mega Menu CTA URL', 'advice2025'); ?><br />
+            <input type="text" 
+                   id="edit-menu-item-mega-menu-cta-url-<?php echo $item_id; ?>" 
+                   class="widefat" 
+                   name="menu-item-mega-menu-cta-url[<?php echo $item_id; ?>]" 
+                   value="<?php echo esc_attr($mega_menu_cta_url); ?>" 
+                   placeholder="<?php _e('Optional CTA button URL', 'advice2025'); ?>" />
+        </label>
+    </p>
+    <?php
+}
+add_action('wp_nav_menu_item_custom_fields', 'advice2025_add_menu_item_custom_fields', 10, 4);
+
+/**
+ * Save Mega Menu Custom Fields
+ */
+function advice2025_save_menu_item_custom_fields($menu_id, $menu_item_db_id, $args) {
+    // Save mega menu enable checkbox
+    if (isset($_POST['menu-item-enable-mega-menu'][$menu_item_db_id])) {
+        update_post_meta($menu_item_db_id, '_menu_item_enable_mega_menu', '1');
+    } else {
+        delete_post_meta($menu_item_db_id, '_menu_item_enable_mega_menu');
+    }
+    
+    // Save CTA text
+    if (isset($_POST['menu-item-mega-menu-cta-text'][$menu_item_db_id])) {
+        update_post_meta($menu_item_db_id, '_menu_item_mega_menu_cta_text', sanitize_text_field($_POST['menu-item-mega-menu-cta-text'][$menu_item_db_id]));
+    }
+    
+    // Save CTA URL
+    if (isset($_POST['menu-item-mega-menu-cta-url'][$menu_item_db_id])) {
+        update_post_meta($menu_item_db_id, '_menu_item_mega_menu_cta_url', esc_url_raw($_POST['menu-item-mega-menu-cta-url'][$menu_item_db_id]));
+    }
+}
+add_action('wp_update_nav_menu_item', 'advice2025_save_menu_item_custom_fields', 10, 3);

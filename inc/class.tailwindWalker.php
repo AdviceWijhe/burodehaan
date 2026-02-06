@@ -5,6 +5,9 @@
 class Advice2025_Nav_Walker extends Walker_Nav_Menu {
     
     private $dropdown_item_count = 0;
+    private $is_mega_menu = false;
+    private $mega_menu_cta_text = '';
+    private $mega_menu_cta_url = '';
     
     // Start Level - Add dropdown container
     function start_lvl(&$output, $depth = 0, $args = null) {
@@ -17,9 +20,18 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
             // Full viewport width dropdown container outside navbar
             global $current_dropdown_id;
             $dropdown_class = $current_dropdown_id ? "dropdown-menu-" . $current_dropdown_id : "dropdown-menu";
-            $output .= "\n$indent<div class=\"dropdown-menu {$dropdown_class} fixed left-0 top-full w-screen bg-white backdrop-blur-md opacity-0 invisible transform transition-all duration-300 z-50\">\n";
-			$output .= "$indent\t<div class=\"container-fluid mx-auto px-[100px] py-[80px] max-h-[80vh] overflow-y-auto overscroll-contain\">\n";
-            $output .= "$indent\t\t<div class=\"grid gap-6\" data-dropdown-grid data-dropdown-id=\"{$current_dropdown_id}\">\n";
+            
+            if ($this->is_mega_menu) {
+                $output .= "\n$indent<div class=\"dropdown-menu mega-menu {$dropdown_class} fixed left-0 top-full w-screen bg-white backdrop-blur-md opacity-0 invisible transform transition-all duration-300 z-50\">\n";
+                $output .= "$indent\t<div class=\"container-fluid mx-auto px-[100px] py-[80px] max-h-[80vh] overflow-y-auto overscroll-contain\">\n";
+                $output .= "$indent\t\t<div class=\"flex gap-8\">\n";
+                $output .= "$indent\t\t\t<div class=\"flex-1\">\n";
+                $output .= "$indent\t\t\t\t<div class=\"grid gap-6\" data-dropdown-grid data-dropdown-id=\"{$current_dropdown_id}\">\n";
+            } else {
+                $output .= "\n$indent<div class=\"dropdown-menu {$dropdown_class} fixed left-0 top-full w-screen bg-white backdrop-blur-md opacity-0 invisible transform transition-all duration-300 z-50\">\n";
+                $output .= "$indent\t<div class=\"container-fluid mx-auto px-[100px] py-[80px] max-h-[80vh] overflow-y-auto overscroll-contain\">\n";
+                $output .= "$indent\t\t<div class=\"grid gap-6\" data-dropdown-grid data-dropdown-id=\"{$current_dropdown_id}\">\n";
+            }
         } else {
             $output .= "\n$indent<ul class=\"dropdown-submenu\">\n";
         }
@@ -34,13 +46,43 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
             // Show 4 columns when there are 4 or fewer items, otherwise 5 columns
             $grid_cols = $this->dropdown_item_count <= 4 ? 'grid-cols-4' : 'grid-cols-5';
             
-            $output .= "$indent\t\t</div>\n";
-            $output .= "$indent\t</div>\n";
-            $output .= "$indent</div>\n";
-            
             // Get the current dropdown ID from global variable
             global $current_dropdown_id;
             $dropdown_id = $current_dropdown_id ? $current_dropdown_id : '';
+            
+            if ($this->is_mega_menu) {
+                $output .= "$indent\t\t\t\t</div>\n";
+                $output .= "$indent\t\t\t</div>\n";
+                
+                // Add CTA section if provided
+                if (!empty($this->mega_menu_cta_text) && !empty($this->mega_menu_cta_url)) {
+                    $output .= "$indent\t\t\t<div class=\"w-[350px] flex-shrink-0\">\n";
+                    $output .= "$indent\t\t\t\t<div class=\"bg-gray-50 rounded-lg p-8 h-full flex flex-col justify-center\">\n";
+                    $output .= "$indent\t\t\t\t\t<h3 class=\"text-2xl font-bold text-[#131611] mb-4\">Ontdek meer</h3>\n";
+                    $output .= "$indent\t\t\t\t\t<p class=\"text-gray-600 mb-6\">Neem contact op met ons team voor persoonlijk advies en maatwerkoplossingen.</p>\n";
+                    $output .= "$indent\t\t\t\t\t<a href=\"" . esc_url($this->mega_menu_cta_url) . "\" class=\"inline-flex items-center justify-center gap-2 px-6 py-4 bg-[#FF5822] text-[#131611] rounded font-semibold hover:opacity-90 transition-opacity\">\n";
+                    $output .= "$indent\t\t\t\t\t\t<span>" . esc_html($this->mega_menu_cta_text) . "</span>\n";
+                    $output .= "$indent\t\t\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+                    $output .= "$indent\t\t\t\t\t\t\t<path d=\"M4 10H16M16 10L11 5M16 10L11 15\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n";
+                    $output .= "$indent\t\t\t\t\t\t</svg>\n";
+                    $output .= "$indent\t\t\t\t\t</a>\n";
+                    $output .= "$indent\t\t\t\t</div>\n";
+                    $output .= "$indent\t\t\t</div>\n";
+                }
+                
+                $output .= "$indent\t\t</div>\n";
+                $output .= "$indent\t</div>\n";
+                $output .= "$indent</div>\n";
+                
+                // Reset mega menu flags
+                $this->is_mega_menu = false;
+                $this->mega_menu_cta_text = '';
+                $this->mega_menu_cta_url = '';
+            } else {
+                $output .= "$indent\t\t</div>\n";
+                $output .= "$indent\t</div>\n";
+                $output .= "$indent</div>\n";
+            }
             
             // Add JavaScript to update the grid classes immediately for this dropdown
             $output .= "<script>(function(){\n";
@@ -72,12 +114,26 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
         // Check if item has children
         $has_children = in_array('menu-item-has-children', $classes);
         
+        // Check if mega menu is enabled (only for top-level items with children)
+        $enable_mega_menu = false;
+        if ($has_children && $depth == 0) {
+            $enable_mega_menu = get_post_meta($item->ID, '_menu_item_enable_mega_menu', true);
+            if ($enable_mega_menu) {
+                $this->is_mega_menu = true;
+                $this->mega_menu_cta_text = get_post_meta($item->ID, '_menu_item_mega_menu_cta_text', true);
+                $this->mega_menu_cta_url = get_post_meta($item->ID, '_menu_item_mega_menu_cta_url', true);
+            }
+        }
+        
         // Apply filters
         $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
         
         // Add dropdown functionality classes
         if ($has_children && $depth == 0) {
             $class_names .= ' relative has-dropdown';
+            if ($enable_mega_menu) {
+                $class_names .= ' has-mega-menu';
+            }
         }
         
         $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
