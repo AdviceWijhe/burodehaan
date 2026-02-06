@@ -480,7 +480,7 @@ class HeaderNavigation {
             // Mouse leave on parent
             li.addEventListener('mouseleave', (e) => {
                 if (window.innerWidth < 1024) return;
-                const dropdown = li.querySelector(':scope > .dropdown-menu, :scope > .mega-menu');
+                const dropdown = li.querySelector(':scope > .dropdown-menu');
                 const toEl = e.relatedTarget;
                 if (dropdown && toEl && dropdown.contains(toEl)) {
                     return;
@@ -506,7 +506,7 @@ class HeaderNavigation {
             });
             
             // Handle dropdown hover separately (including mega menus)
-            const dropdown = li.querySelector(':scope > .dropdown-menu, :scope > .mega-menu');
+            const dropdown = li.querySelector(':scope > .dropdown-menu');
             if (dropdown) {
                 dropdown.addEventListener('mouseenter', () => {
                     if (window.innerWidth < 1024) return;
@@ -541,7 +541,7 @@ class HeaderNavigation {
             if (!anchor) return;
             
             // Allow clicks inside dropdown/mega menu content
-            if (anchor.closest('.dropdown-menu') || anchor.closest('.mega-menu')) return;
+            if (anchor.closest('.dropdown-menu')) return;
             
             const li = anchor.closest('li');
             const isTopLevelParent = li && li.parentElement && li.parentElement.id === 'primary-menu' && (
@@ -564,8 +564,7 @@ class HeaderNavigation {
         document.addEventListener('click', (e) => {
             // Don't interfere if clicking on menu items or dropdowns
             if (e.target.closest('.main-navigation') || 
-                e.target.closest('.dropdown-menu') || 
-                e.target.closest('.mega-menu') ||
+                e.target.closest('.dropdown-menu') ||
                 e.target.closest('#dropdown-overlay')) {
                 return;
             }
