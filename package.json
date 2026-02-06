@@ -4,9 +4,11 @@
   "description": "Een moderne WordPress boilerplate template met Tailwind 4.1, ACF flexible content en Gutenberg ondersteuning.",
   "main": "index.js",
   "scripts": {
+    "sync-colors": "node scripts/sync-colors.js",
+    "prebuild": "npm run sync-colors",
     "build": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/style.css",
-    "watch": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/style.css --watch",
-    "build:prod": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/style.css --minify"
+    "watch": "npm run sync-colors && npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/style.css --watch",
+    "build:prod": "npm run sync-colors && npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/style.css --minify"
   },
   "keywords": [
     "wordpress",

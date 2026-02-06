@@ -8,3 +8,8 @@ lg:pb-[80px]
 
 lg:pb-[160px]
 lg:pb-[260px]
+
+bg-primary
+bg-secondary
+bg-tertiary
+bg-quaternary

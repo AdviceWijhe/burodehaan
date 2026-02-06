@@ -32,17 +32,17 @@ function advice2025_get_color_palette() {
         array(
             'name'  => __('Primary', 'advice2025'),
             'slug'  => 'primary',
-            'color' => 'rgb(235 238 240)',
+            'color' => '#FF5822',
         ),
         array(
             'name'  => __('Secondary', 'advice2025'),
             'slug'  => 'secondary',
-            'color' => 'rgb(225 50 44)',
+            'color' => 'rgb(19, 22, 17)',
         ),
         array(
             'name'  => __('Tertiary', 'advice2025'),
             'slug'  => 'tertiary',
-            'color' => 'rgb(66 171 65)',
+            'color' => '#638A8C',
         ),
         array(
             'name'  => __('Quaternary', 'advice2025'),
@@ -91,32 +91,10 @@ function advice2025_setup() {
 add_action('after_setup_theme', 'advice2025_setup');
 
 /**
- * Output theme colors as CSS root variables
- * Maakt CSS root variables aan op basis van de editor color palette
+ * Color variables are now managed in src/input.css
+ * They are automatically synced from this color palette using: npm run sync-colors
+ * This happens automatically before each build (prebuild hook in package.json)
  */
-function advice2025_output_color_variables() {
-    // Haal de color palette op via de helper functie
-    $color_palette = advice2025_get_color_palette();
-    
-    // Genereer CSS root variables
-    echo '<style id="advice2025-color-variables">';
-    echo ':root {';
-    
-    foreach ($color_palette as $color) {
-        $slug = isset($color['slug']) ? $color['slug'] : '';
-        $color_value = isset($color['color']) ? $color['color'] : '';
-        
-        if ($slug && $color_value) {
-            // Converteer slug naar CSS variable naam (bijv. 'light-blue' -> '--color-light-blue')
-            $css_var_name = '--color-' . esc_attr($slug);
-            echo "\n\t" . $css_var_name . ': ' . esc_attr($color_value) . ';';
-        }
-    }
-    
-    echo "\n" . '}';
-    echo '</style>';
-}
-add_action('wp_head', 'advice2025_output_color_variables', 1);
 
 /**
  * Enqueue scripts and styles
