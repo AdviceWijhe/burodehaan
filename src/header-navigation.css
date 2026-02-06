@@ -77,4 +77,21 @@
     .mega-menu-contained {
         min-width: 1440px;
     }
+    
+    /* Ensure mega menu items take full width for proper hover */
+    .mega-menu li,
+    .mega-menu > div > div > ul > li {
+        width: 100%;
+    }
+    
+    /* Ensure links in mega menu take full width and height */
+    .mega-menu a {
+        width: 100%;
+        min-width: 100%;
+    }
+    
+    /* Smooth hover transition for mega menu items */
+    .mega-menu a:hover {
+        background-color: rgb(249 250 251);
+    }
 }

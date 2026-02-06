@@ -206,11 +206,11 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         } else {
             // Dropdown items - check if in mega menu
             if ($this->is_mega_menu && $depth == 1) {
-                // Mega menu items - card style
-                $link_classes = 'block p-4 rounded-lg transition-all duration-300 hover:bg-gray-50 group/mega-item';
+                // Mega menu items - card style with flex for proper icon alignment
+                $link_classes = 'flex items-center w-full p-4 rounded-lg transition-all duration-300 hover:bg-gray-50 group/mega-item';
             } else {
                 // Regular dropdown items
-                $link_classes = 'block px-4 py-2 text-[15px] leading-[1.8] font-medium transition-colors duration-300';
+                $link_classes = 'flex items-center w-full px-4 py-2 text-[15px] leading-[1.8] font-medium transition-colors duration-300';
             }
             
             if ($is_current) {
@@ -230,15 +230,15 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         // Add icon if set (only for dropdown items)
         if ($depth > 0 && $icon_type && $icon_type !== 'none') {
             if ($icon_type === 'fontawesome' && !empty($fa_icon)) {
-                $item_output .= '<span class="menu-item-icon mr-3"><i class="' . esc_attr($fa_icon) . '" style="font-size: 18px;"></i></span>';
+                $item_output .= '<span class="menu-item-icon flex-shrink-0 mr-3"><i class="' . esc_attr($fa_icon) . '" style="font-size: 18px;"></i></span>';
             } elseif ($icon_type === 'custom' && !empty($custom_icon)) {
-                $item_output .= '<span class="menu-item-icon mr-3"><img src="' . esc_url($custom_icon) . '" alt="" style="width: 24px; height: 24px; object-fit: contain;" /></span>';
+                $item_output .= '<span class="menu-item-icon flex-shrink-0 mr-3"><img src="' . esc_url($custom_icon) . '" alt="" style="width: 24px; height: 24px; object-fit: contain;" /></span>';
             }
         }
         
         // Menu item title
         $item_output .= (isset($args->link_before) ? $args->link_before : '') 
-            . '<span>' . apply_filters('the_title', $item->title, $item->ID) . '</span>' 
+            . '<span class="flex-1">' . apply_filters('the_title', $item->title, $item->ID) . '</span>' 
             . (isset($args->link_after) ? $args->link_after : '');
         
         // Add dropdown arrow for items with children (top level only)

@@ -210,7 +210,7 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
             $this->dropdown_item_count++;
             
             // Dropdown items - full width cards with images
-            $link_classes = 'dropdown-link block bg-white group/submenu  transition-all duration-300 h-full';
+            $link_classes = 'dropdown-link flex flex-col w-full bg-white group/submenu transition-all duration-300 h-full';
         }
 
         // Add active class to the link if this item is current (including archives)
