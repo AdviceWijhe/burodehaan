@@ -111,7 +111,7 @@ $introtekst = get_field('introtekst', $posts_page_id);
                                 </div>
                             <?php endif; ?>
                             
-                            <div class="bg-primary p-6 rounded-b-[16px]">
+                            <div class="bg-light p-6 rounded-b-[16px]">
                                 <!-- Categorie en Datum -->
                                 <div class="flex items-center gap-4 mb-4">
                                     <?php 
@@ -157,7 +157,7 @@ $introtekst = get_field('introtekst', $posts_page_id);
                                     <?php endif; ?>
                                     
                                     <!-- Content rechts -->
-                                    <div class="flex-1 bg-primary p-4 rounded-r-[16px]">
+                                    <div class="flex-1 bg-light p-4 rounded-r-[16px]">
                                         <!-- Categorie en Datum -->
                                         <div class="flex items-center gap-3 mb-2">
                                             <?php if ($category) : ?>
