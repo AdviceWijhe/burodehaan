@@ -205,9 +205,12 @@ get_header(); ?>
                                                 <?php endif; ?>
                                                 <span class="body-small text-black"><?php echo get_the_date(); ?></span>
                                             </div>
-                                            <h3 class="headline-small text-black group-hover:text-primary transition-colors line-clamp-2">
+                                            <h3 class="title-large text-black group-hover:text-primary transition-colors line-clamp-2 flex-shrink-0">
                                                 <?php the_title(); ?>
                                             </h3>
+                                            <div class="body-small text-gray-700 mt-2 line-clamp-2 flex-1 min-h-0">
+                                                <?php echo wp_trim_words(get_the_excerpt() ?: get_the_content(), 15, '...'); ?>
+                                            </div>
                                         </div>
                                     </a>
                                 <?php endwhile; wp_reset_postdata(); ?>
