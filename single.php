@@ -8,80 +8,71 @@ get_header(); ?>
         
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             
-            <!-- Page Header -->
+            <!-- Page Header: titel + excerpt links, uitgelichte afbeelding rechts, op achtergrond tertiary -->
             <?php if (get_the_title()) : ?>
                 <header class="page-header mb-[60px] lg:mb-[200px]">
-
-<div class="px-[20px] pt-[20px] lg:px-[80px] lg:pt-[80px] relative z-1 mb-[60px] lg:mb-12">
-    <!-- yoast breadcrumbs -->
-    <?php if (function_exists('yoast_breadcrumb')) {
-      yoast_breadcrumb('<p id="breadcrumbs">', '</p>');
-    } ?>
-  </div>
-                    <div class="container mx-auto px-0!">
-                        <div class="w-full lg:w-8/12 mx-auto  px-[20px] lg:px-0!">
-                        <div class="flex items-center justify-center gap-2 text-center mb-[20px]">
-                        <?php 
-                        if(get_post_type() == 'case') {
-                            $categories = get_the_category();
-                            foreach($categories as $category) {
-                                echo '<div class="label-medium text-white bg-blue border border-light-blue  badge">' . $category->name . '</div>';
-                            }
-                            // Jaartal van get_the_date('Y')
-                            echo '<div class="label-medium text-blue bg-white border border-light-blue  badge">' . get_the_date('Y') . '</div>';
-                        }
-                        if(get_post_type() == 'vacature') {
-                            $locatie = get_field('locatie');
-                            $uren = get_field('uren_per_week');
-                            $type = get_field('type_contract');
-
-                            echo '<div class="flex items-center gap-2">';
-                            echo '<div class="label-medium text-white bg-blue border border-light-blue  badge">' . $locatie . '</div>';
-                            echo '<div class="label-medium text-blue bg-white border border-light-blue  badge">' . $uren . '</div>';
-                            echo '<div class="label-medium text-blue bg-white border border-light-blue  badge">' . $type . '</div>';
-                            echo '</div>';
-                        }
-                        ?>
+                    <div class="bg-[var(--color-light)] w-full">
+                        <!-- Breadcrumbs linksboven, 40px boven de foto/content -->
+                        <div class="px-[20px] pt-[20px] lg:px-[80px] lg:pt-[80px] pb-[100px] lg:pb-[100px]">
+                            <?php if (function_exists('yoast_breadcrumb')) {
+                                yoast_breadcrumb('<p id="breadcrumbs">', '</p>');
+                            } ?>
                         </div>
-                        <h1 class="headline-large text-center mb-[32px]!"><?php the_title(); ?></h1>
-                        <?php if (get_field('header')['intro']) : ?>
-                            <div class="body-large text-center max-w-[630px] mx-auto"><?= get_field('header')['intro'] ?></div>
+                        <div class="w-full flex flex-col lg:flex-row lg:min-h-[320px]">
+                            <!-- Links: titel + excerpt -->
+                            <div class="flex-1 px-[20px] lg:px-[80px] py-[40px] lg:py-[60px] order-2 lg:order-1 flex flex-col justify-center">
+                                <div class="flex flex-wrap items-center gap-2 mb-[20px]">
+                                    <?php
+                                    $categories = get_the_category();
+                                    if (!empty($categories)) {
+                                        foreach ($categories as $category) {
+                                            echo '<span class="label-medium text-black">' . esc_html($category->name) . '</span>';
+                                            if ($category !== end($categories)) {
+                                                echo '<span class="label-medium text-black">·</span>';
+                                            }
+                                        }
+                                    }
+                                    if (!empty($categories)) {
+                                        echo '<span class="label-medium text-black">·</span>';
+                                    }
+                                    echo '<span class="label-medium text-black">' . esc_html(get_the_date()) . '</span>';
+                                    ?>
+                                </div>
+                                <h1 class="headline-large text-black mb-[24px]! text-[48px]!"><?php the_title(); ?></h1>
+                                <?php
+                                $intro = get_field('header')['intro'] ?? '';
+                                if ($intro) :
+                                    echo '<div class="body-large text-black">' . wp_kses_post($intro) . '</div>';
+                                elseif (has_excerpt()) :
+                                    echo '<div class="body-large text-black">' . get_the_excerpt() . '</div>';
+                                endif;
+                                ?>
+                            </div>
+                            <!-- Rechts: uitgelichte afbeelding, helemaal tegen de rechterrand -->
+                            <?php if (has_post_thumbnail()) : ?>
+                                <div class="lg:w-[45%] lg:min-w-[400px] order-1 lg:order-2 lg:ml-auto">
+                                    <div class="w-full h-full min-h-[240px] lg:min-h-full aspect-[4/3] lg:aspect-auto rounded-tl-[16px] overflow-hidden" style="border-radius: 16px 0 0 0;">
+                                        <?php echo wp_get_attachment_image(get_post_thumbnail_id(), 'large', false, array(
+                                            'class' => 'w-full h-full object-cover object-center',
+                                            'alt' => get_the_title(),
+                                            'loading' => 'eager',
+                                        )); ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <?php if (get_field('header')['usps']) : ?>
+                            <div class="bg-pink flex flex-wrap gap-2 justify-center items-center flex-col lg:flex-row relative overflow-hidden lg:py-[60px]">
+                                <?php foreach (get_field('header')['usps'] as $usp) : ?>
+                                    <div class="usp flex gap-2 items-center flex-1 w-[calc(100%-40px)] justify-center flex-col border-b lg:border-b-0 border-white/30 lg:border-r text-white py-[40px] relative z-10">
+                                        <div class="label text-light-pink mb-[12px]!"><?= esc_html($usp['label'] ?? '') ?></div>
+                                        <span class="title-large leading-[100%]!"><?= esc_html($usp['titel'] ?? '') ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         <?php endif; ?>
                     </div>
-
-
-
-                    <!-- Image -->
-                    <?php if(has_post_thumbnail()) : ?>
-                        <div class="w-full mx-auto max-h-[600px] overflow-hidden mt-[60px]">
-                            <?php echo wp_get_attachment_image(get_post_thumbnail_id(), 'full', false, array(
-                                'class' => 'w-full h-full object-cover object-center',
-                                'alt' => get_the_title(),
-                                'loading' => 'eager' // Above the fold
-                            )); ?>
-                        </div>
-                    <?php endif; ?>
-
-
-
-
-
-                    <?php if(get_field('header')['usps']) : ?>
-
-                <div class="bg-pink flex flex-wrap gap-2 justify-center items-center flex-col lg:flex-row relative overflow-hidden lg:py-[60px]">
-                    <?php foreach(get_field('header')['usps'] as $usp) : ?>
-                        <div class="usp flex gap-2 items-center flex-1 w-[calc(100%-40px)] justify-center flex-col border-b lg:border-b-0 border-white/30 lg:border-r text-white py-[40px] relative z-10">
-                        
-                            <div class="label text-light-pink mb-[12px]!"><?= $usp['label'] ?></div>
-                            <span class="title-large leading-[100%]!"><?= $usp['titel'] ?></span>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <?php endif; ?>
-                    </div>
-
-                    
                 </header>
             <?php endif; ?>
             
