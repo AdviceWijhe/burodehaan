@@ -161,7 +161,7 @@ $introtekst = get_field('introtekst', $posts_page_id);
                                         <!-- Categorie en Datum -->
                                         <div class="flex items-center gap-3 mb-2">
                                             <?php if ($category) : ?>
-                                                <span class="label-medium text-primary text-sm"><?php echo esc_html($category->name); ?></span>
+                                                <span class="label-medium text-black text-sm"><?php echo esc_html($category->name); ?></span>
                                             <?php endif; ?>
                                             <span class="body-small text-gray-600"><?php echo get_the_date('', $post->ID); ?></span>
                                         </div>
@@ -199,7 +199,7 @@ $introtekst = get_field('introtekst', $posts_page_id);
     ?>
     <section class="recent-posts py-[60px] lg:py-[80px]">
         <div class="container mx-auto px-[20px] lg:px-[80px]">
-            <h2 class="headline-medium mb-[40px]! text-center lg:text-left text-black">Meest recent</h2>
+            <h2 class="headline-medium mb-[40px]! text-center lg:text-left text-black">Recent</h2>
 
             <?php if ($recent_query->have_posts()) : ?>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -209,9 +209,9 @@ $introtekst = get_field('introtekst', $posts_page_id);
                         $categories = get_the_category();
                         $category = !empty($categories) ? $categories[0] : null;
                     ?>
-                        <a href="<?php the_permalink(); ?>" class="block group overflow-hidden rounded-[16px] bg-white">
+                        <a href="<?php the_permalink(); ?>" class="block group overflow-hidden rounded-[16px] bg-white flex flex-col h-full">
                             <?php if (has_post_thumbnail()) : ?>
-                                <div class="relative w-full aspect-[16/10] overflow-hidden rounded-t-[16px]">
+                                <div class="relative w-full aspect-[16/10] overflow-hidden rounded-t-[16px] flex-shrink-0">
                                     <?php the_post_thumbnail('medium_large', array(
                                         'class' => 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105',
                                         'alt'   => get_the_title(),
@@ -220,17 +220,18 @@ $introtekst = get_field('introtekst', $posts_page_id);
                                 </div>
                             <?php endif; ?>
 
-                            <div class="bg-light p-4 lg:p-5 rounded-b-[16px]">
-                                <div class="flex items-center gap-3 mb-2">
+                            <div class="bg-light p-4 lg:p-5 rounded-b-[16px] flex flex-col flex-1 min-h-0">
+                                <div class="flex items-center gap-3 mb-2 flex-shrink-0">
                                     <?php if ($category) : ?>
-                                        <span class="label-medium text-primary"><?php echo esc_html($category->name); ?></span>
+                                        <span class="label-small text-black"><?php echo esc_html($category->name); ?></span>
                                     <?php endif; ?>
-                                    <span class="body-small text-gray-600"><?php echo get_the_date(); ?></span>
+                                    <span>•</span>
+                                    <span class="label-small text-black"><?php echo get_the_date(); ?></span>
                                 </div>
-                                <h3 class="headline-small lg:body-large-bold text-black group-hover:text-primary transition-colors">
+                                <h3 class="headline-small lg:body-large-bold text-black group-hover:text-primary transition-colors flex-shrink-0">
                                     <?php the_title(); ?>
                                 </h3>
-                                <div class="body-small text-gray-700 mt-2 line-clamp-2">
+                                <div class="body-small text-gray-700 mt-2 line-clamp-2 flex-1 min-h-0">
                                     <?php echo wp_trim_words(get_the_excerpt() ?: get_the_content(), 15, '...'); ?>
                                 </div>
                             </div>
