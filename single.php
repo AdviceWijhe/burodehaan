@@ -179,9 +179,9 @@ get_header(); ?>
             <?php if ($related_posts->have_posts()) : ?>
                 <section class="related-posts pb-[60px] lg:pb-[100px]">
                     <div class="container mx-auto px-[20px] lg:px-[80px]">
-                        <div class="max-w-4xl mx-auto">
-                            <h2 class="headline-medium text-black mb-[32px]!">Meer artikelen</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-[40px]">
+                        <div class="mx-auto">
+                            <h2 class="headline-medium text-black mb-[32px]!">Overige artikelen</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-[36px] mb-[60px]">
                                 <?php
                                 while ($related_posts->have_posts()) :
                                     $related_posts->the_post();
@@ -216,7 +216,7 @@ get_header(); ?>
                                 <?php endwhile; wp_reset_postdata(); ?>
                             </div>
                             <div class="flex justify-center">
-                                <a href="<?php echo esc_url(home_url('/nieuws')); ?>" class="btn bg-primary text-white border border-primary hover:bg-secondary hover:text-white">
+                                <a href="<?php echo esc_url(home_url('/nieuws')); ?>" class="btn bg-primary text-black border border-primary hover:bg-secondary hover:text-white">
                                     <?php esc_html_e('Alle artikelen', 'advice2025'); ?>
                                 </a>
                             </div>

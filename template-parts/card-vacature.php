@@ -89,39 +89,32 @@ if (!empty($soort_vacature)) {
     <!-- Midden: Badges met aantal_uren, locatie en soort_vacature -->
     <div class="flex-shrink-0 flex items-center gap-3">
         <?php if (!empty($aantal_uren)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-[4px] text-sm font-medium whitespace-nowrap">
+            <span class="inline-block px-4 py-2 border-2 border-light rounded-[4px] label-small whitespace-nowrap">
                 <?php echo esc_html($aantal_uren . ' uur'); ?>
             </span>
         <?php endif; ?>
         
         <?php if (!empty($locatie)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-[4px] text-sm font-medium whitespace-nowrap">
+            <span class="inline-block px-4 py-2 border-2 border-light rounded-[4px] label-small whitespace-nowrap">
                 <?php echo esc_html($locatie); ?>
             </span>
         <?php endif; ?>
         
         <?php if (!empty($soort_label)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-[4px] text-sm font-medium whitespace-nowrap">
+            <span class="inline-block px-4 py-2 border-2 border-light rounded-[4px] label-small whitespace-nowrap">
                 <?php echo esc_html($soort_label); ?>
             </span>
         <?php elseif (!empty($soort_vacature)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-black text-black rounded-[4px] text-sm font-medium whitespace-nowrap">
+            <span class="inline-block px-4 py-2 border-2 border-light rounded-[4px] label-small whitespace-nowrap">
                 <?php echo esc_html(ucfirst($soort_vacature)); ?>
             </span>
         <?php endif; ?>
     </div>
     
-    <!-- Rechter kant: Chevron button -->
-    <div class="flex-shrink-0">
-        <span class="inline-flex items-center justify-center">
-            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-transform duration-300 group-hover:translate-x-1">
-                <circle cx="12.5" cy="12.5" r="12" stroke="#480E25"/>
-                <g class="arrow-group">
-                    <rect x="7" y="11.7427" width="10" height="1" fill="#480E25"/>
-                    <rect x="17.4854" y="12.2427" width="1" height="6" transform="rotate(135 17.4854 12.2427)" fill="#480E25"/>
-                    <rect x="17.4854" y="12.2427" width="6" height="1" transform="rotate(135 17.4854 12.2427)" fill="#480E25"/>
-                </g>
-            </svg>
-        </span>
+    <!-- Rechter kant: Primary vierkant met chevron right -->
+    <div class="flex-shrink-0 w-10 h-10 rounded-[4px] bg-primary flex items-center justify-center text-black transition-transform duration-300 group-hover:translate-x-1">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0" aria-hidden="true">
+            <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
     </div>
 </a>

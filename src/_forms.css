@@ -336,4 +336,24 @@
   .gform-footer {
     margin-top: 28px;
   }
+
+  /* Nieuwsbrief-block: labels verbergen (ook als in GF uitgezet), weinig ruimte rond knop */
+  .nieuwsbrief-section .gform_wrapper .gfield_label,
+  .nieuwsbrief-section .gform_wrapper label.gfield_label {
+    display: none !important;
+  }
+
+  .nieuwsbrief-section .gform_footer,
+  .nieuwsbrief-section .gform-footer {
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  .nieuwsbrief-section .gform_footer .gform_button,
+  .nieuwsbrief-section .gform_footer input[type="submit"],
+  .nieuwsbrief-section .gform-footer .gform_button,
+  .nieuwsbrief-section .gform-footer input[type="submit"] {
+    margin: 0;
+    display: inline-block;
+  }
 }

@@ -26,14 +26,16 @@ if ($vacatures) : ?>
         <div class="container mx-auto py-[60px]! lg:py-[100px]! relative overflow-hidden">
             <div class="lg:px-[100px] relative">
                 <div class="mb-7 lg:mb-12">
-                    <h2 class=""><?= get_sub_field('titel') ?></h2>
+                    <h2 class="headline-large text-center"><?= get_sub_field('titel') ?></h2>
+                    <div class="body-large text-center"><?= get_sub_field('tekst') ?></div>
                 </div>
                 
                 <!-- Filter knoppen -->
-                <div class="mb-8 lg:mb-12 flex flex-wrap gap-3">
+                <div class="mb-8 lg:mb-12 flex flex-wrap items-center gap-3">
+                    <span class="font-medium">Filter:</span>
                     <?php foreach ($filter_options as $value => $label) : ?>
                         <button 
-                            class="vacature-filter-btn px-6 py-3 rounded-[4px] border-2 border-black/30 text-black hover:border-black hover:bg-black/5 transition-all duration-300 <?php echo $value === 'alle' ? 'active bg-black/10 border-black' : ''; ?>"
+                            class="vacature-filter-btn px-6 py-3 rounded-[4px] border-2 border-light/30 text-black hover:border-light hover:bg-black/5 transition-all duration-300 <?php echo $value === 'alle' ? 'active bg-black/10 border-light' : ''; ?>"
                             data-filter="<?php echo esc_attr($value); ?>"
                             type="button">
                             <?php echo esc_html($label); ?>
@@ -42,7 +44,7 @@ if ($vacatures) : ?>
                 </div>
                 
                 <div class="w-full">
-                    <div class="vacatures-lijst flex flex-col gap-4">
+                    <div class="vacatures-lijst flex flex-col gap-[20px]">
                         <?php foreach ($vacatures as $index => $vacature) : 
                             // Haal genest veld op uit Header group
                             $header_group = get_field('header', $vacature->ID);
@@ -85,11 +87,11 @@ if ($vacatures) : ?>
                     
                     // Update active state
                     filterButtons.forEach(btn => {
-                        btn.classList.remove('active', 'bg-black/10', 'border-black');
-                        btn.classList.add('border-black/30');
+                        btn.classList.remove('active', 'bg-black/10', 'border-light');
+                        btn.classList.add('border-light/30');
                     });
-                    this.classList.add('active', 'bg-black/10', 'border-black');
-                    this.classList.remove('border-black/30');
+                    this.classList.add('active', 'bg-black/10', 'border-light');
+                    this.classList.remove('border-light/30');
                     
                     // Filter vacatures
                     vacatureItems.forEach(item => {
