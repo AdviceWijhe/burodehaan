@@ -233,14 +233,14 @@ $backgroundPatroon = 'pink';
           }
         </style>
         <div class="swiper-container-eigen <?= $rand_class_eigen ?>">
-          <div class="swiper-wrapper lg:!grid lg:grid-cols-3 gap-0 lg:gap-4 relative">
+          <div class="swiper-wrapper lg:!grid lg:grid-cols-3 gap-0 lg:gap-9 relative">
             <?php foreach($items as $item) : ?>
-              <div class="swiper-slide w-full text-white px-[20px] lg:px-[60px] py-[40px] lg:py-[60px] flex flex-col items-start relative overflow-hidden">
+              <div class="swiper-slide w-full bg-white p-[40px] flex flex-col items-start relative overflow-hidden text-[var(--color-secondary)] rounded-[16px]">
               <?php 
               $icoon = $item['icoon'];
               if ($icoon && isset($icoon['ID'])) {
                 echo wp_get_attachment_image($icoon['ID'], 'medium', false, array(
-                  'class' => 'mb-[40px] h-[60px] w-auto relative z-10',
+                  'class' => 'mb-[40px] h-[80px] w-auto relative z-10',
                   'alt' => $icoon['alt'] ?? '',
                   'loading' => 'lazy'
                 ));
@@ -252,8 +252,8 @@ $backgroundPatroon = 'pink';
                      loading="lazy">
               <?php } ?>
               
-                <h4 class="mb-[24px]! lg:mb-[50px]! relative z-10"><?= $item['card_title'] ?></h4>
-                <div class="relative text-white/70">
+                <h4 class="mb-[12px]! lg:mb-[12px]! relative z-10 text-[var(--color-secondary)]"><?= $item['card_title'] ?></h4>
+                <div class="relative text-[var(--color-secondary)]">
                   <?= $item['content'] ?>
                 </div>
               </div>

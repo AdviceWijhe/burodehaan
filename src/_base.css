@@ -11,6 +11,7 @@
 /* Base Styles */
 body {
     font-family: var(--font-family-primary);
+    background-color: #F7F7F6;
     line-height: 1.5;
     font-size: clamp(.875rem, calc(.0952vw + .8518rem), .9375rem);
     font-weight: 500;
