@@ -248,7 +248,7 @@ $backgroundPatroon = 'pink';
               ?>
                 <img src="<?= esc_url($icoon['url']) ?>" 
                      alt="<?= esc_attr($icoon['alt'] ?? '') ?>" 
-                     class="mb-[40px] lg:mb-[60px] h-[60px] w-auto relative z-10"
+                     class="mb-[40px] lg:mb-[60px] h-[80px] w-auto relative z-10"
                      loading="lazy">
               <?php } ?>
               
