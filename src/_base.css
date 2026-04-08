@@ -12,9 +12,9 @@
 body {
     font-family: var(--font-family-primary);
     background-color: #F7F7F6;
-    line-height: 1.5;
-    font-size: clamp(.875rem, calc(.0952vw + .8518rem), .9375rem);
-    font-weight: 500;
+    line-height: 150%;
+    font-size: 16px;
+    font-weight: 300;
     -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     /* Dynamic body padding - will be set by JavaScript */
@@ -28,10 +28,10 @@ body {
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6, .headline-large, .headline-medium, .headline-small {
+h1, h2, h3, h4, h5, h6, .display-medium, .headline-large, .headline-medium, .headline-small, .title-large, .title-medium, .title-small {
     font-family: var(--font-family-primary);
-    font-weight: 400;
-    line-height: 110%;
+    font-style: normal;
+    line-height: 120%;
     position: relative;
 
     &.no-after {
@@ -41,47 +41,80 @@ h1, h2, h3, h4, h5, h6, .headline-large, .headline-medium, .headline-small {
     }
 }
 
-h1, .headline-large {
-  font-size: clamp(36px, calc(28px + 2.5vw), 64px);
-  line-height: 100%;
+h1, .display-medium {
+  font-size: 100px;
+  font-weight: 300;
+  letter-spacing: -2px;
 }
 
-h2, .headline-medium {
-  font-size: clamp(28px, calc(21.143px + 2.143vw), 52px);
-  line-height: 100%;
+h2, .headline-large {
+  font-size: 62px;
+  font-weight: 300;
 }
 
-h3, .headline-small {
-  font-size: clamp(20px, calc(18.857px + 0.357vw), 24px);
+h3, .headline-medium {
+  font-size: 42px;
+  font-weight: 300;
 }
 
-h4, .title-large {
-  font-size: clamp(20px, calc(18.857px + 0.357vw), 24px);
-  line-height: 100%;
+h4, .headline-small {
+  font-size: 32px;
+  font-weight: 300;
 }
 
-h5, .title-medium {
-  font-size: clamp(18px, calc(17.429px + 0.179vw), 20px);
+h5, .title-large {
+  font-size: 28px;
+  font-weight: 300;
 }
 
-h6, .title-small {
-  font-size: clamp(18px, calc(17.429px + 0.179vw), 20px);
+h6, .title-medium {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.title-small {
+  font-size: 18px;
+  font-weight: 400;
 }
 
 /* Labels */
+.label-large {
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
 .label-medium {
   font-family: var(--font-family-primary);
-  font-size: clamp(14px, calc(13.429px + 0.179vw), 16px);
-  line-height: 100%;
+  font-size: 13px;
+  font-style: normal;
   font-weight: 500;
+  line-height: 140%;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+.label-small {
+  font-family: var(--font-family-primary);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
 }
 
 /* Body Text Variants */
 .body-large {
   font-family: var(--font-family-primary);
-  font-size: clamp(15px, calc(14.143px + 0.268vw), 18px);
-  line-height: 160%;
-  font-weight: 400;
+  font-size: 21px;
+  font-style: normal;
+  line-height: 150%;
+  font-weight: 300;
 }
 
 .body-large-bold {
@@ -93,9 +126,10 @@ h6, .title-small {
 
 .body-medium {
   font-family: var(--font-family-primary);
-  font-size: clamp(14px, calc(13.429px + 0.179vw), 16px);
-  line-height: 160%;
-  font-weight: 400;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 150%;
+  font-weight: 300;
 }
 
 .body-medium-bold {
@@ -107,16 +141,42 @@ h6, .title-small {
 
 .body-small {
   font-family: var(--font-family-primary);
-  font-size: clamp(13px, calc(12.714px + 0.089vw), 14px);
-  line-height: 160%;
-  font-weight: 400;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 150%;
+  font-weight: 300;
 }
 
 .body-small-bold {
   font-family: var(--font-family-primary);
-  font-size: clamp(13px, calc(12.714px + 0.089vw), 14px);
-  line-height: 160%;
+  font-size: 14px;
+  line-height: 150%;
   font-weight: 500;
+}
+
+/* List Text Variants */
+.list-large {
+  font-family: var(--font-family-primary);
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 130%;
+}
+
+.list-medium {
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 130%;
+}
+
+.list-small {
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 130%;
 }
 
 /* Paragraphs */

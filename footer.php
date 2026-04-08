@@ -1,167 +1,258 @@
-    <footer id="colophon" class="site-footer bg-light mt-auto relative overflow-hidden">
-    <div class="container mx-auto py-20! lg:py-25! relative z-10">
-    <div class="w-full mb-[80px]">
-            <!-- Site logo from customizer -->
-             <?php if (has_custom_logo()) : ?>
-                <div class="site-logo">
-                    <a href="<?php echo esc_url(home_url('/')); ?>" class="block">
-                        <?php 
-                        $custom_logo_id = get_theme_mod('custom_logo');
-                        $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-                        if ($logo) {
-                            echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="h-[50px] lg:h-[80px] w-auto object-contain">';
+<footer id="colophon" class="site-footer mt-auto relative overflow-hidden w-full bg-[#0D0F12] text-white">
+    <?php
+    $expertises = get_posts(array(
+        'post_type' => 'expertise',
+        'post_status' => 'publish',
+        'numberposts' => -1,
+        'orderby' => 'menu_order',
+        'order' => 'ASC',
+    ));
+
+    $themas = get_posts(array(
+        'post_type' => 'thema',
+        'post_status' => 'publish',
+        'numberposts' => -1,
+        'orderby' => 'menu_order',
+        'order' => 'ASC',
+    ));
+
+    $socials = get_field('socials', 'option');
+    $footer_group = get_field('footer', 'option');
+    $footer_logo = is_array($footer_group) && !empty($footer_group['footerlogo']) ? $footer_group['footerlogo'] : get_field('footerlogo', 'option');
+    $locations = get_field('locaties', 'option');
+    if (!is_array($locations) || empty($locations)) {
+        $fallback_location = array_filter(array(
+            'naam' => get_field('locatie_naam', 'option'),
+            'adres' => get_field('adres', 'option'),
+            'postcode_woonplaats' => get_field('postcode_+_woonplaats', 'option'),
+            'telefoonnummer' => get_field('telefoonnummer', 'option'),
+            'emailadres' => get_field('emailadres', 'option'),
+        ));
+        $locations = !empty($fallback_location) ? array($fallback_location) : array();
+    }
+    ?>
+
+    <div class="w-full px-[20px] lg:px-[60px] py-[80px] lg:py-[100px]">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-[60px] gap-x-[80px]">
+            <div class="grid grid-cols-1 gap-y-[120px]">
+                <div>
+                    <h6 class="mb-5 text-white title-small">Expertises</h6>
+                    <?php if (!empty($expertises)) : ?>
+                        <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
+                            <?php foreach ($expertises as $expertise) : ?>
+                                <li>
+                                    <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_permalink($expertise->ID)); ?>">
+                                        <?php echo esc_html(get_the_title($expertise->ID)); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                </div>
+
+                <div>
+                    <h6 class="mb-5 text-white title-small">Thema's</h6>
+                    <?php if (!empty($themas)) : ?>
+                        <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
+                            <?php foreach ($themas as $thema) : ?>
+                                <li>
+                                    <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_permalink($thema->ID)); ?>">
+                                        <?php echo esc_html(get_the_title($thema->ID)); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-[50px] gap-y-[50px]">
+                <div>
+                    <h6 class="mb-5 text-white title-small">Navigeer</h6>
+                    <?php
+                    if (has_nav_menu('footer-menu-1')) {
+                        wp_nav_menu(array(
+                            'theme_location' => 'footer-menu-1',
+                            'container' => false,
+                            'menu_class' => 'space-y-[28px] list-medium text-white/70',
+                            'fallback_cb' => false,
+                        ));
+                    }
+                    ?>
+                </div>
+
+                <div>
+                    <h6 class="mb-5 text-white title-small">Over ons</h6>
+                    <?php
+                    if (has_nav_menu('footer-menu-2')) {
+                        wp_nav_menu(array(
+                            'theme_location' => 'footer-menu-2',
+                            'container' => false,
+                            'menu_class' => 'space-y-[28px] list-medium text-white/70',
+                            'fallback_cb' => false,
+                        ));
+                    }
+                    ?>
+                </div>
+
+                <div class="md:col-span-1 lg:col-span-1">
+                    <?php if (!empty($locations)) : ?>
+                        <?php foreach ($locations as $location) : ?>
+                            <?php
+                            $location_title = $location['titel'] ?? ($location['naam'] ?? '');
+                            $location_address = $location['adres'] ?? '';
+                            $location_postal_city = $location['postcode_+_woonplaats'] ?? ($location['postcode_woonplaats'] ?? '');
+                            $location_phone = $location['telefoonnummer'] ?? '';
+                            $location_email = $location['emailadres'] ?? '';
+                            ?>
+                            <div class="mb-8 last:mb-0">
+                                <?php if (!empty($location_title)) : ?>
+                                    <h6 class="mb-4 text-white title-small"><?php echo esc_html($location_title); ?></h6>
+                                <?php endif; ?>
+                                <?php if (!empty($location_address)) : ?>
+                                    <p class="mb-1 text-white/80 body-medium"><?php echo esc_html($location_address); ?></p>
+                                <?php endif; ?>
+                                <?php if (!empty($location_postal_city)) : ?>
+                                    <p class="mb-4 text-white/80 body-medium"><?php echo esc_html($location_postal_city); ?></p>
+                                <?php endif; ?>
+                                <?php if (!empty($location_phone)) : ?>
+                                    <a class="block text-white/80 hover:text-white transition-colors mb-1 body-medium" href="<?php echo esc_url('tel:' . preg_replace('/\s+/', '', $location_phone)); ?>">
+                                        <?php echo esc_html($location_phone); ?>
+                                    </a>
+                                <?php endif; ?>
+                                <?php if (!empty($location_email)) : ?>
+                                    <a class="block text-white/80 hover:text-white transition-colors body-medium" href="<?php echo esc_url('mailto:' . $location_email); ?>">
+                                        <?php echo esc_html($location_email); ?>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-[70px] relative flex flex-col lg:flex-row lg:items-center gap-y-8">
+            <div class="flex items-center gap-4">
+                <?php if (!empty($socials) && is_array($socials)) : ?>
+                    <?php foreach ($socials as $social) : ?>
+                        <?php
+                        $social_link = $social['link'] ?? null;
+                        $social_icon = $social['icon'] ?? null;
+                        if (empty($social_link['url']) || empty($social_icon)) {
+                            continue;
                         }
                         ?>
-                    </a>
-                </div>
-            <?php endif; ?>
-          </div>
-        <div class="flex flex-col lg:flex-row w-full">
-          <div class="w-full lg:w-6/12">
-            <div class="flex flex-col lg:flex-row">
-              <!-- 3x een menu locatie -->
-              <?php if ( has_nav_menu( 'footer-menu-1' ) ) : ?>
-                <nav class="footer-menu-1 w-full lg:w-1/2">
-                  <?php 
-                  $menu_items = wp_get_nav_menu_items( get_nav_menu_locations()['footer-menu-1'] );
-                  if ( $menu_items && count( $menu_items ) > 0 ) :
-                    $first_item = $menu_items[0];
-                    $remaining_items = array_slice( $menu_items, 1 );
-                  ?>
-                    <div class="footer-menu-mobile">
-                      <span class="footer-menu-title font-semibold title-small mb-5 block"><?php echo esc_html( $first_item->title ); ?></span>
-                      <ul class="footer-menu-items block space-y-[18px]">
-                        <?php foreach ( $remaining_items as $item ) : 
-                          // Haal de CSS classes op van het menu item
-                          $classes = empty($item->classes) ? array() : (array) $item->classes;
-                          $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item));
-                          $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
-                          
-                          // Genereer de link HTML met arrow icon
-                          $arrow_svg = '<svg class="footer-menu-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="6" height="9" viewBox="0 0 6 9" fill="none">
-  <path d="M1.06055 -4.6358e-08L5.30371 4.24316L1.06055 8.48535L-4.6358e-08 7.4248L3.18164 4.24316L-3.24549e-07 1.06055L1.06055 -4.6358e-08Z" fill="#96ACC0"/>
-</svg>';
-                          $link_html = '<a href="' . esc_url( $item->url ) . '" class="footer-menu-link text-white hover:text-white hover:cursor-pointer font-normal inline-flex items-center gap-2 group relative translate-x-[-15px] hover:translate-x-0  duration-300 transition-all">' . $arrow_svg . '<span>' . esc_html( $item->title ) . '</span></a>';
-                          
-                          // Voeg vacature counter toe als nodig
-                          $link_html = advice2025_add_vacature_counter_to_manual_menu($link_html, $class_names);
-                          ?>
-                          <li<?php echo $class_names; ?>><?php echo $link_html; ?></li>
-                        <?php endforeach; ?>
-                      </ul>
-                    </div>
-                  <?php else : ?>
-                    <?php wp_nav_menu( array( 'theme_location' => 'footer-menu-1', 'container_class' => 'footer-menu' ) ); ?>
-                  <?php endif; ?>
-                </nav>
-              <?php endif; ?>
-              <?php if ( has_nav_menu( 'footer-menu-2' ) ) : ?>
-                <nav class="footer-menu-2 w-full lg:w-1/2 mt-[60px] lg:mt-0!">
-                  <?php 
-                  $menu_items = wp_get_nav_menu_items( get_nav_menu_locations()['footer-menu-2'] );
-                  if ( $menu_items && count( $menu_items ) > 0 ) :
-                    $first_item = $menu_items[0];
-                    $remaining_items = array_slice( $menu_items, 1 );
-                  ?>
-                    <div class="footer-menu-mobile">
-                      <span class="footer-menu-title font-semibold title-small mb-5 block"><?php echo esc_html( $first_item->title ); ?></span>
-                      <ul class="footer-menu-items block space-y-[18px]">
-                        <?php foreach ( $remaining_items as $item ) : 
-                          // Haal de CSS classes op van het menu item
-                          $classes = empty($item->classes) ? array() : (array) $item->classes;
-                          $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item));
-                          $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
-                          
-                          // Genereer de link HTML met arrow icon
-                          $arrow_svg = '<svg class="footer-menu-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="6" height="9" viewBox="0 0 6 9" fill="none">
-                          <path d="M1.06055 -4.6358e-08L5.30371 4.24316L1.06055 8.48535L-4.6358e-08 7.4248L3.18164 4.24316L-3.24549e-07 1.06055L1.06055 -4.6358e-08Z" fill="#96ACC0"/>
-                        </svg>';
-                                                  $link_html = '<a href="' . esc_url( $item->url ) . '" class="footer-menu-link text-white hover:text-white hover:cursor-pointer font-normal inline-flex items-center gap-2 group relative translate-x-[-15px] hover:translate-x-0  duration-300 transition-all">' . $arrow_svg . '<span>' . esc_html( $item->title ) . '</span></a>';
-                                                 
-                          // Voeg vacature counter toe als nodig
-                          $link_html = advice2025_add_vacature_counter_to_manual_menu($link_html, $class_names);
-                          ?>
-                          <li<?php echo $class_names; ?>><?php echo $link_html; ?></li>
-                        <?php endforeach; ?>
-                      </ul>
-                    </div>
-                  <?php else : ?>
-                    <?php wp_nav_menu( array( 'theme_location' => 'footer-menu-2', 'container_class' => 'footer-menu' ) ); ?>
-                  <?php endif; ?>
-                </nav>
-              <?php endif; ?>
+                        <a
+                            href="<?php echo esc_url($social_link['url']); ?>"
+                            target="<?php echo esc_attr($social_link['target'] ?? '_self'); ?>"
+                            rel="noopener"
+                            class="inline-flex h-10 w-10 items-center justify-center border border-white/20 hover:border-white transition-colors"
+                        >
+                            <?php
+                            if (is_numeric($social_icon)) {
+                                echo wp_get_attachment_image((int) $social_icon, 'full', false, array('class' => 'h-4 w-4 object-contain'));
+                            } elseif (is_array($social_icon) && !empty($social_icon['url'])) {
+                                ?>
+                                <img class="h-4 w-4 object-contain" src="<?php echo esc_url($social_icon['url']); ?>" alt="<?php echo esc_attr($social_icon['alt'] ?? ''); ?>">
+                                <?php
+                            }
+                            ?>
+                        </a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
-          </div>
-          <div class="w-full lg:w-5/12 mt-[60px] lg:mt-0! lg:ml-auto">
-              <div class="w-full min-w-full">
-                <h6 class="mb-5">Contact</h5>
-                <div class="flex align-center flex-col lg:flex-row gap-4">
-                <a href="tel:<?= get_field('telefoonnummer', 'option') ?>" class="btn border border-white text-white inline-flex items-center justify-center lg:justify-start "><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path class="" d="M3.86467 0.577066C3.68421 0.141147 3.20845 -0.0908738 2.75378 0.0333395L0.691376 0.595815C0.283581 0.70831 0 1.07861 0 1.50046C0 7.29864 4.70136 12 10.4995 12C10.9214 12 11.2917 11.7164 11.4042 11.3086L11.9667 9.24621C12.0909 8.79155 11.8589 8.31579 11.4229 8.13533L9.17303 7.19787C8.79102 7.0385 8.34807 7.14865 8.08792 7.46973L7.14109 8.62515C5.49116 7.84471 4.15529 6.50884 3.37485 4.85891L4.53027 3.91442C4.85135 3.65193 4.9615 3.21132 4.80213 2.82931L3.86467 0.579409V0.577066Z" fill="white"/>
-                </svg> <?= get_field('telefoonnummer', 'option') ?></a>
-                <a href="mailto:<?= get_field('emailadres', 'option') ?>" class="btn border border-white text-white inline-flex items-center justify-center lg:justify-start lg:items-start"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9" fill="none">
-                  <path class="" d="M1.125 0C0.503906 0 0 0.503906 0 1.125C0 1.47891 0.166406 1.81172 0.45 2.025L5.55 5.85C5.81719 6.04922 6.18281 6.04922 6.45 5.85L11.55 2.025C11.8336 1.81172 12 1.47891 12 1.125C12 0.503906 11.4961 0 10.875 0H1.125ZM0 2.625V7.5C0 8.32734 0.672656 9 1.5 9H10.5C11.3273 9 12 8.32734 12 7.5V2.625L6.9 6.45C6.36562 6.85078 5.63438 6.85078 5.1 6.45L0 2.625Z" fill="white"/>
-                </svg> <?= get_field('emailadres', 'option') ?></a>
-                </div>
-              </div>
-              <div class="flex flex-col lg:flex-row mt-[80px]">
-              <div class="lg:w-1/2 mb-[40px]">
-                <h6 class="mb-5">Locatie</h5>
-                <p class="mb-0!"><?= get_field('adres', 'option') ?></p>
-                <p class="mb-0!"><?= get_field('postcode_+_woonplaats', 'option') ?></p>
-              </div>
-              <div class="lg:w-1/2 mt-10 lg:mt-0 flex gap-3">
-                <?php $header_cta = get_field('header_cta', 'option'); ?>
-                <div class="relative w-[90px] rotate-[-7deg]" style="margin-top: -35px;">
-                  <img src="<?= $header_cta['afbeelding']['url'] ?>" alt="<?= $header_cta['afbeelding']['alt'] ?>" class="w-[72px] h-[100px] shadow-xl absolute top-1/2 -translate-y-1/2 left-[-10px]">
-                </div>
-                 
-                    <div class="w-full">
-                    <h6 class="mb-5">Raising Giants</h5>
-                    <a href="" class="flex w-full justify-between items-center">
-                      <div class="span">
-                      <p class="mb-0! font-bold"><?= $header_cta['titel'] ?></p>
-                      <p class="mb-0! text-white/70"><?= $header_cta['subtitel'] ?></p>
-                      </div>
-                      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12.5" cy="12.5" r="12" stroke="#96ACC0"/>
-                            <g class="arrow-group">
-                                <rect x="7" y="11.7427" width="10" height="1" fill="#96ACC0"/>
-                                <rect x="17.4854" y="12.2427" width="1" height="6" transform="rotate(135 17.4854 12.2427)" fill="#96ACC0"/>
-                                <rect x="17.4854" y="12.2427" width="6" height="1" transform="rotate(135 17.4854 12.2427)" fill="#96ACC0"/>
-                            </g>
-                            </svg>
-                    </a>
-                    </div>
-                    
-                 
-              </div>
+
+            <div class="flex items-center justify-center lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
+                <?php
+                if (is_numeric($footer_logo)) {
+                    echo wp_get_attachment_image((int) $footer_logo, 'full', false, array('class' => 'h-[160px] w-auto object-contain'));
+                } elseif (is_array($footer_logo) && !empty($footer_logo['url'])) {
+                    ?>
+                    <img class="h-[160px] w-auto object-contain" src="<?php echo esc_url($footer_logo['url']); ?>" alt="<?php echo esc_attr($footer_logo['alt'] ?? get_bloginfo('name')); ?>">
+                    <?php
+                } elseif (is_string($footer_logo) && !empty($footer_logo)) {
+                    ?>
+                    <img class="h-[160px] w-auto object-contain" src="<?php echo esc_url($footer_logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
+                    <?php
+                }
+                ?>
             </div>
-          </div>
+
+            <div class="w-full lg:w-auto lg:max-w-[429px] lg:ml-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="429" height="32" viewBox="0 0 429 32" fill="none">
+                    <path d="M396.138 0L409.931 13.7931H414.345V18.2069L428.138 32V0H396.138Z" fill="white"/>
+                    <path d="M409.931 13.7931L428.138 0L414.345 13.7931H409.931Z" fill="#E0E0DF"/>
+                    <path d="M414.345 13.7931L428.138 0L414.345 18.2069V13.7931Z" fill="#EFEFF0"/>
+                    <path d="M6.96508 10.71C10.9559 10.71 13.9114 13.8725 13.9114 17.9951C13.9114 22.1552 10.9559 25.2802 6.96508 25.2802C2.95552 25.2802 0 22.1743 0 17.9951C0 13.8725 2.95552 10.71 6.96508 10.71ZM12.1232 17.9951C12.1232 14.4372 9.61949 12.3664 6.96508 12.3664C4.27316 12.3664 1.78842 14.4372 1.78842 17.9951C1.78842 21.5717 4.31085 23.6236 6.96508 23.6236C9.61949 23.6236 12.1232 21.553 12.1232 17.9951Z" fill="white"/>
+                    <path d="M27.9347 24.9977H26.3157L18.5788 13.8159H18.5599V24.9977H16.8468V10.9922H18.6165L26.2216 21.9859H26.2404V10.9922H27.9347V24.9977Z" fill="white"/>
+                    <path d="M42.5977 17.9949C42.5977 22.2304 39.5858 24.9977 35.162 24.9977H31.7734V10.9922H35.162C39.6799 10.9922 42.5977 13.7782 42.5977 17.9949ZM35.2372 23.3598C38.4751 23.3598 40.8093 21.4209 40.8093 18.0137C40.8093 14.5501 38.4751 12.6299 35.2562 12.6299H33.5242V23.3598H35.2372Z" fill="white"/>
+                    <path d="M45.5515 10.9922H53.232V12.6299H47.3022V17.0913H52.7991V18.635H47.3022V23.379H53.232V24.9977H45.5515V10.9922Z" fill="white"/>
+                    <path d="M56.4312 10.9922H60.1396C63.3775 10.9922 65.0718 12.7052 65.0718 15.1525C65.0718 17.4302 63.5093 19.1245 60.4596 19.2937L65.6554 24.9977H63.4152L58.3701 19.3128H58.1819V24.9977H56.4312V10.9922ZM59.8762 17.8444C62.3045 17.8444 63.2834 16.7902 63.2834 15.2089C63.2834 13.6087 62.1539 12.6299 60.0267 12.6299H58.1819V17.8444L59.8762 17.8444Z" fill="white"/>
+                    <path d="M78.982 17.9949C78.982 22.2304 75.97 24.9977 71.5463 24.9977H68.1577V10.9922H71.5463C76.0641 10.9922 78.982 13.7782 78.982 17.9949ZM71.6215 23.3598C74.8594 23.3598 77.1936 21.4209 77.1936 18.0137C77.1936 14.5501 74.8594 12.6299 71.6404 12.6299H69.9085V23.3598H71.6215Z" fill="white"/>
+                    <path d="M81.9375 10.9922H89.618V12.6299H83.6882V17.0913H89.1851V18.635H83.6882V23.379H89.618V24.9977H81.9375V10.9922Z" fill="white"/>
+                    <path d="M92.8171 10.9922H100.498V12.6299H94.5679V17.0913H100.065V18.635H94.5679V23.379H100.498V24.9977H92.8171V10.9922Z" fill="white"/>
+                    <path d="M103.697 10.9922H105.448V23.3598H111.622V24.9977H103.697V10.9922Z" fill="white"/>
+                    <path d="M123.669 24.9977H121.805L116.233 10.9922H118.096L122.746 23.04L127.358 10.9922H129.203L123.669 24.9977Z" fill="white"/>
+                    <path d="M139.877 24.9977L138.239 20.7433H132.234L130.596 24.9977H128.751L134.248 10.9922H136.225L141.759 24.9977H139.877ZM137.656 19.1808L135.227 12.9499L132.799 19.1808H137.656Z" fill="white"/>
+                    <path d="M154.972 24.9977H153.353L145.616 13.8159H145.597V24.9977H143.884V10.9922H145.654L153.259 21.9859H153.278V10.9922H154.972V24.9977Z" fill="white"/>
+                    <path d="M162.783 10.9551H168.411C171.687 10.9551 173.381 12.6494 173.381 14.7577C173.381 16.2825 172.515 17.299 171.329 17.7884V17.8073C172.892 18.3156 173.739 19.5016 173.739 21.045C173.739 23.1534 172.12 24.9983 168.656 24.9983H162.783L162.783 10.9551ZM168.261 16.6589C169.447 16.6589 170.03 16.0378 170.03 15.2847C170.03 14.5317 169.447 13.9293 168.299 13.9293H166.322V16.6589H168.261ZM168.355 22.0053C169.616 22.0053 170.256 21.3839 170.256 20.5556C170.256 19.6898 169.56 19.106 168.393 19.106H166.322V22.0053L168.355 22.0053Z" fill="white"/>
+                    <path d="M175.791 10.9551H185.053V14.1365H179.367V16.4707H184.507V19.3696H179.367V21.817H185.053V24.9983H175.791V10.9551Z" fill="white"/>
+                    <path d="M190.397 14.174H186.387V10.9551H197.946V14.174H193.955V24.9983H190.397V14.174Z" fill="white"/>
+                    <path d="M199.678 10.9551H208.94V14.1365H203.255V16.4707H208.394V19.3696H203.255V21.817H208.94V24.9983H199.678V10.9551Z" fill="white"/>
+                    <path d="M211.291 10.9551H216.016C219.461 10.9551 221.738 12.5551 221.738 15.6801C221.738 17.1672 221.023 19.106 218.482 19.9343L222.435 24.9983H218.199L214.98 20.3486H214.867V24.9983H211.291V10.9551ZM215.94 17.6378C217.296 17.6378 218.143 17.0167 218.143 15.906C218.143 14.7764 217.258 14.174 215.959 14.174H214.867V17.6378L215.94 17.6378Z" fill="white"/>
+                    <path d="M228.57 10.9551H234.199C237.474 10.9551 239.168 12.6494 239.168 14.7577C239.168 16.2825 238.302 17.299 237.116 17.7884V17.8073C238.679 18.3156 239.526 19.5016 239.526 21.045C239.526 23.1534 237.907 24.9983 234.443 24.9983H228.57V10.9551ZM234.048 16.6589C235.234 16.6589 235.817 16.0378 235.817 15.2847C235.817 14.5317 235.234 13.9293 234.086 13.9293H232.109V16.6589H234.048ZM234.142 22.0053C235.403 22.0053 236.043 21.3839 236.043 20.5556C236.043 19.6898 235.347 19.106 234.18 19.106H232.109V22.0053L234.142 22.0053Z" fill="white"/>
+                    <path d="M248.204 10.6152C252.364 10.6152 255.546 13.6647 255.546 17.9755C255.546 22.2678 252.364 25.3362 248.204 25.3362C244.044 25.3362 240.844 22.2678 240.844 17.9755C240.844 13.6647 244.062 10.6152 248.204 10.6152ZM251.95 17.9755C251.95 15.359 250.105 13.8531 248.204 13.8531C246.265 13.8531 244.439 15.359 244.439 17.9755C244.439 20.5921 246.265 22.0796 248.204 22.0796C250.105 22.0796 251.95 20.5921 251.95 17.9755Z" fill="white"/>
+                    <path d="M257.389 19.3696V10.9551H260.966V19.3696C260.966 21.1203 261.869 22.0806 263.375 22.0806C264.919 22.0806 265.86 21.1203 265.86 19.3509V10.9551H269.437V19.3696C269.437 22.8523 267.14 25.3372 263.375 25.3372C259.648 25.3372 257.389 22.8523 257.389 19.3696Z" fill="white"/>
+                    <path d="M281.39 15.7365H281.372L278.68 24.9983H274.952L270.773 10.9551H274.388L276.929 20.7251H276.948L279.715 10.9551H283.009L285.833 20.7439H285.871L288.299 10.9551H291.782L287.734 24.9983H284.139L281.39 15.7365Z" fill="white"/>
+                    <path d="M293.342 10.9551H302.604V14.1365H296.919V16.4707H302.058V19.3696H296.919V21.817H302.604V24.9983H293.342V10.9551Z" fill="white"/>
+                    <path d="M317.456 24.9983H314.067L308.382 16.6213H308.363V24.9983H304.956V10.9551H308.382L314.03 19.1814H314.049V10.9551H317.456V24.9983Z" fill="white"/>
+                    <path d="M331.441 22.1171C332.118 22.1171 332.664 21.9663 333.172 21.7219V17.4298H336.41V23.7924C335.055 24.7336 333.436 25.3362 331.365 25.3362C327.412 25.3362 323.986 22.4935 323.986 17.9755C323.986 13.4764 327.431 10.6152 331.384 10.6152C333.172 10.6152 334.641 11.0669 335.789 11.707V15.1895C334.565 14.2671 333.097 13.9283 331.855 13.9283C329.257 13.9283 327.581 15.7355 327.581 18.0509C327.581 20.4038 329.219 22.1171 331.441 22.1171Z" fill="white"/>
+                    <path d="M338.669 10.9551H343.394C346.839 10.9551 349.116 12.5551 349.116 15.6801C349.116 17.1672 348.401 19.106 345.86 19.9343L349.813 24.9983H345.577L342.358 20.3486H342.245V24.9983H338.669V10.9551ZM343.318 17.6378C344.674 17.6378 345.521 17.0167 345.521 15.906C345.521 14.7764 344.636 14.174 343.337 14.174H342.245V17.6378L343.318 17.6378Z" fill="white"/>
+                    <path d="M357.926 10.6152C362.086 10.6152 365.268 13.6647 365.268 17.9755C365.268 22.2678 362.086 25.3362 357.926 25.3362C353.766 25.3362 350.566 22.2678 350.566 17.9755C350.566 13.6647 353.785 10.6152 357.926 10.6152ZM361.672 17.9755C361.672 15.359 359.827 13.8531 357.926 13.8531C355.987 13.8531 354.161 15.359 354.161 17.9755C354.161 20.5921 355.987 22.0796 357.926 22.0796C359.827 22.0796 361.672 20.5921 361.672 17.9755Z" fill="white"/>
+                    <path d="M367.28 10.9551H376.541V14.1365H370.856V16.4707H375.995V19.3696H370.856V21.817H376.541V24.9983H367.28V10.9551Z" fill="white"/>
+                    <path d="M378.894 10.9551H383.299C387.384 10.9551 389.661 12.9317 389.661 16.0189C389.661 18.8615 387.553 21.3273 383.525 21.3273H382.47V24.9983H378.894V10.9551ZM383.694 18.165C385.049 18.165 386.066 17.4496 386.066 16.1507C386.066 14.8518 385.049 14.174 383.675 14.174H382.47V18.165L383.694 18.165Z" fill="white"/>
+                </svg>
+            </div>
         </div>
-        <div class="flex flex-col-reverse lg:flex-row items-center mt-[80px]">
-                <div class="w-full lg:w-8/12">
-                  <!-- Copyright menu -->
-                  <?php if (has_nav_menu( 'copyright-menu' ) ) : ?>
-                    <nav class="copyright-menu">
-                      <?php wp_nav_menu( array( 'theme_location' => 'copyright-menu', 'container_class' => 'footer-menu' , 'menu_class' => 'flex flex-col lg:flex-row flex-wrap gap-[20px] small' ) ); ?>
-                    </nav>
-                  <?php endif; ?>
-                </div>
-                <div class="w-full lg:w-4/12">
-                <?php if (!empty(get_field('socials', 'option'))) { ?>
-                <div class="footer_socials socials mb-[40px] lg:mb-0!">
-                <?php foreach (get_field('socials', 'option') as $social) { ?>
-                    <a href="<?= $social['link']['url'] ?>" target="<?= esc_attr($social['link']['target'] ?: '_blank') ?>" rel="noopener" class="btn border border-white text-white flex justify-center items-center lg:justify-start lg:inline-flex gap-2">
-                        <?= $social['icon'] ?> LinkedIn
-                    </a>
-                <?php } ?>
-                </div>
-              <?php } ?>
-                </div>
-              </div>
+
+        <div class="mt-[70px] pt-6 border-t border-white/10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+            <div>
+                <p class="body-small mb-0 !text-white !font-normal">Alle rechten voorbehouden Buro De Haan</p>
+            </div>
+            <div class="flex items-center gap-2 text-white/70 lg:ml-auto">
+                <span class="body-small">Ontworpen en ontwikkeld door</span>
+                <a href="https://advice.nl" target="_blank" rel="noopener noreferrer" aria-label="Ga naar Advice.nl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="216" height="14" viewBox="0 0 216 14" fill="none">
+                    <path d="M211.495 11.1645C210.56 11.1645 209.841 10.8593 209.339 10.2489C208.837 9.63847 208.586 8.75732 208.586 7.60542V3.02734H210.004V7.88601C210.004 8.50626 210.171 8.99361 210.506 9.34804C210.841 9.69263 211.293 9.86492 211.864 9.86492C212.455 9.86492 212.938 9.67786 213.312 9.30374C213.686 8.91977 213.873 8.39797 213.873 7.73833V3.02734H215.291V10.9282H214.168V7.54635H214.345C214.345 8.32413 214.242 8.98376 214.035 9.52526C213.829 10.0569 213.518 10.4655 213.105 10.751C212.701 11.0267 212.184 11.1645 211.554 11.1645H211.495Z" fill="white"/>
+                    <path d="M205.481 10.9278V8.56496H205.244V5.83288C205.244 5.29139 205.102 4.88281 204.816 4.60714C204.54 4.33147 204.132 4.19363 203.59 4.19363C203.285 4.19363 202.97 4.19856 202.645 4.2084C202.32 4.21825 202.01 4.22809 201.715 4.23794C201.419 4.24778 201.163 4.26255 200.947 4.28224V3.04173C201.163 3.02204 201.39 3.00727 201.626 2.99743C201.872 2.97774 202.123 2.96789 202.379 2.96789C202.635 2.95805 202.881 2.95312 203.118 2.95312C203.925 2.95312 204.585 3.05158 205.097 3.24848C205.609 3.43555 205.988 3.74567 206.234 4.17887C206.48 4.61206 206.603 5.19786 206.603 5.93626V10.9278H205.481ZM202.896 11.1346C202.306 11.1346 201.794 11.0361 201.36 10.8392C200.937 10.6325 200.607 10.3371 200.371 9.95315C200.144 9.56918 200.031 9.10645 200.031 8.56496C200.031 8.00377 200.154 7.53612 200.4 7.162C200.656 6.78788 201.026 6.50729 201.508 6.32022C201.99 6.12332 202.571 6.02486 203.251 6.02486H205.392V7.08816H203.192C202.621 7.08816 202.182 7.22599 201.877 7.50166C201.572 7.77733 201.419 8.13176 201.419 8.56496C201.419 8.99815 201.572 9.34766 201.877 9.61348C202.182 9.87931 202.621 10.0122 203.192 10.0122C203.526 10.0122 203.846 9.95315 204.152 9.835C204.457 9.70701 204.708 9.50026 204.905 9.21475C205.111 8.91939 205.225 8.51573 205.244 8.00377L205.628 8.56496C205.579 9.12614 205.441 9.59872 205.215 9.98268C204.998 10.3568 204.693 10.6423 204.299 10.8392C203.915 11.0361 203.448 11.1346 202.896 11.1346Z" fill="white"/>
+                    <path d="M195.466 11.1941C194.777 11.1941 194.182 11.076 193.68 10.8397C193.177 10.6034 192.769 10.2933 192.454 9.9093C192.139 9.51549 191.902 9.07737 191.745 8.59495C191.597 8.11253 191.523 7.62026 191.523 7.11815V6.85233C191.523 6.34037 191.597 5.84318 191.745 5.36076C191.902 4.87834 192.139 4.44515 192.454 4.06118C192.769 3.66737 193.168 3.35724 193.65 3.1308C194.142 2.89451 194.718 2.77637 195.378 2.77637C196.234 2.77637 196.938 2.96343 197.49 3.33755C198.051 3.70183 198.464 4.1744 198.73 4.75528C199.006 5.33615 199.144 5.95641 199.144 6.61604V7.25106H192.144V6.18777H198.11L197.785 6.76372C197.785 6.20254 197.696 5.72012 197.519 5.31646C197.342 4.90296 197.076 4.58298 196.722 4.35654C196.367 4.1301 195.919 4.01688 195.378 4.01688C194.817 4.01688 194.349 4.14487 193.975 4.40084C193.611 4.65682 193.335 5.00633 193.148 5.44937C192.971 5.89241 192.882 6.40437 192.882 6.98524C192.882 7.54642 192.971 8.05346 193.148 8.50634C193.335 8.94938 193.62 9.30381 194.004 9.56964C194.388 9.82562 194.876 9.9536 195.466 9.9536C196.087 9.9536 196.589 9.81577 196.973 9.5401C197.367 9.26443 197.603 8.94446 197.682 8.58018H199.011C198.903 9.12168 198.686 9.58933 198.361 9.98314C198.036 10.377 197.628 10.6772 197.135 10.884C196.643 11.0907 196.087 11.1941 195.466 11.1941Z" fill="white"/>
+                    <path d="M186.586 10.9278V3.04173H187.708V6.29069H187.649C187.649 5.13879 187.9 4.29701 188.402 3.76536C188.914 3.22387 189.677 2.95312 190.691 2.95312H190.957V4.22317H190.455C189.668 4.22317 189.062 4.43485 188.639 4.85819C188.215 5.2717 188.004 5.87226 188.004 6.65989V10.9278H186.586Z" fill="white"/>
+                    <path d="M180.487 11.1645C179.552 11.1645 178.833 10.8593 178.331 10.2489C177.829 9.63847 177.578 8.75732 177.578 7.60542V3.02734H178.996V7.88601C178.996 8.50626 179.163 8.99361 179.498 9.34804C179.833 9.69263 180.286 9.86492 180.857 9.86492C181.447 9.86492 181.93 9.67786 182.304 9.30374C182.678 8.91977 182.865 8.39797 182.865 7.73833V3.02734H184.283V10.9282H183.16V7.54635H183.338C183.338 8.32413 183.234 8.98376 183.028 9.52526C182.821 10.0569 182.511 10.4655 182.097 10.751C181.693 11.0267 181.177 11.1645 180.546 11.1645H180.487Z" fill="white"/>
+                    <path d="M172.18 11.1949C171.53 11.1949 170.95 11.0521 170.438 10.7666C169.935 10.4811 169.537 10.0676 169.241 9.5261C168.946 8.97477 168.784 8.31513 168.754 7.54719H169.138V10.9291H168.016V0.148438H169.433V5.39107L168.931 6.46913C168.971 5.61259 169.143 4.91357 169.448 4.37208C169.753 3.83059 170.152 3.43185 170.644 3.17587C171.146 2.91005 171.698 2.77714 172.298 2.77714C172.86 2.77714 173.371 2.88544 173.834 3.10203C174.297 3.30879 174.696 3.59922 175.03 3.97334C175.365 4.33762 175.621 4.76589 175.798 5.25816C175.976 5.74058 176.064 6.26238 176.064 6.82356V7.08939C176.064 7.65057 175.971 8.17729 175.784 8.66956C175.606 9.16183 175.345 9.59994 175.001 9.98391C174.656 10.358 174.243 10.6534 173.76 10.87C173.288 11.0866 172.761 11.1949 172.18 11.1949ZM172.018 9.95438C172.549 9.95438 173.012 9.82639 173.406 9.57041C173.8 9.31443 174.105 8.96492 174.322 8.52188C174.538 8.069 174.646 7.54719 174.646 6.95647C174.646 6.36576 174.533 5.84888 174.307 5.40584C174.09 4.9628 173.785 4.62313 173.391 4.38685C172.997 4.14071 172.54 4.01765 172.018 4.01765C171.545 4.01765 171.107 4.12595 170.703 4.34254C170.3 4.54929 169.975 4.8545 169.729 5.25816C169.492 5.65197 169.374 6.12947 169.374 6.69065V7.36998C169.374 7.91147 169.497 8.3742 169.743 8.75817C169.99 9.14214 170.315 9.4375 170.718 9.64425C171.122 9.851 171.555 9.95438 172.018 9.95438Z" fill="white"/>
+                    <path d="M161.405 10.9291V0.148438H162.823V10.9291H161.405ZM160.312 1.2708V0.148438H162.823V1.2708H160.312Z" fill="white"/>
+                    <path d="M158.035 10.9278V8.56496H157.799V5.83288C157.799 5.29139 157.656 4.88281 157.371 4.60714C157.095 4.33147 156.687 4.19363 156.145 4.19363C155.84 4.19363 155.525 4.19856 155.2 4.2084C154.875 4.21825 154.565 4.22809 154.269 4.23794C153.974 4.24778 153.718 4.26255 153.502 4.28224V3.04173C153.718 3.02204 153.945 3.00727 154.181 2.99743C154.427 2.97774 154.678 2.96789 154.934 2.96789C155.19 2.95805 155.436 2.95312 155.672 2.95312C156.48 2.95312 157.139 3.05158 157.651 3.24848C158.163 3.43555 158.542 3.74567 158.788 4.17887C159.035 4.61206 159.158 5.19786 159.158 5.93626V10.9278H158.035ZM155.451 11.1346C154.86 11.1346 154.348 11.0361 153.915 10.8392C153.492 10.6325 153.162 10.3371 152.926 9.95315C152.699 9.56918 152.586 9.10645 152.586 8.56496C152.586 8.00377 152.709 7.53612 152.955 7.162C153.211 6.78788 153.58 6.50729 154.063 6.32022C154.545 6.12332 155.126 6.02486 155.805 6.02486H157.947V7.08816H155.746C155.175 7.08816 154.737 7.22599 154.432 7.50166C154.127 7.77733 153.974 8.13176 153.974 8.56496C153.974 8.99815 154.127 9.34766 154.432 9.61348C154.737 9.87931 155.175 10.0122 155.746 10.0122C156.081 10.0122 156.401 9.95315 156.706 9.835C157.011 9.70701 157.262 9.50026 157.459 9.21475C157.666 8.91939 157.779 8.51573 157.799 8.00377L158.183 8.56496C158.134 9.12614 157.996 9.59872 157.769 9.98268C157.553 10.3568 157.248 10.6423 156.854 10.8392C156.47 11.0361 156.002 11.1346 155.451 11.1346Z" fill="white"/>
+                    <path d="M149.985 10.9278V8.56496H149.748V5.83288C149.748 5.29139 149.605 4.88281 149.32 4.60714C149.044 4.33147 148.636 4.19363 148.094 4.19363C147.789 4.19363 147.474 4.19856 147.149 4.2084C146.824 4.21825 146.514 4.22809 146.219 4.23794C145.923 4.24778 145.667 4.26255 145.451 4.28224V3.04173C145.667 3.02204 145.894 3.00727 146.13 2.99743C146.376 2.97774 146.627 2.96789 146.883 2.96789C147.139 2.95805 147.385 2.95312 147.622 2.95312C148.429 2.95312 149.089 3.05158 149.601 3.24848C150.113 3.43555 150.492 3.74567 150.738 4.17887C150.984 4.61206 151.107 5.19786 151.107 5.93626V10.9278H149.985ZM147.4 11.1346C146.809 11.1346 146.297 11.0361 145.864 10.8392C145.441 10.6325 145.111 10.3371 144.875 9.95315C144.648 9.56918 144.535 9.10645 144.535 8.56496C144.535 8.00377 144.658 7.53612 144.904 7.162C145.16 6.78788 145.53 6.50729 146.012 6.32022C146.494 6.12332 147.075 6.02486 147.755 6.02486H149.896V7.08816H147.696C147.124 7.08816 146.686 7.22599 146.381 7.50166C146.076 7.77733 145.923 8.13176 145.923 8.56496C145.923 8.99815 146.076 9.34766 146.381 9.61348C146.686 9.87931 147.124 10.0122 147.696 10.0122C148.03 10.0122 148.35 9.95315 148.655 9.835C148.961 9.70701 149.212 9.50026 149.409 9.21475C149.615 8.91939 149.729 8.51573 149.748 8.00377L150.132 8.56496C150.083 9.12614 149.945 9.59872 149.719 9.98268C149.502 10.3568 149.197 10.6423 148.803 10.8392C148.419 11.0361 147.951 11.1346 147.4 11.1346Z" fill="white"/>
+                    <path d="M142.47 11.0175C141.879 11.0175 141.367 10.9338 140.934 10.7665C140.511 10.5991 140.181 10.3136 139.944 9.90991C139.718 9.49641 139.605 8.94015 139.605 8.24113V0.650391H140.963V8.41835C140.963 8.8417 141.077 9.17151 141.303 9.4078C141.539 9.63424 141.869 9.74747 142.293 9.74747H143.681V11.0175H142.47ZM138.246 4.1061V3.0428H143.681V4.1061H138.246Z" fill="white"/>
+                    <path d="M135.684 10.9283V3.0422H137.101V10.9283H135.684ZM134.473 4.16457V3.0422H137.101V4.16457H134.473ZM136.082 1.77216C135.767 1.77216 135.531 1.68847 135.374 1.5211C135.226 1.35373 135.152 1.14206 135.152 0.886079C135.152 0.6301 135.226 0.418426 135.374 0.251055C135.531 0.083685 135.767 0 136.082 0C136.397 0 136.629 0.083685 136.776 0.251055C136.934 0.418426 137.013 0.6301 137.013 0.886079C137.013 1.14206 136.934 1.35373 136.776 1.5211C136.629 1.68847 136.397 1.77216 136.082 1.77216Z" fill="white"/>
+                    <path d="M128.761 14C128.397 14 128.028 13.9853 127.654 13.9557C127.289 13.9262 126.94 13.8868 126.605 13.8376V12.6414C126.96 12.6906 127.329 12.73 127.713 12.7595C128.107 12.7989 128.476 12.8186 128.82 12.8186C129.539 12.8186 130.11 12.7201 130.534 12.5232C130.967 12.3362 131.277 12.0359 131.464 11.6224C131.661 11.2187 131.759 10.6969 131.759 10.057V8.55065L132.232 7.42828C132.202 8.22575 132.035 8.89031 131.73 9.42196C131.425 9.94376 131.026 10.3376 130.534 10.6034C130.051 10.8594 129.515 10.9874 128.924 10.9874C128.372 10.9874 127.865 10.884 127.403 10.6772C126.95 10.4606 126.556 10.1653 126.221 9.79116C125.896 9.41704 125.64 8.98876 125.453 8.50634C125.276 8.01408 125.188 7.4972 125.188 6.9557V6.68988C125.188 6.13854 125.281 5.62659 125.468 5.15401C125.655 4.67159 125.916 4.25317 126.251 3.89873C126.586 3.5443 126.984 3.26863 127.447 3.07173C127.92 2.87482 128.436 2.77637 128.998 2.77637C129.657 2.77637 130.238 2.91912 130.74 3.20464C131.242 3.48031 131.636 3.88889 131.922 4.43038C132.217 4.96203 132.38 5.61674 132.409 6.39452L131.996 6.40929V3.04219H133.118V9.99791C133.118 10.9431 132.97 11.7061 132.675 12.2869C132.389 12.8777 131.927 13.3109 131.287 13.5865C130.657 13.8622 129.815 14 128.761 14ZM129.19 9.68778C129.662 9.68778 130.09 9.58441 130.474 9.37765C130.868 9.1709 131.178 8.87554 131.405 8.49157C131.641 8.09776 131.759 7.63011 131.759 7.08862V6.40929C131.759 5.87764 131.636 5.42968 131.39 5.0654C131.154 4.70113 130.844 4.42546 130.46 4.2384C130.076 4.05134 129.657 3.95781 129.204 3.95781C128.692 3.95781 128.24 4.07595 127.846 4.31224C127.452 4.54852 127.147 4.88327 126.93 5.31646C126.714 5.73981 126.605 6.24192 126.605 6.82279C126.605 7.40367 126.714 7.9107 126.93 8.3439C127.157 8.77709 127.462 9.11183 127.846 9.34812C128.24 9.57456 128.688 9.68778 129.19 9.68778Z" fill="white"/>
+                    <path d="M122.059 10.9283V3.0422H123.476V10.9283H122.059ZM120.848 4.16457V3.0422H123.476V4.16457H120.848ZM122.457 1.77216C122.142 1.77216 121.906 1.68847 121.748 1.5211C121.601 1.35373 121.527 1.14206 121.527 0.886079C121.527 0.6301 121.601 0.418426 121.748 0.251055C121.906 0.083685 122.142 0 122.457 0C122.772 0 123.004 0.083685 123.151 0.251055C123.309 0.418426 123.388 0.6301 123.388 0.886079C123.388 1.14206 123.309 1.35373 123.151 1.5211C123.004 1.68847 122.772 1.77216 122.457 1.77216Z" fill="white"/>
+                    <path d="M115.232 11.1949C114.67 11.1949 114.154 11.0915 113.681 10.8848C113.208 10.678 112.795 10.3876 112.44 10.0134C112.096 9.63933 111.825 9.20613 111.628 8.71386C111.441 8.2216 111.348 7.68995 111.348 7.11892V6.8531C111.348 6.29192 111.441 5.76519 111.628 5.27293C111.815 4.78066 112.076 4.34747 112.411 3.97334C112.756 3.59922 113.159 3.30879 113.622 3.10203C114.094 2.88544 114.616 2.77714 115.187 2.77714C115.788 2.77714 116.334 2.90513 116.827 3.1611C117.319 3.40724 117.722 3.79613 118.038 4.32778C118.353 4.85942 118.53 5.54859 118.569 6.39529L117.978 5.45014V0.148438H119.396V10.9291H118.274V7.42905H118.687C118.648 8.32498 118.461 9.05353 118.126 9.61471C117.791 10.166 117.368 10.5697 116.856 10.8257C116.354 11.0718 115.813 11.1949 115.232 11.1949ZM115.424 9.95438C115.906 9.95438 116.344 9.84608 116.738 9.62948C117.132 9.41288 117.447 9.10275 117.683 8.6991C117.919 8.28559 118.038 7.80317 118.038 7.25184V6.57251C118.038 6.03102 117.914 5.57321 117.668 5.19909C117.432 4.81512 117.112 4.52468 116.708 4.32778C116.315 4.12102 115.881 4.01765 115.409 4.01765C114.887 4.01765 114.424 4.14071 114.021 4.38685C113.627 4.63298 113.317 4.97757 113.09 5.42061C112.874 5.86365 112.765 6.38545 112.765 6.98601C112.765 7.58658 112.879 8.1133 113.105 8.56619C113.331 9.00922 113.647 9.35381 114.05 9.59994C114.454 9.83623 114.912 9.95438 115.424 9.95438Z" fill="white"/>
+                    <path d="M104.073 10.9286V2.64373C104.073 1.76749 104.305 1.12263 104.767 0.709122C105.23 0.295619 105.909 0.0888672 106.805 0.0888672H107.78V1.27031H106.569C106.205 1.27031 105.924 1.37368 105.727 1.58043C105.53 1.77734 105.432 2.05301 105.432 2.40744V10.9286H104.073ZM102.98 4.19437V3.13107H107.928V4.19437H102.98Z" fill="white"/>
+                    <path d="M98.6188 11.1941C97.9297 11.1941 97.334 11.076 96.8319 10.8397C96.3298 10.6034 95.9212 10.2933 95.6062 9.9093C95.2911 9.51549 95.0548 9.07737 94.8973 8.59495C94.7496 8.11253 94.6758 7.62026 94.6758 7.11815V6.85233C94.6758 6.34037 94.7496 5.84318 94.8973 5.36076C95.0548 4.87834 95.2911 4.44515 95.6062 4.06118C95.9212 3.66737 96.3199 3.35724 96.8024 3.1308C97.2946 2.89451 97.8706 2.77637 98.5302 2.77637C99.3868 2.77637 100.091 2.96343 100.642 3.33755C101.203 3.70183 101.617 4.1744 101.883 4.75528C102.158 5.33615 102.296 5.95641 102.296 6.61604V7.25106H95.296V6.18777H101.262L100.937 6.76372C100.937 6.20254 100.849 5.72012 100.672 5.31646C100.494 4.90296 100.229 4.58298 99.8741 4.35654C99.5197 4.1301 99.0717 4.01688 98.5302 4.01688C97.969 4.01688 97.5014 4.14487 97.1273 4.40084C96.763 4.65682 96.4873 5.00633 96.3003 5.44937C96.123 5.89241 96.0344 6.40437 96.0344 6.98524C96.0344 7.54642 96.123 8.05346 96.3003 8.50634C96.4873 8.94938 96.7728 9.30381 97.1568 9.56964C97.5408 9.82562 98.0281 9.9536 98.6188 9.9536C99.2391 9.9536 99.7412 9.81577 100.125 9.5401C100.519 9.26443 100.755 8.94446 100.834 8.58018H102.163C102.055 9.12168 101.838 9.58933 101.513 9.98314C101.188 10.377 100.78 10.6772 100.288 10.884C99.7953 11.0907 99.2391 11.1941 98.6188 11.1941Z" fill="white"/>
+                    <path d="M91.5508 10.9283V3.0422H92.9685V10.9283H91.5508ZM90.3398 4.16457V3.0422H92.9685V4.16457H90.3398ZM91.9496 1.77216C91.6345 1.77216 91.3982 1.68847 91.2407 1.5211C91.093 1.35373 91.0192 1.14206 91.0192 0.886079C91.0192 0.6301 91.093 0.418426 91.2407 0.251055C91.3982 0.083685 91.6345 0 91.9496 0C92.2646 0 92.496 0.083685 92.6436 0.251055C92.8012 0.418426 92.8799 0.6301 92.8799 0.886079C92.8799 1.14206 92.8012 1.35373 92.6436 1.5211C92.496 1.68847 92.2646 1.77216 91.9496 1.77216Z" fill="white"/>
+                    <path d="M88.3955 11.0175C87.8048 11.0175 87.2928 10.9338 86.8596 10.7665C86.4363 10.5991 86.1065 10.3136 85.8702 9.90991C85.6438 9.49641 85.5305 8.94015 85.5305 8.24113V0.650391H86.8892V8.41835C86.8892 8.8417 87.0024 9.17151 87.2288 9.4078C87.4651 9.63424 87.795 9.74747 88.2183 9.74747H89.6065V11.0175H88.3955ZM84.1719 4.1061V3.0428H89.6065V4.1061H84.1719Z" fill="white"/>
+                    <path d="M82.0431 10.9278V8.56496H81.8068V5.83288C81.8068 5.29139 81.6641 4.88281 81.3786 4.60714C81.1029 4.33147 80.6943 4.19363 80.1528 4.19363C79.8476 4.19363 79.5326 4.19856 79.2077 4.2084C78.8828 4.21825 78.5727 4.22809 78.2773 4.23794C77.9819 4.24778 77.726 4.26255 77.5094 4.28224V3.04173C77.726 3.02204 77.9524 3.00727 78.1887 2.99743C78.4348 2.97774 78.6859 2.96789 78.9419 2.96789C79.1978 2.95805 79.444 2.95312 79.6803 2.95312C80.4876 2.95312 81.1472 3.05158 81.6592 3.24848C82.1711 3.43555 82.5502 3.74567 82.7963 4.17887C83.0424 4.61206 83.1655 5.19786 83.1655 5.93626V10.9278H82.0431ZM79.4587 11.1346C78.868 11.1346 78.3561 11.0361 77.9229 10.8392C77.4995 10.6325 77.1697 10.3371 76.9334 9.95315C76.707 9.56918 76.5938 9.10645 76.5938 8.56496C76.5938 8.00377 76.7168 7.53612 76.9629 7.162C77.2189 6.78788 77.5881 6.50729 78.0705 6.32022C78.553 6.12332 79.1338 6.02486 79.8132 6.02486H81.9545V7.08816H79.7541C79.1831 7.08816 78.745 7.22599 78.4397 7.50166C78.1345 7.77733 77.9819 8.13176 77.9819 8.56496C77.9819 8.99815 78.1345 9.34766 78.4397 9.61348C78.745 9.87931 79.1831 10.0122 79.7541 10.0122C80.0888 10.0122 80.4088 9.95315 80.714 9.835C81.0192 9.70701 81.2703 9.50026 81.4672 9.21475C81.6739 8.91939 81.7872 8.51573 81.8068 8.00377L82.1908 8.56496C82.1416 9.12614 82.0038 9.59872 81.7773 9.98268C81.5607 10.3568 81.2555 10.6423 80.8617 10.8392C80.4777 11.0361 80.0101 11.1346 79.4587 11.1346Z" fill="white"/>
+                    <path d="M72.0251 11.1941C71.3359 11.1941 70.7403 11.076 70.2382 10.8397C69.736 10.6034 69.3275 10.2933 69.0124 9.9093C68.6974 9.51549 68.4611 9.07737 68.3036 8.59495C68.1559 8.11253 68.082 7.62026 68.082 7.11815V6.85233C68.082 6.34037 68.1559 5.84318 68.3036 5.36076C68.4611 4.87834 68.6974 4.44515 69.0124 4.06118C69.3275 3.66737 69.7262 3.35724 70.2086 3.1308C70.7009 2.89451 71.2768 2.77637 71.9365 2.77637C72.793 2.77637 73.497 2.96343 74.0483 3.33755C74.6095 3.70183 75.023 4.1744 75.2888 4.75528C75.5645 5.33615 75.7023 5.95641 75.7023 6.61604V7.25106H68.7023V6.18777H74.6686L74.3437 6.76372C74.3437 6.20254 74.255 5.72012 74.0778 5.31646C73.9006 4.90296 73.6348 4.58298 73.2804 4.35654C72.9259 4.1301 72.478 4.01688 71.9365 4.01688C71.3753 4.01688 70.9076 4.14487 70.5335 4.40084C70.1692 4.65682 69.8936 5.00633 69.7065 5.44937C69.5293 5.89241 69.4407 6.40437 69.4407 6.98524C69.4407 7.54642 69.5293 8.05346 69.7065 8.50634C69.8936 8.94938 70.1791 9.30381 70.5631 9.56964C70.947 9.82562 71.4344 9.9536 72.0251 9.9536C72.6453 9.9536 73.1474 9.81577 73.5314 9.5401C73.9252 9.26443 74.1615 8.94446 74.2403 8.58018H75.5694C75.4611 9.12168 75.2445 9.58933 74.9196 9.98314C74.5947 10.377 74.1861 10.6772 73.6939 10.884C73.2016 11.0907 72.6453 11.1941 72.0251 11.1941Z" fill="white"/>
+                    <path d="M63.1445 10.9278V3.04173H64.2669V6.29069H64.2078C64.2078 5.13879 64.4589 4.29701 64.961 3.76536C65.4729 3.22387 66.236 2.95312 67.25 2.95312H67.5159V4.22317H67.0137C66.2261 4.22317 65.6206 4.43485 65.1973 4.85819C64.7739 5.2717 64.5623 5.87226 64.5623 6.65989V10.9278H63.1445Z" fill="white"/>
+                    <path d="M58.0116 11.1941C57.3323 11.1941 56.7416 11.076 56.2395 10.8397C55.7472 10.6034 55.3386 10.2883 55.0137 9.89453C54.6889 9.49087 54.4427 9.04784 54.2754 8.56541C54.1178 8.08299 54.0391 7.60057 54.0391 7.11815V6.85233C54.0391 6.35022 54.1178 5.85795 54.2754 5.37553C54.4427 4.89311 54.6889 4.45992 55.0137 4.07595C55.3485 3.68214 55.762 3.36709 56.2543 3.1308C56.7465 2.89451 57.3225 2.77637 57.9821 2.77637C58.6417 2.77637 59.2325 2.89943 59.7543 3.14557C60.2859 3.3917 60.7093 3.74121 61.0243 4.19409C61.3492 4.63713 61.5314 5.16386 61.5707 5.77427H60.2121C60.1432 5.282 59.9167 4.87342 59.5328 4.54852C59.1488 4.21378 58.6319 4.04641 57.9821 4.04641C57.4209 4.04641 56.9533 4.1744 56.5792 4.43038C56.205 4.68636 55.9244 5.03587 55.7374 5.47891C55.5503 5.92195 55.4568 6.42406 55.4568 6.98524C55.4568 7.52673 55.5503 8.02392 55.7374 8.47681C55.9244 8.91985 56.205 9.27428 56.5792 9.5401C56.9631 9.79608 57.4406 9.92407 58.0116 9.92407C58.4547 9.92407 58.8387 9.84531 59.1636 9.68778C59.4884 9.53026 59.7493 9.31858 59.9463 9.05276C60.1432 8.78693 60.2613 8.48665 60.3007 8.15191H61.6593C61.6298 8.77217 61.4477 9.30874 61.1129 9.76162C60.788 10.2145 60.3548 10.5689 59.8133 10.8249C59.2817 11.071 58.6811 11.1941 58.0116 11.1941Z" fill="white"/>
+                    <path d="M43.9932 2.68457C44.8601 2.68457 45.5913 2.87852 46.1855 3.26758C46.7817 3.65556 47.2375 4.16205 47.5518 4.78711C47.6641 5.01068 47.7574 5.24234 47.8281 5.48047C47.9603 5.90698 48.0244 6.35878 48.0244 6.83105L48.0254 6.83203V7.62793H42.1172C42.1494 7.86606 42.2043 8.08549 42.2803 8.28516C42.4187 8.64301 42.6341 8.92247 42.9297 9.12012C43.2252 9.31663 43.6106 9.41309 44.083 9.41309C44.5159 9.41307 44.8698 9.33055 45.1445 9.16309C45.418 8.99573 45.6052 8.79212 45.7041 8.54688L47.7344 9.01855C47.6064 9.37112 47.422 9.69486 47.1816 9.99023C46.8372 10.4135 46.404 10.7441 45.8838 10.9844C45.3624 11.2267 44.773 11.3467 44.083 11.3467C43.3931 11.3467 42.7853 11.2282 42.2598 10.9922C41.7342 10.756 41.2913 10.4378 40.9385 10.0342C40.5836 9.63056 40.315 9.18083 40.1318 8.68359C39.9508 8.18642 39.8594 7.67741 39.8594 7.15527V6.86035C39.8594 6.31941 39.9507 5.80096 40.1318 5.30371C40.315 4.80652 40.58 4.362 40.9307 3.96777C41.2793 3.57579 41.7125 3.26314 42.2285 3.03125C42.7467 2.80142 43.3335 2.6846 43.9932 2.68457ZM35.1445 2.68359C35.8729 2.68359 36.5193 2.82483 37.0791 3.10449C37.639 3.38429 38.0877 3.77595 38.4229 4.27832C38.5821 4.52068 38.7102 4.77977 38.8018 5.05957C38.8444 5.18533 38.8811 5.31522 38.9092 5.44824L36.6582 5.97266C36.653 5.9176 36.6434 5.86145 36.6299 5.81055C36.5653 5.52763 36.4297 5.28382 36.2236 5.08203C35.9666 4.83054 35.6084 4.70508 35.1455 4.70508C34.7532 4.70512 34.4253 4.80343 34.1641 5C33.9028 5.19765 33.7091 5.47085 33.5811 5.81934C33.4532 6.1698 33.3887 6.5755 33.3887 7.03613C33.3887 7.47093 33.4489 7.86149 33.5654 8.20996C33.684 8.56017 33.8748 8.83021 34.1357 9.02051C34.3949 9.21292 34.7376 9.30856 35.1611 9.30859C35.4754 9.30859 35.7452 9.25403 35.9658 9.13965C36.1875 9.0273 36.3622 8.8688 36.4902 8.66699C36.5911 8.50796 36.6662 8.33039 36.71 8.13086L36.707 8.12891L38.5459 8.55762L38.9502 8.65137C38.8607 9.04355 38.7021 9.40389 38.4814 9.72949C38.137 10.236 37.6786 10.6319 37.1094 10.918C36.538 11.2019 35.8689 11.3447 35.1602 11.3447C34.4514 11.3447 33.8412 11.2264 33.3281 10.9902C32.8183 10.7541 32.3893 10.44 32.0459 10.0479C31.7014 9.6536 31.4422 9.20706 31.2705 8.71191C31.0988 8.2147 31.0117 7.70048 31.0117 7.16895V6.88965C31.0117 6.33935 31.1014 5.80934 31.2783 5.30273C31.4552 4.79627 31.7188 4.3473 32.0674 3.95312C32.416 3.55991 32.851 3.24924 33.3672 3.02246C33.8833 2.79785 34.4755 2.68361 35.1445 2.68359ZM17.2861 11.0498H15.4121V9.32812C15.3653 9.44358 15.3141 9.55595 15.2568 9.66309C14.9665 10.2039 14.5752 10.6147 14.083 10.8945C13.5908 11.1743 13.0194 11.3154 12.3701 11.3154C11.8092 11.3154 11.2928 11.2118 10.8203 11.0049C10.3479 10.7979 9.94181 10.5108 9.60254 10.1416C9.26324 9.77335 8.99984 9.33734 8.8125 8.83594C8.62518 8.33455 8.53125 7.79333 8.53125 7.21289V6.87402C8.53127 6.29361 8.61996 5.75234 8.79688 5.25098C8.97482 4.7498 9.22784 4.31016 9.55762 3.93164C9.88755 3.55298 10.2829 3.25811 10.7461 3.0459C11.2082 2.83475 11.7245 2.72852 12.2959 2.72852C12.9453 2.72853 13.506 2.86856 13.9785 3.14941C14.3541 3.37302 14.6636 3.68029 14.9082 4.07129H14.9092V0.907227H17.2861V11.0498ZM3.55664 2.83203C4.38291 2.83206 5.07938 2.94943 5.64551 3.18555C6.21045 3.42163 6.64097 3.77761 6.93652 4.25488C7.23205 4.73227 7.37983 5.34404 7.37988 6.0918V11.0498H5.50586V9.49512C5.4414 9.70085 5.36142 9.89108 5.2627 10.0615C5.04208 10.4453 4.7358 10.7403 4.34766 10.9473C3.95847 11.1542 3.50346 11.2568 2.92285 11.2568C2.34209 11.2568 1.8327 11.1532 1.39453 10.9473C0.956383 10.7413 0.613781 10.4437 0.368164 10.0547C0.122558 9.66668 0 9.20107 0 8.66016C8.13068e-05 8.07054 0.153137 7.58559 0.458008 7.20703C0.762912 6.82958 1.19078 6.5492 1.74219 6.36719C2.29369 6.18518 2.92852 6.09281 3.64648 6.09277H5.1084V6.0791C5.1084 5.65574 5.00918 5.34341 4.8125 5.1416C4.61579 4.93979 4.30016 4.83887 3.86719 4.83887C3.64971 4.83887 3.3644 4.84416 3.01074 4.85352C2.65599 4.86391 2.2898 4.87607 1.91113 4.89062C1.53233 4.90623 1.18969 4.92262 0.884766 4.94238V2.9502C1.12094 2.93044 1.39148 2.91136 1.69629 2.8916C2.00124 2.87184 2.31687 2.85708 2.6416 2.84668C2.9663 2.83732 3.27149 2.83203 3.55664 2.83203ZM22.3301 9.08789H22.6758L24.1514 2.96484H26.4395L24.3438 11.0508H20.5938L18.1719 2.96484H20.6084L22.3301 9.08789ZM29.8105 11.0508H27.4336V2.96484H29.8105V11.0508ZM3.62891 7.40625C3.21587 7.4063 2.89839 7.50723 2.67676 7.70898C2.45522 7.91075 2.34475 8.18317 2.34473 8.52734C2.34473 8.85191 2.45507 9.11557 2.67676 9.31738C2.89838 9.51909 3.21593 9.62006 3.62891 9.62012C3.89431 9.62012 4.13338 9.57312 4.3457 9.47949H4.34473C4.55689 9.38585 4.73079 9.22664 4.86914 9C5.00647 8.77331 5.08566 8.45907 5.10547 8.05566V7.40625H3.62891ZM12.9609 4.70508C12.5675 4.70508 12.2154 4.80437 11.9053 5.00098C11.5953 5.19757 11.3517 5.46992 11.1748 5.81934C10.9979 6.16878 10.9092 6.56504 10.9092 7.03613C10.9092 7.50732 10.9979 7.91644 11.1748 8.26074C11.3517 8.60507 11.5977 8.87037 11.9131 9.05762C12.2274 9.24479 12.5822 9.33887 12.9756 9.33887C13.3294 9.33884 13.659 9.25696 13.9639 9.09473C14.2686 8.93254 14.5122 8.69482 14.6943 8.37988C14.8754 8.06572 14.9678 7.68528 14.9678 7.24316H14.9688V6.69727C14.9687 6.26455 14.8748 5.90252 14.6875 5.6123C14.5012 5.32313 14.2542 5.09848 13.9492 4.94141C13.6444 4.78444 13.3147 4.70509 12.9609 4.70508ZM43.9932 4.61816C43.5801 4.6182 43.2314 4.70972 42.9453 4.89062C42.6602 5.07368 42.4447 5.3444 42.2959 5.70215C42.2251 5.87691 42.1702 6.0719 42.1338 6.28516L42.1328 6.28613H45.7646C45.7324 6.05936 45.6813 5.85483 45.6084 5.67383C45.4773 5.33495 45.2754 5.07362 45.0049 4.89062C44.7343 4.70974 44.4062 4.61816 43.9932 4.61816Z" fill="white"/>
+                </svg>
+                </a>
+            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
 </div><!-- #page -->
 

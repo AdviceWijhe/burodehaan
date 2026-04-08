@@ -194,7 +194,7 @@
                     "label": "Icon",
                     "name": "icon",
                     "aria-label": "",
-                    "type": "font-awesome",
+                    "type": "image",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -203,21 +203,17 @@
                         "class": "",
                         "id": ""
                     },
-                    "icon_sets": [
-                        "solid",
-                        "regular",
-                        "brands"
-                    ],
-                    "custom_icon_set": "",
-                    "default_label": "",
-                    "default_value": "",
-                    "save_format": "element",
-                    "allow_null": 0,
-                    "show_preview": 1,
-                    "enqueue_fa": 0,
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
                     "allow_in_bindings": 0,
-                    "fa_live_preview": "",
-                    "choices": [],
+                    "preview_size": "medium",
                     "parent_repeater": "field_68d65c8b078ea"
                 },
                 {
@@ -285,6 +281,32 @@
             "acfe_clone_modal_close": 0,
             "acfe_clone_modal_button": "",
             "acfe_clone_modal_size": "large"
+        },
+        {
+            "key": "field_69d4fc454975b",
+            "label": "Footerlogo",
+            "name": "footerlogo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
         },
         {
             "key": "field_690e003518f28",
@@ -624,11 +646,11 @@
             "acfe_group_modal_size": "large",
             "sub_fields": [
                 {
-                    "key": "field_6911e78096854",
-                    "label": "CTA Afbeelding",
-                    "name": "cta_afbeelding",
+                    "key": "field_6911e78c96855",
+                    "label": "CTA Titel",
+                    "name": "cta_titel",
                     "aria-label": "",
-                    "type": "image",
+                    "type": "wysiwyg",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -637,25 +659,17 @@
                         "class": "",
                         "id": ""
                     },
-                    "uploader": "",
-                    "return_format": "array",
-                    "library": "all",
-                    "upload_folder": "",
-                    "acfe_thumbnail": 0,
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
+                    "default_value": "",
                     "allow_in_bindings": 0,
-                    "preview_size": "medium"
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0
                 },
                 {
-                    "key": "field_6911e78c96855",
-                    "label": "CTA Titel",
-                    "name": "cta_titel",
+                    "key": "field_69d4eb91b875f",
+                    "label": "CTA Content",
+                    "name": "cta_content",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -896,12 +910,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_display_title": "",
-    "acfe_meta": "",
-    "acfe_note": "",
-    "modified": 1762955089
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1775565927
 }

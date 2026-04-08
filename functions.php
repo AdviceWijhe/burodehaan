@@ -1764,3 +1764,53 @@ function advice2025_enqueue_menu_icon_admin_scripts($hook) {
     ");
 }
 add_action('admin_enqueue_scripts', 'advice2025_enqueue_menu_icon_admin_scripts');
+
+
+/**
+* SVG ondersteuning in de mediabibliotheek
+*/
+function advice2025_add_svg_support($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    $mimes['svgz'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'advice2025_add_svg_support');
+
+/**
+* Sanitiseer SVG bij upload (verwijdert scripts en event handlers)
+*/
+function advice2025_sanitize_svg($file) {
+    $is_svg = ($file['type'] === 'image/svg+xml') || (pathinfo($file['name'], PATHINFO_EXTENSION) === 'svg');
+    if (!$is_svg) {
+        return $file;
+    }
+    $content = file_get_contents($file['tmp_name']);
+    if ($content === false) {
+        return $file;
+    }
+    // Verwijder script tags en event handlers
+    $content = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $content);
+    $content = preg_replace('/\s+on\w+\s*=\s*["\'][^"\']*["\']/i', '', $content);
+    $content = preg_replace('/\s+on\w+\s*=\s*[^\s>]*/i', '', $content);
+    file_put_contents($file['tmp_name'], $content);
+    return $file;
+}
+add_filter('wp_handle_upload_prefilter', 'advice2025_sanitize_svg');
+
+/**
+* SVG bestanden in mediabibliotheek laten zien als afbeeldingen
+*/
+function advice2025_fix_svg_thumbnails($response, $attachment, $meta) {
+    if ($response['type'] === 'image/svg+xml') {
+        $response['sizes'] = array(
+            'full' => array(
+                'url' => $response['url'],
+                'width' => $response['width'] ?? null,
+                'height' => $response['height'] ?? null,
+                'orientation' => ($response['width'] ?? 0) > ($response['height'] ?? 0) ? 'landscape' : 'portrait',
+            ),
+        );
+    }
+    return $response;
+}
+add_filter('wp_prepare_attachment_for_js', 'advice2025_fix_svg_thumbnails', 10, 3);
