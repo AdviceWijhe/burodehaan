@@ -17,7 +17,11 @@ $image = get_sub_field('afbeelding');
     } ?>
   </div>
   <div class="mt-[46px] lg:mt-[60px] xl:mt-0">
-    <h1 class="text-black mb-[32px]"><?= get_sub_field('titel') ?></h1>
+    <?php
+    $hero_title = (string) get_sub_field('titel', false, false);
+    $hero_title = preg_replace('/^\s*<p>(.*)<\/p>\s*$/si', '$1', $hero_title);
+    ?>
+    <h1 class="text-black mb-[32px]"><?php echo wp_kses_post($hero_title); ?></h1>
 
    <div class="body-large max-w-[630px]"><?= get_sub_field('content') ?></div> 
 

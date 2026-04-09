@@ -24,7 +24,11 @@ background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></d
         </div>
         <div class="w-full relative z-2">
             <div class="w-full lg:w-6/12 lg:px-[60px] lg:py-[60px] p-[20px] pb-[20px]">
-                <h1 class="text-white"><?= get_sub_field('titel') ?></h1>
+                <?php
+                $hero_title = (string) get_sub_field('titel', false, false);
+                $hero_title = preg_replace('/^\s*<p>(.*)<\/p>\s*$/si', '$1', $hero_title);
+                ?>
+                <h1 class="text-white"><?php echo wp_kses_post($hero_title); ?></h1>
                 <div class="mt-[32px] hero-big-image-buttons">
                 <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'start')) ?>
                 </div>
