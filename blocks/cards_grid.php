@@ -76,12 +76,12 @@ $backgroundPatroon = 'pink';
           <?php if (get_sub_field('soort_items') == 'posts'): ?>
           <?php $cards_rand_class = 'cards-grid-' . wp_rand(1000, 9999); ?>
           <div class="swiper-controls flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 <?= esc_attr($cards_rand_class); ?>-controls">
-            <div class="w-full lg:w-auto flex items-center gap-4">
-              <div class="w-[220px] h-[2px] bg-white/20 relative overflow-hidden">
-                <span class="<?= esc_attr($cards_rand_class); ?>-progress absolute left-0 top-0 h-full bg-primary transition-all duration-300" style="width: 0%;"></span>
+            <div class="w-full lg:w-auto flex items-center gap-6">
+              <div class="w-[235px] h-[2px] relative overflow-hidden bg-[#161616]/20">
+                <span class="<?= esc_attr($cards_rand_class); ?>-progress absolute left-0 top-0 h-full bg-primary transition-transform duration-300" style="width: 90.7336px; transform: translateX(0px);"></span>
               </div>
-              <div class="body-small text-white/70">
-                <span class="<?= esc_attr($cards_rand_class); ?>-current">01</span> /
+              <div class="title-large text-black">
+                <span class="<?= esc_attr($cards_rand_class); ?>-current font-bold">01</span> /
                 <span class="<?= esc_attr($cards_rand_class); ?>-total">00</span>
               </div>
             </div>
@@ -140,6 +140,7 @@ $backgroundPatroon = 'pink';
       }
       $query = new WP_Query($args);
       if($query->have_posts()) : ?>
+  <?php $posts_total = (int) $query->post_count; ?>
   <?php if(get_sub_field('slider')) : ?>
   <?php $rand_class = 'swiper-container-' . wp_rand(1000,9999); ?>
   <div class="swiper-container <?= $rand_class ?> <?= esc_attr($cards_rand_class); ?>">
@@ -151,7 +152,7 @@ $backgroundPatroon = 'pink';
                     <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
                   <?php endif; ?>
                   <div class="absolute inset-0 bg-black/20"></div>
-                  <div class="absolute left-3 right-3 bottom-3 rounded-[12px] border border-white/20 bg-white/5 backdrop-blur-[20px] p-5 text-white flex items-end justify-between gap-3">
+                  <div class="absolute left-3 right-3 bottom-3 rounded-[12px] border border-white/20 bg-white/5 backdrop-blur-[20px] p-[32px] text-white flex items-end justify-between gap-3">
                     <div>
                       <?php
                       $term_label = '';
@@ -167,18 +168,19 @@ $backgroundPatroon = 'pink';
                       }
                       ?>
                       <?php if ($term_label) : ?>
-                        <div class="label-small text-white/70 mb-2"><?php echo esc_html($term_label); ?></div>
+                        <div class="label-medium text-white mb-[16px]"><?php echo esc_html($term_label); ?></div>
                       <?php endif; ?>
-                      <h3 class="title-medium text-white mb-0!"><?php the_title(); ?></h3>
+                      <h3 class="title-medium text-white mb-0! w-2/3"><?php the_title(); ?></h3>
                     </div>
                     <span class="shrink-0 text-white">
-                      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12.5" cy="12.5" r="12" stroke="currentColor"/>
-                        <g>
-                          <rect x="7" y="11.7427" width="10" height="1" fill="currentColor"/>
-                          <rect x="17.4854" y="12.2427" width="1" height="6" transform="rotate(135 17.4854 12.2427)" fill="currentColor"/>
-                          <rect x="17.4854" y="12.2427" width="6" height="1" transform="rotate(135 17.4854 12.2427)" fill="currentColor"/>
-                        </g>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
+                        <rect width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="2.96094" y="14.8149" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="0.000183105" y="17.7778" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="2.96094" y="2.96313" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="#F7F5F0"/>
                       </svg>
                     </span>
                   </div>
@@ -200,13 +202,17 @@ $backgroundPatroon = 'pink';
             }
 
             function updateProgress() {
-              if (!currentEl || !totalEl || !progressEl || !swiper.slides || !swiper.slides.length) return;
-              var total = swiper.slides.length - (swiper.loopedSlides * 2);
-              if (total < 1) total = swiper.slides.length;
+              if (!currentEl || !totalEl || !progressEl) return;
+              var total = <?= (int) $posts_total ?>;
+              if (!total || total < 1) total = 1;
               var current = swiper.realIndex + 1;
               currentEl.textContent = formatSlideNumber(current);
               totalEl.textContent = formatSlideNumber(total);
-              progressEl.style.width = ((current / total) * 100) + '%';
+              var trackWidth = 235;
+              var indicatorWidth = 90.7336;
+              var maxTranslate = trackWidth - indicatorWidth;
+              var progress = total > 1 ? (current - 1) / (total - 1) : 0;
+              progressEl.style.transform = 'translateX(' + (maxTranslate * progress) + 'px)';
             }
 
             updateProgress();
@@ -240,16 +246,17 @@ $backgroundPatroon = 'pink';
                     <?php if ($term_label) : ?>
                       <div class="label-small text-white/70 mb-2"><?php echo esc_html($term_label); ?></div>
                     <?php endif; ?>
-                    <h3 class="title-medium text-white mb-0!"><?php the_title(); ?></h3>
+                    <h3 class="title-medium text-white mb-0! w-2/3"><?php the_title(); ?></h3>
                   </div>
                   <span class="shrink-0 text-white">
-                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="12.5" cy="12.5" r="12" stroke="currentColor"/>
-                      <g>
-                        <rect x="7" y="11.7427" width="10" height="1" fill="currentColor"/>
-                        <rect x="17.4854" y="12.2427" width="1" height="6" transform="rotate(135 17.4854 12.2427)" fill="currentColor"/>
-                        <rect x="17.4854" y="12.2427" width="6" height="1" transform="rotate(135 17.4854 12.2427)" fill="currentColor"/>
-                      </g>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
+                      <rect width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                      <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                      <rect x="2.96094" y="14.8149" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                      <rect x="0.000183105" y="17.7778" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                      <rect x="2.96094" y="2.96313" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                      <rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                      <rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="#F7F5F0"/>
                     </svg>
                   </span>
                 </div>

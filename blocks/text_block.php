@@ -74,7 +74,7 @@
                     <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
                 <?php endif; ?>
                 <?php if (!empty($tekst)) : ?>
-                    <div class="">
+                    <div class="body-medium">
                         <?php echo wp_kses_post($tekst); ?>
                     </div>
                 <?php endif; ?>
