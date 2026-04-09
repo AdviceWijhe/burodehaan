@@ -1812,3 +1812,19 @@ function advice2025_fix_svg_thumbnails($response, $attachment, $meta) {
     return $response;
 }
 add_filter('wp_prepare_attachment_for_js', 'advice2025_fix_svg_thumbnails', 10, 3);
+
+/**
+ * Extra admin menu links voor taxonomiebeheer.
+ */
+add_action('admin_menu', function () {
+    // Expertises
+    add_menu_page(
+        __('Expertises', 'advice2025'),
+        __('Expertises', 'advice2025'),
+        'manage_categories',
+        'edit-tags.php?taxonomy=expertise',
+        '',
+        'dashicons-welcome-learn-more',
+        22
+    );
+});
