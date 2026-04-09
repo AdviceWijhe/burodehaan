@@ -82,3 +82,28 @@
   }
 }
 }
+
+.cards-grid-nav-btn {
+    width: 59px !important;
+    height: 59px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    background: var(--color-secondary) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  .cards-grid-nav-btn svg {
+    width: 12px !important;
+    height: 20px !important;
+    transform: none !important;
+    display: block;
+  }
+  .cards-grid-nav-btn:hover svg {
+    transform: none !important;
+  }
+  .cards-grid-nav-divider svg {
+    height: 59px !important;
+    display: block;
+  }
