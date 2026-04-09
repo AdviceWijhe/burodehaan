@@ -29,6 +29,8 @@ body {
 
 /* Headings */
 h1, h2, h3, h4, h5, h6, .display-medium, .headline-large, .headline-medium, .headline-small, .title-large, .title-medium, .title-small {
+    leading-trim: both;
+text-edge: cap;
     font-family: var(--font-family-primary);
     font-style: normal;
     line-height: 120%;
@@ -42,32 +44,32 @@ h1, h2, h3, h4, h5, h6, .display-medium, .headline-large, .headline-medium, .hea
 }
 
 h1, .headline-large {
-  font-size: 62px;
+  font-size: max(62px, calc((100vw - 120px) * 0.0365));
   font-weight: 300;
 }
 
 h2, .headline-medium {
-  font-size: 42px;
+  font-size: max(42px, calc((100vw - 120px) * 0.0234));
   font-weight: 300;
 }
 
 h3, .headline-small {
-  font-size: 32px;
+  font-size: max(32px, calc((100vw - 120px) * 0.019));
   font-weight: 300;
 }
 
 h4, .title-large {
-  font-size: 28px;
+  font-size: max(28px, calc((100vw - 120px) * 0.0168));
   font-weight: 300;
 }
 
 h5, .title-medium {
-  font-size: 24px;
+  font-size: max(24px, calc((100vw - 120px) * 0.0144));
   font-weight: 300;
 }
 
 h6, .title-small {
-  font-size: 18px;
+  font-size: max(18px, calc((100vw - 120px) * 0.0112));
   font-weight: 400;
 }
 
@@ -84,7 +86,7 @@ h6 strong, h6 b {
 /* Labels */
 .label-large {
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: max(16px, calc((100vw - 120px) * 0.008));
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
@@ -142,6 +144,10 @@ h6 strong, h6 b {
   font-size: clamp(14px, calc(13.429px + 0.179vw), 16px);
   line-height: 160%;
   font-weight: 500;
+}
+
+b, strong {
+    font-weight: 600;
 }
 
 .body-small {
