@@ -4,20 +4,20 @@
 
 @layer components {
   .container {
-    @apply min-sm:max-w-[640px]!;
-    @apply min-md:max-w-[1200px]!;
-    @apply min-lg:max-w-[1200px]!;
-    @apply min-xl:max-w-[1440px]!;
-    @apply min-2xl:max-w-[1440px]!;
-    @apply md:px-[20px]! 2xl:px-0!;
+    @apply min-sm:max-w-[100%]!;
+    @apply min-md:max-w-[100%]!;
+    @apply min-lg:max-w-[100%]!;
+    @apply min-xl:max-w-[100%]!;
+    @apply min-2xl:max-w-[100%]!;
+    @apply px-[20px] lg:px-[60px]!;
   }
 }
 
-.container {
+/* .container {
   @media (max-width: 1024px) {
     padding: 0 20px;
   }
-}
+} */
 
 /* Badge Component */
 .badge {
