@@ -31,6 +31,9 @@
     // Image text block animations
     initImageTextAnimations();
 
+    // Marquee block animation
+    initMarquee();
+
     // Image text block layout (align and sticky)
     initImageTextLayout();
 
@@ -643,6 +646,83 @@
           openAccordionItem(this);
         }
       });
+    });
+  }
+
+  /**
+   * Marquee block animations
+   */
+  function initMarquee() {
+    const marquees = document.querySelectorAll("[data-marquee]");
+    if (marquees.length === 0) return;
+
+    marquees.forEach(function (marquee) {
+      const track = marquee.querySelector("[data-marquee-track]");
+      const groups = marquee.querySelectorAll(".marquee__group");
+
+      if (!track || groups.length < 2) return;
+      if (typeof window.gsap === "undefined") return;
+
+      const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const speedPxPerSecond = 80;
+      let tween = null;
+      let resizeTimeout = null;
+
+      function killTween() {
+        if (tween) {
+          tween.kill();
+          tween = null;
+        }
+      }
+
+      function createTween() {
+        killTween();
+        window.gsap.set(track, { x: 0 });
+
+        if (motionPreference.matches) {
+          return;
+        }
+
+        const loopDistance = groups[0].offsetWidth;
+        if (!loopDistance || loopDistance <= 0) {
+          return;
+        }
+
+        const duration = loopDistance / speedPxPerSecond;
+
+        tween = window.gsap.to(track, {
+          x: -loopDistance,
+          duration: duration,
+          ease: "none",
+          repeat: -1,
+        });
+      }
+
+      function pauseTween() {
+        if (tween) tween.pause();
+      }
+
+      function playTween() {
+        if (tween && !motionPreference.matches) tween.play();
+      }
+
+    //   marquee.addEventListener("mouseenter", pauseTween);
+    //   marquee.addEventListener("mouseleave", playTween);
+    //   marquee.addEventListener("focusin", pauseTween);
+    //   marquee.addEventListener("focusout", playTween);
+
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(createTween, 150);
+      });
+
+      if (typeof motionPreference.addEventListener === "function") {
+        motionPreference.addEventListener("change", createTween);
+      } else if (typeof motionPreference.addListener === "function") {
+        motionPreference.addListener(createTween);
+      }
+
+      createTween();
     });
   }
 })();
