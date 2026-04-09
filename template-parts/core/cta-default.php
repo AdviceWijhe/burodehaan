@@ -15,11 +15,15 @@ include locate_template('template-parts/core/cta-get-data.php');
                     <div class="opacity-80"><?php echo $cta_content; ?></div>
                 <?php endif; ?>
             </div>
-            <div class="w-full lg:w-6/12 lg:flex lg:justify-start lg:pr-[60px] order-3 relative mt-[24px] lg:mt-0!">
-            <?= get_template_part('template-parts/card-contactpersoon', null, array('variant' => 'default')) ?>    
+            <div class="w-full lg:w-6/12 order-3 relative">
+                <div class="">
+            <?= get_template_part('template-parts/card-contactpersoon', null, array('variant' => 'default', 'medewerker' => $cta_contactpersoon)) ?>    
+            </div>
+            <div class="">
             <?php if (!empty($cta_buttons)): ?>
                     <?php get_template_part('template-parts/core/buttons', null, array('buttons' => $cta_buttons, 'no_margin' => true, 'align_items' => 'stretch', 'full_width' => false)); ?>
                 <?php endif; ?>
+                </div>
             </div>
         </div>
         </div>
