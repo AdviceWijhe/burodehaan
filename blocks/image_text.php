@@ -15,20 +15,22 @@
 //  Als background-color leeg is dan moet de breedte van de tekst 5/12 zijn en de afbeelding 6/12 ml-auto en als image_position left is moet de content ml-auto hebben en de image niet ml-auto hebben
 
 $text_width = 'lg:w-6/12 px-[20px] lg:px-[80px] pb-[60px]';
-$image_width = 'lg:w-6/12';
+$image_width = 'lg:w-[50vw]';
 $content_margin = '';
 $image_margin = '';
 
 
 if($background_color === '') {
     $text_width = 'lg:w-5/12';
-    $image_width = 'lg:w-6/12';
+    $image_width = 'lg:w-[50vw]';
     $content_margin = '';
-    $image_margin = 'lg:ml-auto';
+    $image_margin = 'lg:mr-[calc(50%-50vw)] lg:ml-auto';
 }
 if($image_position === 'left') {
     $content_margin = 'lg:ml-auto';
-    $image_margin = '';
+    $image_margin = 'lg:ml-[calc(50%-50vw)]';
+} else {
+    $image_margin = 'lg:mr-[calc(50%-50vw)] lg:ml-auto';
 }
 
 

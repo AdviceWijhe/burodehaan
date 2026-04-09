@@ -1,6 +1,6 @@
-<section class="hero hero__big_image <?php echo get_spacing_bottom_class('hero_banner'); ?>">
-    <div class="container mx-auto relative flex items-end min-h-[520px] lg:min-h-[740px] lg:mt-[100px] p-[20px] lg:p-0">
-        <div class="absolute top-[20px] left-[20px] lg:top-0 lg:left-0 h-[calc(100%-20px)] w-[calc(100%-40px)] lg:w-full lg:h-full">
+<section class="hero hero__big_image <?php echo get_spacing_bottom_class('hero_banner'); ?> overflow-hidden relative left-1/2 right-1/2 -mx-[50vw] w-screen">
+    <div class="relative flex items-end h-screen min-h-screen w-full p-0">
+        <div class="absolute inset-0 h-full w-full">
             <div class="absolute bottom-0 lg:bottom-auto lg:top-0 left-0 w-full h-full lg:w-[400px] lg:h-full  opacity-50" style="opacity: 0.5;
 background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></div>
 <div class="absolute bottom-0 left-0 w-full h-[300px]" style="opacity: 0.5;
@@ -23,13 +23,19 @@ background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></d
                    loading="eager" class="w-full h-full object-cover object-center">
             <?php } ?>
         </div>
-        <div class="flex flex-col lg:flex-row">
+        <div class="w-full relative z-2">
             <div class="w-full lg:w-6/12 lg:px-[60px] lg:py-[60px] p-[20px] pb-[20px]">
                 <h1 class="text-white"><?= get_sub_field('titel') ?></h1>
-                <div class="mt-[32px]">
-                <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'stretch')) ?>
+                <div class="mt-[32px] hero-big-image-buttons">
+                <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'start')) ?>
                 </div>
             </div>
         </div>
     </div>
+
+    <style>
+        .hero__big_image .hero-big-image-buttons .btn {
+            border-radius: 0 !important;
+        }
+    </style>
 </section>
