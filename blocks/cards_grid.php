@@ -73,7 +73,7 @@ $backgroundPatroon = 'pink';
         </div>
           <?php endif; ?>
 
-          <?php if (get_sub_field('soort_items') == 'posts'): ?>
+          <?php if (get_sub_field('soort_items') == 'posts' && get_sub_field('slider')): ?>
           <?php $cards_rand_class = 'cards-grid-' . wp_rand(1000, 9999); ?>
           <div class="swiper-controls flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 <?= esc_attr($cards_rand_class); ?>-controls">
             <div class="w-full lg:w-auto flex items-center gap-6">
