@@ -71,6 +71,16 @@ h6, .title-small {
   font-weight: 400;
 }
 
+/* Heading emphasis */
+h1 strong, h1 b,
+h2 strong, h2 b,
+h3 strong, h3 b,
+h4 strong, h4 b,
+h5 strong, h5 b,
+h6 strong, h6 b {
+  font-weight: 600;
+}
+
 /* Labels */
 .label-large {
   font-family: var(--font-family-primary);
@@ -177,6 +187,15 @@ h6, .title-small {
 /* Paragraphs */
 p {
   margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+p strong, p b {
+  font-weight: 400;
+}
+
+ul, ol, li {
+  font-weight: 400;
 }
 
 .lead, p.lead, p .lead, p.has-large-font-size {

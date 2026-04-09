@@ -86,18 +86,39 @@ $backgroundPatroon = 'pink';
               </div>
             </div>
 
-            <div class="w-full lg:w-auto flex items-center gap-4 lg:ml-auto">
+            <div class="w-full lg:w-auto flex items-stretch gap-4 lg:ml-auto">
               <?php if(get_sub_field('buttons')) : ?>
                 <div class="hidden lg:block">
                   <?php get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'no_margin' => true)); ?>
                 </div>
               <?php endif; ?>
-              <div class="swiper-arrows hidden lg:flex gap-2">
-                <div class="swiper-prev">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M212.7 331.3C206.5 325.1 206.5 314.9 212.7 308.7L372.7 148.7C378.9 142.5 389.1 142.5 395.3 148.7C401.5 154.9 401.5 165.1 395.3 171.3L246.6 320L395.3 468.7C401.5 474.9 401.5 485.1 395.3 491.3C389.1 497.5 378.9 497.5 372.7 491.3L212.7 331.3z"/></svg>
+              <div class="swiper-arrows cards-grid-nav hidden lg:flex items-center gap-0">
+                <div class="swiper-prev cards-grid-nav-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
+                    <rect x="11.1128" y="20.0001" width="2.22222" height="2.22222" transform="rotate(-180 11.1128 20.0001)" fill="#161616"/>
+                    <rect x="5.18707" y="8.14801" width="2.22222" height="2.22222" transform="rotate(-180 5.18707 8.14801)" fill="#161616"/>
+                    <rect x="8.15191" y="5.18511" width="2.22222" height="2.22222" transform="rotate(-180 8.15191 5.18511)" fill="#161616"/>
+                    <rect x="11.1127" y="2.22222" width="2.22222" height="2.22222" transform="rotate(-180 11.1127 2.22222)" fill="#161616"/>
+                    <rect x="8.15191" y="17.0372" width="2.22222" height="2.22222" transform="rotate(-180 8.15191 17.0372)" fill="#161616"/>
+                    <rect x="2.22222" y="11.1109" width="2.22222" height="2.22222" transform="rotate(-180 2.22222 11.1109)" fill="#161616"/>
+                    <rect x="5.18707" y="14.0743" width="2.22222" height="2.22222" transform="rotate(-180 5.18707 14.0743)" fill="#161616"/>
+                  </svg>
                 </div>
-                <div class="swiper-next rotate-180">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M212.7 331.3C206.5 325.1 206.5 314.9 212.7 308.7L372.7 148.7C378.9 142.5 389.1 142.5 395.3 148.7C401.5 154.9 401.5 165.1 395.3 171.3L246.6 320L395.3 468.7C401.5 474.9 401.5 485.1 395.3 491.3C389.1 497.5 378.9 497.5 372.7 491.3L212.7 331.3z"/></svg>
+                <span class="cards-grid-nav-divider block">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1" height="59" viewBox="0 0 1 59" fill="none">
+                    <line opacity="0.12" x1="0.5" y1="2.18558e-08" x2="0.499997" y2="59" stroke="#161616"/>
+                  </svg>
+                </span>
+                <div class="swiper-next cards-grid-nav-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
+                    <rect width="2.22222" height="2.22222" fill="#161616"/>
+                    <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#161616"/>
+                    <rect x="2.96094" y="14.8148" width="2.22222" height="2.22222" fill="#161616"/>
+                    <rect x="0.00012207" y="17.7777" width="2.22222" height="2.22222" fill="#161616"/>
+                    <rect x="2.96094" y="2.96313" width="2.22222" height="2.22222" fill="#161616"/>
+                    <rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="#161616"/>
+                    <rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="#161616"/>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -140,7 +161,6 @@ $backgroundPatroon = 'pink';
       }
       $query = new WP_Query($args);
       if($query->have_posts()) : ?>
-  <?php $posts_total = (int) $query->post_count; ?>
   <?php if(get_sub_field('slider')) : ?>
   <?php $rand_class = 'swiper-container-' . wp_rand(1000,9999); ?>
   <div class="swiper-container <?= $rand_class ?> <?= esc_attr($cards_rand_class); ?>">
@@ -190,6 +210,32 @@ $backgroundPatroon = 'pink';
           </div>
           
         </div>
+        <style>
+          .<?= $cards_rand_class ?>-controls .cards-grid-nav-btn {
+            width: 59px !important;
+            height: 59px !important;
+            border: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            background: var(--color-secondary) !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+          }
+          .<?= $cards_rand_class ?>-controls .cards-grid-nav-btn svg {
+            width: 12px !important;
+            height: 20px !important;
+            transform: none !important;
+            display: block;
+          }
+          .<?= $cards_rand_class ?>-controls .cards-grid-nav-btn:hover svg {
+            transform: none !important;
+          }
+          .<?= $cards_rand_class ?>-controls .cards-grid-nav-divider svg {
+            height: 59px !important;
+            display: block;
+          }
+        </style>
         <script>
           document.addEventListener('DOMContentLoaded', function () {
             var swiper = new Swiper('.<?= $rand_class ?>', <?php echo json_encode($swiper_setting); ?>);
@@ -203,15 +249,18 @@ $backgroundPatroon = 'pink';
 
             function updateProgress() {
               if (!currentEl || !totalEl || !progressEl) return;
-              var total = <?= (int) $posts_total ?>;
-              if (!total || total < 1) total = 1;
-              var current = swiper.realIndex + 1;
-              currentEl.textContent = formatSlideNumber(current);
-              totalEl.textContent = formatSlideNumber(total);
+              var totalSteps = (swiper.snapGrid && swiper.snapGrid.length) ? swiper.snapGrid.length : 1;
+              var currentStep = (typeof swiper.snapIndex === 'number' ? swiper.snapIndex + 1 : 1);
+              if (currentStep < 1) currentStep = 1;
+              if (currentStep > totalSteps) currentStep = totalSteps;
+
+              currentEl.textContent = formatSlideNumber(currentStep);
+              totalEl.textContent = formatSlideNumber(totalSteps);
+
               var trackWidth = 235;
               var indicatorWidth = 90.7336;
               var maxTranslate = trackWidth - indicatorWidth;
-              var progress = total > 1 ? (current - 1) / (total - 1) : 0;
+              var progress = totalSteps > 1 ? (currentStep - 1) / (totalSteps - 1) : 0;
               progressEl.style.transform = 'translateX(' + (maxTranslate * progress) + 'px)';
             }
 
