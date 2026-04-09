@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5, h6, .display-medium, .headline-large, .headline-medium, .hea
     }
 }
 
-p, a, ul, ol {
+p, a, ul, ol, a span {
     text-box-trim: trim-both;
     text-box-edge: cap alphabetic;
 }
