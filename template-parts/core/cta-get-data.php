@@ -17,11 +17,13 @@ if ($aangepaste_cta) {
         $cta_titel     = $cta_groep['cta_titel'] ?? null;
         $cta_content   = $cta_groep['cta_content'] ?? null;
         $cta_buttons   = $cta_groep['cta_buttons'] ?? null;
+        $cta_contactpersoon   = $cta_groep['cta_contactpersoon'] ?? null;
     } else {
         $cta_afbeelding = get_sub_field('cta_afbeelding');
         $cta_titel     = get_sub_field('cta_titel');
         $cta_content   = get_sub_field('cta_content');
         $cta_buttons   = get_sub_field('cta_buttons');
+        $cta_contactpersoon   = get_sub_field('cta_contactpersoon');
     }
 } else {
     $cta_groep_option = get_field('cta_groep', 'option');
@@ -31,11 +33,13 @@ if ($aangepaste_cta) {
         $cta_titel     = $cta_groep_option['cta_titel'] ?? null;
         $cta_content   = $cta_groep_option['cta_content'] ?? null;
         $cta_buttons   = $cta_groep_option['cta_buttons'] ?? null;
+        $cta_contactpersoon   = $cta_groep_option['cta_contactpersoon'] ?? null;
     } else {
         $cta_afbeelding = get_field('cta_afbeelding', 'option');
         $cta_titel     = get_field('cta_titel', 'option');
         $cta_content   = get_field('cta_content', 'option');
         $cta_buttons   = get_field('cta_buttons', 'option');
+        $cta_contactpersoon   = get_field('cta_contactpersoon', 'option');
     }
 }
 
@@ -51,4 +55,6 @@ if (isset($args['cta_content'])) {
 if (isset($args['cta_buttons'])) {
     $cta_buttons = $args['cta_buttons'];
 }
-
+if (isset($args['cta_contactpersoon'])) {
+    $cta_contactpersoon = $args['cta_contactpersoon'];
+}

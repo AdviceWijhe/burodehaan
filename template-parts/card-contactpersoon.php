@@ -22,7 +22,7 @@ $text_color = $args['text-color'] ?? 'blue';
     )); ?>
   </div>
   <div class="">
-    <h3 class="mb-3 <?php if($variant == 'big') {echo 'headline-medium mt-[49px]';} else { echo 'headline-small';} ?>"><?= get_the_title($contactpersoon) ?></h3>
-    <p class="mb-0! lead"><?= get_field('functie', $contactpersoon) ?></p>
-
+    <p class="mb-[12px]! font-bold"><?= get_the_title($contactpersoon) ?></p>
+    <p class="mb-0! list list-small"><?= get_field('functie', $contactpersoon) ?></p>
+</div>
 </div>

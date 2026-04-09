@@ -214,6 +214,9 @@
                     "mime_types": "",
                     "allow_in_bindings": 0,
                     "preview_size": "medium",
+                    "uploader": "",
+                    "acfe_thumbnail": 0,
+                    "upload_folder": "",
                     "parent_repeater": "field_68d65c8b078ea"
                 },
                 {
@@ -306,7 +309,10 @@
             "max_size": "",
             "mime_types": "",
             "allow_in_bindings": 0,
-            "preview_size": "medium"
+            "preview_size": "medium",
+            "uploader": "",
+            "acfe_thumbnail": 0,
+            "upload_folder": ""
         },
         {
             "key": "field_690e003518f28",
@@ -664,7 +670,22 @@
                     "tabs": "all",
                     "toolbar": "full",
                     "media_upload": 1,
-                    "delay": 0
+                    "delay": 0,
+                    "acfe_wysiwyg_auto_init": 0,
+                    "acfe_wysiwyg_height": 300,
+                    "acfe_wysiwyg_min_height": 300,
+                    "acfe_wysiwyg_max_height": "",
+                    "acfe_wysiwyg_valid_elements": "",
+                    "acfe_wysiwyg_custom_style": "",
+                    "acfe_wysiwyg_disable_wp_style": 0,
+                    "acfe_wysiwyg_autoresize": 0,
+                    "acfe_wysiwyg_disable_resize": 0,
+                    "acfe_wysiwyg_remove_path": 0,
+                    "acfe_wysiwyg_menubar": 0,
+                    "acfe_wysiwyg_transparent": 0,
+                    "acfe_wysiwyg_merge_toolbar": 0,
+                    "acfe_wysiwyg_custom_toolbar": 0,
+                    "acfe_wysiwyg_toolbar_buttons": []
                 },
                 {
                     "key": "field_69d4eb91b875f",
@@ -686,6 +707,43 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": ""
+                },
+                {
+                    "key": "field_69d7566634deb",
+                    "label": "Contactpersoon",
+                    "name": "cta_contactpersoon",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "medewerker"
+                    ],
+                    "post_status": "",
+                    "taxonomy": "",
+                    "return_format": "object",
+                    "multiple": 0,
+                    "max": "",
+                    "save_custom": 0,
+                    "save_post_status": "publish",
+                    "acfe_add_post": 0,
+                    "acfe_edit_post": 0,
+                    "acfe_bidirectional": {
+                        "acfe_bidirectional_enabled": "0"
+                    },
+                    "allow_null": 0,
+                    "allow_in_bindings": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "save_post_type": "",
+                    "min": ""
                 },
                 {
                     "key": "field_6911e79396856",
@@ -758,7 +816,14 @@
                             "button_label": "Select Color",
                             "absolute": false,
                             "input": true,
-                            "parent_repeater": "field_6911e79396856"
+                            "parent_repeater": "field_6911e79396856",
+                            "acfe_advanced": true,
+                            "choices": {
+                                "primary": "Primary",
+                                "secondary": "Secondary",
+                                "white": "White",
+                                "black": "Black"
+                            }
                         },
                         {
                             "key": "field_6911e7d296859",
@@ -912,5 +977,11 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775565927
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": "",
+    "modified": 1775720065
 }
