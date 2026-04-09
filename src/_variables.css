@@ -5,10 +5,10 @@
 /* Custom CSS Variables */
 :root {
 	/* AUTO-GENERATED COLORS - DO NOT EDIT MANUALLY */
-	--color-black: rgb(0 0 0);
-	--color-white: rgb(255 255 255);
-	--color-primary: #FF5822;
-	--color-secondary: rgb(19, 22, 17);
+	--color-black: #161616;
+	--color-white: #FFFFFF;
+	--color-primary: #EC663C;
+	--color-secondary: #F7F5F0;
 	--color-tertiary: #638A8C;
 	--color-quaternary: rgb(9 35 84);
 	--color-light: rgba(216, 214, 212, 0.40);
@@ -25,10 +25,10 @@
 }
 
 @theme {
-  --color-black: rgb(0 0 0);
-  --color-white: rgb(255 255 255);
-  --color-primary: rgb(235 238 240);
-  --color-secondary: rgb(235 238 240);
+  --color-black: #161616;
+  --color-white: #FFFFFF;
+  --color-primary: #EC663C;
+  --color-secondary: #F7F5F0;
   --color-tertiary: rgb(66 171 65);
   --color-quaternary: rgb(9 35 84);
   --color-light: rgba(216, 214, 212, 0.40);
