@@ -1,4 +1,5 @@
-<footer id="colophon" class="site-footer mt-auto relative overflow-hidden w-full bg-[#0D0F12] text-white">
+<?= get_template_part('blocks/cta', null, array('cta_type' => 'default')) ?>
+<footer id="colophon" class="site-footer mt-auto relative overflow-hidden w-full bg-black text-white">
     <?php
     $expertises = get_posts(array(
         'post_type' => 'expertise',

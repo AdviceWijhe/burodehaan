@@ -18,12 +18,14 @@ if ($aangepaste_cta) {
         $cta_content   = $cta_groep['cta_content'] ?? null;
         $cta_buttons   = $cta_groep['cta_buttons'] ?? null;
         $cta_contactpersoon   = $cta_groep['cta_contactpersoon'] ?? null;
+        $cta_background_color   = $cta_groep['cta_achtergrond_kleur'] ?? null;
     } else {
         $cta_afbeelding = get_sub_field('cta_afbeelding');
         $cta_titel     = get_sub_field('cta_titel');
         $cta_content   = get_sub_field('cta_content');
         $cta_buttons   = get_sub_field('cta_buttons');
         $cta_contactpersoon   = get_sub_field('cta_contactpersoon');
+        $cta_background_color   = get_sub_field('achtergrond_kleur');
     }
 } else {
     $cta_groep_option = get_field('cta_groep', 'option');
@@ -34,14 +36,18 @@ if ($aangepaste_cta) {
         $cta_content   = $cta_groep_option['cta_content'] ?? null;
         $cta_buttons   = $cta_groep_option['cta_buttons'] ?? null;
         $cta_contactpersoon   = $cta_groep_option['cta_contactpersoon'] ?? null;
+        $cta_background_color   = $cta_groep_option['achtergrond_kleur'] ?? null;
     } else {
         $cta_afbeelding = get_field('cta_afbeelding', 'option');
         $cta_titel     = get_field('cta_titel', 'option');
         $cta_content   = get_field('cta_content', 'option');
         $cta_buttons   = get_field('cta_buttons', 'option');
         $cta_contactpersoon   = get_field('cta_contactpersoon', 'option');
+        $cta_background_color   = get_field('achtergrond_kleur', 'option');
     }
 }
+
+$cta_background_color   = get_sub_field('achtergrond_kleur');
 
 if (isset($args['cta_afbeelding'])) {
     $cta_afbeelding = $args['cta_afbeelding'];
@@ -57,4 +63,7 @@ if (isset($args['cta_buttons'])) {
 }
 if (isset($args['cta_contactpersoon'])) {
     $cta_contactpersoon = $args['cta_contactpersoon'];
+}
+if (isset($args['cta_background_color'])) {
+    $cta_background_color = $args['achtergrond_kleur'];
 }

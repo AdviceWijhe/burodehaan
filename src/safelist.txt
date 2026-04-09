@@ -14,3 +14,6 @@ bg-secondary
 bg-tertiary
 bg-quaternary
 bg-light
+
+border-[rgba(247,245,240,0.12)]
+border-[rgba(22,22,22,0.12)]
