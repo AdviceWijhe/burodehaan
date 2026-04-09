@@ -166,7 +166,7 @@ if($buttons) {
               if ($is_contact_link) {
                   echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center ' . $button_justify . '">' . $icon_svg . esc_html($button['link']['title']) . '</a>';
               } else {
-                  echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center ' . $button_justify . '">' . esc_html($button['link']['title']) . $icon_svg . '</a>';
+                  echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center ' . $button_justify . '">' . esc_html($button['link']['title']) . '</a>';
               }
           }
       }
