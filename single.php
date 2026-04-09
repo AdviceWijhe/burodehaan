@@ -83,6 +83,10 @@ get_header(); ?>
             
             <!-- Flexible Content -->
             <div class="flexible-content">
+                <?php if (function_exists('have_rows') && (have_rows('hero_banner') || have_rows('hero_variant'))) : ?>
+                    <?php get_template_part('blocks/hero_banner'); ?>
+                <?php endif; ?>
+
                 <?php if (function_exists('have_rows') && have_rows('blocks')) : ?>
                     
                     <?php while (have_rows('blocks')) : the_row(); ?>

@@ -1,4 +1,4 @@
-<section class="hero hero__big_image <?php echo get_spacing_bottom_class('hero_banner'); ?> overflow-hidden relative left-1/2 right-1/2 -mx-[50vw] w-screen">
+<section class="hero hero__big_image overflow-hidden relative left-1/2 right-1/2 -mx-[50vw] w-screen">
     <div class="relative flex items-end h-screen min-h-screen w-full p-0">
         <div class="absolute inset-0 h-full w-full">
             <div class="absolute top-0 left-0 w-1/2 h-full" style="background: linear-gradient(90deg, rgba(22, 22, 22, 0.5) 0%, rgba(22, 22, 22, 0) 100%);"></div>
@@ -28,7 +28,7 @@ background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></d
                 $hero_title = (string) get_sub_field('titel', false, false);
                 $hero_title = preg_replace('/^\s*<p>(.*)<\/p>\s*$/si', '$1', $hero_title);
                 ?>
-                <h1 class="text-white"><?php echo wp_kses_post($hero_title); ?></h1>
+                <div class="text-white !text-white [&_*]:!text-white"><?php echo wp_kses_post($hero_title); ?></div>
                 <div class="mt-[32px] hero-big-image-buttons">
                 <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'start')) ?>
                 </div>
