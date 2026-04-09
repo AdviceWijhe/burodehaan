@@ -9,9 +9,6 @@
 	--color-white: #FFFFFF;
 	--color-primary: #EC663C;
 	--color-secondary: #F7F5F0;
-	--color-tertiary: #638A8C;
-	--color-quaternary: rgb(9 35 84);
-	--color-light: rgba(216, 214, 212, 0.40);
 	/* END AUTO-GENERATED COLORS */
 
     --font-family-primary: "Fira Sans", "Open Sans", "Roboto", sans-serif;
@@ -29,7 +26,4 @@
   --color-white: #FFFFFF;
   --color-primary: #EC663C;
   --color-secondary: #F7F5F0;
-  --color-tertiary: rgb(66 171 65);
-  --color-quaternary: rgb(9 35 84);
-  --color-light: rgba(216, 214, 212, 0.40);
 }

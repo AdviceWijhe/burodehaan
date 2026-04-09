@@ -22,42 +22,40 @@ function advice2025_get_color_palette() {
         array(
             'name'  => __('Black', 'advice2025'),
             'slug'  => 'black',
-            'color' => 'rgb(0 0 0)',
+            'color' => '#161616',
         ),
         array(
             'name'  => __('White', 'advice2025'),
             'slug'  => 'white',
-            'color' => 'rgb(255 255 255)',
+            'color' => '#FFFFFF',
         ),
         array(
             'name'  => __('Primary', 'advice2025'),
             'slug'  => 'primary',
-            'color' => '#FF5822',
+            'color' => '#EC663C',
         ),
         array(
             'name'  => __('Secondary', 'advice2025'),
             'slug'  => 'secondary',
-            'color' => 'rgb(19, 22, 17)',
-        ),
-        array(
-            'name'  => __('Tertiary', 'advice2025'),
-            'slug'  => 'tertiary',
-            'color' => '#638A8C',
-        ),
-        array(
-            'name'  => __('Quaternary', 'advice2025'),
-            'slug'  => 'quaternary',
-            'color' => 'rgb(9 35 84)',
-        ),
-        array(
-            'name'  => __('Light', 'advice2025'),
-            'slug'  => 'light',
-            'color' => 'rgba(216, 214, 212, 0.40)',
+            'color' => '#F7F5F0',
         ),
 
         
     );
 }
+
+/**
+ * Forceer knop_kleur veld naar thema-kleuren.
+ */
+add_filter('acf/load_field/name=knop_kleur', function ($field) {
+    $field['choices'] = array(
+        'primary' => __('Primary', 'advice2025'),
+        'secondary' => __('Secondary', 'advice2025'),
+        'white' => __('White', 'advice2025'),
+        'black' => __('Black', 'advice2025'),
+    );
+    return $field;
+});
 
 /**
  * Theme setup
@@ -510,7 +508,7 @@ add_action('acf/input/admin_footer', function () {
     (function(){
         try{
             // CSS variable names that exist in your CSS (:root in src/input.css)
-            var varNames = ['--color-black','--color-white','--color-red','--color-gray','--color-green','--color-blue'];
+            var varNames = ['--color-black','--color-white','--color-primary','--color-secondary'];
             var rootStyles = getComputedStyle(document.documentElement);
 
             // Resolve CSS variables to computed color values (e.g. rgb(...))

@@ -72,7 +72,8 @@
                     "custom_palette_source": "",
                     "palette_colors": "",
                     "show_color_wheel": true,
-                    "parent_repeater": "field_689b01c15e22a"
+                    "parent_repeater": "field_689b01c15e22a",
+                    "acfe_advanced": true
                 },
                 {
                     "key": "field_689b0263de1ac",
@@ -153,6 +154,9 @@
             "layout": "row",
             "acfe_seamless_style": 0,
             "acfe_group_modal": 0,
+            "acfe_group_modal_close": 0,
+            "acfe_group_modal_button": "",
+            "acfe_group_modal_size": "large",
             "sub_fields": [
                 {
                     "key": "field_68d2a88158fa3",
@@ -221,10 +225,7 @@
                     "search_placeholder": "",
                     "min": ""
                 }
-            ],
-            "acfe_group_modal_close": 0,
-            "acfe_group_modal_button": "",
-            "acfe_group_modal_size": "large"
+            ]
         }
     ],
     "location": [
@@ -246,12 +247,13 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
     "acfe_autosync": [
         "json"
     ],
     "acfe_form": 0,
-    "acfe_display_title": "",
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1763043578
+    "modified": 1775718302
 }

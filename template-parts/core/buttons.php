@@ -82,48 +82,22 @@ $icon_templates = [
  
 $colors = [
   'primary' => [
-    'bg' => 'blue',  
-    'text' => 'text-white', 
-    'border' => 'border-blue', 
-    'hover' => 'hover:bg-primary'
-  ], 
+    'fill' => 'btn bg-primary text-white border border-primary hover:bg-black hover:text-white',
+    'outline' => 'btn border border-primary text-primary hover:bg-primary hover:text-white',
+  ],
   'secondary' => [
-    'bg' => 'secondary', 
-    'text' => 'text-white', 
-    'border' => 'border-secondary', 
-    'hover' => 'hover:bg-secondary hover:text-white'
-  ], 
-  'blue' => [
-    'bg' => 'blue', 
-    'text' => 'text-white', 
-    'border' => 'border-blue', 
-    'hover' => 'hover:bg-primary'
-  ], 
-  'light-blue' => [
-    'bg' => 'light-blue', 
-    'text' => 'text-primary', 
-    'border' => 'border-light-blue', 
-    'hover' => 'hover:bg-blue hover:text-white'
-  ], 
-  'pink' => [
-    'bg' => 'pink', 
-    'text' => 'text-white', 
-    'border' => 'border-pink', 
-    'hover' => 'hover:bg-secondary hover:text-white'
-  ], 
-  'light-pink' => [
-    'bg' => 'light-pink', 
-    'text' => 'text-secondary', 
-    'border' => 'border-light-pink', 
-    'hover' => 'hover:bg-pink hover:text-white'
-  ], 
+    'fill' => 'btn bg-secondary text-black border border-secondary hover:bg-primary hover:text-white',
+    'outline' => 'btn border border-secondary text-secondary hover:bg-secondary hover:text-black',
+  ],
   'white' => [
-    'bg' => 'white', 
-    'text' => 'text-primary', 
-    'border' => 'border-primary', 
-    'hover' => 'hover:bg-primary hover:text-white'
-    ]
-  ];
+    'fill' => 'btn bg-white text-black border border-white hover:bg-secondary hover:text-black',
+    'outline' => 'btn border border-white text-white hover:bg-white hover:text-black',
+  ],
+  'black' => [
+    'fill' => 'btn bg-black text-white border border-black hover:bg-primary hover:text-white',
+    'outline' => 'btn border border-black text-black hover:bg-black hover:text-white',
+  ],
+];
 
 
 
@@ -146,13 +120,14 @@ if($buttons) {
       
       echo '<div class="relative flex flex-col lg:flex-row gap-4 ' . $align_class . ' ' . $width_class . '">';
       foreach ($buttons as $button) {
-        $btnStyle = $colors[$button['knop_kleur']];
-
-         // Voeg opties toe als soort_knop true is dan alleen border
-        $class = 'btn bg-' . $btnStyle['bg'] . ' ' . $btnStyle['text'] . ' ' . $btnStyle['border'] . ' ' . $btnStyle['hover'];
-        if($button['soort_knop']) {
-          $class = 'btn border border-' . $btnStyle['bg'] . ' text-' . $btnStyle['bg'] . ' ' . $btnStyle['border'] . ' hover:bg-' . $btnStyle['bg'] . ' hover:'.$btnStyle['text'];
+        $button_color = $button['knop_kleur'] ?? 'primary';
+        if (!isset($colors[$button_color])) {
+            $button_color = 'primary';
         }
+        $btnStyle = $colors[$button_color];
+
+        // soort_knop=true betekent outline variant.
+        $class = !empty($button['soort_knop']) ? $btnStyle['outline'] : $btnStyle['fill'];
 
           if (!empty($button['link']['title'])) {
               $url = $button['link']['url'];
