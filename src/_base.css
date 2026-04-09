@@ -124,9 +124,10 @@ h6, .title-medium {
   font-weight: 500;
 }
 
-.body-medium {
+.body-medium, p {
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: max(16px, calc((100vw - 120px) * 0.008));
+
   font-style: normal;
   line-height: 150%;
   font-weight: 300;
