@@ -24,13 +24,13 @@ if($background_color === '') {
     $text_width = 'lg:w-5/12';
     $image_width = 'lg:w-[50vw]';
     $content_margin = '';
-    $image_margin = 'lg:mr-[calc(50%-50vw)] lg:ml-auto';
+    $image_margin = 'lg:mr-[calc(50%-50dvw)] lg:ml-auto';
 }
 if($image_position === 'left') {
     $content_margin = 'lg:ml-auto';
-    $image_margin = 'lg:ml-[calc(50%-50vw)]';
+    $image_margin = 'lg:ml-[calc(50%-50dvw)]';
 } else {
-    $image_margin = 'lg:mr-[calc(50%-50vw)] lg:ml-auto';
+    $image_margin = 'lg:mr-[calc(50%-50dvw)] lg:ml-auto';
 }
 
 
@@ -65,7 +65,7 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
             $content_first = $image_position === 'right';
             ?>
 <!-- Image + Text Block -->
-<div id="<?php echo esc_attr($block_id); ?>" class="js-image-text <?php echo $background_color === '' ? 'js-image-text--bg-empty' : ''; ?> <?php echo get_spacing_bottom_class(); ?> lg:relative flex flex-col lg:flex-row">
+<div id="<?php echo esc_attr($block_id); ?>" class="js-image-text <?php echo $background_color === '' ? 'js-image-text--bg-empty' : ''; ?> <?php echo get_spacing_bottom_class(); ?> lg:relative flex flex-col lg:flex-row overflow-x-hidden">
   <!-- <div class="order-2 lg:absolute lg:order-none js-image-text-extend left-0 lg:left-auto lg:right-0 bottom-[60px] lg:top-[0px] lg:bottom-auto w-full h-[60px] lg:h-full bg-gray-100 <?php echo $content_first ? '' : 'hidden'; ?>" id="extend-element-<?php echo esc_attr($block_id); ?>"></div> -->
     <div class="container mx-auto px-[20px] lg:px-0! order-1 lg:order-none">
 		<div class="js-it-row flex flex-col-reverse lg:flex-row <?php echo $background_color === '' ? 'items-center' : 'items-stretch'; ?> order-1">

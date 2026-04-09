@@ -137,6 +137,7 @@ $backgroundPatroon = 'pink';
       if (!in_array($selected_post_type, array('post', 'project', 'thema', 'expertise'), true)) {
         $selected_post_type = 'post';
       }
+      $is_bericht_post_type = ($selected_post_type === 'post');
 
       $args = array(
         'post_type' => $selected_post_type,
@@ -167,44 +168,73 @@ $backgroundPatroon = 'pink';
           <div class="swiper-wrapper">
             <?php while($query->have_posts()) : $query->the_post(); ?>
               <div class="swiper-slide h-auto!">
-                <a href="<?php the_permalink(); ?>" class="block relative overflow-hidden aspect-[5/7] group">
-                  <?php if (has_post_thumbnail()) : ?>
-                    <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
-                  <?php endif; ?>
-                  <div class="absolute inset-0 bg-black/20"></div>
-                  <div class="absolute left-3 right-3 bottom-3 rounded-[12px] border border-white/20 bg-white/5 backdrop-blur-[20px] p-[32px] text-white flex items-end justify-between gap-3">
-                    <div>
-                      <?php
-                      $term_label = '';
-                      $taxonomies = get_object_taxonomies(get_post_type(), 'names');
-                      if (!empty($taxonomies)) {
-                        foreach ($taxonomies as $tax) {
-                          $terms = get_the_terms(get_the_ID(), $tax);
-                          if (!empty($terms) && !is_wp_error($terms)) {
-                            $term_label = $terms[0]->name;
-                            break;
+                <?php if ($is_bericht_post_type) : ?>
+                  <a href="<?php the_permalink(); ?>" class="block h-full group">
+                    <div class="relative overflow-hidden aspect-[517/320]">
+                      <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
+                      <?php endif; ?>
+                    </div>
+                    <div class="bg-white p-[40px] flex items-end justify-between gap-4" style="border: 1px solid rgba(22, 22, 22, 0.12);">
+                      <div class="min-w-0">
+                        <h3 class="title-medium text-black mb-3!"><?php the_title(); ?></h3>
+                        <div class="body-small text-black/70 mb-0!">
+                          <?php echo esc_html(wp_trim_words(get_the_excerpt() ?: wp_strip_all_tags(get_the_content()), 20, '...')); ?>
+                        </div>
+                      </div>
+                      <span class="shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
+                          <rect width="2.22222" height="2.22222" fill="#EC663C"/>
+                          <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#EC663C"/>
+                          <rect x="2.96094" y="14.8149" width="2.22222" height="2.22222" fill="#EC663C"/>
+                          <rect x="0.000183105" y="17.7778" width="2.22222" height="2.22222" fill="#EC663C"/>
+                          <rect x="2.96094" y="2.96289" width="2.22222" height="2.22222" fill="#EC663C"/>
+                          <rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="#EC663C"/>
+                          <rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="#EC663C"/>
+                        </svg>
+                      </span>
+                    </div>
+                  </a>
+                <?php else : ?>
+                  <a href="<?php the_permalink(); ?>" class="block relative overflow-hidden aspect-[5/7] group">
+                    <?php if (has_post_thumbnail()) : ?>
+                      <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
+                    <?php endif; ?>
+                    <div class="absolute inset-0 bg-black/20"></div>
+                    <div class="absolute left-3 right-3 bottom-3 rounded-[12px] border border-white/20 bg-white/5 backdrop-blur-[20px] p-[32px] text-white flex items-end justify-between gap-3">
+                      <div>
+                        <?php
+                        $term_label = '';
+                        $taxonomies = get_object_taxonomies(get_post_type(), 'names');
+                        if (!empty($taxonomies)) {
+                          foreach ($taxonomies as $tax) {
+                            $terms = get_the_terms(get_the_ID(), $tax);
+                            if (!empty($terms) && !is_wp_error($terms)) {
+                              $term_label = $terms[0]->name;
+                              break;
+                            }
                           }
                         }
-                      }
-                      ?>
-                      <?php if ($term_label) : ?>
-                        <div class="label-medium text-white mb-[16px]"><?php echo esc_html($term_label); ?></div>
-                      <?php endif; ?>
-                      <h3 class="title-medium text-white mb-0! w-2/3"><?php the_title(); ?></h3>
+                        ?>
+                        <?php if ($term_label) : ?>
+                          <div class="label-medium text-white mb-[16px]"><?php echo esc_html($term_label); ?></div>
+                        <?php endif; ?>
+                        <h3 class="title-medium text-white mb-0! w-2/3"><?php the_title(); ?></h3>
+                      </div>
+                      <span class="shrink-0 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
+                          <rect width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                          <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                          <rect x="2.96094" y="14.8149" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                          <rect x="0.000183105" y="17.7778" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                          <rect x="2.96094" y="2.96313" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                          <rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                          <rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        </svg>
+                      </span>
                     </div>
-                    <span class="shrink-0 text-white">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
-                        <rect width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                        <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                        <rect x="2.96094" y="14.8149" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                        <rect x="0.000183105" y="17.7778" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                        <rect x="2.96094" y="2.96313" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                        <rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                        <rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                      </svg>
-                    </span>
-                  </div>
-                </a>
+                  </a>
+                <?php endif; ?>
               </div>
             <?php endwhile; wp_reset_query(); ?>
           </div>
@@ -272,44 +302,73 @@ $backgroundPatroon = 'pink';
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <?php while($query->have_posts()) : $query->the_post(); ?>
             <div class="h-auto!">
-              <a href="<?php the_permalink(); ?>" class="block relative overflow-hidden aspect-[5/7] group">
-                <?php if (has_post_thumbnail()) : ?>
-                  <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
-                <?php endif; ?>
-                <div class="absolute inset-0 bg-black/20"></div>
-                <div class="absolute left-3 right-3 bottom-3 rounded-[12px] border border-white/20 bg-white/5 backdrop-blur-[20px] p-5 text-white flex items-end justify-between gap-3">
-                  <div>
-                    <?php
-                    $term_label = '';
-                    $taxonomies = get_object_taxonomies(get_post_type(), 'names');
-                    if (!empty($taxonomies)) {
-                      foreach ($taxonomies as $tax) {
-                        $terms = get_the_terms(get_the_ID(), $tax);
-                        if (!empty($terms) && !is_wp_error($terms)) {
-                          $term_label = $terms[0]->name;
-                          break;
+              <?php if ($is_bericht_post_type) : ?>
+                <a href="<?php the_permalink(); ?>" class="block h-full group">
+                  <div class="relative overflow-hidden aspect-[517/320]">
+                    <?php if (has_post_thumbnail()) : ?>
+                      <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
+                    <?php endif; ?>
+                  </div>
+                  <div class="bg-white p-5 flex items-end justify-between gap-4" style="border: 1px solid rgba(22, 22, 22, 0.12);">
+                    <div class="min-w-0">
+                      <h3 class="title-medium text-black mb-3!"><?php the_title(); ?></h3>
+                      <div class="body-small text-black/70 mb-0!">
+                        <?php echo esc_html(wp_trim_words(get_the_excerpt() ?: wp_strip_all_tags(get_the_content()), 20, '...')); ?>
+                      </div>
+                    </div>
+                    <span class="shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
+                        <rect width="2.22222" height="2.22222" fill="#EC663C"/>
+                        <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#EC663C"/>
+                        <rect x="2.96094" y="14.8149" width="2.22222" height="2.22222" fill="#EC663C"/>
+                        <rect x="0.000183105" y="17.7778" width="2.22222" height="2.22222" fill="#EC663C"/>
+                        <rect x="2.96094" y="2.96289" width="2.22222" height="2.22222" fill="#EC663C"/>
+                        <rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="#EC663C"/>
+                        <rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="#EC663C"/>
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              <?php else : ?>
+                <a href="<?php the_permalink(); ?>" class="block relative overflow-hidden aspect-[5/7] group">
+                  <?php if (has_post_thumbnail()) : ?>
+                    <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
+                  <?php endif; ?>
+                  <div class="absolute inset-0 bg-black/20"></div>
+                  <div class="absolute left-3 right-3 bottom-3 rounded-[12px] border border-white/20 bg-white/5 backdrop-blur-[20px] p-5 text-white flex items-end justify-between gap-3">
+                    <div>
+                      <?php
+                      $term_label = '';
+                      $taxonomies = get_object_taxonomies(get_post_type(), 'names');
+                      if (!empty($taxonomies)) {
+                        foreach ($taxonomies as $tax) {
+                          $terms = get_the_terms(get_the_ID(), $tax);
+                          if (!empty($terms) && !is_wp_error($terms)) {
+                            $term_label = $terms[0]->name;
+                            break;
+                          }
                         }
                       }
-                    }
-                    ?>
-                    <?php if ($term_label) : ?>
-                      <div class="label-small text-white/70 mb-2"><?php echo esc_html($term_label); ?></div>
-                    <?php endif; ?>
-                    <h3 class="title-medium text-white mb-0! w-2/3"><?php the_title(); ?></h3>
+                      ?>
+                      <?php if ($term_label) : ?>
+                        <div class="label-small text-white/70 mb-2"><?php echo esc_html($term_label); ?></div>
+                      <?php endif; ?>
+                      <h3 class="title-medium text-white mb-0! w-2/3"><?php the_title(); ?></h3>
+                    </div>
+                    <span class="shrink-0 text-white">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
+                        <rect width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="2.96094" y="14.8149" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="0.000183105" y="17.7778" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="2.96094" y="2.96313" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                        <rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="#F7F5F0"/>
+                      </svg>
+                    </span>
                   </div>
-                  <span class="shrink-0 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
-                      <rect width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                      <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                      <rect x="2.96094" y="14.8149" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                      <rect x="0.000183105" y="17.7778" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                      <rect x="2.96094" y="2.96313" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                      <rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                      <rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="#F7F5F0"/>
-                    </svg>
-                  </span>
-                </div>
-              </a>
+                </a>
+              <?php endif; ?>
             </div>
           <?php endwhile; wp_reset_query(); ?>
         </div>

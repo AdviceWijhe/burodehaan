@@ -1,5 +1,5 @@
-<section class="hero hero__big_image overflow-hidden relative left-1/2 right-1/2 -mx-[50vw] w-screen">
-    <div class="relative flex items-end h-screen min-h-screen w-full p-0">
+<section class="hero hero__big_image overflow-hidden relative w-full max-w-full">
+    <div class="relative flex items-end w-full p-0 aspect-[1728/750]">
         <div class="absolute inset-0 h-full w-full">
             <div class="absolute top-0 left-0 w-1/2 h-full" style="background: linear-gradient(90deg, rgba(22, 22, 22, 0.5) 0%, rgba(22, 22, 22, 0) 100%);"></div>
 <div class="absolute bottom-0 left-0 w-full h-[300px]" style="opacity: 0.5;
