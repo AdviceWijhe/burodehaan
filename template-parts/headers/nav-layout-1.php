@@ -130,7 +130,7 @@ if(is_page()) {
                                 'title' => $contact_text,
                             ),
                             'knop_kleur' => 'primary',
-                            'knop_icon' => 'default',
+                            'knop_icon' => 'none',
                         ),
                     );
                     ?>

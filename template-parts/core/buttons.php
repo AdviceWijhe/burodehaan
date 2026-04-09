@@ -63,13 +63,15 @@ $icon_templates = [
         <rect x="17.4854" y="12.2427" width="6" height="1" transform="rotate(135 17.4854 12.2427)" fill="currentColor"/>
       </g>
     </svg>',
-  'scroll' => '<svg width="25" height="25" viewBox="0 0 25 25" fill="none" class="down-arrow" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12.5" cy="12.5" r="12" transform="rotate(90 12.5 12.5)" stroke="currentColor"/>
-    <g class="arrow-group">
-    <rect x="12.7573" y="15.3817" width="0.5" height="5.5" transform="rotate(-135 12.7573 15.3817)" fill="currentColor" stroke="currentColor" stroke-width="0.5"/>
-    <rect x="12.7573" y="15.3817" width="5.5" height="0.5" transform="rotate(-135 12.7573 15.3817)" fill="currentColor" stroke="currentColor" stroke-width="0.5"/>
-    </g>
-  </svg>',
+  'scroll' => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
+  <rect x="20" width="2.22222" height="2.22222" transform="rotate(90 20 0)" fill="#161616"/>
+  <rect x="8.14844" y="5.92578" width="2.22222" height="2.22222" transform="rotate(90 8.14844 5.92578)" fill="#161616"/>
+  <rect x="5.18555" y="2.96094" width="2.22222" height="2.22222" transform="rotate(90 5.18555 2.96094)" fill="#161616"/>
+  <rect x="2.22266" y="0.000183105" width="2.22222" height="2.22222" transform="rotate(90 2.22266 0.000183105)" fill="#161616"/>
+  <rect x="17.0371" y="2.96094" width="2.22222" height="2.22222" transform="rotate(90 17.0371 2.96094)" fill="#161616"/>
+  <rect x="11.1113" y="8.89062" width="2.22222" height="2.22222" transform="rotate(90 11.1113 8.89062)" fill="#161616"/>
+  <rect x="14.0742" y="5.92578" width="2.22222" height="2.22222" transform="rotate(90 14.0742 5.92578)" fill="#161616"/>
+</svg>',
   'tel' => '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 0.875L3.9375 0L6.125 3.9375L3.83359 5.76953C4.8207 7.63984 6.35742 9.17656 8.23047 10.1664L10.0625 7.875L14 10.0625L13.125 14H12.25C5.48516 14 0 8.51484 0 1.75V0.875Z" fill="currentColor"/>
   </svg>',
@@ -166,7 +168,7 @@ if($buttons) {
               if ($is_contact_link) {
                   echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center ' . $button_justify . '">' . $icon_svg . esc_html($button['link']['title']) . '</a>';
               } else {
-                  echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center ' . $button_justify . '"><span>' . esc_html($button['link']['title']) . '</span>' . '</a>';
+                  echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center gap-[14px] ' . $button_justify . '"><span>' . esc_html($button['link']['title']) . '</span>' . $icon_svg . '</a>';
               }
           }
       }
