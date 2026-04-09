@@ -199,9 +199,9 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
             
             // Active state: light blue text (#96ACC0) and underline
             if ($is_current) {
-                $link_classes .= ' text-light-blue';
+                $link_classes .= '';
             } else {
-                $link_classes .= ' text-white';
+                $link_classes .= ' ';
             }
         } else {
             // Dropdown items - check if in mega menu

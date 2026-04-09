@@ -7,7 +7,7 @@
 $container_width = get_theme_mod('header_container_width', 'full-width');
 $container_class = $container_width === 'contained' ? 'container mx-auto' : 'container';
 
-$header_background_color = 'bg-white';
+$header_background_color = 'bg-secondary';
 
 if(is_archive()) {
     $header_background_color = 'bg-white';
@@ -34,7 +34,7 @@ if(is_page()) {
 }
 ?>
 
-<div class="navigation-wrapper bg-black">
+<div class="navigation-wrapper <?php echo esc_attr($header_background_color); ?>">
     <div class="<?php echo esc_attr($container_class); ?> py-[28px]">
         <div class="flex items-center justify-between gap-10">
             <!-- Logo -->

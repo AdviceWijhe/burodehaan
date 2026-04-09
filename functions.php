@@ -109,7 +109,7 @@ function advice2025_scripts() {
 
     wp_enqueue_style(
         'advice2025-fonts',
-        'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap',
+        'https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;600&display=swap',
         array(),
         wp_get_theme()->get('Version')
     );
@@ -135,29 +135,29 @@ function advice2025_scripts() {
             wp_get_theme()->get('Version')
         );
     } else {
-        // Fallback to CDN if compiled CSS doesn't exist
-        wp_enqueue_style(
-            'advice2025-tailwind-fallback',
-            'https://cdn.tailwindcss.com/4.1.0',
-            array(),
-            '4.1.0'
-        );
+        // // Fallback to CDN if compiled CSS doesn't exist
+        // wp_enqueue_style(
+        //     'advice2025-tailwind-fallback',
+        //     'https://cdn.tailwindcss.com/4.1.0',
+        //     array(),
+        //     '4.1.0'
+        // );
         
-        // Add inline styles for custom CSS when using CDN fallback
-        $custom_css = "
-            :root {
-                --font-family-primary: 'Open Sans', 'Roboto', sans-serif;
-                --color-primary: #2563eb;
-                --color-primary-dark: #1d4ed8;
-                --color-secondary: #64748b;
-            }
-            body { font-family: var(--font-family-primary); line-height: 1.6; }
-            .prose { color: #374151; }
-            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 { color: #111827; font-weight: 700; line-height: 1.25; }
-            .prose a { color: var(--color-primary); text-decoration: none; transition: color 0.2s ease; }
-            .prose a:hover { color: var(--color-primary-dark); text-decoration: underline; }
-        ";
-        wp_add_inline_style('advice2025-tailwind-fallback', $custom_css);
+        // // Add inline styles for custom CSS when using CDN fallback
+        // $custom_css = "
+        //     :root {
+        //         --font-family-primary: 'Open Sans', 'Roboto', sans-serif;
+        //         --color-primary: #2563eb;
+        //         --color-primary-dark: #1d4ed8;
+        //         --color-secondary: #64748b;
+        //     }
+        //     body { font-family: var(--font-family-primary); line-height: 1.6; }
+        //     .prose { color: #374151; }
+        //     .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 { color: #111827; font-weight: 700; line-height: 1.25; }
+        //     .prose a { color: var(--color-primary); text-decoration: none; transition: color 0.2s ease; }
+        //     .prose a:hover { color: var(--color-primary-dark); text-decoration: underline; }
+        // ";
+        // wp_add_inline_style('advice2025-tailwind-fallback', $custom_css);
     }
     
     // Theme stylesheet (for WordPress theme info)
