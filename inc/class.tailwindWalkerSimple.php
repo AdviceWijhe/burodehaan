@@ -195,7 +195,7 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         if ($depth == 0) {
             // Top level items - matching Figma design
             // Font: Poppins Medium (font-medium), 15px (text-[15px]), line-height 1.8 (leading-[1.8])
-            $link_classes = 'relative px-4 py-2 text-[15px] leading-[1.8] font-medium transition-colors duration-300 flex items-center gap-1';
+            $link_classes = 'relative px-[20px] py-[10px] transition-colors duration-300 flex items-center gap-1';
             
             // Active state: light blue text (#96ACC0) and underline
             if ($is_current) {

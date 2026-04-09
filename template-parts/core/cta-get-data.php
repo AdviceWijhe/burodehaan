@@ -49,6 +49,10 @@ if ($aangepaste_cta) {
 
 $cta_background_color   = get_sub_field('achtergrond_kleur');
 
+if(get_sub_field('buttons')) {
+    $cta_buttons = get_sub_field('buttons');
+}
+
 if (isset($args['cta_afbeelding'])) {
     $cta_afbeelding = $args['cta_afbeelding'];
 }

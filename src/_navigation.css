@@ -40,11 +40,7 @@
 }
 
 /* Better spacing for nav items */
-.main-navigation {
-  a {
-    color: var(--color-black) !important;
-  }
-}
+
 
 .main-navigation .menu-item {
     white-space: nowrap;

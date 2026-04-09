@@ -5,24 +5,55 @@
  */
 
 $container_width = get_theme_mod('header_container_width', 'full-width');
-$container_class = $container_width === 'contained' ? 'container mx-auto' : '';
+$container_class = $container_width === 'contained' ? 'container mx-auto' : 'container';
+
+$header_background_color = 'bg-white';
+
+if(is_archive()) {
+    $header_background_color = 'bg-white';
+}
+if(is_single()) {
+    $header_background_color = 'bg-black';
+}
+if(is_page()) {
+    $variant = null;
+    if (have_rows('hero_banner')) :
+        while (have_rows('hero_banner')) :
+            the_row();
+
+            $variant = get_row_layout();
+        endwhile;
+        if($variant == 'big_image') {
+            $header_background_color = 'bg-black';
+        }else {
+            $header_background_color = 'bg-secondary';
+        }
+        
+    endif;    
+    // $header_background_color = 'bg-white';
+}
 ?>
 
-<div class="navigation-wrapper bg-white">
-    <div class="<?php echo esc_attr($container_class); ?> px-10 py-5">
+<div class="navigation-wrapper bg-black">
+    <div class="<?php echo esc_attr($container_class); ?> py-[28px]">
         <div class="flex items-center justify-between gap-10">
             <!-- Logo -->
             <div class="site-branding flex-shrink-0">
-                <?php if (has_custom_logo()) : ?>
+                <?php 
+                $logos = get_field('logos', 'option');
+
+                if($header_background_color == 'bg-black') {
+                    $logo = $logos['logo_wit'];
+                }else {
+                    $logo = $logos['logo_donker'];
+                }
+                
+                if ($logo) : ?>
                     <div class="site-logo">
                         <a href="<?php echo esc_url(home_url('/')); ?>" class="block">
-                            <?php 
-                            $custom_logo_id = get_theme_mod('custom_logo');
-                            $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-                            if ($logo) {
-                                echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="h-[38px] w-auto object-contain">';
-                            }
-                            ?>
+                   
+                              <?php  echo '<img src="' . esc_url($logo['url']) . '" alt="' . get_bloginfo('name') . '" class="h-[43px] w-auto object-contain">';
+                      ?>
                         </a>
                     </div>
                 <?php else : ?>
@@ -39,11 +70,18 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
                 <!-- Main Navigation -->
                 <nav class="main-navigation hidden xl:flex items-center gap-10">
                     <?php
+                    $menu_text_color = 'text-black';
+                    
+
+                    if($header_background_color == 'bg-black') {
+                        $menu_text_color = 'text-white';
+                    }
+
                     wp_nav_menu(array(
                         'theme_location' => 'primary',
                         'menu_id'        => 'primary-menu',
                         'container'      => false,
-                        'menu_class'     => 'flex items-center gap-10',
+                        'menu_class'     => 'flex items-center ' . $menu_text_color,
                         'fallback_cb'    => false,
                         'walker'         => new Advice2025_Simple_Nav_Walker(),
                         'depth'          => 3,
@@ -54,40 +92,49 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
                 <!-- Buttons Group -->
                 <div class="flex items-center gap-4">
                     <!-- Search Button -->
-                    <div class="relative">
+                    <!-- <div class="relative">
                         <button id="header-search-toggle" class="w-[54px] h-[54px] flex items-center justify-center border border-[#131611] rounded hover:bg-gray-100 transition-colors" aria-label="Zoeken" aria-expanded="false">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
-                        </button>
+                        </button> -->
                         
                         <!-- Search Bar (expandable) -->
-                        <div id="header-search-bar" class="hidden absolute right-full top-0 mr-2 bg-white border border-[#131611] rounded shadow-lg z-50 transition-all duration-300" style="width: 0; opacity: 0;">
+                        <!-- <div id="header-search-bar" class="hidden absolute right-full top-0 mr-2 bg-white border border-[#131611] rounded shadow-lg z-50 transition-all duration-300" style="width: 0; opacity: 0;">
                             <div class="w-[300px] p-2">
                                 <?php get_search_form(); ?>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Secondary Button -->
-                    <?php 
+                    <!-- <?php 
                     $secondary_button = get_field('header_secondary_button', 'option');
                     $secondary_text = $secondary_button && isset($secondary_button['title']) ? $secondary_button['title'] : 'Secondary button';
                     $secondary_url = $secondary_button && isset($secondary_button['url']) ? $secondary_button['url'] : '#';
                     ?>
                     <a href="<?php echo esc_url($secondary_url); ?>" class="px-5 py-4 bg-[rgba(19,22,17,0.4)] backdrop-blur-[7px] text-white rounded font-medium hover:opacity-80 transition-opacity whitespace-nowrap">
                         <?php echo esc_html($secondary_text); ?>
-                    </a>
+                    </a> -->
 
                     <!-- Contact Button -->
                     <?php 
                     $contact_button = get_field('header_contact_button', 'option');
-                    $contact_text = $contact_button && isset($contact_button['title']) ? $contact_button['title'] : 'Contact';
-                    $contact_url = $contact_button && isset($contact_button['url']) ? $contact_button['url'] : '/contact';
+                    $contact_text = $contact_button && isset($contact_button['title']) ? $contact_button['title'] : 'Plan een afspraak';
+                    $contact_url = $contact_button && isset($contact_button['url']) ? $contact_button['url'] : '/plan-een-afspraak';
+
+                    $contact_button = array(
+                        array(
+                            'link' => array(
+                                'url' => $contact_url,
+                                'title' => $contact_text,
+                            ),
+                            'knop_kleur' => 'primary',
+                            'knop_icon' => 'default',
+                        ),
+                    );
                     ?>
-                    <a href="<?php echo esc_url($contact_url); ?>" class="px-5 py-4 bg-[#FF5822] text-[#131611] rounded font-medium hover:opacity-90 transition-opacity whitespace-nowrap">
-                        <?php echo esc_html($contact_text); ?>
-                    </a>
+                    <?php get_template_part('template-parts/core/buttons', null, array('buttons' => $contact_button, 'no_margin' => true, 'align_items' => 'stretch', 'full_width' => false)); ?>
                 </div>
             </div>
 
