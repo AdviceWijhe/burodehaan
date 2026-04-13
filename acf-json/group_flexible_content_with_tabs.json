@@ -4398,20 +4398,6 @@
                 "operator": "==",
                 "value": "template-flexible.php"
             }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "all"
-            }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "vacature"
-            }
         ]
     ],
     "menu_order": 0,
@@ -4435,5 +4421,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1776069838
+    "modified": 1776072670
 }

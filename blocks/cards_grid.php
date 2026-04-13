@@ -213,8 +213,11 @@ $backgroundPatroon = 'pink';
             swiper.on('slideChange', updateProgress);
           });
         </script>
-  <?php else: ?>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <?php else: 
+    
+    
+    ?>
+        <div class="grid grid-cols-1 md:grid-cols-2 <?php if($selected_post_type == 'vacature') : ?>lg:grid-cols-2<?php else : ?>lg:grid-cols-3<?php endif; ?> gap-6">
           <?php while($query->have_posts()) : $query->the_post(); ?>
             <div class="h-auto!">
               <?php get_template_part('template-parts/card', $selected_post_type, array('post' => get_the_ID())); ?>

@@ -1,24 +1,62 @@
-<?php 
+<?php
+$item = $args['item'];
+$id = 0;
+$thumbnail = '';
+$link = '#';
+$name = '';
+$description = '';
 
-$ID = $args['post'] ?? get_the_ID();
-$categories = get_the_category($ID);
+
+
+if ($item instanceof WP_Term) {
+    $id = (int) $item->term_id;
+    $link = get_term_link($item);
+    $thumbnail = advice2025_get_term_thumbnail_url($id);
+    $name = $item->name;
+    $description = $item->description;
+} elseif ($item instanceof WP_Post) {
+    $id = (int) $item->ID;
+    $thumbnail = get_the_post_thumbnail_url($id, 'large');
+    $link = get_permalink($id);
+    $name = get_the_title($id);
+    $description = get_the_excerpt($id);
+} elseif (is_array($item)) {
+    if (isset($item['term_id'])) {
+        $id = (int) $item['term_id'];
+        $term = get_term($id);
+        $link = !is_wp_error($term) ? get_term_link($term) : '#';
+        $thumbnail = advice2025_get_term_thumbnail_url($id);
+        $name = $item['name'] ?? '';
+        $description = $item['description'] ?? '';
+    } elseif (isset($item['ID'])) {
+        $id = (int) $item['ID'];
+        $thumbnail = get_the_post_thumbnail_url($id, 'large');
+        $link = get_permalink($id);
+        $name = $item['name'] ?? get_the_title($id);
+        $description = $item['description'] ?? get_the_excerpt($id);
+    }
+}
+
 ?>
 
-<?php if(!is_archive() && $categories[0]->slug == 'certificering-kwaliteit') : ?>
-    <a href="" class="kennisbank h-full certificering-kwaliteit bg-white border-1 border-gray flex flex-col items-center pt-8 hover:translate-y-[-10px] transition-all duration-300">
-        <div class="kennisbank__image h-[100px] w-full">
-            <?php echo wp_get_attachment_image(get_post_thumbnail_id(get_the_ID()), 'full', false, array(
-              'class' => 'w-full h-full object-contain',
-              'alt' => get_the_title(),
-              'loading' => 'lazy'
-            )); ?>
-        </div>
-        <div class="kennisbank__content flex justify-center items-start text-center gap-3 p-8">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="23" class="min-w-[16px] min-h-[23px]" viewBox="0 0 16 23" fill="none">
-<path d="M8 18L7.99902 18L0.114257 10.1152L1.69043 8.53809L6.96387 13.8105L6.96387 -3.89945e-07L9.19434 -2.92448e-07L9.19434 13.6514L14.3076 8.53809L15.8848 10.1152L8 18Z" fill="#E1322C"/>
-<rect y="20" width="15.77" height="2.23026" fill="#E1322C"/>
-</svg> <h3 class="headline-small no-after"><?= get_the_title() ?></h3>
-        </div>
-    </a>
+<a href="<?php echo esc_url($link); ?>" class="card border border-[rgba(22,22,22,0.12)] flex flex-col lg:flex-row">
+                    <div class="card-image w-full lg:w-2/8 h-full">
+                    <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($name); ?>" class="w-full h-full object-cover">
 
-<?php endif; ?>
+                    </div>
+                    <div class="card-body p-[40px] w-full lg:w-4/8">
+                        <h3 class="card-title mb-[28px]!"><?php echo esc_html($name); ?></h3>
+                        <div class="card-description"><?php echo wp_kses_post($description); ?></div>
+                    </div>
+                    <div class="w-full lg:w-1/8 lg:ml-auto flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
+<rect width="2.22222" height="2.22222" fill="#EC663C"/>
+<rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#EC663C"/>
+<rect x="2.96094" y="14.8149" width="2.22222" height="2.22222" fill="#EC663C"/>
+<rect y="17.7778" width="2.22222" height="2.22222" fill="#EC663C"/>
+<rect x="2.96094" y="2.96289" width="2.22222" height="2.22222" fill="#EC663C"/>
+<rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="#EC663C"/>
+<rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="#EC663C"/>
+</svg>
+                    </div>
+                </a>

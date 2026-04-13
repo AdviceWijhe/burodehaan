@@ -319,7 +319,7 @@
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "comment",
                 "operator": "==",
                 "value": "post"
             }
@@ -343,5 +343,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1775737363
+    "modified": 1776072712
 }
