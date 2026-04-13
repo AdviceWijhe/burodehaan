@@ -2,11 +2,13 @@
     "key": "post_type_6914684226c9f",
     "title": "FAQ",
     "menu_order": 0,
-    "active": true,
+    "active": false,
     "post_type": "faq",
     "advanced_configuration": false,
     "import_source": "",
     "import_date": "",
+    "allow_ai_access": false,
+    "ai_description": "",
     "labels": {
         "name": "FAQ",
         "singular_name": "FAQ",
@@ -85,5 +87,5 @@
     "delete_with_user": false,
     "register_meta_box_cb": "",
     "enter_title_here": "",
-    "modified": 1762945109
+    "modified": 1776069308
 }

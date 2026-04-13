@@ -2,7 +2,7 @@
     "key": "post_type_69d4f79888e60",
     "title": "Themas",
     "menu_order": 0,
-    "active": true,
+    "active": false,
     "post_type": "thema",
     "advanced_configuration": false,
     "import_source": "",
@@ -89,5 +89,5 @@
     "delete_with_user": false,
     "register_meta_box_cb": "",
     "enter_title_here": "",
-    "modified": 1775721843
+    "modified": 1776069309
 }

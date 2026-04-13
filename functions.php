@@ -2077,4 +2077,13 @@ add_action('admin_menu', function () {
         'dashicons-welcome-learn-more',
         22
     );
+    add_menu_page(
+        __('Thema\'s', 'advice2025'),
+        __('Thema\'s', 'advice2025'),
+        'manage_categories',
+        'edit-tags.php?taxonomy=thema',
+        '',
+        'dashicons-welcome-learn-more',
+        22
+    );
 });

@@ -30,10 +30,10 @@ if(is_archive()) {
     $header_background_color = 'bg-white';
 }
 if(is_single()) {
-    $header_background_color = 'bg-black';
+    $header_background_color = 'bg-black text-white';
 }
 if(is_tax()) {
-    $header_background_color = 'bg-black';
+    $header_background_color = 'bg-black text-white';
 }
 ?>
 
@@ -118,14 +118,16 @@ if(is_tax()) {
                 <div id="mobile-subpanel-content" class="px-[20px] space-y-3"></div>
             </div>
         </div>
+        <?php if (function_exists('yoast_breadcrumb') && !is_front_page()) { ?>
         <div class="<?= $header_background_color ?>">
         <div class="container pb-[20px]">
     <!-- yoast breadcrumbs -->
-    <?php if (function_exists('yoast_breadcrumb') && !is_front_page()) {
-      yoast_breadcrumb('<p id="breadcrumbs" class="mb-0!">', '</p>');
-    } ?>
+
+     <?php yoast_breadcrumb('<p id="breadcrumbs" class="mb-0!">', '</p>'); ?>
+  
   </div>
   </div>
+<?php } ?>
     </header>
     
 <!-- Desktop dropdown overlay -->

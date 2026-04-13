@@ -2,11 +2,13 @@
     "key": "post_type_69147aa39e8a7",
     "title": "Popups",
     "menu_order": 0,
-    "active": true,
+    "active": false,
     "post_type": "popup",
     "advanced_configuration": false,
     "import_source": "",
     "import_date": "",
+    "allow_ai_access": false,
+    "ai_description": "",
     "labels": {
         "name": "Popups",
         "singular_name": "popup",
@@ -85,5 +87,5 @@
     "delete_with_user": false,
     "register_meta_box_cb": "",
     "enter_title_here": "",
-    "modified": 1762949824
+    "modified": 1776069308
 }
