@@ -45,7 +45,7 @@ if (empty($taxonomies)) {
 
     <aside
         id="<?php echo esc_attr($panel_id); ?>"
-        class="fixed top-0 right-0 h-full w-full lg:top-10 lg:right-10 lg:h-[calc(100%-80px)] lg:w-[600px] bg-secondary z-100 translate-x-full transition-transform duration-300 ease-out shadow-2xl"
+        class="fixed top-0 right-0 h-full w-full lg:top-10 lg:right-10 lg:h-[calc(100%-80px)] lg:w-[600px] bg-secondary z-100 translate-x-[calc(100%+40px)] transition-transform duration-300 ease-out shadow-2xl"
         data-archive-filter-drawer
         role="dialog"
         aria-modal="true"

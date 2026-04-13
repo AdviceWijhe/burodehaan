@@ -950,14 +950,14 @@
 
       function openDrawer() {
         overlay.classList.remove("hidden");
-        drawer.classList.remove("translate-x-full");
+        drawer.classList.remove("translate-x-[calc(100%+40px)]");
         openButton.setAttribute("aria-expanded", "true");
         document.body.classList.add("overflow-hidden");
       }
 
       function closeDrawer() {
         overlay.classList.add("hidden");
-        drawer.classList.add("translate-x-full");
+        drawer.classList.add("translate-x-[calc(100%+40px)]");
         openButton.setAttribute("aria-expanded", "false");
         document.body.classList.remove("overflow-hidden");
       }

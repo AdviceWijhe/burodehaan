@@ -53,7 +53,7 @@ $filter_panel_taxonomies = array(
     $archive_query_vars['advice2025_filters'] = array();
     ?>
     <div
-        class="container mx-auto py-[40px]! lg:py-[80px]!"
+        class="container mx-auto pb-[40px]! lg:pb-[80px]!"
         data-posts-archive-search
         data-query-vars="<?php echo esc_attr(wp_json_encode($archive_query_vars)); ?>"
     >
