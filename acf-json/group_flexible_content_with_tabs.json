@@ -1018,13 +1018,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "post_type": [
-                                "project",
-                                "thema",
-                                "post",
-                                "expertise",
-                                "vacature"
-                            ],
+                            "post_type": "",
                             "field_type": "select",
                             "max": "",
                             "default_value": [
@@ -4409,7 +4403,7 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "case"
+                "value": "all"
             }
         ],
         [
@@ -4441,5 +4435,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1776067220
+    "modified": 1776069838
 }
