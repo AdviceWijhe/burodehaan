@@ -60,7 +60,7 @@
           >
           <?php endif; ?>
           <!-- Dark gradient overlay -->
-          <div class="pointer-events-none absolute inset-0 bg-primary/50"></div>
+          <div class="pointer-events-none absolute inset-0 bg-black/50"></div>
 
           <!-- TItle -->
           <?php if (get_sub_field('titel')) : ?>
@@ -70,27 +70,20 @@
           <?php endif; ?>
           <!-- Custom play button -->
           <div 
-            class="pointer-events-none absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2"
+            class="pointer-events-none absolute text-center left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2"
             aria-hidden="true"
           >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-[100px] lg:w-[220px] h-auto"  viewBox="0 0 220 220" fill="none">
-  <g filter="url(#filter0_d_2581_769)">
-    <circle cx="110" cy="100" r="70" fill="white"/>
-    <path d="M130 100L100 117.321L100 82.6795L130 100Z" fill="#00344C"/>
+          <svg xmlns="http://www.w3.org/2000/svg" class="mb-[20px]!" width="120" height="120" viewBox="0 0 120 120" fill="none">
+  <foreignObject x="-40" y="-40" width="200" height="200"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(20px);clip-path:url(#bgblur_0_4403_7484_clip_path);height:100%;width:100%"></div></foreignObject><g data-figma-bg-blur-radius="40">
+    <circle cx="60" cy="60" r="60" fill="white" fill-opacity="0.05"/>
+    <circle cx="60" cy="60" r="59.5" stroke="white" stroke-opacity="0.2"/>
   </g>
+  <path d="M76 60L52 73.8564L52 46.1436L76 60Z" fill="white"/>
   <defs>
-    <filter id="filter0_d_2581_769" x="0" y="0" width="220" height="220" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-      <feOffset dy="10"/>
-      <feGaussianBlur stdDeviation="20"/>
-      <feComposite in2="hardAlpha" operator="out"/>
-      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2581_769"/>
-      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2581_769" result="shape"/>
-    </filter>
-  </defs>
+    <clipPath id="bgblur_0_4403_7484_clip_path" transform="translate(40 40)"><circle cx="60" cy="60" r="60"/>
+  </clipPath></defs>
 </svg>
+<span class="title-medium text-white text-center font-light! mt-[20px]!">Speel af</span>
           </div>
         </div>
         

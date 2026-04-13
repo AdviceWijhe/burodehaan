@@ -42,6 +42,7 @@ if ($item instanceof WP_Term) {
     $link = get_permalink($id);
     $name = get_the_title($id);
     $description = get_the_excerpt($id);
+    $post_type = get_post_type($id);
 }
 
 ?>
@@ -63,7 +64,7 @@ if ($item instanceof WP_Term) {
                       ?>
                         <div class="badges mb-[20px]">
                             <?php if($category_name && $category_name != 'Niet gecategoriseerd') { ?>
-                                <div class="badge bg-black border font-medium! border-black text-white body-small mb-[16px]"><?php echo esc_html($category_name); ?></div>
+                                <div class="badge bg-black border font-medium! border-black text-white body-small"><?php echo esc_html($category_name); ?></div>
                             <?php } ?>
                             <?php if($thema_name && $thema_name != 'Niet gecategoriseerd') { ?>
                                 <div class="badge border! border-black! font-medium! text-black body-small"><?php echo esc_html($thema_name); ?></div>
@@ -74,7 +75,7 @@ if ($item instanceof WP_Term) {
                         </div>
                     <?php } ?>
                     
-                        <h3 class="card-title mb-[28px]!"><?php echo esc_html($name); ?></h3>
+                        <h3 class="card-title mb-[28px]! mt-0!"><?php echo esc_html($name); ?></h3>
                         <div class="card-description"><?php echo wp_kses_post($description); ?></div>
                     </div>
                     <div class="flex-shrink-0 lg:ml-auto flex items-center justify-center pr-[20px]">

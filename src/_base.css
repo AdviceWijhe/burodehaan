@@ -332,4 +332,13 @@ line-height: 130%; /* 20.8px */
             opacity: 1;
         }
     }
+
+    a {
+        text-decoration-line: underline;
+text-decoration-style: solid;
+text-decoration-skip-ink: none;
+text-decoration-thickness: 7%; /* 1.12px */
+text-underline-offset: 25%; /* 4px */
+color: var(--color-primary);
+    }
 }
