@@ -405,71 +405,6 @@ add_filter('shortcode_atts_gravityform', function ($out, $pairs = array(), $atts
     return $out;
 }, 10, 3);
 
-/**
- * Get block spacing classes
- * 
- * @param string $spacing_top Top spacing value
- * @param string $spacing_bottom Bottom spacing value
- * @return string CSS classes for spacing
- */
-function get_block_spacing_classes($spacing_top = 'large', $spacing_bottom = 'large') {
-    $spacing_map = array(
-        'none' => '',
-        'small' => 'py-8',
-        'medium' => 'py-12', 
-        'large' => 'py-16',
-        'xlarge' => 'py-20',
-        'xxlarge' => 'py-24'
-    );
-    
-    // Als beide waarden hetzelfde zijn, gebruik py-* class
-    if ($spacing_top === $spacing_bottom && isset($spacing_map[$spacing_top])) {
-        return $spacing_map[$spacing_top];
-    }
-    
-    // Anders gebruik aparte pt-* en pb-* classes
-    $top_map = array(
-        'none' => '',
-        'small' => 'pt-8',
-        'medium' => 'pt-12',
-        'large' => 'pt-16', 
-        'xlarge' => 'pt-20',
-        'xxlarge' => 'pt-24'
-    );
-    
-    $bottom_map = array(
-        'none' => '',
-        'small' => 'pb-8',
-        'medium' => 'pb-12',
-        'large' => 'pb-16',
-        'xlarge' => 'pb-20', 
-        'xxlarge' => 'pb-24'
-    );
-    
-    $classes = array();
-    
-    if (isset($top_map[$spacing_top]) && $top_map[$spacing_top] !== '') {
-        $classes[] = $top_map[$spacing_top];
-    }
-    
-    if (isset($bottom_map[$spacing_bottom]) && $bottom_map[$spacing_bottom] !== '') {
-        $classes[] = $bottom_map[$spacing_bottom];
-    }
-    
-    return implode(' ', $classes);
-}
-
-/**
- * Get block spacing classes from ACF fields
- * 
- * @return string CSS classes for spacing
- */
-function get_acf_block_spacing_classes() {
-    $spacing_top = get_sub_field('spacing_top') ?: 'large';
-    $spacing_bottom = get_sub_field('spacing_bottom') ?: 'large';
-    
-    return get_block_spacing_classes($spacing_top, $spacing_bottom);
-}
 
 /**
  * Set default template for new pages
@@ -919,43 +854,6 @@ function advice2025_archive_load_more_ajax() {
 add_action('wp_ajax_archive_load_more', 'advice2025_archive_load_more_ajax');
 add_action('wp_ajax_nopriv_archive_load_more', 'advice2025_archive_load_more_ajax');
 
-/**
- * Get spacing bottom class for flexible content blocks
- * 
- * @param string $layout_name Optional layout name (e.g. 'hero_banner')
- * @return string CSS class for bottom spacing
- */
-function get_spacing_bottom_class($layout_name = '') {
-    $spacing_bottom = 'large'; // Default value
-    
-    // Try to get spacing_bottom from ACF sub field (for flexible content)
-    if (function_exists('get_sub_field')) {
-        $spacing_bottom = get_sub_field('spacing_bottom');
-    }
-    
-    // If no value found, use default
-    if (empty($spacing_bottom)) {
-        $spacing_bottom = 'large';
-    }
-    
-    // Map spacing values to CSS classes
-    $bottom_map = array(
-        'none' => '',
-        'small' => 'pb-8',
-        'medium' => 'pb-12',
-        'large' => 'pb-16',
-        'xlarge' => 'pb-20',
-        'xxlarge' => 'pb-24'
-    );
-    
-    // Return the appropriate class
-    if (isset($bottom_map[$spacing_bottom])) {
-        return $bottom_map[$spacing_bottom];
-    }
-    
-    // Fallback to large if value not recognized
-    return $bottom_map['large'];
-}
 
 /**
  * Markeer archive menu item als actief op single case posts
