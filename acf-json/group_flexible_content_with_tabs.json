@@ -2731,9 +2731,31 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_69134226e76b5",
-                            "label": "Afbeelding",
-                            "name": "afbeelding",
+                            "key": "field_69134239e76b6",
+                            "label": "Quote",
+                            "name": "quote",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "acfe_textarea_code": 0,
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "rows": "",
+                            "placeholder": "",
+                            "new_lines": ""
+                        },
+                        {
+                            "key": "field_69dce5cb917db",
+                            "label": "Foto",
+                            "name": "foto",
                             "aria-label": "",
                             "type": "image",
                             "instructions": "",
@@ -2760,11 +2782,11 @@
                             "preview_size": "medium"
                         },
                         {
-                            "key": "field_69134239e76b6",
-                            "label": "Quote",
-                            "name": "quote",
+                            "key": "field_69134242e76b7",
+                            "label": "Naam",
+                            "name": "naam",
                             "aria-label": "",
-                            "type": "textarea",
+                            "type": "text",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -2774,17 +2796,16 @@
                                 "id": ""
                             },
                             "default_value": "",
-                            "acfe_textarea_code": 0,
                             "maxlength": "",
                             "allow_in_bindings": 0,
-                            "rows": "",
                             "placeholder": "",
-                            "new_lines": ""
+                            "prepend": "",
+                            "append": ""
                         },
                         {
-                            "key": "field_69134242e76b7",
-                            "label": "Naam",
-                            "name": "naam",
+                            "key": "field_69dce5dc917dc",
+                            "label": "Bedrijf",
+                            "name": "bedrijf",
                             "aria-label": "",
                             "type": "text",
                             "instructions": "",
@@ -3309,5 +3330,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1776074338
+    "modified": 1776084463
 }
