@@ -72,7 +72,7 @@ get_header(); ?>
                 <?php else : ?>
                     
                     <!-- Fallback content als ACF niet actief is of geen content -->
-                    <div class="py-16">
+                    <!-- <div class="py-16">
                         <div class="container mx-auto px-4">
                             <div class="max-w-4xl mx-auto">
                                 <?php if (get_the_content()) : ?>
@@ -87,7 +87,7 @@ get_header(); ?>
                                 <?php endif; ?>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     
                 <?php endif; ?>
             </div>

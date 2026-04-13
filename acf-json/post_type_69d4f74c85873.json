@@ -4,7 +4,7 @@
     "menu_order": 0,
     "active": true,
     "post_type": "project",
-    "advanced_configuration": false,
+    "advanced_configuration": true,
     "import_source": "",
     "import_date": "",
     "allow_ai_access": false,
@@ -75,8 +75,8 @@
     "taxonomies": [
         "category"
     ],
-    "has_archive": false,
-    "has_archive_slug": "",
+    "has_archive": true,
+    "has_archive_slug": "projecten",
     "rewrite": {
         "permalink_rewrite": "post_type_key",
         "with_front": "1",
@@ -89,5 +89,5 @@
     "delete_with_user": false,
     "register_meta_box_cb": "",
     "enter_title_here": "",
-    "modified": 1775721845
+    "modified": 1776068446
 }

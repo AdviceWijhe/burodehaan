@@ -38,7 +38,7 @@ if(is_page()) {
 ?>
 
 <div class="navigation-wrapper <?php echo esc_attr($header_background_color); ?>">
-    <div class="<?php echo esc_attr($container_class); ?> py-[28px]">
+    <div class="<?php echo esc_attr($container_class); ?> pt-[28px] <?php if(is_front_page()) { echo 'pb-[28px]'; } ?>">
         <div class="flex items-center justify-between gap-10">
             <!-- Logo -->
             <div class="site-branding flex-shrink-0">

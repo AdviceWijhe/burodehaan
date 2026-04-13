@@ -5,13 +5,70 @@
 @layer components {
   /* Gravity Forms: basis styling volgens Figma */
   .gform_wrapper {
-    label, .gfield_label {
-      color: var(--color-blue);
-      font-weight: 600;
-      font-size: 13px;
-      line-height: 1.4;
-      margin-bottom: 8px;
+    .gfield {
+      position: relative;
+      margin-bottom: 0;
+    }
+
+    .ginput_container {
+      position: relative;
+    }
+
+    .gfield:is(.gfield--input-type-text, .gfield--input-type-email, .gfield--input-type-phone, .gfield--input-type-number, .gfield--input-type-password, .gfield--input-type-website, .gfield--input-type-select, .gfield--input-type-textarea) .gfield_label {
+      position: absolute;
+      top: 50%;
+      left: 24px;
+      z-index: 2;
+      margin: 0;
+      color: rgb(22 22 22 / 70%);
+      font-family: var(--font-family-primary);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.5;
+      transform: translateY(-50%);
+      transform-origin: left top;
+      pointer-events: none;
+      transition: transform 0.2s ease, top 0.2s ease, font-size 0.2s ease, letter-spacing 0.2s ease, color 0.2s ease;
       display: inline-block;
+    }
+
+    .gfield:is(.gfield--type-textarea, .gfield--input-type-textarea) .gfield_label {
+      top: 24px;
+      transform: none;
+    }
+
+    .gfield:is(.gfield--input-type-text, .gfield--input-type-email, .gfield--input-type-phone, .gfield--input-type-number, .gfield--input-type-password, .gfield--input-type-website, .gfield--input-type-select, .gfield--input-type-textarea).gfield--focused .gfield_label,
+    .gfield:is(.gfield--input-type-text, .gfield--input-type-email, .gfield--input-type-phone, .gfield--input-type-number, .gfield--input-type-password, .gfield--input-type-website, .gfield--input-type-select, .gfield--input-type-textarea).gfield--has-value .gfield_label,
+    .gfield:is(.gfield--input-type-text, .gfield--input-type-email, .gfield--input-type-phone, .gfield--input-type-number, .gfield--input-type-password, .gfield--input-type-website, .gfield--input-type-select, .gfield--input-type-textarea):focus-within .gfield_label {
+      top: 9px;
+      transform: none;
+      color: var(--color-black);
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 1.4;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .gfield_required .gfield_required_text {
+      display: none;
+    }
+
+    .gfield:is(.gfield--input-type-text, .gfield--input-type-email, .gfield--input-type-phone, .gfield--input-type-number, .gfield--input-type-password, .gfield--input-type-website, .gfield--input-type-select):not(.gfield_contains_required)::after {
+      content: "Optioneel";
+      position: absolute;
+      top: 50%;
+      right: 24px;
+      z-index: 2;
+      transform: translateY(-50%);
+      color: var(--color-black);
+      font-family: var(--font-family-primary);
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 1.4;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      pointer-events: none;
     }
 
     .gf_progressbar_wrapper {
@@ -57,26 +114,42 @@
     .ginput_container select,
     .ginput_container textarea {
       background-color: var(--color-white);
-      border: 1px solid var(--color-gray-200);
-      border-radius: 4px;
-      color: var(--color-blue-950);
+      border: 1px solid rgb(22 22 22 / 40%);
+      border-radius: 0;
+      box-sizing: border-box;
+      color: var(--color-black);
+      font-family: var(--font-family-primary);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.5;
       width: 100%;
-      padding: 0 12px;
-      height: 47px;
+      padding: 24px 24px 8px;
+      min-height: 59px;
+      height: 59px;
     }
 
     textarea,
     .ginput_container textarea {
-      height: 200px;
-      padding-top: 12px;
-      padding-bottom: 12px;
+      min-height: 140px;
+      height: 140px;
+      padding-top: 32px;
+      padding-bottom: 16px;
       resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgb(22 22 22 / 70%);
+      opacity: 1;
     }
 
     /* File Upload Styling volgens Figma */
     .gfield--input-type-fileupload {
       /* Label styling */
       .gfield_label {
+        position: static;
+        transform: none;
+        pointer-events: auto;
         color: var(--color-blue);
         font-family: var(--font-family-primary);
         font-weight: 600;
@@ -231,10 +304,7 @@
     /* Grid: 2 kolommen op >=1024px */
     .gform_fields {
       display: grid;
-      /* grid-template-columns: 1fr; */
       gap: 24px 24px;
-
-      
     }
 
     @media (min-width: 1024px) {
@@ -263,6 +333,40 @@
       .gfield.contains-textarea {
         grid-column: 1 / -1;
       }
+    }
+
+    .gform_footer .gform_button,
+    .gform_footer input[type="submit"],
+    .gform-footer .gform_button,
+    .gform-footer input[type="submit"] {
+      min-height: 59px;
+      padding: 16px 24px;
+      border: 1px solid var(--color-primary);
+      border-radius: 0;
+      background-color: var(--color-primary);
+      color: var(--color-secondary);
+      font-family: var(--font-family-primary);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.5;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .gform_footer .gform_button:hover,
+    .gform_footer input[type="submit"]:hover,
+    .gform-footer .gform_button:hover,
+    .gform-footer input[type="submit"]:hover {
+      background-color: var(--color-red-600);
+      border-color: var(--color-red-600);
+      color: var(--color-secondary);
+    }
+
+    .gform_footer .gform_button:focus-visible,
+    .gform_footer input[type="submit"]:focus-visible,
+    .gform-footer .gform_button:focus-visible,
+    .gform-footer input[type="submit"]:focus-visible {
+      outline: 2px solid var(--color-black);
+      outline-offset: 2px;
     }
     
     /* Error states */

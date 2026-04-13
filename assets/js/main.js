@@ -40,6 +40,9 @@
     // FAQ accordion functionality
     initFaqAccordion();
 
+    // Archive load more button
+    initArchiveLoadMore();
+
     // Gravity Forms floating labels (guarded call)
     if (typeof initGravityFormsFloatingLabels === "function") {
       initGravityFormsFloatingLabels();
@@ -646,6 +649,87 @@
           openAccordionItem(this);
         }
       });
+    });
+  }
+
+  /**
+   * Archive Load More
+   */
+  function initArchiveLoadMore() {
+    const button = document.getElementById("archive-load-more");
+    const grid = document.getElementById("archive-post-grid");
+
+    if (!button || !grid || typeof window.advice2025ArchiveLoadMore === "undefined") {
+      return;
+    }
+
+    const ajaxUrl = window.advice2025ArchiveLoadMore.ajaxUrl;
+    const nonce = window.advice2025ArchiveLoadMore.nonce;
+    const maxPages = parseInt(button.dataset.maxPages || "1", 10);
+    const queryVars = button.dataset.queryVars || "";
+    const originalLabel = button.textContent;
+    let currentPage = parseInt(button.dataset.currentPage || "1", 10);
+    let isLoading = false;
+
+    function setLoadingState(loading) {
+      isLoading = loading;
+      button.disabled = loading;
+      button.textContent = loading ? "Bezig met laden..." : originalLabel;
+    }
+
+    function hideButton() {
+      button.classList.add("hidden");
+      button.disabled = true;
+    }
+
+    button.addEventListener("click", function () {
+      if (isLoading) return;
+      if (currentPage >= maxPages) {
+        hideButton();
+        return;
+      }
+
+      const nextPage = currentPage + 1;
+      const payload = new URLSearchParams();
+      payload.append("action", "archive_load_more");
+      payload.append("nonce", nonce);
+      payload.append("page", String(nextPage));
+      payload.append("query_vars", queryVars);
+
+      setLoadingState(true);
+
+      fetch(ajaxUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: payload.toString(),
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (result) {
+          if (!result || !result.success || !result.data) {
+            throw new Error("Invalid AJAX response");
+          }
+
+          if (result.data.html) {
+            grid.insertAdjacentHTML("beforeend", result.data.html);
+          }
+
+          currentPage = nextPage;
+          button.dataset.currentPage = String(currentPage);
+
+          if (!result.data.hasMore || currentPage >= maxPages) {
+            hideButton();
+            return;
+          }
+
+          setLoadingState(false);
+        })
+        .catch(function () {
+          setLoadingState(false);
+        });
     });
   }
 

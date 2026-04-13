@@ -23,6 +23,18 @@
     
     $header_class = 'site-header fixed! left-1/2 -translate-x-1/2 w-full top-0 z-50';
  }
+
+ $header_background_color = 'bg-secondary';
+
+if(is_archive()) {
+    $header_background_color = 'bg-white';
+}
+if(is_single()) {
+    $header_background_color = 'bg-black';
+}
+if(is_tax()) {
+    $header_background_color = 'bg-black';
+}
 ?>
 
 
@@ -106,6 +118,14 @@
                 <div id="mobile-subpanel-content" class="px-[20px] space-y-3"></div>
             </div>
         </div>
+        <div class="<?= $header_background_color ?>">
+        <div class="container pb-[20px]">
+    <!-- yoast breadcrumbs -->
+    <?php if (function_exists('yoast_breadcrumb') && !is_front_page()) {
+      yoast_breadcrumb('<p id="breadcrumbs" class="mb-0!">', '</p>');
+    } ?>
+  </div>
+  </div>
     </header>
     
 <!-- Desktop dropdown overlay -->

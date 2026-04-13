@@ -235,6 +235,10 @@ wp_enqueue_style(
         wp_get_theme()->get('Version'),
         true
     );
+    wp_localize_script('advice2025-script', 'advice2025ArchiveLoadMore', array(
+        'ajaxUrl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('archive_load_more_nonce')
+    ));
 
     // Dropdown menu JavaScript
     wp_enqueue_script(
@@ -857,6 +861,63 @@ function advice2025_kennisbank_load_all_ajax() {
 }
 add_action('wp_ajax_kennisbank_load_all', 'advice2025_kennisbank_load_all_ajax');
 add_action('wp_ajax_nopriv_kennisbank_load_all', 'advice2025_kennisbank_load_all_ajax');
+
+/**
+ * AJAX handler for archive load more button
+ */
+function advice2025_archive_load_more_ajax() {
+    if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'archive_load_more_nonce')) {
+        wp_send_json_error(array('message' => 'Security check failed'), 403);
+        return;
+    }
+
+    $page = isset($_POST['page']) ? max(1, (int) $_POST['page']) : 1;
+    $query_vars_raw = isset($_POST['query_vars']) ? wp_unslash($_POST['query_vars']) : '';
+    $query_vars = json_decode($query_vars_raw, true);
+
+    if (!is_array($query_vars)) {
+        wp_send_json_error(array('message' => 'Invalid query context'), 400);
+        return;
+    }
+
+    unset(
+        $query_vars['paged'],
+        $query_vars['page'],
+        $query_vars['offset'],
+        $query_vars['name'],
+        $query_vars['pagename'],
+        $query_vars['post_name__in']
+    );
+
+    $query_vars['post_status'] = 'publish';
+    $query_vars['paged'] = $page;
+
+    $query = new WP_Query($query_vars);
+
+    if (!$query->have_posts()) {
+        wp_send_json_success(array(
+            'html' => '',
+            'nextPage' => $page,
+            'hasMore' => false
+        ));
+        return;
+    }
+
+    ob_start();
+    while ($query->have_posts()) {
+        $query->the_post();
+        get_template_part('template-parts/card', get_post_type());
+    }
+    wp_reset_postdata();
+
+    wp_send_json_success(array(
+        'html' => ob_get_clean(),
+        'nextPage' => $page + 1,
+        'hasMore' => $page < (int) $query->max_num_pages
+    ));
+}
+add_action('wp_ajax_archive_load_more', 'advice2025_archive_load_more_ajax');
+add_action('wp_ajax_nopriv_archive_load_more', 'advice2025_archive_load_more_ajax');
 
 /**
  * Get spacing bottom class for flexible content blocks
