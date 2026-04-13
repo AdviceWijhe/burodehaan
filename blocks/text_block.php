@@ -12,10 +12,10 @@
      $tekst_label = get_sub_field('label');
  }
  $titel = (string) get_sub_field('titel', false, false);
- $tekst = (string) get_sub_field('tekst', false, false);
+ $tekst = (string) get_sub_field('tekst');
  if (trim($tekst) === '') {
      // Fallback voor oudere veldnaam.
-     $tekst = (string) get_sub_field('content', false, false);
+     $tekst = (string) get_sub_field('content');
  }
  $achtergrondkleur = get_sub_field('achtergrondkleur');
  if (empty($soortBlock)) {
@@ -70,14 +70,14 @@
                     <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
                 <?php endif; ?>
             <?php if (!empty($titel)) : ?>
-            <div class="headline-medium mb-[24px] <?php echo esc_attr($text_color_class); ?>">
+            <div class="headline-medium mb-[28px] <?php echo esc_attr($text_color_class); ?>">
                 <?php echo wp_kses_post($titel); ?>
             </div>
         <?php endif; ?>    
             
                 <?php if (!empty($tekst)) : ?>
                     <div class="body-medium">
-                        <?php echo wp_kses_post($tekst); ?>
+                        <?php echo $tekst; ?>
                     </div>
                 <?php endif; ?>
             </div>
