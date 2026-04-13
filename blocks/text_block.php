@@ -49,7 +49,7 @@
 <!-- Text Block -->
 <div class="<?php echo esc_attr($wrapper_spacing_class); ?>"<?php echo $bg_style; ?>>
     <div class="container">
-        
+ 
 
         <?php 
         if($soortBlock === 'intro') { ?>
@@ -64,8 +64,13 @@
                 <?php endif; ?>
             </div>
        <?php  }
-        if($soortBlock === 'default') { ?>
-            <div class="w-full lg:w-6/12 ml-[calc(100%/12*2)] default-content <?php echo esc_attr($text_color_class); ?>">
+        if($soortBlock === 'default') { 
+            $width = 'lg:w-6/12';
+            if(is_single() || is_tax()) {
+                $width = 'lg:w-5/12';
+            }
+            ?>
+            <div class="w-full <?php echo $width; ?> ml-[calc(100%/12*2)] default-content <?php echo esc_attr($text_color_class); ?>">
             <?php if (!empty($tekst_label)) : ?>
                     <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
                 <?php endif; ?>
