@@ -5,34 +5,59 @@
 
 get_header(); 
 
-
-if(get_post_type() == 'case') {
-    $pageID = 1180;
-}
-
-$page = get_post($pageID);
+$title = 'artikelen';
+$filter_panel_taxonomies = array(
+    'category' => array('label' => __('Categorie', 'advice2025')),
+    'thema' => array('label' => __('Thema', 'advice2025')),
+    'expertise' => array('label' => __('Expertise', 'advice2025')),
+);
 
 ?>
 
 <main id="main" class="site-main">
 
-<div class="container mx-auto">
-    <div class="flex flex-col lg:flex-row items-stretch">
-        <div class="w-full lg:w-5/12 flex flex-col justify-between  text-center mx-auto">
-            <h1 class="headline-large mb-[32px]!">
-                <?= get_the_title($pageID) ?>
+<div class="container mx-auto mb-[28px] pt-[120px]">
+    <div class="flex items-center justify-between">
+
+            <h1 class="headline-large">
+                Onze <b><?= $title; ?>.</b>
             </h1>
 
-            <div class="body-large max-w-[630px]"><?= $page->post_content ?></div>
-        </div>
+
+            <div class="search_filter flex items-center gap-[16px]">
+                <div class="search">
+                    <?php get_search_form(); ?>
+                </div>
+                <div class="filter">
+                    <?php
+                    get_template_part(
+                        'template-parts/archive-filter-panel',
+                        null,
+                        array(
+                            'panel_id' => 'posts-archive-filters',
+                            'label' => __('Filter', 'advice2025'),
+                            'taxonomies' => $filter_panel_taxonomies,
+                            'active_filters' => array(),
+                        )
+                    );
+                    ?>
+                </div>
+            </div>
     </div>
 </div>
 
     <?php
     $current_page = max(1, get_query_var('paged'));
     $max_pages = (int) $wp_query->max_num_pages;
+    $archive_query_vars = $wp_query->query_vars;
+    $archive_query_vars['advice2025_template'] = 'card_kennisbank';
+    $archive_query_vars['advice2025_filters'] = array();
     ?>
-    <div class="container mx-auto py-[40px]! lg:py-[80px]!">
+    <div
+        class="container mx-auto pb-[40px]! lg:pb-[80px]!"
+        data-posts-archive-search
+        data-query-vars="<?php echo esc_attr(wp_json_encode($archive_query_vars)); ?>"
+    >
         
         <?php if (have_posts()) : 
             
@@ -80,7 +105,7 @@ $page = get_post($pageID);
                 data-post-type="<?php echo esc_attr(get_post_type()); ?>"
                 data-current-page="<?php echo esc_attr($current_page); ?>"
                 data-max-pages="<?php echo esc_attr($max_pages); ?>"
-                data-query-vars="<?php echo esc_attr(wp_json_encode($wp_query->query_vars)); ?>"
+                data-query-vars="<?php echo esc_attr(wp_json_encode($archive_query_vars)); ?>"
             >
                 Meer laden
             </button>

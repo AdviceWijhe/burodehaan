@@ -42,6 +42,8 @@
 
     // Archive load more button
     initArchiveLoadMore();
+    initPostsArchiveSearch();
+    initArchiveFilterPanels();
 
     // Gravity Forms floating labels (guarded call)
     if (typeof initGravityFormsFloatingLabels === "function") {
@@ -666,7 +668,6 @@
     const ajaxUrl = window.advice2025ArchiveLoadMore.ajaxUrl;
     const nonce = window.advice2025ArchiveLoadMore.nonce;
     const maxPages = parseInt(button.dataset.maxPages || "1", 10);
-    const queryVars = button.dataset.queryVars || "";
     const originalLabel = button.textContent;
     let currentPage = parseInt(button.dataset.currentPage || "1", 10);
     let isLoading = false;
@@ -690,6 +691,7 @@
       }
 
       const nextPage = currentPage + 1;
+      const queryVars = button.dataset.queryVars || "";
       const payload = new URLSearchParams();
       payload.append("action", "archive_load_more");
       payload.append("nonce", nonce);
@@ -730,6 +732,267 @@
         .catch(function () {
           setLoadingState(false);
         });
+    });
+  }
+
+  /**
+   * Posts archive search (AJAX)
+   */
+  function initPostsArchiveSearch() {
+    const archiveContainer = document.querySelector("[data-posts-archive-search]");
+    const grid = document.getElementById("archive-post-grid");
+    const searchForm = document.querySelector(".search_filter .search .search-form");
+    const searchInput = searchForm ? searchForm.querySelector('input[name="s"]') : null;
+    const loadMoreButton = document.getElementById("archive-load-more");
+
+    if (!archiveContainer || !grid || !searchForm || !searchInput || typeof window.advice2025ArchiveLoadMore === "undefined") {
+      return;
+    }
+
+    const ajaxUrl = window.advice2025ArchiveLoadMore.ajaxUrl;
+    const nonce = window.advice2025ArchiveLoadMore.nonce;
+    let baseQueryVars = {};
+    let debounceTimer = null;
+    let activeRequestId = 0;
+
+    try {
+      baseQueryVars = JSON.parse(archiveContainer.dataset.queryVars || "{}");
+    } catch (error) {
+      baseQueryVars = {};
+    }
+
+    function setButtonVisibility(shouldShow) {
+      if (!loadMoreButton) return;
+
+      if (shouldShow) {
+        loadMoreButton.classList.remove("hidden");
+        loadMoreButton.disabled = false;
+      } else {
+        loadMoreButton.classList.add("hidden");
+        loadMoreButton.disabled = true;
+      }
+    }
+
+    function fetchResults(searchTerm, activeFilters) {
+      activeRequestId += 1;
+      const requestId = activeRequestId;
+
+      const queryVars = Object.assign({}, baseQueryVars, {
+        s: searchTerm,
+        advice2025_filters: activeFilters || {},
+      });
+
+      const payload = new URLSearchParams();
+      payload.append("action", "archive_load_more");
+      payload.append("nonce", nonce);
+      payload.append("page", "1");
+      payload.append("query_vars", JSON.stringify(queryVars));
+
+      grid.classList.add("opacity-60");
+
+      fetch(ajaxUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: payload.toString(),
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (result) {
+          if (requestId !== activeRequestId) {
+            return;
+          }
+
+          if (!result || !result.success || !result.data) {
+            throw new Error("Invalid AJAX response");
+          }
+
+          if (result.data.html) {
+            grid.innerHTML = result.data.html;
+          } else {
+            grid.innerHTML = '<p class="col-span-full text-[18px]">Geen resultaten gevonden.</p>';
+          }
+
+          if (loadMoreButton) {
+            loadMoreButton.dataset.currentPage = "1";
+            loadMoreButton.dataset.queryVars = JSON.stringify(queryVars);
+          }
+
+          setButtonVisibility(Boolean(result.data.hasMore));
+        })
+        .catch(function () {
+          if (requestId === activeRequestId) {
+            grid.innerHTML = '<p class="col-span-full text-[18px]">Geen resultaten gevonden.</p>';
+            setButtonVisibility(false);
+          }
+        })
+        .finally(function () {
+          if (requestId === activeRequestId) {
+            grid.classList.remove("opacity-60");
+          }
+        });
+    }
+
+    function scheduleSearch() {
+      if (debounceTimer) {
+        window.clearTimeout(debounceTimer);
+      }
+
+      debounceTimer = window.setTimeout(function () {
+        const event = new CustomEvent("advice2025:archive-search", {
+          detail: {
+            searchTerm: searchInput.value.trim(),
+          },
+        });
+        document.dispatchEvent(event);
+      }, 300);
+    }
+
+    searchForm.addEventListener("submit", function (submitEvent) {
+      submitEvent.preventDefault();
+      if (debounceTimer) {
+        window.clearTimeout(debounceTimer);
+      }
+
+      const searchEvent = new CustomEvent("advice2025:archive-search", {
+        detail: {
+          searchTerm: searchInput.value.trim(),
+        },
+      });
+      document.dispatchEvent(searchEvent);
+    });
+
+    searchInput.addEventListener("input", scheduleSearch);
+
+    document.addEventListener("advice2025:archive-search", function (event) {
+      function collectFiltersFromUI() {
+        const activeFilters = {};
+        const activeCheckboxes = document.querySelectorAll("[data-archive-filter-panel] [data-filter-term]:checked");
+
+        activeCheckboxes.forEach(function (checkbox) {
+          const taxonomy = checkbox.getAttribute("data-taxonomy");
+          const value = parseInt(checkbox.value || "0", 10);
+
+          if (!taxonomy || !value) {
+            return;
+          }
+
+          if (!activeFilters[taxonomy]) {
+            activeFilters[taxonomy] = [];
+          }
+
+          activeFilters[taxonomy].push(value);
+        });
+
+        return activeFilters;
+      }
+
+      const detail = event && event.detail ? event.detail : {};
+      const searchTerm = typeof detail.searchTerm === "string" ? detail.searchTerm : searchInput.value.trim();
+      const activeFilters = detail.activeFilters && typeof detail.activeFilters === "object"
+        ? detail.activeFilters
+        : collectFiltersFromUI();
+
+      fetchResults(searchTerm, activeFilters);
+    });
+  }
+
+  /**
+   * Reusable archive filter panels
+   */
+  function initArchiveFilterPanels() {
+    const panels = document.querySelectorAll("[data-archive-filter-panel]");
+    const searchInput = document.querySelector(".search_filter .search .search-form input[name='s']");
+
+    if (panels.length === 0) {
+      return;
+    }
+
+    panels.forEach(function (panel) {
+      const openButton = panel.querySelector("[data-archive-filter-open]");
+      const closeButton = panel.querySelector("[data-archive-filter-close]");
+      const overlay = panel.querySelector("[data-archive-filter-overlay]");
+      const drawer = panel.querySelector("[data-archive-filter-drawer]");
+      const applyButton = panel.querySelector("[data-archive-filter-apply]");
+      const resetButton = panel.querySelector("[data-archive-filter-reset]");
+      const checkboxes = panel.querySelectorAll("[data-filter-term]");
+
+      if (!openButton || !closeButton || !overlay || !drawer || !applyButton || !resetButton) {
+        return;
+      }
+
+      function getActiveFilters() {
+        const activeFilters = {};
+
+        checkboxes.forEach(function (checkbox) {
+          if (!checkbox.checked) {
+            return;
+          }
+
+          const taxonomy = checkbox.getAttribute("data-taxonomy");
+          const value = parseInt(checkbox.value || "0", 10);
+
+          if (!taxonomy || !value) {
+            return;
+          }
+
+          if (!activeFilters[taxonomy]) {
+            activeFilters[taxonomy] = [];
+          }
+
+          activeFilters[taxonomy].push(value);
+        });
+
+        return activeFilters;
+      }
+
+      function openDrawer() {
+        overlay.classList.remove("hidden");
+        drawer.classList.remove("translate-x-full");
+        openButton.setAttribute("aria-expanded", "true");
+        document.body.classList.add("overflow-hidden");
+      }
+
+      function closeDrawer() {
+        overlay.classList.add("hidden");
+        drawer.classList.add("translate-x-full");
+        openButton.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("overflow-hidden");
+      }
+
+      function resetFilters() {
+        checkboxes.forEach(function (checkbox) {
+          checkbox.checked = false;
+        });
+      }
+
+      function applyFilters() {
+        const event = new CustomEvent("advice2025:archive-search", {
+          detail: {
+            searchTerm: searchInput ? searchInput.value.trim() : "",
+            activeFilters: getActiveFilters(),
+          },
+        });
+        document.dispatchEvent(event);
+        closeDrawer();
+      }
+
+      openButton.addEventListener("click", openDrawer);
+      closeButton.addEventListener("click", closeDrawer);
+      overlay.addEventListener("click", closeDrawer);
+      applyButton.addEventListener("click", applyFilters);
+      resetButton.addEventListener("click", function () {
+        resetFilters();
+        applyFilters();
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !overlay.classList.contains("hidden")) {
+          closeDrawer();
+        }
+      });
     });
   }
 

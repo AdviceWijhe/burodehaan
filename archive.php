@@ -5,26 +5,18 @@
 
 get_header(); 
 
-
-if(get_post_type() == 'case') {
-    $pageID = 1180;
-}
-
-$page = get_post($pageID);
+$title = 'artikelen';
 
 ?>
 
 <main id="main" class="site-main">
 
-<div class="container mx-auto">
-    <div class="flex flex-col lg:flex-row items-stretch">
-        <div class="w-full lg:w-5/12 flex flex-col justify-between  text-center mx-auto">
-            <h1 class="headline-large mb-[32px]!">
-                <?= get_the_title($pageID) ?>
-            </h1>
+<div class="container mx-auto mb-[28px]">
+    <div class="">
 
-            <div class="body-large max-w-[630px]"><?= $page->post_content ?></div>
-        </div>
+            <h1 class="headline-large">
+                Onze <?= $title; ?>
+            </h1>
     </div>
 </div>
 

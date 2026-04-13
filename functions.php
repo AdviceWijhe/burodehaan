@@ -815,7 +815,30 @@ function advice2025_archive_load_more_ajax() {
         return;
     }
 
+    $template_variant = isset($query_vars['advice2025_template']) ? sanitize_key((string) $query_vars['advice2025_template']) : '';
+    $raw_filters = isset($query_vars['advice2025_filters']) && is_array($query_vars['advice2025_filters'])
+        ? $query_vars['advice2025_filters']
+        : array();
+    $sanitized_filters = array();
+
+    foreach ($raw_filters as $taxonomy => $term_ids) {
+        $taxonomy_key = sanitize_key((string) $taxonomy);
+
+        if (empty($taxonomy_key) || !taxonomy_exists($taxonomy_key) || !is_array($term_ids)) {
+            continue;
+        }
+
+        $ids = array_values(array_filter(array_map('intval', $term_ids)));
+        if (empty($ids)) {
+            continue;
+        }
+
+        $sanitized_filters[$taxonomy_key] = $ids;
+    }
+
     unset(
+        $query_vars['advice2025_template'],
+        $query_vars['advice2025_filters'],
         $query_vars['paged'],
         $query_vars['page'],
         $query_vars['offset'],
@@ -826,6 +849,19 @@ function advice2025_archive_load_more_ajax() {
 
     $query_vars['post_status'] = 'publish';
     $query_vars['paged'] = $page;
+
+    if (!empty($sanitized_filters)) {
+        $query_vars['tax_query'] = array('relation' => 'AND');
+
+        foreach ($sanitized_filters as $taxonomy => $term_ids) {
+            $query_vars['tax_query'][] = array(
+                'taxonomy' => $taxonomy,
+                'field' => 'term_id',
+                'terms' => $term_ids,
+                'operator' => 'IN',
+            );
+        }
+    }
 
     $query = new WP_Query($query_vars);
 
@@ -841,6 +877,12 @@ function advice2025_archive_load_more_ajax() {
     ob_start();
     while ($query->have_posts()) {
         $query->the_post();
+        if ($template_variant === 'card_kennisbank') {
+            $queried_object = get_post();
+            get_template_part('template-parts/card-kennisbank', null, array('item' => $queried_object));
+            continue;
+        }
+
         get_template_part('template-parts/card', get_post_type());
     }
     wp_reset_postdata();

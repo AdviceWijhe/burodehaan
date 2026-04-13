@@ -5,7 +5,7 @@ $thumbnail = '';
 $link = '#';
 $name = '';
 $description = '';
-
+$post_type = '';
 
 
 if ($item instanceof WP_Term) {
@@ -16,6 +16,7 @@ if ($item instanceof WP_Term) {
     $description = $item->description;
 } elseif ($item instanceof WP_Post) {
     $id = (int) $item->ID;
+    $post_type = get_post_type($id);
     $thumbnail = get_the_post_thumbnail_url($id, 'large');
     $link = get_permalink($id);
     $name = get_the_title($id);
@@ -45,6 +46,28 @@ if ($item instanceof WP_Term) {
 
                     </div>
                     <div class="card-body p-[40px] w-full lg:w-4/8">
+                        <?php 
+                        if($post_type == 'post') {
+                            $category = get_the_category($id);
+                            $thema = get_the_terms($id, 'thema');
+                            $expertise = get_the_terms($id, 'expertise');
+                            $category_name = $category[0]->name;
+                            $thema_name = $thema[0]->name;
+                            $expertise_name = $expertise[0]->name;
+                      ?>
+                        <div class="badges mb-[20px]">
+                            <?php if($category_name && $category_name != 'Niet gecategoriseerd') { ?>
+                                <div class="badge bg-black border font-medium! border-black text-white body-small mb-[16px]"><?php echo esc_html($category_name); ?></div>
+                            <?php } ?>
+                            <?php if($thema_name && $thema_name != 'Niet gecategoriseerd') { ?>
+                                <div class="badge border! border-black! font-medium! text-black body-small"><?php echo esc_html($thema_name); ?></div>
+                            <?php } ?>
+                            <?php if($expertise_name && $expertise_name != 'Niet gecategoriseerd') { ?>
+                                <div class="badge border! border-black! font-medium! text-black body-small"><?php echo esc_html($expertise_name); ?></div>
+                            <?php } ?>
+                        </div>
+                    <?php } ?>
+                    
                         <h3 class="card-title mb-[28px]!"><?php echo esc_html($name); ?></h3>
                         <div class="card-description"><?php echo wp_kses_post($description); ?></div>
                     </div>
