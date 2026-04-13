@@ -15,6 +15,9 @@ if(is_archive()) {
 if(is_single()) {
     $header_background_color = 'bg-black';
 }
+if(is_tax()) {
+    $header_background_color = 'bg-black';
+}
 if(is_page()) {
     $variant = null;
     if (have_rows('hero_banner')) :

@@ -1,4 +1,5 @@
-<?= get_template_part('blocks/cta', null, array('cta_type' => 'default')) ?>
+<?= get_template_part('blocks/cta', null, array('cta_type' => 'default', 'cta_buttons' => get_field('footer_cta', 'option'))) ?>
+
 <footer id="colophon" class="site-footer mt-auto relative overflow-hidden w-full bg-black text-white">
     <?php
     $expertises = get_posts(array(

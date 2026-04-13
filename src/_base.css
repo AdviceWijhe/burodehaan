@@ -11,7 +11,6 @@
 /* Base Styles */
 body {
     font-family: var(--font-family-primary);
-    background-color: #F7F7F6;
     line-height: 150%;
     font-size: 16px;
     font-weight: 300;
@@ -120,9 +119,9 @@ h6 strong, h6 b {
 }
 
 /* Body Text Variants */
-.body-large {
+.body-large, .body-large p {
   font-family: var(--font-family-primary);
-  font-size: 21px;
+  font-size: max(21px, calc((100vw - 120px) * 0.011));
   font-style: normal;
   line-height: 150%;
   font-weight: 300;
@@ -209,7 +208,7 @@ ul, ol, li {
   font-weight: 400;
 }
 
-.lead, p.lead, p .lead, p.has-large-font-size {
+.lead, p.lead, p .lead, p.has-large-font-size, .lead p {
     font-size: clamp(1rem, calc(.0952vw + .9768rem), 1.0625rem) !important;
     font-weight: 500 !important;
     line-height: 1.4 !important;
@@ -285,4 +284,11 @@ small, .small {
     transform: translateX(0) !important;
     will-change: auto;
   }
+}
+
+.glass {
+    border-radius: 12px;
+border: 1px solid rgba(255, 255, 255, 0.20);
+background: rgba(255, 255, 255, 0.05);
+backdrop-filter: blur(20px);
 }

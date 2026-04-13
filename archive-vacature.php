@@ -35,7 +35,7 @@ get_header(); ?>
         <div class="container mx-auto px-4">
             <?php if (have_posts()) : ?>
                 <div class="w-full lg:w-8/12 mx-auto">
-                    <div class="vacatures-lijst">
+                    <div class="vacatures-lijst flex flex-col gap-6">
                         <?php 
                         $index = 0;
                         while (have_posts()) : the_post(); 

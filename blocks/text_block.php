@@ -48,12 +48,8 @@
 
 <!-- Text Block -->
 <div class="<?php echo esc_attr($wrapper_spacing_class); ?>"<?php echo $bg_style; ?>>
-    <div class="container mx-auto px-0! lg:px-[20px]">
-        <?php if (!empty($titel)) : ?>
-            <div class="headline-medium mb-[24px] <?php echo esc_attr($text_color_class); ?>">
-                <?php echo wp_kses_post($titel); ?>
-            </div>
-        <?php endif; ?>
+    <div class="container">
+        
 
         <?php 
         if($soortBlock === 'intro') { ?>
@@ -69,10 +65,16 @@
             </div>
        <?php  }
         if($soortBlock === 'default') { ?>
-            <div class="w-full lg:w-6/12 mx-auto px-[20px] lg:px-[62px] default-content <?php echo esc_attr($text_color_class); ?>">
-                <?php if (!empty($tekst_label)) : ?>
+            <div class="w-full lg:w-6/12 ml-[calc(100%/12*2)] default-content <?php echo esc_attr($text_color_class); ?>">
+            <?php if (!empty($tekst_label)) : ?>
                     <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
                 <?php endif; ?>
+            <?php if (!empty($titel)) : ?>
+            <div class="headline-medium mb-[24px] <?php echo esc_attr($text_color_class); ?>">
+                <?php echo wp_kses_post($titel); ?>
+            </div>
+        <?php endif; ?>    
+            
                 <?php if (!empty($tekst)) : ?>
                     <div class="body-medium">
                         <?php echo wp_kses_post($tekst); ?>

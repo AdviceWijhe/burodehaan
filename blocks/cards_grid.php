@@ -62,15 +62,15 @@ $backgroundPatroon = 'pink';
 ?>
 
 <!-- Cards Grid -->
-<div class="py-[200px] relative overflow-hidden <?= get_sub_field('tekst_kleur') ? 'text-'.get_sub_field('tekst_kleur') : '' ?> ">
+<div class="<?= get_spacing_bottom_class() ?> relative overflow-hidden <?= get_sub_field('tekst_kleur') ? 'text-'.get_sub_field('tekst_kleur') : '' ?> ">
   <?php if(get_sub_field('post_type') != 'medewerker') : ?>
       <?php if($background_color) : ?><div class="absolute z-0 <?= get_sub_field('achtergrond_positie') ?>-0 left-0 w-full h-[50%] bg-<?= $background_color; ?>"></div><?php endif; ?>
     <?php endif; ?>
-    <div class="container mx-auto px-4">
+    <div class="container">
       <div class="flex mb-[24px] lg:mb-[32px] justify-between items-center">
        
           <?php if(!empty($cards_heading)) : ?>
-            <div class="w-full lg:w-6/12">
+            <div class="w-full lg:w-6/12 <?php if(get_sub_field('soort_items') == 'themas' || get_sub_field('soort_items') == 'artikelen') : ?>lg:ml-[calc(100%/12*2)]<?php endif; ?>">
         <div class="mb-0!"><?php echo wp_kses_post($cards_heading); ?></div>
         </div>
           <?php endif; ?>
@@ -234,65 +234,7 @@ $backgroundPatroon = 'pink';
       
     endif;
 
-  }else if(get_sub_field('soort_items') == 'werkwijze'){
-
-      $items = get_field('werkwijze_items', 'option');
-
-
-
-      if(get_sub_field('eigen_werkwijze')) {
-        $items = get_sub_field('eigen_werkwijze_items');
-      }
-
-      if(is_array($items) && !empty($items)) : ?>
-        <!-- Swiper js block  -->
-  <?php $rand_class2 = 'swiper-container-' . wp_rand(1000,9999); ?>
-  <div class="swiper-container <?= $rand_class2 ?>">
-  <?php if (is_array($items)): ?>
-                <?php if (count($items) > 1): ?>
-                <div class="swiper-controls flex justify-center lg:justify-between items-center">
-                  <div class="swiper-controls-inner w-full lg:w-1/2 flex flex-col lg:flex-row gap-4 items-center justify-center lg:justify-start">
-                <div class="swiper-pagination text-center! left-auto! bottom-auto! w-auto! lg:text-left! mb-5 lg:pb-0!"></div>
-                <?php if(get_sub_field('buttons')) : ?>
-      
-                  <?php get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'no_margin' => true)); ?>
-                <?php endif; ?>
-                <?php endif; ?>
-                </div>
-                <div class="swiper-arrows hidden lg:flex gap-4">
-                
-                <div class="swiper-prev">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M212.7 331.3C206.5 325.1 206.5 314.9 212.7 308.7L372.7 148.7C378.9 142.5 389.1 142.5 395.3 148.7C401.5 154.9 401.5 165.1 395.3 171.3L246.6 320L395.3 468.7C401.5 474.9 401.5 485.1 395.3 491.3C389.1 497.5 378.9 497.5 372.7 491.3L212.7 331.3z"/></svg>
-          </div>
-          <div class="swiper-next rotate-180">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M212.7 331.3C206.5 325.1 206.5 314.9 212.7 308.7L372.7 148.7C378.9 142.5 389.1 142.5 395.3 148.7C401.5 154.9 401.5 165.1 395.3 171.3L246.6 320L395.3 468.7C401.5 474.9 401.5 485.1 395.3 491.3C389.1 497.5 378.9 497.5 372.7 491.3L212.7 331.3z"/></svg>
-          </div>
-                </div>
-                </div>
-                <?php endif; ?>
-          <div class="swiper-wrapper">
-            <?php 
-            $count = 0;
-            foreach($items as $item) : 
-            $count++; ?>
-              <div class="swiper-slide h-auto!">
-                <?= get_template_part('template-parts/card-werkwijze', null, array('item' => $item, 'count' => $count)) ?>
-            </div>
-            <?php endforeach; ?>
-            </div>
-            </div>
-
-
-            <script>
-          document.addEventListener('DOMContentLoaded', function () {
-            var swiper = new Swiper('.<?= $rand_class2 ?>', 
-              <?php echo json_encode($swiper_setting); ?>
-            );
-          });
-        </script>
- 
-      <?php endif;
-    } else if(get_sub_field('soort_items') == 'eigen'){
+  } else if(get_sub_field('soort_items') == 'eigen'){
       $rand_class = 'swiper-container-' . wp_rand(1000,9999);
       get_template_part('blocks/cards_grid/eigen_invoer', null, array('rand_class' => $rand_class, 'swiper_setting' => $swiper_setting, 'cards_rand_class' => $cards_rand_class));
 
@@ -300,56 +242,12 @@ $backgroundPatroon = 'pink';
            
 
 <?php
-    } else if(get_sub_field('soort_items') == 'eigen_producten') {
+    } else if(get_sub_field('soort_items') == 'themas' || get_sub_field('soort_items') == 'artikelen') {
 
-      $items = get_sub_field('eigen_producten');
-      if(get_sub_field('slider')) : ?>
-        <?php $rand_class = 'swiper-container-' . wp_rand(1000,9999); ?>
-        <div class="swiper-container <?= $rand_class ?>">
-        <?php if (is_array($items)): ?>
-                <?php if (count($items) > 1): ?>
-                <div class="swiper-controls flex justify-center lg:justify-between items-center mt-5">
-                  <div class="swiper-controls-inner w-full lg:w-1/2 flex flex-col lg:flex-row gap-4 items-center justify-center lg:justify-start">
-                <div class="swiper-pagination text-center! left-auto! bottom-auto! w-auto! lg:text-left! mb-5 lg:pb-0!"></div>
-                <?php if(get_sub_field('buttons')) : ?>
+      $items = get_sub_field('themas') ?: get_sub_field('artikelen');
+
+      get_template_part('blocks/cards_grid/eigen_keuze', null, array('items' => $items));
       
-                  <?php get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'no_margin' => true)); ?>
-                <?php endif; ?>
-                <?php endif; ?>
-                </div>
-                <div class="swiper-arrows hidden lg:flex gap-4">
-                
-                <div class="swiper-prev">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M212.7 331.3C206.5 325.1 206.5 314.9 212.7 308.7L372.7 148.7C378.9 142.5 389.1 142.5 395.3 148.7C401.5 154.9 401.5 165.1 395.3 171.3L246.6 320L395.3 468.7C401.5 474.9 401.5 485.1 395.3 491.3C389.1 497.5 378.9 497.5 372.7 491.3L212.7 331.3z"/></svg>
-          </div>
-          <div class="swiper-next rotate-180">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M212.7 331.3C206.5 325.1 206.5 314.9 212.7 308.7L372.7 148.7C378.9 142.5 389.1 142.5 395.3 148.7C401.5 154.9 401.5 165.1 395.3 171.3L246.6 320L395.3 468.7C401.5 474.9 401.5 485.1 395.3 491.3C389.1 497.5 378.9 497.5 372.7 491.3L212.7 331.3z"/></svg>
-          </div>
-                </div>
-                </div>
-                <?php endif; ?>
-                <div class="swiper-wrapper">
-                  <?php foreach($items as $item) : 
-                    //print_r($item);
-                    ?>
-                    <div class="swiper-slide h-auto!">
-                      <?php
-                    get_template_part('template-parts/card-product', null, array('post' => $item->ID));
-                    
-                    ?>
-                    </div>
-                  <?php endforeach; ?>
-                </div>
-
-              </div>
-              <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                  var swiper = new Swiper('.<?= $rand_class ?>', 
-                    <?php echo json_encode($swiper_setting); ?>
-                  );
-                });
-              </script>
-    <?php endif; 
     }; ?>
     </div>
 </div>

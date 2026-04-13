@@ -1,120 +1,193 @@
-<?php 
-$vacature = $args['vacature'];
-$background_class = isset($args['background_class']) ? $args['background_class'] : '';
+<?php
+/**
+ * Vacature card — Figma job row + BBG import fields (taxonomies, vacature_doel_url, thumbnail).
+ *
+ * @package advice2025
+ */
 
-// Haal Header group op
-$header_group = get_field('header', $vacature->ID);
+declare(strict_types=1);
 
-// Haal aantal_uren op - probeer eerst uit args, anders uit Header group
-$aantal_uren = '';
-if (isset($args['aantal_uren']) && !empty($args['aantal_uren'])) {
-    $aantal_uren = $args['aantal_uren'];
-} else {
-    if (is_array($header_group) && isset($header_group['aantal_uren'])) {
-        $aantal_uren = $header_group['aantal_uren'];
-    } else {
-        $aantal_uren = get_field('header_aantal_uren', $vacature->ID);
-        if (empty($aantal_uren)) {
-            $aantal_uren = get_field('aantal_uren', $vacature->ID);
-        }
-    }
+if (! isset($args) || ! is_array($args)) {
+    $args = array();
 }
 
-// Haal locatie op - probeer eerst uit args, anders uit Header group
+$raw = null;
+if (! empty($args['vacature'])) {
+    $raw = $args['vacature'];
+} elseif (! empty($args['post'])) {
+    $raw = $args['post'];
+}
+
+$post_id = 0;
+if ($raw instanceof WP_Post) {
+    $post_id = (int) $raw->ID;
+} elseif (is_numeric($raw)) {
+    $post_id = (int) $raw;
+}
+
+if ($post_id <= 0 || get_post_status($post_id) !== 'publish') {
+    return;
+}
+
+$background_class = isset($args['background_class']) ? trim((string) $args['background_class']) : '';
+
+$header_group = function_exists('get_field') ? get_field('header', $post_id) : null;
+if (! is_array($header_group)) {
+    $header_group = array();
+}
+
+// BBG vacature URL (import stores remote permalink in vacature_doel_url).
+$doel_raw = get_post_meta($post_id, 'vacature_doel_url', true);
+$card_href = '';
+if (is_string($doel_raw) && $doel_raw !== '') {
+    $card_href = esc_url($doel_raw);
+}
+if ($card_href === '' && defined('ADVICE2025_BBG_SITE_URL')) {
+    $card_href = esc_url((string) ADVICE2025_BBG_SITE_URL);
+}
+if ($card_href === '') {
+    $card_href = esc_url(get_permalink($post_id));
+}
+
+$home_host = wp_parse_url(home_url(), PHP_URL_HOST);
+$link_host = wp_parse_url($card_href, PHP_URL_HOST);
+$is_external = is_string($link_host) && is_string($home_host)
+    && strtolower((string) $link_host) !== strtolower((string) $home_host);
+
+// Locatie: taxonomie (import), daarna args/ACF.
 $locatie = '';
-if (isset($args['locatie']) && !empty($args['locatie'])) {
-    $locatie = $args['locatie'];
-} else {
-    if (is_array($header_group) && isset($header_group['locatie'])) {
-        $locatie = $header_group['locatie'];
-    } else {
-        $locatie = get_field('header_locatie', $vacature->ID);
-        if (empty($locatie)) {
-            $locatie = get_field('locatie', $vacature->ID);
-        }
-    }
+$loc_terms = get_the_terms($post_id, 'vacature_locatie');
+if (! is_wp_error($loc_terms) && is_array($loc_terms) && $loc_terms !== array()) {
+    $locatie = implode(
+        ' / ',
+        array_map(
+            static function ($t) {
+                return $t->name;
+            },
+            $loc_terms
+        )
+    );
+}
+if ($locatie === '' && ! empty($args['locatie'])) {
+    $locatie = (string) $args['locatie'];
+}
+if ($locatie === '' && ! empty($header_group['locatie'])) {
+    $locatie = (string) $header_group['locatie'];
+}
+if ($locatie === '' && function_exists('get_field')) {
+    $locatie = (string) (get_field('header_locatie', $post_id) ?: '');
+}
+if ($locatie === '' && function_exists('get_field')) {
+    $locatie = (string) (get_field('locatie', $post_id) ?: '');
 }
 
-// Haal soort_vacature op - probeer eerst uit args, anders uit Header group
-$soort_vacature = '';
-if (isset($args['soort_vacature']) && !empty($args['soort_vacature'])) {
-    $soort_vacature = $args['soort_vacature'];
-} else {
-    if (is_array($header_group) && isset($header_group['soort_vacature'])) {
-        $soort_vacature = $header_group['soort_vacature'];
-    } else {
-        $soort_vacature = get_field('header_soort_vacature', $vacature->ID);
-        if (empty($soort_vacature)) {
-            $soort_vacature = get_field('soort_vacature', $vacature->ID);
-        }
-    }
+// Uren: taxonomie (import), daarna args/ACF.
+$uren_display = '';
+$uren_terms = get_the_terms($post_id, 'vacature_aantal_uren');
+if (! is_wp_error($uren_terms) && is_array($uren_terms) && $uren_terms !== array()) {
+    $uren_display = implode(
+        ' / ',
+        array_map(
+            static function ($t) {
+                return $t->name;
+            },
+            $uren_terms
+        )
+    );
+}
+if ($uren_display === '' && ! empty($args['aantal_uren'])) {
+    $a = (string) $args['aantal_uren'];
+    $uren_display = $a !== '' ? $a . ' uur' : '';
+}
+if ($uren_display === '' && ! empty($header_group['aantal_uren'])) {
+    $uren_display = (string) $header_group['aantal_uren'] . ' uur';
+}
+if ($uren_display === '' && function_exists('get_field')) {
+    $h = get_field('header_aantal_uren', $post_id);
+    $uren_display = $h !== null && $h !== '' ? (string) $h . ' uur' : '';
+}
+if ($uren_display === '' && function_exists('get_field')) {
+    $h = get_field('aantal_uren', $post_id);
+    $uren_display = $h !== null && $h !== '' ? (string) $h . ' uur' : '';
 }
 
-// ACF select velden kunnen arrays teruggeven, converteer naar string indien nodig
-if (is_array($soort_vacature)) {
-    $soort_vacature = !empty($soort_vacature) ? $soort_vacature[0] : '';
-}
+$title     = get_the_title($post_id);
+$has_thumb = has_post_thumbnail($post_id);
 
-// Haal andere ACF velden op (voor eventueel later gebruik)
-$uren = get_field('uren_per_week', $vacature->ID);
-$salaris = get_field('salaris', $vacature->ID);
-$type = get_field('type_contract', $vacature->ID);
-
-// Map soort_vacature waarden naar labels
-$soort_labels = array(
-    'development' => 'Development',
-    'seo' => 'SEO',
-    'design' => 'Design',
-    'management' => 'Management',
-    'marketing' => 'Marketing'
+$wrap_classes = array_filter(
+    array(
+        'vacature-card-wrap',
+        $background_class,
+        $background_class !== '' ? 'rounded-[4px] py-2 md:py-3' : '',
+    )
 );
-$soort_label = '';
-if (!empty($soort_vacature)) {
-    $soort_vacature_clean = is_string($soort_vacature) ? strtolower($soort_vacature) : '';
-    $soort_label = isset($soort_labels[$soort_vacature_clean]) ? $soort_labels[$soort_vacature_clean] : ucfirst($soort_vacature);
-}
 ?>
 
-<a href="<?php echo get_permalink($vacature->ID); ?>" class="vacature-item group bg-light p-[20px]! transition-all duration-300 flex gap-6 justify-between items-center shadow-md hover:shadow-lg rounded-[16px]">
-                          
-    <!-- Linker kant: Titel -->
-    <div class="flex-1">
-        <h3 class="title-large text-black transition-colors mb-0">
-            <span class="block">
-                <?php echo get_the_title($vacature->ID); ?>
+<div class="<?php echo esc_attr(implode(' ', $wrap_classes)); ?>">
+    <a
+        href="<?php echo esc_url($card_href); ?>"
+        class="vacature-item group flex flex-col md:flex-row bg-white border border-black/12 overflow-hidden transition-shadow duration-300 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        <?php echo $is_external ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>
+    >
+        <div class="relative w-full md:w-[245px] md:min-w-[245px] h-[200px] md:h-[169px] shrink-0 bg-secondary overflow-hidden">
+            <?php if ($has_thumb) : ?>
+                <?php
+                echo get_the_post_thumbnail(
+                    $post_id,
+                    'large',
+                    array(
+                        'class'    => 'absolute inset-0 size-full object-cover',
+                        'loading'  => 'lazy',
+                        'decoding' => 'async',
+                        'alt'      => esc_attr(wp_strip_all_tags($title)),
+                    )
+                );
+                ?>
+            <?php endif; ?>
+        </div>
+        <div class="flex flex-1 flex-col md:flex-row md:items-center justify-between gap-4 min-w-0 px-5 py-5 md:pl-8 md:pr-6">
+            <div class="min-w-0 flex-1">
+                <h3 class="text-[30px] font-light leading-[1.2] text-black mb-0">
+                    <?php echo esc_html($title); ?>
+                </h3>
+                <?php if ($locatie !== '' || $uren_display !== '') : ?>
+                    <div class="mt-4 flex flex-wrap items-center gap-x-8 gap-y-2 text-base font-light leading-normal text-black">
+                        <?php if ($locatie !== '') : ?>
+                            <span class="inline-flex items-center gap-2 whitespace-nowrap">
+                                <span class="shrink-0 text-black" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M8 8.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-width="1.2"/>
+                                        <path d="M13 6.5c0 3.5-5 8.5-5 8.5S3 10 3 6.5a5 5 0 1 1 10 0Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <?php echo esc_html($locatie); ?>
+                            </span>
+                        <?php endif; ?>
+                        <?php if ($uren_display !== '') : ?>
+                            <span class="inline-flex items-center gap-2 whitespace-nowrap">
+                                <span class="shrink-0 text-black" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <circle cx="8" cy="8" r="6.25" stroke="currentColor" stroke-width="1.2"/>
+                                        <path d="M8 4.75V8l2.5 1.25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <?php echo esc_html($uren_display); ?>
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <span class="shrink-0 self-end md:self-center text-primary" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
+                    <rect width="2.22222" height="2.22222" fill="currentColor"/>
+                    <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="currentColor"/>
+                    <rect x="2.96094" y="14.8149" width="2.22222" height="2.22222" fill="currentColor"/>
+                    <rect x="0.000183105" y="17.7778" width="2.22222" height="2.22222" fill="currentColor"/>
+                    <rect x="2.96094" y="2.96289" width="2.22222" height="2.22222" fill="currentColor"/>
+                    <rect x="8.89062" y="8.88916" width="2.22222" height="2.22222" fill="currentColor"/>
+                    <rect x="5.92578" y="5.92578" width="2.22222" height="2.22222" fill="currentColor"/>
+                </svg>
             </span>
-        </h3>
-    </div>
-    
-    <!-- Midden: Badges met aantal_uren, locatie en soort_vacature -->
-    <div class="flex-shrink-0 flex items-center gap-3">
-        <?php if (!empty($aantal_uren)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-light rounded-[4px] label-small whitespace-nowrap">
-                <?php echo esc_html($aantal_uren . ' uur'); ?>
-            </span>
-        <?php endif; ?>
-        
-        <?php if (!empty($locatie)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-light rounded-[4px] label-small whitespace-nowrap">
-                <?php echo esc_html($locatie); ?>
-            </span>
-        <?php endif; ?>
-        
-        <?php if (!empty($soort_label)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-light rounded-[4px] label-small whitespace-nowrap">
-                <?php echo esc_html($soort_label); ?>
-            </span>
-        <?php elseif (!empty($soort_vacature)) : ?>
-            <span class="inline-block px-4 py-2 border-2 border-light rounded-[4px] label-small whitespace-nowrap">
-                <?php echo esc_html(ucfirst($soort_vacature)); ?>
-            </span>
-        <?php endif; ?>
-    </div>
-    
-    <!-- Rechter kant: Primary vierkant met chevron right -->
-    <div class="flex-shrink-0 w-10 h-10 rounded-[4px] bg-primary flex items-center justify-center text-black transition-transform duration-300 group-hover:translate-x-1">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0" aria-hidden="true">
-            <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
-</a>
+        </div>
+    </a>
+</div>

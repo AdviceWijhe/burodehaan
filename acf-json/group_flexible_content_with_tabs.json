@@ -926,9 +926,9 @@
                             },
                             "choices": {
                                 "posts": "Posts",
-                                "werkwijze": "Werkwijze",
                                 "eigen": "Eigen invoer",
-                                "eigen_producten": "Eigen producten"
+                                "artikelen": "Artikelen",
+                                "themas": "Thema's"
                             },
                             "default_value": false,
                             "return_format": "value",
@@ -1166,115 +1166,9 @@
                             ]
                         },
                         {
-                            "key": "field_68f08b1cc65b0",
-                            "label": "Eigen werkwijze",
-                            "name": "eigen_werkwijze",
-                            "aria-label": "",
-                            "type": "true_false",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": [
-                                [
-                                    {
-                                        "field": "field_689c3e2279893",
-                                        "operator": "==",
-                                        "value": "werkwijze"
-                                    }
-                                ]
-                            ],
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "message": "",
-                            "default_value": 0,
-                            "style": "",
-                            "allow_in_bindings": 0,
-                            "ui": 0,
-                            "ui_on_text": "",
-                            "ui_off_text": ""
-                        },
-                        {
-                            "key": "field_68f08b62c65b1",
-                            "label": "Eigen werkwijze items",
-                            "name": "eigen_werkwijze_items",
-                            "aria-label": "",
-                            "type": "repeater",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": [
-                                [
-                                    {
-                                        "field": "field_68f08b1cc65b0",
-                                        "operator": "==",
-                                        "value": "1"
-                                    }
-                                ]
-                            ],
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "acfe_repeater_stylised_button": 0,
-                            "layout": "row",
-                            "min": 0,
-                            "max": 0,
-                            "collapsed": "",
-                            "button_label": "Nieuwe rij",
-                            "rows_per_page": 20,
-                            "sub_fields": [
-                                {
-                                    "key": "field_68f08b8fc65b2",
-                                    "label": "Titel",
-                                    "name": "titel",
-                                    "aria-label": "",
-                                    "type": "text",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "default_value": "",
-                                    "maxlength": "",
-                                    "allow_in_bindings": 0,
-                                    "placeholder": "",
-                                    "prepend": "",
-                                    "append": "",
-                                    "parent_repeater": "field_68f08b62c65b1"
-                                },
-                                {
-                                    "key": "field_68f08b96c65b3",
-                                    "label": "Content",
-                                    "name": "content",
-                                    "aria-label": "",
-                                    "type": "text",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "default_value": "",
-                                    "maxlength": "",
-                                    "allow_in_bindings": 0,
-                                    "placeholder": "",
-                                    "prepend": "",
-                                    "append": "",
-                                    "parent_repeater": "field_68f08b62c65b1"
-                                }
-                            ]
-                        },
-                        {
                             "key": "field_68f0916ec9ff8",
-                            "label": "Eigen producten",
-                            "name": "eigen_producten",
+                            "label": "Artikelen",
+                            "name": "artikelen",
                             "aria-label": "",
                             "type": "relationship",
                             "instructions": "",
@@ -1284,7 +1178,7 @@
                                     {
                                         "field": "field_689c3e2279893",
                                         "operator": "==",
-                                        "value": "eigen_producten"
+                                        "value": "artikelen"
                                     }
                                 ]
                             ],
@@ -1294,7 +1188,7 @@
                                 "id": ""
                             },
                             "post_type": [
-                                "product"
+                                "post"
                             ],
                             "post_status": [
                                 "publish"
@@ -1317,6 +1211,51 @@
                             "elements": "",
                             "bidirectional": 0,
                             "bidirectional_target": []
+                        },
+                        {
+                            "key": "field_69d8aa8629149",
+                            "label": "Thema's",
+                            "name": "themas",
+                            "aria-label": "",
+                            "type": "acfe_taxonomy_terms",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_689c3e2279893",
+                                        "operator": "==",
+                                        "value": "themas"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "taxonomy": "",
+                            "allow_terms": "",
+                            "allow_level": "",
+                            "field_type": "checkbox",
+                            "min": "",
+                            "max": "",
+                            "default_value": [],
+                            "return_format": "object",
+                            "layout": "vertical",
+                            "toggle": 0,
+                            "save_terms": 0,
+                            "load_terms": 0,
+                            "allow_in_bindings": 0,
+                            "choices": [],
+                            "ui": 0,
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "search_placeholder": "",
+                            "allow_custom": 0,
+                            "other_choice": 0
                         },
                         {
                             "key": "field_68dfd2fce6539",
@@ -4452,5 +4391,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1775743617
+    "modified": 1775824066
 }

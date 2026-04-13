@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 
 include_once 'inc/class.tailwindWalker.php';
 include_once 'inc/class.tailwindWalkerSimple.php';
+require_once get_template_directory() . '/inc/import_vacatures.php';
 
 /**
  * Get theme color palette
@@ -1812,6 +1813,194 @@ function advice2025_fix_svg_thumbnails($response, $attachment, $meta) {
     return $response;
 }
 add_filter('wp_prepare_attachment_for_js', 'advice2025_fix_svg_thumbnails', 10, 3);
+
+/**
+ * Taxonomy term thumbnail: register hooks for all taxonomy admin screens.
+ */
+function advice2025_register_term_thumbnail_hooks() {
+    $taxonomies = get_taxonomies(array('show_ui' => true), 'names');
+
+    foreach ($taxonomies as $taxonomy) {
+        add_action($taxonomy . '_add_form_fields', 'advice2025_render_term_thumbnail_add_field');
+        add_action($taxonomy . '_edit_form_fields', 'advice2025_render_term_thumbnail_edit_field', 10, 2);
+    }
+}
+add_action('init', 'advice2025_register_term_thumbnail_hooks');
+
+/**
+ * Render term thumbnail field on add term form.
+ */
+function advice2025_render_term_thumbnail_add_field($taxonomy) {
+    ?>
+    <div class="form-field term-thumbnail-wrap">
+        <label for="advice2025-term-thumbnail-id"><?php esc_html_e('Afbeelding', 'advice2025'); ?></label>
+        <input type="hidden" id="advice2025-term-thumbnail-id" name="advice2025_term_thumbnail_id" value="" />
+        <div id="advice2025-term-thumbnail-preview" style="margin: 10px 0; display: none;">
+            <img src="" style="max-width: 120px; height: auto; display: block;" alt="<?php echo esc_attr__('Preview', 'advice2025'); ?>" />
+        </div>
+        <button type="button" class="button advice2025-term-thumbnail-upload"><?php esc_html_e('Upload afbeelding', 'advice2025'); ?></button>
+        <button type="button" class="button advice2025-term-thumbnail-remove" style="display: none;"><?php esc_html_e('Verwijder afbeelding', 'advice2025'); ?></button>
+        <p class="description"><?php esc_html_e('Kies een afbeelding voor deze taxonomie-term.', 'advice2025'); ?></p>
+        <?php wp_nonce_field('advice2025_save_term_thumbnail', 'advice2025_term_thumbnail_nonce'); ?>
+    </div>
+    <?php
+}
+
+/**
+ * Render term thumbnail field on edit term form.
+ */
+function advice2025_render_term_thumbnail_edit_field($term, $taxonomy) {
+    $thumbnail_id = (int) get_term_meta($term->term_id, 'thumbnail_id', true);
+    $thumbnail_url = $thumbnail_id ? wp_get_attachment_image_url($thumbnail_id, 'medium') : '';
+    ?>
+    <tr class="form-field term-thumbnail-wrap">
+        <th scope="row"><label for="advice2025-term-thumbnail-id"><?php esc_html_e('Afbeelding', 'advice2025'); ?></label></th>
+        <td>
+            <input type="hidden" id="advice2025-term-thumbnail-id" name="advice2025_term_thumbnail_id" value="<?php echo esc_attr($thumbnail_id); ?>" />
+            <div id="advice2025-term-thumbnail-preview" style="margin: 10px 0; <?php echo $thumbnail_url ? '' : 'display: none;'; ?>">
+                <img src="<?php echo esc_url($thumbnail_url); ?>" style="max-width: 120px; height: auto; display: block;" alt="<?php echo esc_attr__('Preview', 'advice2025'); ?>" />
+            </div>
+            <button type="button" class="button advice2025-term-thumbnail-upload"><?php esc_html_e('Upload afbeelding', 'advice2025'); ?></button>
+            <button type="button" class="button advice2025-term-thumbnail-remove" style="<?php echo $thumbnail_url ? '' : 'display: none;'; ?>"><?php esc_html_e('Verwijder afbeelding', 'advice2025'); ?></button>
+            <p class="description"><?php esc_html_e('Kies een afbeelding voor deze taxonomie-term.', 'advice2025'); ?></p>
+            <?php wp_nonce_field('advice2025_save_term_thumbnail', 'advice2025_term_thumbnail_nonce'); ?>
+        </td>
+    </tr>
+    <?php
+}
+
+/**
+ * Save term thumbnail attachment ID.
+ */
+function advice2025_save_term_thumbnail($term_id, $tt_id = 0, $taxonomy = '') {
+    if (!isset($_POST['advice2025_term_thumbnail_nonce'])) {
+        return;
+    }
+
+    if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['advice2025_term_thumbnail_nonce'])), 'advice2025_save_term_thumbnail')) {
+        return;
+    }
+
+    $taxonomy_object = get_taxonomy($taxonomy);
+    if (!$taxonomy_object || !isset($taxonomy_object->cap->manage_terms) || !current_user_can($taxonomy_object->cap->manage_terms)) {
+        return;
+    }
+
+    $thumbnail_id = isset($_POST['advice2025_term_thumbnail_id']) ? absint(wp_unslash($_POST['advice2025_term_thumbnail_id'])) : 0;
+
+    if ($thumbnail_id > 0) {
+        update_term_meta($term_id, 'thumbnail_id', $thumbnail_id);
+        return;
+    }
+
+    delete_term_meta($term_id, 'thumbnail_id');
+}
+add_action('created_term', 'advice2025_save_term_thumbnail', 10, 3);
+add_action('edited_term', 'advice2025_save_term_thumbnail', 10, 3);
+
+/**
+ * Enqueue term thumbnail media uploader for taxonomy screens.
+ */
+function advice2025_enqueue_term_thumbnail_admin_scripts($hook) {
+    if (!in_array($hook, array('edit-tags.php', 'term.php'), true)) {
+        return;
+    }
+
+    $taxonomy = isset($_GET['taxonomy']) ? sanitize_key(wp_unslash($_GET['taxonomy'])) : '';
+    if (empty($taxonomy) || !taxonomy_exists($taxonomy)) {
+        return;
+    }
+
+    wp_enqueue_media();
+
+    wp_add_inline_script('jquery', "
+        jQuery(function($) {
+            var frame;
+            var field = $('#advice2025-term-thumbnail-id');
+            var preview = $('#advice2025-term-thumbnail-preview');
+            var previewImg = preview.find('img');
+            var removeButton = $('.advice2025-term-thumbnail-remove');
+
+            $(document).on('click', '.advice2025-term-thumbnail-upload', function(e) {
+                e.preventDefault();
+
+                if (frame) {
+                    frame.open();
+                    return;
+                }
+
+                frame = wp.media({
+                    title: 'Selecteer of upload afbeelding',
+                    button: { text: 'Gebruik deze afbeelding' },
+                    multiple: false,
+                    library: { type: 'image' }
+                });
+
+                frame.on('select', function() {
+                    var attachment = frame.state().get('selection').first().toJSON();
+                    field.val(attachment.id);
+                    previewImg.attr('src', attachment.url);
+                    preview.show();
+                    removeButton.show();
+                });
+
+                frame.open();
+            });
+
+            $(document).on('click', '.advice2025-term-thumbnail-remove', function(e) {
+                e.preventDefault();
+                field.val('');
+                previewImg.attr('src', '');
+                preview.hide();
+                $(this).hide();
+            });
+        });
+    ");
+}
+add_action('admin_enqueue_scripts', 'advice2025_enqueue_term_thumbnail_admin_scripts');
+
+/**
+ * Get taxonomy term thumbnail URL.
+ */
+function advice2025_get_term_thumbnail_url($term = null, $size = 'full') {
+    $term_object = $term instanceof WP_Term ? $term : get_term($term);
+    if (!$term_object || is_wp_error($term_object)) {
+        return '';
+    }
+
+    $thumbnail_id = (int) get_term_meta($term_object->term_id, 'thumbnail_id', true);
+    if ($thumbnail_id > 0) {
+        $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, $size);
+        if ($thumbnail_url) {
+            return $thumbnail_url;
+        }
+    }
+
+    if (!function_exists('get_field')) {
+        return '';
+    }
+
+    $term_context = $term_object->taxonomy . '_' . $term_object->term_id;
+    $acf_field_candidates = array('thumbnail', 'image', 'afbeelding', 'term_image', 'header_afbeelding');
+
+    foreach ($acf_field_candidates as $field_name) {
+        $acf_value = get_field($field_name, $term_context);
+        if (is_array($acf_value) && isset($acf_value['url'])) {
+            return (string) $acf_value['url'];
+        }
+        if (is_numeric($acf_value)) {
+            $acf_url = wp_get_attachment_image_url((int) $acf_value, $size);
+            if ($acf_url) {
+                return $acf_url;
+            }
+        }
+        if (is_string($acf_value) && filter_var($acf_value, FILTER_VALIDATE_URL)) {
+            return $acf_value;
+        }
+    }
+
+    return '';
+}
 
 /**
  * Extra admin menu links voor taxonomiebeheer.

@@ -112,7 +112,7 @@ if($buttons) {
       
       // Bepaal width class
       if ($full_width === true) {
-          $width_class = 'w-full';
+          $width_class = 'w-full lg:flex-col! ';
       } elseif ($full_width === false) {
           $width_class = '';
       } else {
@@ -120,7 +120,7 @@ if($buttons) {
           $width_class = $align_items === 'stretch' ? 'w-full' : '';
       }
       
-      echo '<div class="relative flex flex-col lg:flex-row gap-4 ' . $align_class . ' ' . $width_class . '">';
+      echo '<div class="relative flex flex-col lg:flex-row gap-4 flex-wrap ' . $align_class . ' ' . $width_class . '">';
       foreach ($buttons as $button) {
         $button_color = $button['knop_kleur'] ?? 'primary';
         if (!isset($colors[$button_color])) {
