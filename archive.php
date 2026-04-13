@@ -53,7 +53,7 @@ $filter_panel_taxonomies = array(
     $archive_query_vars['advice2025_filters'] = array();
     ?>
     <div
-        class="container mx-auto pb-[40px]! lg:pb-[80px]!"
+        class="container  "
         data-posts-archive-search
         data-query-vars="<?php echo esc_attr(wp_json_encode($archive_query_vars)); ?>"
     >
@@ -90,17 +90,17 @@ $filter_panel_taxonomies = array(
     </div>
 
     <?php if ($max_pages > 1) : ?>
-        <div class="mt-[100px] lg:mt-[120px] text-center">
+        <div class="mt-[30px] lg:mt-[60px] text-center">
             <button
                 id="archive-load-more"
-                class="btn bg-pink text-white"
+                class="btn border border-black text-black hover:bg-black hover:text-white"
                 type="button"
                 data-post-type="<?php echo esc_attr(get_post_type()); ?>"
                 data-current-page="<?php echo esc_attr($current_page); ?>"
                 data-max-pages="<?php echo esc_attr($max_pages); ?>"
                 data-query-vars="<?php echo esc_attr(wp_json_encode($archive_query_vars)); ?>"
             >
-                Meer laden
+                Laad meer <?= $title; ?>
             </button>
         </div>
     <?php endif; ?>
