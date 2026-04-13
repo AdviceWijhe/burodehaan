@@ -1,6 +1,6 @@
 {
     "key": "group_69dcb72c55701",
-    "title": "Post Type | Kennisbank",
+    "title": "Post Type | Kennisbank \/ Project",
     "fields": [
         {
             "key": "field_69dcb75d7c29f",
@@ -140,6 +140,13 @@
                 "operator": "==",
                 "value": "post"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "project"
+            }
         ]
     ],
     "menu_order": 0,
@@ -163,5 +170,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1776072617
+    "modified": 1776073320
 }

@@ -3,6 +3,12 @@
 get_header(); 
 
 
+$label = 'Artikel';
+
+if(get_post_type() == 'project') {
+    $label = 'Project';
+}
+
 ?>
 
 
@@ -13,7 +19,7 @@ get_header();
         <div class="container pb-[120px]">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
                 <div class="w-full lg:col-span-8 lg:col-start-3">
-                    <p class="label-large text-primary mb-[20px]!">Artikel</p>
+                    <p class="label-large text-primary mb-[20px]!"><?= $label; ?></p>
                     <h1 class="text-white text-4xl font-bold mb-[40px]"><?= get_the_title(); ?></h1>
                     <div class="text-white body-large max-w-[790px]"><?php echo get_field('introtekst', get_the_ID()); ?></div>
                 </div>
@@ -21,10 +27,10 @@ get_header();
         </div>
         <?php if(get_post_type() == 'project') : ?>
             <div class="bg-secondary">
-                <div class="container py-[40px]!">
+                <div class="container py-[32px]!">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
                         <div class="w-full lg:col-span-2 lg:col-start-11">
-                            <a href="#gallerij" class="btn border border-black">Direct naar gallerij <svg xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
+                            <a href="#gallerij" class="btn border border-black text-black gap-[14px]">Direct naar gallerij <svg xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
   <rect x="19.9996" width="2.22222" height="2.22222" transform="rotate(90 19.9996 0)" fill="#161616"/>
   <rect x="8.148" y="5.92578" width="2.22222" height="2.22222" transform="rotate(90 8.148 5.92578)" fill="#161616"/>
   <rect x="5.18511" y="2.96094" width="2.22222" height="2.22222" transform="rotate(90 5.18511 2.96094)" fill="#161616"/>
@@ -58,9 +64,9 @@ get_header();
     <div class="flexible-content">
           
 
-                <?php if (function_exists('have_rows') && have_rows('blocks', $tax_slug.'_'.$tax_id)) : ?>
+                <?php if (function_exists('have_rows') && have_rows('blocks', get_the_ID())) : ?>
                     
-                    <?php while (have_rows('blocks', $tax_slug.'_'.$tax_id)) : the_row(); ?>
+                    <?php while (have_rows('blocks', get_the_ID())) : the_row(); ?>
                         
                         <?php
                         $layout = get_row_layout();
