@@ -172,6 +172,10 @@ $backgroundPatroon = 'pink';
               <div class="swiper-slide h-auto!">
                 
                   <?php
+
+                  if(!is_front_page() && $selected_post_type == 'post') {
+                    $selected_post_type = 'kennisbank';
+                  }
                   
                   get_template_part('template-parts/card', $selected_post_type, array('post' => get_the_ID())); ?>
               

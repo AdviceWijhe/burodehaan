@@ -2,19 +2,17 @@
 
 <footer id="colophon" class="site-footer mt-auto relative overflow-hidden w-full bg-black text-white">
     <?php
-    $expertises = get_posts(array(
-        'post_type' => 'expertise',
-        'post_status' => 'publish',
-        'numberposts' => -1,
-        'orderby' => 'menu_order',
+    $expertises = get_terms(array(
+        'taxonomy' => 'expertise',
+        'hide_empty' => true,
+        'orderby' => 'name',
         'order' => 'ASC',
     ));
 
-    $themas = get_posts(array(
-        'post_type' => 'thema',
-        'post_status' => 'publish',
-        'numberposts' => -1,
-        'orderby' => 'menu_order',
+    $themas = get_terms(array(
+        'taxonomy' => 'thema',
+        'hide_empty' => true,
+        'orderby' => 'name',
         'order' => 'ASC',
     ));
 
@@ -39,12 +37,12 @@
             <div class="grid grid-cols-1 gap-y-[120px]">
                 <div>
                     <h6 class="mb-5 text-white title-small">Expertises</h6>
-                    <?php if (!empty($expertises)) : ?>
+                    <?php if (!is_wp_error($expertises) && !empty($expertises)) : ?>
                         <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
                             <?php foreach ($expertises as $expertise) : ?>
                                 <li>
-                                    <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_permalink($expertise->ID)); ?>">
-                                        <?php echo esc_html(get_the_title($expertise->ID)); ?>
+                                    <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_term_link($expertise)); ?>">
+                                        <?php echo esc_html($expertise->name); ?>
                                     </a>
                                 </li>
                             <?php endforeach; ?>
@@ -54,12 +52,12 @@
 
                 <div>
                     <h6 class="mb-5 text-white title-small">Thema's</h6>
-                    <?php if (!empty($themas)) : ?>
+                    <?php if (!is_wp_error($themas) && !empty($themas)) : ?>
                         <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
                             <?php foreach ($themas as $thema) : ?>
                                 <li>
-                                    <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_permalink($thema->ID)); ?>">
-                                        <?php echo esc_html(get_the_title($thema->ID)); ?>
+                                    <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_term_link($thema)); ?>">
+                                        <?php echo esc_html($thema->name); ?>
                                     </a>
                                 </li>
                             <?php endforeach; ?>
@@ -68,8 +66,8 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-[50px] gap-y-[50px]">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-x-[50px] gap-y-[50px]">
+                <div class="col-span-1 md:col-span-2">
                     <h6 class="mb-5 text-white title-small">Navigeer</h6>
                     <?php
                     if (has_nav_menu('footer-menu-1')) {
@@ -83,7 +81,7 @@
                     ?>
                 </div>
 
-                <div>
+                <div class="col-span-1 md:col-span-3">
                     <h6 class="mb-5 text-white title-small">Over ons</h6>
                     <?php
                     if (has_nav_menu('footer-menu-2')) {
@@ -97,34 +95,67 @@
                     ?>
                 </div>
 
-                <div class="md:col-span-1 lg:col-span-1">
-                    <?php if (!empty($locations)) : ?>
+                <div class="md:col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-5 gap-x-[28px]">
+                    <?php 
+                    $query = new WP_Query(array(
+                        'post_type' => 'locatie',
+                        'posts_per_page' => -1,
+                        'order' => 'DESC',
+                    ));
+                    if ($query->have_posts()) :
+                        while ($query->have_posts()) : $query->the_post();
+                            $location = get_the_ID();
+                            $location_title = get_the_title($location);
+                            $location_address = get_field('adres', $location);
+                            $location_postal_city = get_field('postcode', $location);
+                            $location_plaats = get_field('plaats', $location);
+                            $location_phone = get_field('telefoonnummer', $location);
+                            $location_email = get_field('e-mailadres', $location);
+                            
+                            $locations[] = array(
+                                'titel' => $location_title,
+                                'adres' => $location_address,
+                                'postcode_+_woonplaats' => $location_postal_city,
+                                'plaats' => $location_plaats,
+                                'telefoonnummer' => $location_phone,
+                                'emailadres' => $location_email,
+                            );
+                        endwhile;
+                        wp_reset_postdata();
+                    endif;
+                    if (!empty($locations)) : ?>
                         <?php foreach ($locations as $location) : ?>
                             <?php
                             $location_title = $location['titel'] ?? ($location['naam'] ?? '');
                             $location_address = $location['adres'] ?? '';
                             $location_postal_city = $location['postcode_+_woonplaats'] ?? ($location['postcode_woonplaats'] ?? '');
+                            $location_plaats = $location['plaats'] ?? '';
                             $location_phone = $location['telefoonnummer'] ?? '';
                             $location_email = $location['emailadres'] ?? '';
                             ?>
-                            <div class="mb-8 last:mb-0">
+                            <div class="mb-8 last:mb-0 col-span-1 md:col-span-2">
                                 <?php if (!empty($location_title)) : ?>
-                                    <h6 class="mb-4 text-white title-small"><?php echo esc_html($location_title); ?></h6>
+                                    <h6 class="mb-[28px]! text-white title-small"><?php echo esc_html($location_title); ?></h6>
                                 <?php endif; ?>
                                 <?php if (!empty($location_address)) : ?>
-                                    <p class="mb-1 text-white/80 body-medium"><?php echo esc_html($location_address); ?></p>
+                                    <p class="mb-3! text-white/80 body-medium"><?php echo esc_html($location_address); ?></p>
                                 <?php endif; ?>
                                 <?php if (!empty($location_postal_city)) : ?>
-                                    <p class="mb-4 text-white/80 body-medium"><?php echo esc_html($location_postal_city); ?></p>
+                                    <p class="mb-4 text-white/80 body-medium"><?php echo esc_html($location_postal_city); ?>, <?php echo esc_html($location_plaats); ?></p>
                                 <?php endif; ?>
                                 <?php if (!empty($location_phone)) : ?>
-                                    <a class="block text-white/80 hover:text-white transition-colors mb-1 body-medium" href="<?php echo esc_url('tel:' . preg_replace('/\s+/', '', $location_phone)); ?>">
+                                    <a class="block text-white hover:text-white transition-colors mb-1 body-medium font-medium! flex items-center gap-2" href="<?php echo esc_url('tel:' . preg_replace('/\s+/', '', $location_phone)); ?>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <path d="M5.47656 8.24219L8.125 5.625L5 0L0 2.5V3.125C0 12.4453 7.55469 20 16.875 20H17.5L20 15L14.375 11.875L11.7578 14.5234C9.00391 13.2148 6.78516 10.9961 5.47656 8.24219ZM14.4844 12.6523L19.1719 15.2578L17.1133 19.3789H16.875C7.90234 19.375 0.625 12.1016 0.625 3.125V2.88672L4.74219 0.828125L7.34766 5.51562L5.03516 7.80078L4.71875 8.11328L4.91016 8.51562C6.28125 11.3984 8.60156 13.7227 11.4844 15.0898L11.8867 15.2812L12.1992 14.9648L14.4844 12.6523Z" fill="white"/>
+</svg>
                                         <?php echo esc_html($location_phone); ?>
                                     </a>
                                 <?php endif; ?>
                                 <?php if (!empty($location_email)) : ?>
-                                    <a class="block text-white/80 hover:text-white transition-colors body-medium" href="<?php echo esc_url('mailto:' . $location_email); ?>">
-                                        <?php echo esc_html($location_email); ?>
+                                    <a class="block text-white hover:text-white transition-colors body-medium font-medium! flex items-center gap-2" href="<?php echo esc_url('mailto:' . $location_email); ?>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="15" viewBox="0 0 20 15" fill="none">
+  <path d="M0 0H20V15H0V0ZM19.375 0.625H0.625V2.66016L10 9.91797L19.375 2.66016V0.625ZM0.625 3.44922V14.375H19.375V3.44922L10.1914 10.5586L10 10.707L9.80859 10.5586L0.625 3.44922Z" fill="white"/>
+</svg> <?php echo esc_html($location_email); ?>
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -134,7 +165,7 @@
             </div>
         </div>
 
-        <div class="mt-[70px] relative flex flex-col lg:flex-row lg:items-center gap-y-8">
+        <div class="mt-[120px] relative flex flex-col lg:flex-row lg:items-center gap-y-8">
             <div class="flex items-center gap-4">
                 <?php if (!empty($socials) && is_array($socials)) : ?>
                     <?php foreach ($socials as $social) : ?>

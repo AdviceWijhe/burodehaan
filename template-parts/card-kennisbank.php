@@ -36,16 +36,22 @@ if ($item instanceof WP_Term) {
         $name = $item['name'] ?? get_the_title($id);
         $description = $item['description'] ?? get_the_excerpt($id);
     }
+} else {
+    $id = (int) $item;
+    $thumbnail = get_the_post_thumbnail_url($id, 'large');
+    $link = get_permalink($id);
+    $name = get_the_title($id);
+    $description = get_the_excerpt($id);
 }
 
 ?>
 
-<a href="<?php echo esc_url($link); ?>" class="card border border-[rgba(22,22,22,0.12)] flex flex-col lg:flex-row">
-                    <div class="card-image w-full lg:w-2/8 h-full">
+<a href="<?php echo esc_url($link); ?>" class="card border border-[rgba(22,22,22,0.12)] flex flex-col lg:flex-row lg:items-stretch">
+                    <div class="card-image w-full lg:w-2/8">
                     <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($name); ?>" class="w-full h-full object-cover">
 
                     </div>
-                    <div class="card-body p-[40px] w-full lg:w-4/8">
+                    <div class="card-body p-[40px] w-full lg:w-6/8">
                         <?php 
                         if($post_type == 'post') {
                             $category = get_the_category($id);
@@ -71,7 +77,7 @@ if ($item instanceof WP_Term) {
                         <h3 class="card-title mb-[28px]!"><?php echo esc_html($name); ?></h3>
                         <div class="card-description"><?php echo wp_kses_post($description); ?></div>
                     </div>
-                    <div class="w-full lg:w-1/8 lg:ml-auto flex items-center justify-center">
+                    <div class="flex-shrink-0 lg:ml-auto flex items-center justify-center pr-[20px]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
 <rect width="2.22222" height="2.22222" fill="#EC663C"/>
 <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#EC663C"/>
