@@ -165,8 +165,8 @@
             </div>
         </div>
 
-        <div class="mt-[120px] relative flex flex-col lg:flex-row lg:items-center gap-y-8">
-            <div class="flex items-center gap-4">
+        <div class="mt-[120px] grid grid-cols-1 lg:grid-cols-12 gap-[40px] relative flex flex-col lg:flex-row lg:items-center gap-y-8">
+            <div class="flex items-center gap-4 col-span-1 lg:col-span-5">
                 <?php if (!empty($socials) && is_array($socials)) : ?>
                     <?php foreach ($socials as $social) : ?>
                         <?php
@@ -196,7 +196,7 @@
                 <?php endif; ?>
             </div>
 
-            <div class="flex items-center justify-center lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
+            <div class="flex items-center justify-center col-span-1 lg:col-span-2 ">
                 <?php
                 if (is_numeric($footer_logo)) {
                     echo wp_get_attachment_image((int) $footer_logo, 'full', false, array('class' => 'h-[160px] w-auto object-contain'));
@@ -212,7 +212,7 @@
                 ?>
             </div>
 
-            <div class="w-full lg:w-auto lg:max-w-[429px] lg:ml-auto">
+            <div class="w-full lg:w-auto lg:max-w-[429px] lg:ml-auto col-span-1 lg:col-span-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="429" height="32" viewBox="0 0 429 32" fill="none">
                     <path d="M396.138 0L409.931 13.7931H414.345V18.2069L428.138 32V0H396.138Z" fill="white"/>
                     <path d="M409.931 13.7931L428.138 0L414.345 13.7931H409.931Z" fill="#E0E0DF"/>
