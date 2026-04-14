@@ -123,8 +123,8 @@ if (empty($taxonomies)) {
                                         value="<?php echo esc_attr((string) $term->term_id); ?>"
                                         <?php checked($is_checked); ?>
                                     />
-                                    <span class="w-[23px] h-[23px] border border-black/50 peer-checked:border-black flex items-center justify-center transition-colors">
-                                        <span class="w-[11px] h-[11px] bg-black opacity-0 peer-checked:opacity-100 transition-opacity"></span>
+                                    <span class="w-[23px] h-[23px] border border-black/50 peer-checked:border-black peer-checked:[&>span]:opacity-100 flex items-center justify-center transition-colors">
+                                        <span class="w-[11px] h-[11px] bg-black opacity-0 transition-opacity"></span>
                                     </span>
                                     <span class="text-[16px] leading-normal font-light text-black opacity-70 peer-checked:opacity-100 transition-opacity">
                                         <?php echo esc_html($term->name); ?>
