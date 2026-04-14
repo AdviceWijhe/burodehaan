@@ -23,9 +23,10 @@
 .badge {
   display: inline-block;
   position: relative;
-  padding: 8px 12px;
-  border-radius: 9999px;
-  border:1px solid var(--color-blue);
+  padding: 10px;
+  border-radius: 8px;
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
 }
 
 /* Glassmorphism Card */
