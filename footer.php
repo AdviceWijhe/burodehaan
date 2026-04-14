@@ -251,7 +251,7 @@
 
         <div class="mt-[70px] pt-6 border-t border-white/10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
             <div>
-                <p class="body-small mb-0 !text-white !font-normal">Alle rechten voorbehouden Buro De Haan</p>
+                <p class="body-small mb-0! !text-white !font-normal">Alle rechten voorbehouden Buro De Haan</p>
             </div>
             <div class="flex items-center gap-2 text-white/70 lg:ml-auto">
                 <span class="body-small">Ontworpen en ontwikkeld door</span>
