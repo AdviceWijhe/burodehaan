@@ -568,7 +568,7 @@ class HeaderNavigation {
             parents.forEach(li => li.classList.remove('dropdown-active'));
         });
         
-        // Prevent navigation on parent links (desktop only) - but allow hover to work
+        // Allow real parent links on desktop; only block dummy "#" style links.
         document.addEventListener('click', (e) => {
             const anchor = e.target.closest('a');
             if (!anchor) return;
@@ -583,12 +583,17 @@ class HeaderNavigation {
                 (li.dataset && li.dataset.hasDropdown === 'true')
             );
             
-            // Only prevent navigation on the parent link itself, not elsewhere
+            const href = (anchor.getAttribute('href') || '').trim();
+            const isDummyLink = href === '' || href === '#' || href.toLowerCase().startsWith('javascript:');
+
+            // Only prevent navigation for non-navigable parent links.
             if (isTopLevelParent && window.innerWidth >= 1024) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (typeof e.stopImmediatePropagation === 'function') {
-                    e.stopImmediatePropagation();
+                if (isDummyLink) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (typeof e.stopImmediatePropagation === 'function') {
+                        e.stopImmediatePropagation();
+                    }
                 }
             }
         }, true);
