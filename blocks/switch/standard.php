@@ -121,28 +121,6 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
                          loading="lazy"
                          class="w-full h-full  object-cover object-center absolute inset-0 <?php if(get_sub_field('blok_variant') == 'link_list') { ?> pl-[20px] lg:pl-0 <?php } ?>">
                   </div>
-                  <div class="second-image js-image-animate w-full h-full absolute top-0 left-0">
-                    <img src="<?php echo esc_url($image_src); ?>" 
-                         <?php if ($image_srcset) : ?>srcset="<?php echo esc_attr($image_srcset); ?>" sizes="<?php echo esc_attr($image_sizes ?: '(max-width: 1024px) 100vw, 50vw'); ?>"<?php endif; ?>
-                         alt="<?php echo esc_attr($heading ?: 'Image'); ?>" 
-                         loading="lazy"
-                         class="w-full h-full  object-cover object-center absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  <?php if(get_sub_field('blok_variant') == 'link_list') { ?> pl-[20px] lg:pl-0 <?php } ?>">
-                  </div>
-                  <div class="third-image js-image-animate w-full h-full absolute top-0 left-0">
-                    <img src="<?php echo esc_url($image_src); ?>" 
-                         <?php if ($image_srcset) : ?>srcset="<?php echo esc_attr($image_srcset); ?>" sizes="<?php echo esc_attr($image_sizes ?: '(max-width: 1024px) 100vw, 50vw'); ?>"<?php endif; ?>
-                         alt="<?php echo esc_attr($heading ?: 'Image'); ?>" 
-                         loading="lazy"
-                         class="w-full h-full  object-cover object-center absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  <?php if(get_sub_field('blok_variant') == 'link_list') { ?> pl-[20px] lg:pl-0 <?php } ?>">
-                  </div>
-                  <!-- <div class="fourth-image js-image-animate w-full h-full absolute top-0 left-0">
-                    <img src="<?php echo esc_url($image_src); ?>" 
-                         <?php if ($image_srcset) : ?>srcset="<?php echo esc_attr($image_srcset); ?>" sizes="<?php echo esc_attr($image_sizes ?: '(max-width: 1024px) 100vw, 50vw'); ?>"<?php endif; ?>
-                         alt="<?php echo esc_attr($heading ?: 'Image'); ?>" 
-                         loading="lazy"
-                         class="w-full h-full  object-cover object-center absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  <?php if(get_sub_field('blok_variant') == 'link_list') { ?> pl-[20px] lg:pl-0 <?php } ?>">
-                  </div> -->
-                  
                 <?php else: ?>
                     <!-- Placeholder als er geen afbeelding is -->
                     <div class="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center">
