@@ -95,7 +95,7 @@
                     ?>
                 </div>
 
-                <div class="md:col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-5 gap-x-[28px]">
+                <div class="md:col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-5 gap-x-[28px] mt-[140px]">
                     <?php 
                     $query = new WP_Query(array(
                         'post_type' => 'locatie',
@@ -133,7 +133,7 @@
                             $location_phone = $location['telefoonnummer'] ?? '';
                             $location_email = $location['emailadres'] ?? '';
                             ?>
-                            <div class="mb-8 last:mb-0 col-span-1 md:col-span-2">
+                            <div class="mb-8 lg:mb-0 last:mb-0 col-span-1 md:col-span-2">
                                 <?php if (!empty($location_title)) : ?>
                                     <h6 class="mb-[28px]! text-white title-small"><?php echo esc_html($location_title); ?></h6>
                                 <?php endif; ?>

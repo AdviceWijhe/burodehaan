@@ -303,15 +303,22 @@ if ($show_sidebar_articles && $is_single_or_tax) {
         if($soortBlock === 'columns') {
            ?>
            <div class="<?php echo esc_attr($text_color_class); ?>">
+            <div class="w-full lg:w-8/12 lg:ml-[calc(100%/12*2)]">
             <?php if (!empty($tekst_label)) : ?>
                 <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
             <?php endif; ?>
+            <?php if (!empty($titel)) : ?>
+                <div class="mb-[40px] max-w-[790px] <?php echo esc_attr($text_color_class); ?>">
+                    <?php echo wp_kses_post($titel); ?>
+                </div>
+            <?php endif; ?>
             <?php if (!empty($tekst)) : ?>
                 <!-- De content automatisch in 2 kolommen -->
-                <div class="content-columns title-large columns-1 lg:columns-2 lg:gap-[40px]">
+                <div class="content-columns title-large columns-1 lg:columns-2 lg:gap-[45px]">
                     <?php echo wp_kses_post($tekst); ?>
                 </div>
             <?php endif; ?>
+        </div>
         </div>
         <?php  }
         ?>
