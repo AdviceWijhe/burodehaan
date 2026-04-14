@@ -4,14 +4,14 @@
     <?php
     $expertises = get_terms(array(
         'taxonomy' => 'expertise',
-        'hide_empty' => true,
+        'hide_empty' => false,
         'orderby' => 'name',
         'order' => 'ASC',
     ));
 
     $themas = get_terms(array(
         'taxonomy' => 'thema',
-        'hide_empty' => true,
+        'hide_empty' => false,
         'orderby' => 'name',
         'order' => 'ASC',
     ));
