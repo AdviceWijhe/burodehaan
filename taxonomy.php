@@ -22,10 +22,10 @@ if (is_array($header_image) && !empty($header_image['url'])) {
     
 
     <?php if ($tax_slug === 'thema' && $header_image_url !== '') : ?>
-        <div class="tax-header relative mb-[160px] h-[500px] bg-cover bg-center bg-no-repeat" style="background-image: url('<?php echo esc_url($header_image_url); ?>');">
+        <div class="tax-header relative mb-[160px] bg-cover bg-center bg-no-repeat" style="background-image: url('<?php echo esc_url($header_image_url); ?>');">
             <div class="absolute top-0 right-0 h-full w-1/2 pointer-events-none" style="opacity: 0.3; background: linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, #000 100%);"></div>
-            <div class="container relative h-full">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px] h-full items-end pt-[80px] pb-[40px]">
+            <div class="container relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px] items-end pt-[80px] pb-[30px]">
                     <div class="w-full lg:col-span-6 lg:col-start-3">
                         <div class="text-white body-large max-w-[790px]"><?php echo get_field('introtekst', $term_key); ?></div>
                     </div>
