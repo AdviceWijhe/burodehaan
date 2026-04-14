@@ -13,7 +13,7 @@ if($cta_background_color) {
 
 ?>
 
-<section class="cta  <?php echo get_spacing_bottom_class(); ?> <?php echo isset($args['cta_type']) ? '' : 'mt-[20px]'; ?> bg-<?php echo $cta_background_color; ?> text-<?php echo $text_color; ?>! <?php if($cta_background_color) { echo 'pt-[120px]';} ?>">
+<section class="cta  <?php echo get_spacing_bottom_class(); ?> <?php echo isset($args['cta_type']) ? '' : ''; ?> bg-<?php echo $cta_background_color; ?> text-<?php echo $text_color; ?>! <?php if($cta_background_color) { echo 'pt-[120px]';} ?>">
     <div class="container">
         <div class="w-full lg:w-10/12 mx-auto px-0 lg:px-[65px] overflow-hidden relative">
             <div class="flex flex-col items-center lg:flex-row border border-[<?php echo $border_color; ?>] rounded-[20px] p-[20px] lg:p-[60px]">

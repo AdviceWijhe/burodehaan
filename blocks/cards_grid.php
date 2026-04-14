@@ -62,7 +62,7 @@ $backgroundPatroon = 'pink';
 ?>
 
 <!-- Cards Grid -->
-<div class="<?= get_spacing_bottom_class() ?>relative overflow-hidden <?= get_sub_field('tekst_kleur') ? 'text-'.get_sub_field('tekst_kleur') : '' ?> ">
+<div class="<?= get_spacing_bottom_class() ?> relative overflow-hidden <?= get_sub_field('tekst_kleur') ? 'text-'.get_sub_field('tekst_kleur') : '' ?> ">
   <?php if(get_sub_field('post_type') != 'medewerker') : ?>
       <?php if($background_color) : ?><div class="absolute z-0 <?= get_sub_field('achtergrond_positie') ?>-0 left-0 w-full h-[50%] bg-<?= $background_color; ?>"></div><?php endif; ?>
     <?php endif; ?>

@@ -13,7 +13,6 @@ md:pb-[260px]
 lg:pb-[160px]
 lg:pb-[200px]
 lg:pb-[260px]
-lg:pb-[200px]
 
 bg-primary
 bg-secondary

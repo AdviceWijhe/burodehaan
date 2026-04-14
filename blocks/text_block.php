@@ -160,21 +160,32 @@ if ($show_sidebar_articles && $is_single_or_tax) {
 ?>
 
 <!-- Text Block -->
-<div class="<?php echo esc_attr($wrapper_spacing_class); ?>"<?php echo $bg_style; ?>>
+<div class="<?php echo get_spacing_bottom_class(); ?>">
+    <?php if($has_background_color) : ?>
+        <div class="bg-<?= $achtergrondkleur ?> pb-[160px] pt-[160px]"<?php echo $bg_style; ?>>
+    <?php endif; ?>
     <div class="container">
  
 
         <?php 
         if($soortBlock === 'intro') { ?>
-            <div class="w-full lg:w-7/12 <?php echo esc_attr($text_color_class); ?>">
+            <div class="w-full lg:w-6/12 ml-[calc(100%/12*2)] <?php echo esc_attr($text_color_class); ?>">
                 <?php if (!empty($tekst_label)) : ?>
                     <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
                 <?php endif; ?>
                 <?php if (!empty($tekst)) : ?>
-                    <div class="title-large">
+                    <div class="body-large">
                         <?php echo wp_kses_post($tekst); ?>
                     </div>
-                <?php endif; ?>
+                <?php endif; 
+                
+                if(get_sub_field('buttons')) { ?>
+                    <div class="mt-[24px]! lg:mt-[32px]!">
+                      <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'))); ?>
+                    </div>
+                <?php } ?>
+               
+                
             </div>
        <?php  }
         if($soortBlock === 'default') { 
@@ -324,4 +335,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
         ?>
         
     </div>
+    <?php if($has_background_color) : ?>
+        </div>
+    <?php endif; ?>
 </div>
