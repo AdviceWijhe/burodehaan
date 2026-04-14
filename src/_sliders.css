@@ -4,7 +4,7 @@
 
 /* Logo Slider Styles */
 .logo-slider-swiper {
-  @apply overflow-hidden;
+  /* @apply overflow-hidden; */
 }
 
 .logo-slider-swiper .swiper-slide {

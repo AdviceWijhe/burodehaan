@@ -4,7 +4,7 @@
  * 
  * Een blok met afbeelding en tekst naast elkaar
  */
-
+$label = get_sub_field('label');
  $heading = get_sub_field('titel');
  $image = get_sub_field('image');
  $content = get_sub_field('content');
@@ -76,7 +76,9 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
             <div class="js-it-content relative w-full pt-[40px] lg:pt-[60px] overflow-hidden default-content <?php if($background_color) { echo 'flex flex-col justify-center items-start';} ?>  lg:py-[60px]  text-<?= $text_color ?>  <?php echo $content_first ? 'order-1 lg:order-1' : 'order-1 lg:order-2'; ?> <?php echo $content_margin; ?> <?= $text_width ?>">
               <div class="bg-<?php echo $background_color; ?> absolute w-full <?php echo $content_first ? 'right-0' : 'left-0'; ?> top-0 h-full"></div>
                 
-                
+                <?php if ($label) : ?>
+                    <div class="label label-large text-primary mb-[20px]!"><?php echo $label; ?></div>
+                <?php endif; ?>
                   <?php if ($heading) : ?>
                  <div class="mb-[40px]">  <?php echo $heading; ?></div>
                 <?php endif; ?>
