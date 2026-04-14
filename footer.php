@@ -32,7 +32,7 @@
     }
     ?>
 
-    <div class="w-full px-[20px] lg:px-[60px] py-[80px] lg:py-[100px]">
+    <div class="w-full px-[20px] lg:px-[60px] py-[80px] lg:pt-[100px] lg:pb-[40px]">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-[60px] gap-x-[80px]">
             <div class="grid grid-cols-1 gap-y-[120px]">
                 <div>
