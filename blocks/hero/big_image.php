@@ -4,23 +4,62 @@
             <div class="absolute top-0 left-0 w-1/2 h-full" style="background: linear-gradient(90deg, rgba(22, 22, 22, 0.5) 0%, rgba(22, 22, 22, 0) 100%);"></div>
 <div class="absolute bottom-0 left-0 w-full h-[300px]" style="opacity: 0.5;
 background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></div>
-            <?php 
+            <?php
+            $video_input = trim((string) get_sub_field('video_id'));
+            $video_type = '';
+            $video_id = '';
+            $video_embed_url = '';
             $afbeelding = get_sub_field('afbeelding');
-            if ($afbeelding && isset($afbeelding['ID'])) {
-              $image_srcset = wp_get_attachment_image_srcset($afbeelding['ID'], 'full');
-              $image_sizes = wp_get_attachment_image_sizes($afbeelding['ID'], 'full');
-              // Gebruik 'full' size als src voor beste kwaliteit, browser kiest dan uit srcset
-              $image_src = wp_get_attachment_image_url($afbeelding['ID'], 'full');
+
+            if ($video_input) {
+                if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $video_input, $matches)) {
+                    $video_type = 'youtube';
+                    $video_id = $matches[1];
+                } elseif (preg_match('/(?:vimeo\.com\/|player\.vimeo\.com\/video\/)(\d+)/', $video_input, $matches)) {
+                    $video_type = 'vimeo';
+                    $video_id = $matches[1];
+                } elseif (preg_match('/^[a-zA-Z0-9_-]{11}$/', $video_input)) {
+                    $video_type = 'youtube';
+                    $video_id = $video_input;
+                } elseif (preg_match('/^\d+$/', $video_input)) {
+                    $video_type = 'vimeo';
+                    $video_id = $video_input;
+                }
+
+                if ($video_type === 'youtube' && $video_id !== '') {
+                    $video_embed_url = 'https://www.youtube.com/embed/' . rawurlencode($video_id) . '?autoplay=1&mute=1&controls=0&rel=0&playsinline=1&loop=1&playlist=' . rawurlencode($video_id);
+                } elseif ($video_type === 'vimeo' && $video_id !== '') {
+                    $video_embed_url = 'https://player.vimeo.com/video/' . rawurlencode($video_id) . '?autoplay=1&muted=1&background=1&loop=1';
+                }
+            }
+
+            if ($video_embed_url !== '') :
             ?>
-              <img src="<?= esc_url($image_src) ?>" 
-                   <?php if ($image_srcset) : ?>srcset="<?= esc_attr($image_srcset) ?>" sizes="<?= esc_attr($image_sizes ?: '100vw') ?>"<?php endif; ?>
-                   alt="<?= esc_attr($afbeelding['alt'] ?? '') ?>"
-                   loading="eager" class="w-full h-full object-cover object-center">
-            <?php } else if ($afbeelding && isset($afbeelding['url'])) { ?>
-              <img src="<?= esc_url($afbeelding['url']) ?>" 
-                   alt="<?= esc_attr($afbeelding['alt'] ?? '') ?>"
-                   loading="eager" class="w-full h-full object-cover object-center">
-            <?php } ?>
+                <iframe
+                    src="<?= esc_url($video_embed_url) ?>"
+                    title="<?= esc_attr(get_sub_field('titel') ?: 'Hero video') ?>"
+                    class="w-full h-full object-cover object-center"
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen
+                    loading="eager"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                ></iframe>
+            <?php
+            elseif ($afbeelding && isset($afbeelding['ID'])) :
+                $image_srcset = wp_get_attachment_image_srcset($afbeelding['ID'], 'full');
+                $image_sizes = wp_get_attachment_image_sizes($afbeelding['ID'], 'full');
+                $image_src = wp_get_attachment_image_url($afbeelding['ID'], 'full');
+            ?>
+                <img src="<?= esc_url($image_src) ?>"
+                     <?php if ($image_srcset) : ?>srcset="<?= esc_attr($image_srcset) ?>" sizes="<?= esc_attr($image_sizes ?: '100vw') ?>"<?php endif; ?>
+                     alt="<?= esc_attr($afbeelding['alt'] ?? '') ?>"
+                     loading="eager" class="w-full h-full object-cover object-center">
+            <?php elseif ($afbeelding && isset($afbeelding['url'])) : ?>
+                <img src="<?= esc_url($afbeelding['url']) ?>"
+                     alt="<?= esc_attr($afbeelding['alt'] ?? '') ?>"
+                     loading="eager" class="w-full h-full object-cover object-center">
+            <?php endif; ?>
         </div>
         <div class="w-full relative z-2">
             <div class="w-full lg:w-6/12 lg:px-[60px] lg:py-[60px] p-[20px] pb-[20px]">
