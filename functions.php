@@ -227,6 +227,14 @@ wp_enqueue_style(
         false
     );
 
+    wp_enqueue_script(
+        'gsap-draggable',
+        'https://cdn.jsdelivr.net/npm/gsap@3/dist/Draggable.min.js',
+        array('gsap'),
+        null,
+        false
+    );
+
     // Theme JavaScript
     wp_enqueue_script(
         'advice2025-script',

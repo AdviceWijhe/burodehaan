@@ -75,7 +75,7 @@ $backgroundPatroon = 'pink';
         </div>
           <?php endif; ?>
 
-          <?php if (get_sub_field('soort_items') == 'posts' && get_sub_field('slider') || get_sub_field('soort_items') == 'eigen' && get_sub_field('slider')): ?>
+          <?php if (get_sub_field('soort_items') == 'posts' && get_sub_field('slider') || get_sub_field('soort_items') == 'eigen' && get_sub_field('slider') || get_sub_field('soort_items') == 'tijdlijn' && get_sub_field('slider')): ?>
           <?php $cards_rand_class = 'cards-grid-' . wp_rand(1000, 9999); ?>
           <div class="swiper-controls flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 <?= esc_attr($cards_rand_class); ?>-controls">
             <div class="w-full lg:w-auto flex items-center gap-6">
@@ -255,6 +255,15 @@ $backgroundPatroon = 'pink';
 
       get_template_part('blocks/cards_grid/eigen_keuze', null, array('items' => $items));
       
+    }else if(get_sub_field('soort_items') == 'tijdlijn') {
+
+    $items = get_sub_field('tijdlijn_items');
+  
+    get_template_part('blocks/cards_grid/tijdlijn', null, array('items' => $items, 'controls_class' => $cards_rand_class ?? ''));
+    
+    
+    
+    
     }; ?>
     </div>
 </div>

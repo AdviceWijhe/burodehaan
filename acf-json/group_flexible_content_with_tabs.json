@@ -977,7 +977,8 @@
                                 "posts": "Posts",
                                 "eigen": "Eigen invoer",
                                 "artikelen": "Artikelen",
-                                "themas": "Thema's"
+                                "themas": "Thema's",
+                                "tijdlijn": "Tijdlijn"
                             },
                             "default_value": false,
                             "return_format": "value",
@@ -1205,6 +1206,150 @@
                                     "acfe_wysiwyg_min_height": 300,
                                     "acfe_wysiwyg_toolbar_buttons": [],
                                     "parent_repeater": "field_cards_repeater"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_69dcf495fc384",
+                            "label": "Tijdlijn items",
+                            "name": "tijdlijn_items",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "Voeg cards toe aan het grid",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_689c3e2279893",
+                                        "operator": "==",
+                                        "value": "tijdlijn"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "acfe_repeater_stylised_button": 0,
+                            "layout": "row",
+                            "min": 1,
+                            "max": 12,
+                            "collapsed": "field_card_title",
+                            "button_label": "Voeg Card Toe",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_69dcf495fc385",
+                                    "label": "Afbeelding",
+                                    "name": "icoon",
+                                    "aria-label": "",
+                                    "type": "image",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "uploader": "",
+                                    "return_format": "array",
+                                    "library": "all",
+                                    "upload_folder": "",
+                                    "acfe_thumbnail": 0,
+                                    "min_width": "",
+                                    "min_height": "",
+                                    "min_size": "",
+                                    "max_width": "",
+                                    "max_height": "",
+                                    "max_size": "",
+                                    "mime_types": "",
+                                    "allow_in_bindings": 0,
+                                    "preview_size": "medium",
+                                    "parent_repeater": "field_69dcf495fc384"
+                                },
+                                {
+                                    "key": "field_69dcf4affc388",
+                                    "label": "Jaartal",
+                                    "name": "jaartal",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_69dcf495fc384"
+                                },
+                                {
+                                    "key": "field_69dcf495fc386",
+                                    "label": "Titel",
+                                    "name": "card_title",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "Titel van de card",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "25",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "required_message": "",
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "Card titel",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_69dcf495fc384"
+                                },
+                                {
+                                    "key": "field_69dcf495fc387",
+                                    "label": "Content",
+                                    "name": "content",
+                                    "aria-label": "",
+                                    "type": "wysiwyg",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "acfe_wysiwyg_height": 300,
+                                    "acfe_wysiwyg_max_height": "",
+                                    "acfe_wysiwyg_valid_elements": "",
+                                    "acfe_wysiwyg_custom_style": "",
+                                    "acfe_wysiwyg_disable_wp_style": 0,
+                                    "acfe_wysiwyg_autoresize": 0,
+                                    "acfe_wysiwyg_disable_resize": 0,
+                                    "acfe_wysiwyg_remove_path": 0,
+                                    "acfe_wysiwyg_menubar": 0,
+                                    "acfe_wysiwyg_transparent": 0,
+                                    "acfe_wysiwyg_merge_toolbar": 0,
+                                    "acfe_wysiwyg_custom_toolbar": 0,
+                                    "allow_in_bindings": 0,
+                                    "tabs": "all",
+                                    "toolbar": "full",
+                                    "media_upload": 1,
+                                    "delay": 0,
+                                    "acfe_wysiwyg_auto_init": 0,
+                                    "acfe_wysiwyg_min_height": 300,
+                                    "acfe_wysiwyg_toolbar_buttons": [],
+                                    "parent_repeater": "field_69dcf495fc384"
                                 }
                             ]
                         },
@@ -3330,5 +3475,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1776084463
+    "modified": 1776088261
 }
