@@ -161,6 +161,16 @@
   .navigation-wrapper.is-dropdown-open {
     background-color: #fff !important;
   }
+
+  .navigation-wrapper.is-dropdown-open ~ .header-breadcrumbs-bar {
+    background-color: #fff !important;
+  }
+
+  .navigation-wrapper.is-dropdown-open ~ .header-breadcrumbs-bar #breadcrumbs,
+  .navigation-wrapper.is-dropdown-open ~ .header-breadcrumbs-bar #breadcrumbs a,
+  .navigation-wrapper.is-dropdown-open ~ .header-breadcrumbs-bar #breadcrumbs span {
+    color: #161616 !important;
+  }
 }
 
 /* Compacte Figma-variant voor expertises dropdown */

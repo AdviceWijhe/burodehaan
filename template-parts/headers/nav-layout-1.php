@@ -9,7 +9,7 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : 'con
 
 $header_background_color = 'bg-secondary';
 
-if(is_archive()) {
+if(is_archive() || is_page('expertises')) {
     $header_background_color = 'bg-white';
 }
 if(is_single()) {

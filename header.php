@@ -26,7 +26,7 @@
 
  $header_background_color = 'bg-secondary';
 
-if(is_archive()) {
+if(is_archive() || is_page('expertises')) {
     $header_background_color = 'bg-white';
 }
 if(is_single()) {
@@ -119,11 +119,11 @@ if(is_tax()) {
             </div>
         </div>
         <?php if (function_exists('yoast_breadcrumb') && !is_front_page()) { ?>
-        <div class="<?= $header_background_color ?>">
+        <div class="header-breadcrumbs-bar <?= $header_background_color ?>">
         <div class="container pb-[20px]">
     <!-- yoast breadcrumbs -->
 
-     <?php yoast_breadcrumb('<p id="breadcrumbs" class="mb-0!">', '</p>'); ?>
+     <?php yoast_breadcrumb('<p id="breadcrumbs" class="header-breadcrumbs-text mb-0!">', '</p>'); ?>
   
   </div>
   </div>
