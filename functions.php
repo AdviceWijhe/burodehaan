@@ -1495,6 +1495,7 @@ function advice2025_sanitize_topbar_style($input) {
 function advice2025_add_menu_item_custom_fields($item_id, $item, $depth, $args) {
     // Get saved values
     $enable_mega_menu = get_post_meta($item_id, '_menu_item_enable_mega_menu', true);
+    $show_expertises = get_post_meta($item_id, '_menu_item_show_expertises', true);
     $mega_menu_cta_text = get_post_meta($item_id, '_menu_item_mega_menu_cta_text', true);
     $mega_menu_cta_url = get_post_meta($item_id, '_menu_item_mega_menu_cta_url', true);
     $icon_type = get_post_meta($item_id, '_menu_item_icon_type', true) ?: 'none';
@@ -1513,6 +1514,18 @@ function advice2025_add_menu_item_custom_fields($item_id, $item, $depth, $args) 
                        <?php checked($enable_mega_menu, '1'); ?> />
                 <?php _e('Enable Mega Menu (100% width)', 'advice2025'); ?>
             </label>
+        </p>
+
+        <p class="field-show-expertises description description-wide" style="margin: 10px 0;">
+            <label for="edit-menu-item-show-expertises-<?php echo $item_id; ?>">
+                <input type="checkbox"
+                       id="edit-menu-item-show-expertises-<?php echo $item_id; ?>"
+                       name="menu-item-show-expertises[<?php echo $item_id; ?>]"
+                       value="1"
+                       <?php checked($show_expertises, '1'); ?> />
+                <?php _e('Toon expertises in dropdown (desktop)', 'advice2025'); ?>
+            </label><br />
+            <span class="description"><?php _e('Wanneer actief, wordt de dropdown automatisch gevuld met alle expertises.', 'advice2025'); ?></span>
         </p>
         
         <p class="field-mega-menu-cta-text description description-wide" style="margin: 10px 0;">
@@ -1672,6 +1685,13 @@ function advice2025_save_menu_item_custom_fields($menu_id, $menu_item_db_id, $ar
         update_post_meta($menu_item_db_id, '_menu_item_enable_mega_menu', '1');
     } else {
         delete_post_meta($menu_item_db_id, '_menu_item_enable_mega_menu');
+    }
+
+    // Save show expertises checkbox
+    if (isset($_POST['menu-item-show-expertises'][$menu_item_db_id])) {
+        update_post_meta($menu_item_db_id, '_menu_item_show_expertises', '1');
+    } else {
+        delete_post_meta($menu_item_db_id, '_menu_item_show_expertises');
     }
     
     // Save CTA text

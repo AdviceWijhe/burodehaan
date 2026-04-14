@@ -7,6 +7,13 @@
         opacity: 1 !important;
         visibility: visible !important;
     }
+
+    /* Keep dropdowns open while JS marks item active */
+    .main-navigation li.dropdown-active > .dropdown-menu,
+    .main-navigation li.dropdown-active > .mega-menu {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
     
     /* Reset transform for full-width mega menus */
     .main-navigation li.group:hover > .mega-menu-full {

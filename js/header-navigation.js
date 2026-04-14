@@ -448,18 +448,34 @@ class HeaderNavigation {
         if (!this.overlay || !this.primaryMenu) return;
         
         let hoverCount = 0;
+        let closeTimer = null;
         const parents = this.primaryMenu.querySelectorAll(':scope > li.has-dropdown, :scope > li.has-mega-menu, :scope > li[data-has-dropdown="true"]');
+        const navWrapper = document.querySelector('.navigation-wrapper');
+        
+        const setHeaderDropdownState = (isOpen) => {
+            if (!navWrapper) return;
+            navWrapper.classList.toggle('is-dropdown-open', isOpen);
+        };
+
+        const clearCloseTimer = () => {
+            if (!closeTimer) return;
+            clearTimeout(closeTimer);
+            closeTimer = null;
+        };
         
         const showOverlay = () => {
+            clearCloseTimer();
             this.overlay.classList.remove('opacity-0', 'invisible');
             this.overlay.classList.add('opacity-100', 'visible');
             // Enable pointer events when visible
             this.overlay.style.pointerEvents = 'auto';
+            setHeaderDropdownState(true);
         };
         
         const hideOverlay = () => {
             this.overlay.classList.remove('opacity-100', 'visible');
             this.overlay.classList.add('opacity-0', 'invisible');
+            setHeaderDropdownState(false);
             // Disable pointer events when hidden to prevent interference
             setTimeout(() => {
                 if (this.overlay.classList.contains('invisible')) {
@@ -467,27 +483,39 @@ class HeaderNavigation {
                 }
             }, 300); // Wait for transition to complete
         };
+
+        const scheduleCloseIfNotHovered = () => {
+            clearCloseTimer();
+            closeTimer = setTimeout(() => {
+                const isAnyParentHovered = Array.from(parents).some((item) => {
+                    const dropdown = item.querySelector(':scope > .dropdown-menu');
+                    const parentHovered = item.matches(':hover');
+                    const dropdownHovered = dropdown ? dropdown.matches(':hover') : false;
+                    return parentHovered || dropdownHovered;
+                });
+
+                if (!isAnyParentHovered) {
+                    hideOverlay();
+                    hoverCount = 0;
+                    parents.forEach((item) => item.classList.remove('dropdown-active'));
+                }
+            }, 250);
+        };
         
         parents.forEach((li) => {
             // Mouse enter on parent
             li.addEventListener('mouseenter', () => {
                 if (window.innerWidth < 1024) return;
+                clearCloseTimer();
                 hoverCount++;
                 li.classList.add('dropdown-active');
                 showOverlay();
             });
             
             // Mouse leave on parent
-            li.addEventListener('mouseleave', (e) => {
+            li.addEventListener('mouseleave', () => {
                 if (window.innerWidth < 1024) return;
-                const dropdown = li.querySelector(':scope > .dropdown-menu');
-                const toEl = e.relatedTarget;
-                if (dropdown && toEl && dropdown.contains(toEl)) {
-                    return;
-                }
-                hoverCount = Math.max(0, hoverCount - 1);
-                if (hoverCount === 0) hideOverlay();
-                li.classList.remove('dropdown-active');
+                scheduleCloseIfNotHovered();
             });
             
             // Focus events for keyboard navigation
@@ -510,20 +538,15 @@ class HeaderNavigation {
             if (dropdown) {
                 dropdown.addEventListener('mouseenter', () => {
                     if (window.innerWidth < 1024) return;
+                    clearCloseTimer();
                     hoverCount++;
                     li.classList.add('dropdown-active');
                     showOverlay();
                 });
                 
-                dropdown.addEventListener('mouseleave', (e) => {
+                dropdown.addEventListener('mouseleave', () => {
                     if (window.innerWidth < 1024) return;
-                    const toEl = e.relatedTarget;
-                    if (toEl && li.contains(toEl)) {
-                        return;
-                    }
-                    hoverCount = Math.max(0, hoverCount - 1);
-                    if (hoverCount === 0) hideOverlay();
-                    li.classList.remove('dropdown-active');
+                    scheduleCloseIfNotHovered();
                 });
             }
         });

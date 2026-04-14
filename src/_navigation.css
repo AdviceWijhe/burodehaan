@@ -7,6 +7,27 @@
     transition: all 0.3s ease;
 }
 
+.navigation-wrapper .site-logo-dark,
+.navigation-wrapper .site-logo-light {
+  display: none;
+}
+
+.navigation-wrapper[data-default-logo-theme="dark"] .site-logo-dark {
+  display: block;
+}
+
+.navigation-wrapper[data-default-logo-theme="light"] .site-logo-light {
+  display: block;
+}
+
+.navigation-wrapper.is-dropdown-open .site-logo-dark {
+  display: block;
+}
+
+.navigation-wrapper.is-dropdown-open .site-logo-light {
+  display: none;
+}
+
 /* Navbar layout improvements */
 .main-navigation {
     max-width: calc(100vw - 600px); /* Account for logo and CTA button */
@@ -118,15 +139,50 @@
   }
 }
 
-/* Header achtergrond grijs bij hover/actief hoofdmenu (desktop) */
+/* Header achtergrond wit bij geopende desktop dropdown */
 @media (min-width: 1024px) {
+  .navigation-wrapper.is-dropdown-open #primary-menu > li > a {
+    color: #161616 !important;
+  }
+
+  .navigation-wrapper.is-dropdown-open #primary-menu > li > a svg {
+    color: #161616 !important;
+  }
+
   .site-header:has(#primary-menu > li.has-dropdown:hover),
   .site-header:has(#primary-menu > li[data-has-dropdown="true"]:hover),
   .site-header:has(#primary-menu > li.has-dropdown.dropdown-active),
   .site-header:has(#primary-menu > li[data-has-dropdown="true"].dropdown-active),
   .site-header:has(#primary-menu > li.has-dropdown .dropdown-menu:hover),
   .site-header:has(#primary-menu > li[data-has-dropdown="true"] .dropdown-menu:hover) {
-    background-color: var(--color-gray) !important;
+    background-color: #fff !important;
+  }
+
+  .navigation-wrapper.is-dropdown-open {
+    background-color: #fff !important;
+  }
+}
+
+/* Compacte Figma-variant voor expertises dropdown */
+@media (min-width: 1024px) {
+  .main-navigation .expertises-dropdown {
+    border-radius: 0;
+    box-shadow: none;
+    transform: none !important;
+  }
+
+  .main-navigation .expertises-dropdown-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px 20px;
+  }
+
+  .main-navigation .expertises-dropdown-card {
+    min-height: 136px;
+    max-height: 136px;
+  }
+
+  .main-navigation .expertises-dropdown-card:hover {
+    background: #f9f9f9;
   }
 }
 

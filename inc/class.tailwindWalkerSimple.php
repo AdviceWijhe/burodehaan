@@ -16,6 +16,172 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
     private $is_mega_menu = false;
     private $mega_menu_cta_text = '';
     private $mega_menu_cta_url = '';
+
+    /**
+     * Sanitize expertise icon markup while allowing basic inline SVG.
+     */
+    private function sanitize_expertise_icon_markup($markup): string {
+        if (!is_string($markup) || $markup === '') {
+            return '';
+        }
+
+        return wp_kses(
+            $markup,
+            array(
+                'svg' => array(
+                    'xmlns' => true,
+                    'width' => true,
+                    'height' => true,
+                    'viewbox' => true,
+                    'viewBox' => true,
+                    'fill' => true,
+                    'stroke' => true,
+                    'aria-hidden' => true,
+                    'focusable' => true,
+                    'role' => true,
+                    'class' => true,
+                ),
+                'path' => array(
+                    'd' => true,
+                    'fill' => true,
+                    'stroke' => true,
+                    'stroke-width' => true,
+                    'stroke-linecap' => true,
+                    'stroke-linejoin' => true,
+                    'class' => true,
+                ),
+                'rect' => array(
+                    'x' => true,
+                    'y' => true,
+                    'width' => true,
+                    'height' => true,
+                    'rx' => true,
+                    'ry' => true,
+                    'fill' => true,
+                    'stroke' => true,
+                    'stroke-width' => true,
+                    'class' => true,
+                ),
+                'circle' => array(
+                    'cx' => true,
+                    'cy' => true,
+                    'r' => true,
+                    'fill' => true,
+                    'stroke' => true,
+                    'stroke-width' => true,
+                    'class' => true,
+                ),
+                'g' => array(
+                    'fill' => true,
+                    'stroke' => true,
+                    'class' => true,
+                    'transform' => true,
+                ),
+            )
+        );
+    }
+    
+    /**
+     * Ensure "show expertises" menu items use generated dropdown content only.
+     */
+    public function display_element($element, &$children_elements, $max_depth, $depth, $args, &$output): void {
+        if (
+            $depth === 0
+            && isset($element->ID)
+            && get_post_meta((int) $element->ID, '_menu_item_show_expertises', true) === '1'
+        ) {
+            if (!isset($element->classes) || !is_array($element->classes)) {
+                $element->classes = array();
+            }
+
+            if (!in_array('menu-item-has-children', $element->classes, true)) {
+                $element->classes[] = 'menu-item-has-children';
+            }
+
+            // Ignore manually attached submenu children when auto expertises is enabled.
+            $children_elements[(int) $element->ID] = array();
+        }
+
+        parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
+    }
+    
+    /**
+     * Render the compact expertises dropdown variant.
+     */
+    private function render_expertises_dropdown(string $indent): string {
+        $expertises = get_terms(
+            array(
+                'taxonomy'   => 'expertise',
+                'hide_empty' => false,
+                'orderby'    => 'name',
+                'order'      => 'ASC',
+            )
+        );
+
+        if (is_wp_error($expertises) || empty($expertises)) {
+            return "\n$indent<div class=\"dropdown-menu expertises-dropdown fixed left-0 right-0 top-full w-screen bg-white opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-50\">\n"
+                . "$indent\t<div class=\"p-6\">\n"
+                . "$indent\t\t<p class=\"text-[#161616]\">Er zijn momenteel geen expertises beschikbaar.</p>\n"
+                . "$indent\t</div>\n"
+                . "$indent</div>\n";
+        }
+
+        $output = "\n$indent<div class=\"dropdown-menu expertises-dropdown fixed left-0 right-0 top-full w-screen bg-white opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-50\">\n";
+        $output .= "$indent\t<div class=\"container mx-auto py-[28px]\">\n";
+        $output .= "$indent\t<h3 class=\"mb-[28px] text-black\">Onze <b>expertises.</b></h3>";
+        $output .= "$indent\t\t<div class=\"expertises-dropdown-grid grid grid-cols-4 gap-x-[20px] gap-y-[28px]\">\n";
+
+        $visible_expertises = array_slice($expertises, 0, 7);
+
+        foreach ($visible_expertises as $expertise) {
+            $term_link = get_term_link($expertise);
+            if (is_wp_error($term_link)) {
+                continue;
+            }
+
+            $term_icon = get_field('icoon', 'expertise_' . $expertise->term_id);
+            $title = $expertise->name ?? '';
+
+            $output .= "$indent\t\t\t<a href=\"" . esc_url($term_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[136px] px-[32px] py-[28px] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+            $output .= "$indent\t\t\t\t<div class=\"absolute left-[24px] top-[20px] text-[#EC663C]\">" . $this->sanitize_expertise_icon_markup((string) $term_icon) . "</div>\n";
+            $output .= "$indent\t\t\t\t<span class=\"pr-10 title-large text-black\">" . esc_html($title) . "</span>\n";
+            $output .= "$indent\t\t\t\t<span class=\"absolute right-[20px] bottom-[22px]\" aria-hidden=\"true\">\n";
+            $output .= "$indent\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
+            $output .= "$indent\t\t\t\t\t\t<rect width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $output .= "$indent\t\t\t\t\t\t<rect x=\"5.92578\" y=\"11.8521\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $output .= "$indent\t\t\t\t\t\t<rect x=\"2.96094\" y=\"14.8149\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $output .= "$indent\t\t\t\t\t\t<rect y=\"17.7778\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $output .= "$indent\t\t\t\t\t\t<rect x=\"2.96094\" y=\"2.96289\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $output .= "$indent\t\t\t\t\t\t<rect x=\"8.89062\" y=\"8.88916\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $output .= "$indent\t\t\t\t\t\t<rect x=\"5.92578\" y=\"5.92578\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $output .= "$indent\t\t\t\t\t</svg>\n";
+            $output .= "$indent\t\t\t\t</span>\n";
+            $output .= "$indent\t\t\t</a>\n";
+        }
+
+        $all_expertises_link = home_url('/expertises');
+        $output .= "$indent\t\t\t<a href=\"" . esc_url($all_expertises_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[136px] px-[32px] py-[28px] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+
+        $output .= "$indent\t\t\t\t<span class=\"pr-10 title-large text-black\">Alle expertises</span>\n";
+        $output .= "$indent\t\t\t\t<span class=\"absolute right-[20px] bottom-[22px]\" aria-hidden=\"true\">\n";
+        $output .= "$indent\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
+        $output .= "$indent\t\t\t\t\t\t<rect width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+        $output .= "$indent\t\t\t\t\t\t<rect x=\"5.92578\" y=\"11.8521\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+        $output .= "$indent\t\t\t\t\t\t<rect x=\"2.96094\" y=\"14.8149\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+        $output .= "$indent\t\t\t\t\t\t<rect y=\"17.7778\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+        $output .= "$indent\t\t\t\t\t\t<rect x=\"2.96094\" y=\"2.96289\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+        $output .= "$indent\t\t\t\t\t\t<rect x=\"8.89062\" y=\"8.88916\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+        $output .= "$indent\t\t\t\t\t\t<rect x=\"5.92578\" y=\"5.92578\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+        $output .= "$indent\t\t\t\t\t</svg>\n";
+        $output .= "$indent\t\t\t\t</span>\n";
+        $output .= "$indent\t\t\t</a>\n";
+
+        $output .= "$indent\t\t</div>\n";
+        $output .= "$indent\t</div>\n";
+        $output .= "$indent</div>\n";
+
+        return $output;
+    }
     
     /**
      * Start Level - Output dropdown container or submenu
@@ -132,6 +298,13 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
 
         // Check if item has children
         $has_children = in_array('menu-item-has-children', $classes);
+        $show_expertises = false;
+        if ($depth === 0) {
+            $show_expertises = get_post_meta($item->ID, '_menu_item_show_expertises', true) === '1';
+            if ($show_expertises) {
+                $has_children = true;
+            }
+        }
         
         // Check if mega menu is enabled (only for top-level items with children)
         $enable_mega_menu = false;
@@ -152,6 +325,8 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
             $class_names .= ' relative group';
             if ($enable_mega_menu) {
                 $class_names .= ' has-mega-menu';
+            } elseif ($show_expertises) {
+                $class_names .= ' has-dropdown has-expertises-dropdown';
             } else {
                 $class_names .= ' has-dropdown';
             }
@@ -249,6 +424,11 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         }
         
         $item_output .= '</a>';
+
+        if ($depth === 0 && $show_expertises) {
+            $item_output .= $this->render_expertises_dropdown($indent . "\t");
+        }
+
         $item_output .= isset($args->after) ? $args->after : '';
 
         $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);

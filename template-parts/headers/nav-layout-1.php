@@ -37,7 +37,8 @@ if(is_page()) {
 }
 ?>
 
-<div class="navigation-wrapper <?php echo esc_attr($header_background_color); ?>">
+<?php $default_logo_theme = ($header_background_color === 'bg-black') ? 'light' : 'dark'; ?>
+<div class="navigation-wrapper <?php echo esc_attr($header_background_color); ?>" data-default-logo-theme="<?php echo esc_attr($default_logo_theme); ?>">
     <div class="<?php echo esc_attr($container_class); ?> pt-[28px] <?php if(is_front_page()) { echo 'pb-[28px]'; } ?>">
         <div class="flex items-center justify-between gap-10">
             <!-- Logo -->
@@ -45,18 +46,19 @@ if(is_page()) {
                 <?php 
                 $logos = get_field('logos', 'option');
 
-                if($header_background_color == 'bg-black') {
-                    $logo = $logos['logo_wit'];
-                }else {
-                    $logo = $logos['logo_donker'];
-                }
-                
+                $logo_light = $logos['logo_wit'] ?? null;
+                $logo_dark = $logos['logo_donker'] ?? null;
+                $logo = ($header_background_color == 'bg-black') ? $logo_light : $logo_dark;
+
                 if ($logo) : ?>
                     <div class="site-logo">
                         <a href="<?php echo esc_url(home_url('/')); ?>" class="block">
-                   
-                              <?php  echo '<img src="' . esc_url($logo['url']) . '" alt="' . get_bloginfo('name') . '" class="h-[43px] w-auto object-contain">';
-                      ?>
+                            <?php if (!empty($logo_dark['url']) && !empty($logo_light['url'])) : ?>
+                                <?php echo '<img src="' . esc_url($logo_dark['url']) . '" alt="' . get_bloginfo('name') . '" class="site-logo-dark h-[43px] w-auto object-contain">'; ?>
+                                <?php echo '<img src="' . esc_url($logo_light['url']) . '" alt="' . get_bloginfo('name') . '" class="site-logo-light h-[43px] w-auto object-contain">'; ?>
+                            <?php else : ?>
+                                <?php echo '<img src="' . esc_url($logo['url']) . '" alt="' . get_bloginfo('name') . '" class="h-[43px] w-auto object-contain">'; ?>
+                            <?php endif; ?>
                         </a>
                     </div>
                 <?php else : ?>

@@ -22,6 +22,28 @@
             "selected": 0
         },
         {
+            "key": "field_69ddea488f238",
+            "label": "Icoon",
+            "name": "icoon",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "acfe_textarea_code": 0,
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
             "key": "field_69d89b749a125",
             "label": "Introtekst",
             "name": "introtekst",
@@ -245,5 +267,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1775803484
+    "modified": 1776151130
 }
