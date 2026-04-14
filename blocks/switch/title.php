@@ -1,4 +1,4 @@
-<section class="switch__title lg:pt-[160px] <?php echo get_spacing_bottom_class(); ?>">
+<section class="switch__title <?php echo get_spacing_bottom_class(); ?>">
     <div class="container">
         <div class="flex gap-[28px]">
             <div class="w-full lg:w-5/12 ml-[calc(100%/12)] lg:pr-[10%]">

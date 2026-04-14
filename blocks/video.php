@@ -1,4 +1,4 @@
-<section class="video <?php echo is_single() ? 'pb-[60px] lg:pb-[100px]' : get_spacing_bottom_class(); ?>" relative">
+<section class="video <?php echo get_spacing_bottom_class(); ?>" relative">
 
   <div class="container mx-auto relative px-0! lg:px-[20px]">
     

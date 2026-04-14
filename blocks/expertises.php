@@ -32,8 +32,8 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
             <?= get_sub_field('titel') ?>
         </div>
         <?php if ($is_groot) : ?>
-            <div class="expertises_hover_preview fixed top-0 left-0 z-50 hidden pointer-events-none w-[500px] h-[667px] overflow-hidden">
-                <img src="" alt="" class="expertises_hover_preview_image w-full h-full object-cover" />
+            <div class="expertises_hover_preview" aria-hidden="true">
+                <img src="" alt="" />
             </div>
         <?php endif; ?>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[28px]">
@@ -105,62 +105,71 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
 </section>
 
 <?php if ($is_groot) : ?>
+    <style>
+        .expertises_hover_preview {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 50;
+            width: 500px;
+            height: 667px;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            will-change: opacity;
+        }
+
+        .expertises_hover_preview.is-visible {
+            opacity: 1;
+        }
+
+        .expertises_hover_preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
     <script>
         (() => {
             const block = document.getElementById('<?= esc_js($block_id); ?>');
-            if (!block) {
-                return;
-            }
+            if (!block) return;
 
             const preview = block.querySelector('.expertises_hover_preview');
-            const previewImage = block.querySelector('.expertises_hover_preview_image');
+            const img = preview?.querySelector('img');
             const triggers = block.querySelectorAll('.js-expertise-hover-trigger[data-hover-image]');
 
-            if (!preview || !previewImage || !triggers.length) {
-                return;
-            }
+            if (!preview || !img || !triggers.length) return;
 
-            const offset = 20;
-            const movePreview = (event) => {
-                const previewWidth = preview.offsetWidth;
-                const previewHeight = preview.offsetHeight;
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
+            const W = 500;
+            const H = 667;
+            const GAP = 24;
+            let hideTimer = null;
 
-                let x = event.clientX + offset;
-                let y = event.clientY + offset;
-
-                if (x + previewWidth > viewportWidth) {
-                    x = event.clientX - previewWidth - offset;
-                }
-
-                if (y + previewHeight > viewportHeight) {
-                    y = event.clientY - previewHeight - offset;
-                }
-
-                x = Math.max(0, x);
-                y = Math.max(0, y);
-
+            const setPosition = (mx, my) => {
+                const x = (mx + GAP + W > window.innerWidth) ? mx - W - GAP : mx + GAP;
+                const y = (my + GAP + H > window.innerHeight) ? my - H - GAP : my + GAP;
                 preview.style.transform = `translate(${x}px, ${y}px)`;
             };
 
             triggers.forEach((trigger) => {
-                trigger.addEventListener('mouseenter', (event) => {
-                    const imageUrl = trigger.getAttribute('data-hover-image');
-                    if (!imageUrl) {
-                        return;
-                    }
+                trigger.addEventListener('mouseenter', (e) => {
+                    const url = trigger.dataset.hoverImage;
+                    if (!url) return;
 
-                    previewImage.src = imageUrl;
-                    preview.classList.remove('hidden');
-                    movePreview(event);
+                    clearTimeout(hideTimer);
+                    if (img.src !== url) img.src = url;
+
+                    setPosition(e.clientX, e.clientY);
+                    preview.classList.add('is-visible');
                 });
 
-                trigger.addEventListener('mousemove', movePreview);
+                trigger.addEventListener('mousemove', (e) => setPosition(e.clientX, e.clientY));
 
                 trigger.addEventListener('mouseleave', () => {
-                    preview.classList.add('hidden');
-                    previewImage.src = '';
+                    preview.classList.remove('is-visible');
+                    hideTimer = setTimeout(() => { img.src = ''; }, 300);
                 });
             });
         })();

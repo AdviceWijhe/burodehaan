@@ -13,7 +13,7 @@ if(get_sub_field('globaal')) {
 
 ?>
 
-<section class="usps pt-[60px] lg:pt-0 <?php echo get_spacing_bottom_class(); ?>">
+<section class="usps <?php echo get_spacing_bottom_class(); ?>">
   <div class="container mx-auto">
   <?php 
     $titel = get_sub_field('titel');
