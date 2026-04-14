@@ -14,6 +14,9 @@ if ($logos && is_array($logos) && !empty($logos)) :
     
     <section class="logo-slider <?php echo get_spacing_bottom_class(); ?> overflow-hidden">
         <div class="container mx-auto px-0!">
+            <div class="text-center">
+                <div class="body-large mb-[40px] font-medium!"><?php echo get_sub_field('titel'); ?></div>
+            </div>
             <div class="swiper-container logo-slider-swiper <?php echo esc_attr($rand_class); ?>">
                 <div class="swiper-wrapper">
                     <?php foreach ($logos as $logo_item) : 
@@ -57,16 +60,22 @@ if ($logos && is_array($logos) && !empty($logos)) :
             var swiper = new Swiper('.<?php echo esc_js($rand_class); ?>', {
                 slidesPerView: 6,
                 spaceBetween: 36,
-                speed: 600,
+                speed: 4000,
                 loop: true,
                 loopAdditionalSlides: 6,
-                freeMode: false,
+                freeMode: true,
+                freeModeMomentum: false,
                 grabCursor: true,
                 centeredSlides: false,
-                allowTouchMove: true,
+                allowTouchMove: false,
                 watchOverflow: true,
                 resistance: true,
                 resistanceRatio: 0.85,
+                autoplay: {
+                    delay: 0,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: false
+                },
                 breakpoints: {
                     320: {
                         slidesPerView: 2,
@@ -82,6 +91,8 @@ if ($logos && is_array($logos) && !empty($logos)) :
                     }
                 }
             });
+
+            swiper.wrapperEl.style.transitionTimingFunction = 'linear';
         });
     </script>
 
