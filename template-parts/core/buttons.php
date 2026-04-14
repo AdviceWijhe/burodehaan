@@ -55,14 +55,8 @@ $full_width = $args['full_width'] ?? null; // null = auto (stretch), true = alti
 
 // Icon SVG templates
 $icon_templates = [
-  'default' => '<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12.5" cy="12.5" r="12" stroke="currentColor"/>
-      <g class="arrow-group">
-        <rect x="7" y="11.7427" width="10" height="1" fill="currentColor"/>
-        <rect x="17.4854" y="12.2427" width="1" height="6" transform="rotate(135 17.4854 12.2427)" fill="currentColor"/>
-        <rect x="17.4854" y="12.2427" width="6" height="1" transform="rotate(135 17.4854 12.2427)" fill="currentColor"/>
-      </g>
-    </svg>',
+  'geen' => '',
+    'default' => '',
   'scroll' => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
   <rect x="20" width="2.22222" height="2.22222" transform="rotate(90 20 0)" fill="#161616"/>
   <rect x="8.14844" y="5.92578" width="2.22222" height="2.22222" transform="rotate(90 8.14844 5.92578)" fill="#161616"/>
@@ -84,7 +78,7 @@ $icon_templates = [
  
 $colors = [
   'primary' => [
-    'fill' => 'btn bg-primary text-white border border-primary hover:bg-black hover:text-white',
+    'fill' => 'btn bg-primary text-white! border border-primary hover:bg-black hover:text-white',
     'outline' => 'btn border border-primary text-primary hover:bg-primary hover:text-white',
   ],
   'secondary' => [
@@ -166,9 +160,9 @@ if($buttons) {
               
               // Tel en email icons komen voor de title, andere icons erna
               if ($is_contact_link) {
-                  echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center ' . $button_justify . '">' . $icon_svg . esc_html($button['link']['title']) . '</a>';
+                  echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center no-underline!' . $button_justify . '">' . $icon_svg . esc_html($button['link']['title']) . '</a>';
               } else {
-                  echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center gap-[14px] ' . $button_justify . '"><span>' . esc_html($button['link']['title']) . '</span>' . $icon_svg . '</a>';
+                  echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center gap-[14px] no-underline! ' . $button_justify . '"><span>' . esc_html($button['link']['title']) . '</span>' . $icon_svg . '</a>';
               }
           }
       }

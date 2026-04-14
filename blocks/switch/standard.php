@@ -5,7 +5,7 @@
  * Een blok met afbeelding en tekst naast elkaar
  */
 
- $heading = get_sub_field('heading');
+ $heading = get_sub_field('titel');
  $image = get_sub_field('image');
  $content = get_sub_field('content');
  $image_position = get_sub_field('image_position') ?: 'left';
@@ -21,13 +21,14 @@ $image_margin = '';
 
 
 if($background_color === '') {
-    $text_width = 'lg:w-5/12';
+    $text_width = 'lg:w-4/12 lg:ml-[calc(100%/12)]';
     $image_width = 'lg:w-[50vw]';
     $content_margin = '';
     $image_margin = 'lg:mr-[calc(50%-50vw)] lg:ml-auto';
 }
 if($image_position === 'left') {
-    $content_margin = 'lg:ml-auto';
+    $text_width = 'lg:w-4/12';
+    $content_margin = 'lg:ml-[calc(100%/12)]';
     $image_margin = 'lg:ml-[calc(50%-50vw)]';
 } else {
     $image_margin = 'lg:mr-[calc(50%-50vw)] lg:ml-auto';
@@ -77,7 +78,7 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
                 
                 
                   <?php if ($heading) : ?>
-                    <h2 class="mb-[24px]! lg:mb-[32px]! mt-0!"><?php echo esc_html($heading); ?></h2>
+                 <div class="mb-[40px]">  <?php echo $heading; ?></div>
                 <?php endif; ?>
      
 
