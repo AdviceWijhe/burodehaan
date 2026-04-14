@@ -457,6 +457,16 @@ class HeaderNavigation {
             navWrapper.classList.toggle('is-dropdown-open', isOpen);
         };
 
+        const setActiveParent = (activeLi) => {
+            parents.forEach((item) => {
+                if (item === activeLi) {
+                    item.classList.add('dropdown-active');
+                } else {
+                    item.classList.remove('dropdown-active');
+                }
+            });
+        };
+
         const clearCloseTimer = () => {
             if (!closeTimer) return;
             clearTimeout(closeTimer);
@@ -508,7 +518,7 @@ class HeaderNavigation {
                 if (window.innerWidth < 1024) return;
                 clearCloseTimer();
                 hoverCount++;
-                li.classList.add('dropdown-active');
+                setActiveParent(li);
                 showOverlay();
             });
             
@@ -521,7 +531,7 @@ class HeaderNavigation {
             // Focus events for keyboard navigation
             li.addEventListener('focusin', () => {
                 if (window.innerWidth < 1024) return;
-                li.classList.add('dropdown-active');
+                setActiveParent(li);
                 showOverlay();
             });
             
@@ -540,7 +550,7 @@ class HeaderNavigation {
                     if (window.innerWidth < 1024) return;
                     clearCloseTimer();
                     hoverCount++;
-                    li.classList.add('dropdown-active');
+                    setActiveParent(li);
                     showOverlay();
                 });
                 

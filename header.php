@@ -26,7 +26,7 @@
 
  $header_background_color = 'bg-secondary';
 
-if(is_archive() || is_page('expertises')) {
+if (is_archive() || is_home() || is_page('expertises')) {
     $header_background_color = 'bg-white';
 }
 if(is_single()) {
