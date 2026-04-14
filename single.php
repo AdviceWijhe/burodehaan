@@ -29,6 +29,36 @@ if(get_post_type() == 'project') {
             <div class="bg-secondary">
                 <div class="container py-[32px]!">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
+                        <div class="col-span-1 lg:col-span-8 lg:col-start-3 flex gap-[120px] items-center">
+                        <?php if(get_field('project_informatie', get_the_ID())['locatie']) : ?>    
+                        <div class="">
+                                <p class="label label-large mb-[20px]!">Locatie</p>
+                                <p class="mb-0!"><?= get_field('project_informatie', get_the_ID())['locatie']; ?></p>
+                            </div>
+                            <?php endif; ?>
+                            <?php if(get_field('project_informatie', get_the_ID())['opdrachtgever']) : ?>
+                            <div class="">
+                                <p class="label label-large mb-[20px]!">Opdrachtgever</p>
+                                <p class="mb-0!"><?= get_field('project_informatie', get_the_ID())['opdrachtgever']; ?></p>
+                            </div>
+                            <?php endif; ?>
+                            <?php if(get_field('project_informatie', get_the_ID())['bouwjaar']) : ?>
+                            <div class="">
+                                <p class="label label-large mb-[20px]!">Bouwjaar</p>
+                                <p class="mb-0!"><?= get_field('project_informatie', get_the_ID())['bouwjaar']; ?></p>
+                            </div>
+                            <?php endif; ?>
+                            <?php if(get_field('project_informatie', get_the_ID())['overige']) : ?>
+                                
+                                <?php foreach(get_field('project_informatie', get_the_ID())['overige'] as $overig) : ?>
+                                    <div class="">
+                                        <p class="label label-large mb-[20px]!"><?= $overig['label']; ?></p>
+                                        <p class="mb-0!"><?= $overig['waarde']; ?></p>
+                                    </div>
+                                <?php endforeach; ?>
+                             
+                            <?php endif; ?>
+                        </div>
                         <div class="w-full lg:col-span-2 lg:col-start-11">
                             <a href="#gallerij" class="btn border border-black text-black gap-[14px]">Direct naar gallerij <svg xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
   <rect x="19.9996" width="2.22222" height="2.22222" transform="rotate(90 19.9996 0)" fill="#161616"/>
