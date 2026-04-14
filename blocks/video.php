@@ -60,7 +60,7 @@
           >
           <?php endif; ?>
           <!-- Dark gradient overlay -->
-          <div class="pointer-events-none absolute inset-0 bg-black/50"></div>
+          <div class="pointer-events-none absolute inset-0 bg-black/50" style="z-index: 2;"></div>
 
           <!-- TItle -->
           <?php if (get_sub_field('titel')) : ?>

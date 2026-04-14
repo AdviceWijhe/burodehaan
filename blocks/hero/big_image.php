@@ -1,9 +1,9 @@
 <section class="hero hero__big_image overflow-hidden relative w-full max-w-full">
     <div class="relative flex items-end w-full p-0 aspect-[1728/750]">
         <div class="absolute inset-0 h-full w-full">
-            <div class="absolute top-0 left-0 w-1/2 h-full" style="background: linear-gradient(90deg, rgba(22, 22, 22, 0.5) 0%, rgba(22, 22, 22, 0) 100%);"></div>
+            <div class="absolute top-0 left-0 w-1/2 h-full" style="background: linear-gradient(90deg, rgba(22, 22, 22, 0.5) 0%, rgba(22, 22, 22, 0) 100%); z-index: 2;"></div>
 <div class="absolute bottom-0 left-0 w-full h-[300px]" style="opacity: 0.5;
-background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></div>
+background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%); z-index: 2;"></div>
             <?php
             $video_input = trim((string) get_sub_field('video_id'));
             $video_type = '';
@@ -35,16 +35,18 @@ background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></d
 
             if ($video_embed_url !== '') :
             ?>
-                <iframe
-                    src="<?= esc_url($video_embed_url) ?>"
-                    title="<?= esc_attr(get_sub_field('titel') ?: 'Hero video') ?>"
-                    class="w-full h-full object-cover object-center"
-                    frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen
-                    loading="eager"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                ></iframe>
+                <div class="hero-big-image-video">
+                    <iframe
+                        src="<?= esc_url($video_embed_url) ?>"
+                        title="<?= esc_attr(get_sub_field('titel') ?: 'Hero video') ?>"
+                        class="hero-big-image-video-frame"
+                        frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen
+                        loading="eager"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                    ></iframe>
+                </div>
             <?php
             elseif ($afbeelding && isset($afbeelding['ID'])) :
                 $image_srcset = wp_get_attachment_image_srcset($afbeelding['ID'], 'full');
@@ -78,6 +80,23 @@ background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></d
     <style>
         .hero__big_image .hero-big-image-buttons .btn {
             border-radius: 0 !important;
+        }
+
+        .hero__big_image .hero-big-image-video {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .hero__big_image .hero-big-image-video-frame {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 129.6%;
+            max-width: none;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
         }
     </style>
 </section>
