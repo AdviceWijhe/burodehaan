@@ -48,32 +48,32 @@ p, ul, ol, a span {
 }
 
 h1, .headline-large {
-  font-size: max(62px, calc((100vw - 120px) * 0.0365));
+  font-size: max(40px, calc((100vw - 120px) * 0.0365));
   font-weight: 300;
 }
 
 h2, .headline-medium {
-  font-size: max(42px, calc((100vw - 120px) * 0.0234));
+  font-size: max(32px, calc((100vw - 120px) * 0.0234));
   font-weight: 300;
 }
 
 h3, .headline-small {
-  font-size: max(32px, calc((100vw - 120px) * 0.019));
+  font-size: max(26px, calc((100vw - 120px) * 0.019));
   font-weight: 300;
 }
 
 h4, .title-large {
-  font-size: max(28px, calc((100vw - 120px) * 0.0168));
+  font-size: max(24px, calc((100vw - 120px) * 0.0168));
   font-weight: 300;
 }
 
 h5, .title-medium {
-  font-size: max(24px, calc((100vw - 120px) * 0.0144));
+  font-size: max(20px, calc((100vw - 120px) * 0.0144));
   font-weight: 300;
 }
 
 h6, .title-small {
-  font-size: max(18px, calc((100vw - 120px) * 0.0112));
+  font-size: max(16px, calc((100vw - 120px) * 0.0112));
   font-weight: 400;
 }
 
@@ -90,7 +90,7 @@ h6 strong, h6 b {
 /* Labels */
 .label-large {
   font-family: var(--font-family-primary);
-  font-size: max(16px, calc((100vw - 120px) * 0.008));
+  font-size: max(14px, calc((100vw - 120px) * 0.008));
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
@@ -100,7 +100,7 @@ h6 strong, h6 b {
 
 .label-medium {
   font-family: var(--font-family-primary);
-  font-size: 13px;
+  font-size: max(11px, calc((100vw - 120px) * 0.008));
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
@@ -110,7 +110,7 @@ h6 strong, h6 b {
 
 .label-small {
   font-family: var(--font-family-primary);
-  font-size: 11px;
+  font-size: max(10px, calc((100vw - 120px) * 0.008));
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
@@ -121,7 +121,7 @@ h6 strong, h6 b {
 /* Body Text Variants */
 .body-large, .body-large p {
   font-family: var(--font-family-primary);
-  font-size: max(21px, calc((100vw - 120px) * 0.011));
+  font-size: max(16px, calc((100vw - 120px) * 0.011));
   font-style: normal;
   line-height: 150%;
   font-weight: 300;
@@ -136,7 +136,7 @@ h6 strong, h6 b {
 
 .body-medium, p {
   font-family: var(--font-family-primary);
-  font-size: max(16px, calc((100vw - 120px) * 0.008));
+  font-size: max(15px, calc((100vw - 120px) * 0.008));
 
   font-style: normal;
   line-height: 150%;
@@ -156,7 +156,7 @@ b, strong {
 
 .body-small {
   font-family: var(--font-family-primary);
-  font-size: 14px;
+  font-size: max(13px, calc((100vw - 120px) * 0.008));
   font-style: normal;
   line-height: 150%;
   font-weight: 300;
@@ -172,7 +172,7 @@ b, strong {
 /* List Text Variants */
 .list-large {
   font-family: var(--font-family-primary);
-  font-size: 21px;
+  font-size: max(16px, calc((100vw - 120px) * 0.011));
   font-style: normal;
   font-weight: 300;
   line-height: 130%;
@@ -180,7 +180,7 @@ b, strong {
 
 .list-medium {
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: max(15px, calc((100vw - 120px) * 0.011));
   font-style: normal;
   font-weight: 300;
   line-height: 130%;
@@ -188,7 +188,7 @@ b, strong {
 
 .list-small {
   font-family: var(--font-family-primary);
-  font-size: 14px;
+  font-size: max(13px, calc((100vw - 120px) * 0.011));
   font-style: normal;
   font-weight: 300;
   line-height: 130%;
