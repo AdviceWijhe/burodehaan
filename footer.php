@@ -32,7 +32,7 @@
     }
     ?>
 
-    <div class="w-full px-[20px] lg:px-[60px] py-[80px] lg:py-[100px]">
+    <div class="w-full px-[20px] lg:px-[60px] py-[80px] lg:pt-[100px] lg:pb-[40px]">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-[60px] gap-x-[80px]">
             <div class="grid grid-cols-1 gap-y-[120px]">
                 <div>
@@ -251,7 +251,7 @@
 
         <div class="mt-[70px] pt-6 border-t border-white/10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
             <div>
-                <p class="body-small mb-0 !text-white !font-normal">Alle rechten voorbehouden Buro De Haan</p>
+                <p class="body-small mb-0! !text-white !font-normal">Alle rechten voorbehouden Buro De Haan</p>
             </div>
             <div class="flex items-center gap-2 text-white/70 lg:ml-auto">
                 <span class="body-small">Ontworpen en ontwikkeld door</span>
