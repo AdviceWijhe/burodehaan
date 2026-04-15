@@ -39,8 +39,8 @@ if(is_page()) {
 
 <?php $default_logo_theme = ($header_background_color === 'bg-black') ? 'light' : 'dark'; ?>
 <div class="navigation-wrapper <?php echo esc_attr($header_background_color); ?>" data-default-logo-theme="<?php echo esc_attr($default_logo_theme); ?>">
-    <div class="<?php echo esc_attr($container_class); ?> pt-[28px] <?php if(is_front_page()) { echo 'pb-[28px]'; } ?>">
-        <div class="flex items-center justify-between gap-10">
+    <div class="<?php echo esc_attr($container_class); ?> pt-[16px] pb-[16px] xl:pt-[28px] <?php if(is_front_page()) { echo 'xl:pb-[28px]'; } ?>">
+        <div class="flex items-center justify-between gap-10 xl:pl-0 xl:pr-0">
             <!-- Logo -->
             <div class="site-branding flex-shrink-0">
                 <?php 
@@ -95,7 +95,7 @@ if(is_page()) {
                 </nav>
 
                 <!-- Buttons Group -->
-                <div class="flex items-center gap-4">
+                <div class="hidden xl:flex items-center gap-4">
                     <!-- Search Button -->
                     <!-- <div class="relative">
                         <button id="header-search-toggle" class="w-[54px] h-[54px] flex items-center justify-center border border-[#131611] rounded hover:bg-gray-100 transition-colors" aria-label="Zoeken" aria-expanded="false">
@@ -145,19 +145,16 @@ if(is_page()) {
 
             <!-- Mobile Menu Button -->
             <div class="xl:hidden">
-                <button id="mobile-menu-button" class="relative py-3 px-4 border border-[#131611] text-[#131611] hover:bg-gray-100 transition-colors" aria-expanded="false">
+                <button id="mobile-menu-button" class="relative inline-flex items-center gap-2 py-3 pl-[20px] pr-[13px] bg-primary border border-primary text-white hover:opacity-90 transition-opacity" aria-expanded="false">
                     <span class="sr-only">Menu openen</span>
-                    <div class="flex items-center gap-2">
-                        <div class="hamburger-lines">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                                <circle cx="12.5" cy="12.5" r="12" stroke="currentColor"/>
-                                <rect x="8.25" y="9.25" width="9.5" height="0.5" fill="currentColor"/>
-                                <rect x="8.25" y="12.5074" width="9.5" height="0.5" fill="currentColor"/>
-                                <rect x="8.25" y="15.7647" width="9.5" height="0.5" fill="currentColor"/>
-                            </svg>
-                        </div>
-                        <span class="mobile-menu-label font-semibold">Menu</span>
+                    <div class="hamburger-lines">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10" fill="none">
+                            <rect width="14" height="1" fill="white"/>
+                            <rect y="4.5" width="14" height="1" fill="white"/>
+                            <rect y="9" width="14" height="1" fill="white"/>
+                        </svg>
                     </div>
+                    <span class="mobile-menu-label font-semibold">Menu</span>
                 </button>
             </div>
         </div>

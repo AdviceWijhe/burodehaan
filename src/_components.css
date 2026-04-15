@@ -9,7 +9,7 @@
     @apply min-lg:max-w-[100%]!;
     @apply min-xl:max-w-[100%]!;
     @apply min-2xl:max-w-[100%]!;
-    @apply px-[20px] lg:px-[60px]!;
+    @apply px-[16px] lg:px-[60px]!;
   }
 }
 

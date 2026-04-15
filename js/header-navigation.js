@@ -329,11 +329,10 @@ class HeaderNavigation {
     }
     
     getHamburgerIcon() {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-            <circle cx="12.5" cy="12.5" r="12" stroke="currentColor"/>
-            <rect x="8.25" y="9.25" width="9.5" height="0.5" fill="currentColor"/>
-            <rect x="8.25" y="12.5074" width="9.5" height="0.5" fill="currentColor"/>
-            <rect x="8.25" y="15.7647" width="9.5" height="0.5" fill="currentColor"/>
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10" fill="none">
+            <rect width="14" height="1" fill="white"/>
+            <rect y="4.5" width="14" height="1" fill="white"/>
+            <rect y="9" width="14" height="1" fill="white"/>
         </svg>`;
     }
     
