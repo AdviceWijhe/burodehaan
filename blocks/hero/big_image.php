@@ -70,7 +70,7 @@ background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%); z-in
                 $hero_title = preg_replace('/^\s*<p>(.*)<\/p>\s*$/si', '$1', $hero_title);
                 ?>
                 <div class="headline-large text-white !text-white [&_*]:!text-white"><?php echo wp_kses_post($hero_title); ?></div>
-                <div class="mt-[32px] hero-big-image-buttons">
+                <div class="mt-[28px] lg:mt-[32px] hero-big-image-buttons">
                 <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'start')) ?>
                 </div>
             </div>
@@ -80,6 +80,18 @@ background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%); z-in
     <style>
         .hero__big_image .hero-big-image-buttons .btn {
             border-radius: 0 !important;
+        }
+
+        @media (max-width: 1023px) {
+            .hero__big_image .hero-big-image-buttons > div {
+                flex-direction: row !important;
+                gap: 12px !important;
+                flex-wrap: wrap;
+            }
+
+            .hero__big_image .hero-big-image-buttons .btn {
+                padding: 20px !important;
+            }
         }
 
         .hero__big_image .hero-big-image-video {
