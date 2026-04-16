@@ -45,7 +45,7 @@ if (empty($taxonomies)) {
 
     <aside
         id="<?php echo esc_attr($panel_id); ?>"
-        class="fixed top-0 right-0 h-full w-full lg:top-10 lg:right-10 lg:h-[calc(100%-80px)] lg:w-[600px] bg-secondary z-100 translate-x-[calc(100%+40px)] transition-transform duration-300 ease-out shadow-2xl"
+        class="fixed top-0 right-0 h-auto w-full lg:top-10 lg:right-10 lg:h-[calc(100%-80px)] lg:w-[600px] bg-white z-100 translate-x-[calc(100%+40px)] transition-transform duration-300 ease-out shadow-2xl"
         data-archive-filter-drawer
         role="dialog"
         aria-modal="true"
@@ -136,20 +136,20 @@ if (empty($taxonomies)) {
                 <?php endforeach; ?>
             </div>
 
-            <div class="px-6 pb-6 pt-4 lg:px-[60px] lg:pb-[40px] lg:pt-[20px] flex flex-wrap items-center gap-[16px]">
+            <div class="px-6 pb-6 pt-4 lg:px-[60px] lg:pb-[40px] lg:pt-[20px] flex flex-wrap items-stretch lg:items-center gap-[16px]">
                 <button
                     type="button"
-                    class="bg-primary text-secondary text-[16px] leading-normal font-normal py-[24px] px-[34px]"
+                    class="bg-primary btn text-secondary  max-md:w-full"
                     data-archive-filter-apply
                 >
-                    <?php esc_html_e('Filters toepassen', 'advice2025'); ?>
+                    <span><?php esc_html_e('Filters toepassen', 'advice2025'); ?></span> 
                 </button>
                 <button
                     type="button"
-                    class="bg-transparent border border-black text-black text-[16px] leading-normal font-normal py-[24px] px-[34px]"
+                    class="bg-transparent border border-black btn text-black text-[16px] leading-normal max-md:w-full font-normal py-[24px] px-[34px]"
                     data-archive-filter-reset
                 >
-                    <?php esc_html_e('Wis alle filters', 'advice2025'); ?>
+                   <span><?php esc_html_e('Wis alle filters', 'advice2025'); ?></span> 
                 </button>
             </div>
         </div>

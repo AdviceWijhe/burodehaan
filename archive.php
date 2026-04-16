@@ -16,15 +16,15 @@ $filter_panel_taxonomies = array(
 
 <main id="main" class="site-main">
 
-<div class="container mx-auto mb-[28px] pt-[120px]">
-    <div class="flex items-center justify-between">
+<div class="container mx-auto mb-[60px] lg:mb-[28px] pt-[60px] lg:pt-[120px]">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between">
 
-            <h1 class="headline-large">
+            <h1 class="headline-large mb-[28px]! lg:mb-0!">
                 Onze <b><?= $title; ?>.</b>
             </h1>
 
 
-            <div class="search_filter flex items-center gap-[16px]">
+            <div class="search_filter flex items-center gap-[12px] lg:gap-[16px]">
                 <div class="search">
                     <?php get_search_form(); ?>
                 </div>
@@ -61,7 +61,7 @@ $filter_panel_taxonomies = array(
         <?php if (have_posts()) : ?>
             <div
                 id="archive-post-grid"
-                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[28px]"
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[16px] lg:gap-[28px]"
             >
             <?php while (have_posts()) : the_post(); ?>
                 <?= get_template_part('template-parts/card', get_post_type()); ?>

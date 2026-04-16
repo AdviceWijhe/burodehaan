@@ -200,7 +200,7 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
         // Different styles for different depths
         if ($depth == 0) {
             // Top level items
-            $link_classes = 'nav-link relative px-4 py-2 min-h-[96px] text-white tracking-wide transition-all duration-300 flex items-center min-w-0';
+            $link_classes = 'nav-link relative px-4 py-2 min-h-[96px] text-black tracking-wide transition-all duration-300 flex items-center min-w-0';
             
             if ($has_children) {
                 $link_classes .= ' ';
@@ -270,7 +270,7 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
             if (!$has_custom_visual) {
                 // Fallback placeholder
                 $item_output .= '<div class="aspect-video mb-[32px] overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">';
-                $item_output .= '<svg class="w-8 h-8 text-white-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
+                $item_output .= '<svg class="w-8 h-8 text-black-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
                 $item_output .= '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>';
                 $item_output .= '</svg>';
                 $item_output .= '</div>';
@@ -283,7 +283,7 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
             // $item_output .= '<svg class="mt-[4px]" xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none" aria-hidden="true" focusable="false">';
             // $item_output .= '<path d="M18 7.88477V7.88574L10.1152 15.7705L8.53809 14.1934L13.8105 8.9209H0V6.69043H13.6514L8.53809 1.57715L10.1152 0L18 7.88477Z" fill="#E1322C"></path>';
             // $item_output .= '</svg>';
-            $item_output .= '<h4 class="text-white transition-colors  gap-[10px] duration-200 mb-1 lg:mb-0 flex items-baseline ml-[10px] text-wrap with-arrows">'
+            $item_output .= '<h4 class="text-black transition-colors  gap-[10px] duration-200 mb-1 lg:mb-0 flex items-baseline ml-[10px] text-wrap with-arrows">'
                 . '<span>' . apply_filters('the_title', $item->title, $item->ID) . '</span>'
                 . '</h4>';
             // $item_output .= '<svg class="mt-[4px]" xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none" aria-hidden="true" focusable="false">';
@@ -343,9 +343,170 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
 class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
     
     private $mobile_dropdown_item_count = 0;
+    private bool $is_mobile_expertises   = false;
+
+    /**
+     * Sanitize expertise icon markup, allowing basic inline SVG.
+     */
+    private function sanitize_expertise_icon_markup( string $markup ): string {
+        if ( $markup === '' ) {
+            return '';
+        }
+
+        return wp_kses(
+            $markup,
+            array(
+                'svg'    => array(
+                    'xmlns'       => true,
+                    'width'       => true,
+                    'height'      => true,
+                    'viewbox'     => true,
+                    'viewBox'     => true,
+                    'fill'        => true,
+                    'stroke'      => true,
+                    'aria-hidden' => true,
+                    'focusable'   => true,
+                    'role'        => true,
+                    'class'       => true,
+                ),
+                'path'   => array(
+                    'd'              => true,
+                    'fill'           => true,
+                    'stroke'         => true,
+                    'stroke-width'   => true,
+                    'stroke-linecap' => true,
+                    'stroke-linejoin'=> true,
+                    'class'          => true,
+                ),
+                'rect'   => array(
+                    'x'            => true,
+                    'y'            => true,
+                    'width'        => true,
+                    'height'       => true,
+                    'rx'           => true,
+                    'ry'           => true,
+                    'fill'         => true,
+                    'stroke'       => true,
+                    'stroke-width' => true,
+                    'class'        => true,
+                ),
+                'circle' => array(
+                    'cx'           => true,
+                    'cy'           => true,
+                    'r'            => true,
+                    'fill'         => true,
+                    'stroke'       => true,
+                    'stroke-width' => true,
+                    'class'        => true,
+                ),
+                'g'      => array(
+                    'fill'      => true,
+                    'stroke'    => true,
+                    'class'     => true,
+                    'transform' => true,
+                ),
+            )
+        );
+    }
+
+    /**
+     * Ensure "show expertises" items are treated as having children so the
+     * accordion toggle JS fires, while keeping the real child list empty.
+     */
+    public function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ): void {
+        if (
+            $depth === 0
+            && isset( $element->ID )
+            && get_post_meta( (int) $element->ID, '_menu_item_show_expertises', true ) === '1'
+        ) {
+            if ( ! isset( $element->classes ) || ! is_array( $element->classes ) ) {
+                $element->classes = array();
+            }
+
+            if ( ! in_array( 'menu-item-has-children', $element->classes, true ) ) {
+                $element->classes[] = 'menu-item-has-children';
+            }
+
+            // Clear any manually attached children so the walker doesn't render them.
+            $children_elements[ (int) $element->ID ] = array();
+        }
+
+        parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
+    }
+
+    /**
+     * Render expertise items as a mobile accordion dropdown.
+     */
+    private function render_mobile_expertises_dropdown( int $item_id, string $indent ): string {
+        $expertises = get_terms(
+            array(
+                'taxonomy'   => 'expertise',
+                'hide_empty' => false,
+                'orderby'    => 'name',
+                'order'      => 'ASC',
+            )
+        );
+
+        $dropdown_id_attr = 'mobile-menu-item-' . $item_id;
+
+        $out  = "\n$indent<div class=\"mobile-dropdown overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0\">\n";
+        $out .= "$indent\t<div class=\"pt-2 pb-4\">\n";
+        $out .= "$indent\t\t<ul class=\"space-y-0 max-h-[70vh] overflow-y-auto overscroll-contain\" data-mobile-dropdown-list data-mobile-dropdown-id=\"{$dropdown_id_attr}\">\n";
+
+        if ( is_wp_error( $expertises ) || empty( $expertises ) ) {
+            $out .= "$indent\t\t\t<li><span class=\"block px-[20px] py-[20px] text-[#161616]\">Er zijn momenteel geen expertises beschikbaar.</span></li>\n";
+        } else {
+            $visible = array_slice( $expertises, 0, 7 );
+
+            foreach ( $visible as $expertise ) {
+                $term_link = get_term_link( $expertise );
+                if ( is_wp_error( $term_link ) ) {
+                    continue;
+                }
+
+                $icon  = get_field( 'icoon', 'expertise_' . $expertise->term_id );
+                $title = $expertise->name ?? '';
+
+                $out .= "$indent\t\t\t<li>\n";
+                $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $term_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item block py-[20px] border-b border-light-blue/20 transition-all duration-300 hover:bg-light-blue/25\">\n";
+                $out .= "$indent\t\t\t\t\t<div class=\"flex items-center gap-3 px-[20px]\">\n";
+
+                if ( ! empty( $icon ) ) {
+                    $out .= "$indent\t\t\t\t\t\t<span class=\"text-[#EC663C] flex-shrink-0 w-6 h-6 flex items-center justify-center\">" . $this->sanitize_expertise_icon_markup( (string) $icon ) . "</span>\n";
+                }
+
+                $out .= "$indent\t\t\t\t\t\t<span class=\"text-black\">" . esc_html( $title ) . "</span>\n";
+                $out .= "$indent\t\t\t\t\t</div>\n";
+                $out .= "$indent\t\t\t\t</a>\n";
+                $out .= "$indent\t\t\t</li>\n";
+            }
+
+            // "Alle expertises" link
+            $all_link = home_url( '/expertises' );
+            $out .= "$indent\t\t\t<li>\n";
+            $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $all_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item block py-[20px] transition-all duration-300 hover:bg-light-blue/25\">\n";
+            $out .= "$indent\t\t\t\t\t<div class=\"flex items-center gap-3 px-[20px]\">\n";
+            $out .= "$indent\t\t\t\t\t\t<span class=\"text-black font-medium\">Alle expertises</span>\n";
+            $out .= "$indent\t\t\t\t\t</div>\n";
+            $out .= "$indent\t\t\t\t</a>\n";
+            $out .= "$indent\t\t\t</li>\n";
+        }
+
+        $out .= "$indent\t\t</ul>\n";
+        $out .= "$indent\t</div>\n";
+        $out .= "$indent</div>\n";
+
+        return $out;
+    }
+
     // Start Level - Add accordion container for mobile
     function start_lvl(&$output, $depth = 0, $args = null) {
         $indent = str_repeat("\t", $depth);
+
+        if ($depth == 0 && $this->is_mobile_expertises) {
+            // Expertise dropdown already rendered inline in start_el(); suppress walker output.
+            return;
+        }
         
         if ($depth == 0) {
 			// Reset item count for this dropdown
@@ -365,6 +526,12 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
     // End Level
     function end_lvl(&$output, $depth = 0, $args = null) {
         $indent = str_repeat("\t", $depth);
+
+        if ($depth == 0 && $this->is_mobile_expertises) {
+            // Reset flag and suppress walker output — already handled by start_el.
+            $this->is_mobile_expertises = false;
+            return;
+        }
         
         if ($depth == 0) {
             $output .= "$indent\t\t</ul>\n";
@@ -410,6 +577,16 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
 
         // Check if item has children
         $has_children = in_array('menu-item-has-children', $classes);
+
+        // Check if this item should auto-generate an expertises dropdown
+        $show_expertises = false;
+        if ($depth === 0) {
+            $show_expertises = get_post_meta($item->ID, '_menu_item_show_expertises', true) === '1';
+            if ($show_expertises) {
+                $has_children = true;
+                $this->is_mobile_expertises = true;
+            }
+        }
         
         // Apply filters
         $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
@@ -454,7 +631,7 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
         // Different styles for different depths
         if ($depth == 0) {
             // Top level items - mobile style
-            $link_classes = 'mobile-nav-link block px-[20px] py-[20px] text-white transition-all duration-300 flex items-center justify-between';
+            $link_classes = 'mobile-nav-link block px-[20px] py-[20px] text-black transition-all duration-300 flex items-center justify-between';
             
             if ($has_children) {
                 $link_classes .= ' cursor-pointer';
@@ -506,7 +683,7 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
             
             // Content section
 			$item_output .= '<div class="mobile-content flex-1 min-w-0">';
-            $item_output .= '<span class="text-white mb-1 flex items-center justify-between gap-2">'
+            $item_output .= '<span class="text-black mb-1 flex items-center justify-between gap-2">'
                 . '<span class="truncate">' . apply_filters('the_title', $item->title, $item->ID) . '</span>'
                 . '</span>';
             
@@ -519,6 +696,11 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
         }
         
         $item_output .= '</a>';
+
+        // Inject expertises accordion immediately after the link
+        if ($depth === 0 && $show_expertises) {
+            $item_output .= $this->render_mobile_expertises_dropdown((int) $item->ID, $indent . "\t");
+        }
         
         $item_output .= isset($args->after) ? $args->after : '';
 

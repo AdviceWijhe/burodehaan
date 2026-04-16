@@ -41,10 +41,10 @@
                 $expertises_content_id = $footer_accordion_prefix . '-expertises';
                 $themas_content_id = $footer_accordion_prefix . '-themas';
                 ?>
-                <div class="footer-accordion-item" data-footer-accordion-item>
+                <div class="footer-accordion-item max-md:py-[28px] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
                     <button
                         type="button"
-                        class="mb-5 flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
+                        class="flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
                         aria-expanded="false"
                         aria-controls="<?php echo esc_attr($expertises_content_id); ?>"
                         data-footer-accordion-trigger
@@ -74,10 +74,10 @@
                     </div>
                 </div>
 
-                <div class="footer-accordion-item" data-footer-accordion-item>
+                <div class="footer-accordion-item max-md:py-[28px] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
                     <button
                         type="button"
-                        class="mb-5 flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
+                        class="flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
                         aria-expanded="false"
                         aria-controls="<?php echo esc_attr($themas_content_id); ?>"
                         data-footer-accordion-trigger
@@ -113,10 +113,10 @@
                 $navigeer_content_id = $footer_accordion_prefix . '-navigeer';
                 $over_ons_content_id = $footer_accordion_prefix . '-over-ons';
                 ?>
-                <div class="col-span-1 md:col-span-2 footer-accordion-item" data-footer-accordion-item>
+                <div class="col-span-1 md:col-span-2 footer-accordion-item max-md:py-[28px] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
                     <button
                         type="button"
-                        class="mb-5 flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
+                        class="flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
                         aria-expanded="false"
                         aria-controls="<?php echo esc_attr($navigeer_content_id); ?>"
                         data-footer-accordion-trigger
@@ -145,10 +145,10 @@
                     </div>
                 </div>
 
-                <div class="col-span-1 md:col-span-3 footer-accordion-item" data-footer-accordion-item>
+                <div class="col-span-1 md:col-span-3 footer-accordion-item max-md:py-[28px] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
                     <button
                         type="button"
-                        class="mb-5 flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
+                        class="flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
                         aria-expanded="false"
                         aria-controls="<?php echo esc_attr($over_ons_content_id); ?>"
                         data-footer-accordion-trigger
@@ -661,6 +661,7 @@ document.addEventListener('DOMContentLoaded', function () {
         trigger.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
         content.setAttribute('aria-hidden', isExpanded ? 'false' : 'true');
         content.style.maxHeight = isExpanded ? content.scrollHeight + 'px' : '0px';
+        content.style.marginTop = isExpanded ? '28px' : '0px';
 
         if (icon) {
             icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';

@@ -16,7 +16,7 @@ if(get_post_type() == 'project') {
 }
 ?>
 
-<form role="search" method="get" class="search-form w-full max-w-[420px]" action="<?php echo esc_url(home_url('/')); ?>">
+<form role="search" method="get" class="search-form w-full max-w-[230px] lg:max-w-[420px]" action="<?php echo esc_url(home_url('/')); ?>">
     <div class="relative flex h-[59px] w-full items-stretch border border-[rgba(22,22,22,0.4)] bg-white">
         <label class="sr-only" for="search-field"><?php echo _x('Zoeken naar:', 'label', 'advice2025'); ?></label>
         <input
