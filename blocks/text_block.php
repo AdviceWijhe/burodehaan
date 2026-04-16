@@ -162,14 +162,14 @@ if ($show_sidebar_articles && $is_single_or_tax) {
 <!-- Text Block -->
 <div class="<?php echo get_spacing_bottom_class(); ?>">
     <?php if($has_background_color) : ?>
-        <div class="bg-<?= $achtergrondkleur ?> pb-[160px] pt-[160px]"<?php echo $bg_style; ?>>
+        <div class="bg-<?= $achtergrondkleur ?> lg:pb-[160px] lg:pt-[160px] pb-[100px] pt-[100px]"<?php echo $bg_style; ?>>
     <?php endif; ?>
     <div class="container">
  
 
         <?php 
         if($soortBlock === 'intro') { ?>
-            <div class="w-full lg:w-6/12 ml-[calc(100%/12*2)] <?php echo esc_attr($text_color_class); ?>">
+            <div class="w-11/12 ml-[calc(100%/12*1)] lg:w-6/12 lg:ml-[calc(100%/12*2)] <?php echo esc_attr($text_color_class); ?>">
                 <?php if (!empty($tekst_label)) : ?>
                     <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
                 <?php endif; ?>

@@ -12,7 +12,7 @@ $swiper_setting = [];
 if(get_sub_field('slider')) {
     $swiper_setting = [
         'slidesPerView' => get_sub_field('aantal_slides')['aantal_slides_mobiel'] ?: 1.2,
-        'spaceBetween' => 32,
+        'spaceBetween' => 16,
         'pagination' => [
             'el' => '.swiper-pagination',
             'clickable' => true,
@@ -22,7 +22,7 @@ if(get_sub_field('slider')) {
             'prevEl' => '.swiper-prev',
         ],
         'breakpoints' => [
-            640 => ['slidesPerView' => get_sub_field('aantal_slides')['aantal_slides_mobiel'] ?: 1.2, 'spaceBetween' => 32],
+            640 => ['slidesPerView' => get_sub_field('aantal_slides')['aantal_slides_mobiel'] ?: 1.2, 'spaceBetween' => 16],
             768 => ['slidesPerView' => get_sub_field('aantal_slides')['aantal_slides_tablet'] ?: 3, 'spaceBetween' => 32],
             1024 => ['slidesPerView' => get_sub_field('aantal_slides')['aantal_slides_desktop'] ?: 4, 'spaceBetween' => 32],
         ],
@@ -30,7 +30,7 @@ if(get_sub_field('slider')) {
 }else {
   $swiper_setting = [
         'slidesPerView' => 1.2,
-        'spaceBetween' => 32,
+        'spaceBetween' => 16,
         'pagination' => [
             'el' => '.swiper-pagination',
             'clickable' => true,
@@ -40,7 +40,7 @@ if(get_sub_field('slider')) {
             'prevEl' => '.swiper-prev',
         ],
         'breakpoints' => [
-            640 => ['slidesPerView' => 1.2, 'spaceBetween' => 32],
+            640 => ['slidesPerView' => 1.2, 'spaceBetween' => 16],
             768 => ['slidesPerView' => 3, 'spaceBetween' => 32],
             1024 => ['slidesPerView' => 4, 'spaceBetween' => 32],
         ],
@@ -77,7 +77,7 @@ $backgroundPatroon = 'pink';
 
           <?php if (get_sub_field('soort_items') == 'posts' && get_sub_field('slider') || get_sub_field('soort_items') == 'eigen' && get_sub_field('slider') || get_sub_field('soort_items') == 'tijdlijn' && get_sub_field('slider')): ?>
           <?php $cards_rand_class = 'cards-grid-' . wp_rand(1000, 9999); ?>
-          <div class="swiper-controls flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 <?= esc_attr($cards_rand_class); ?>-controls">
+          <div class="swiper-controls hidden md:flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 <?= esc_attr($cards_rand_class); ?>-controls">
             <div class="w-full lg:w-auto flex items-center gap-6">
               <div class="w-[235px] h-[2px] relative overflow-hidden bg-[#161616]/20">
                 <span class="<?= esc_attr($cards_rand_class); ?>-progress absolute left-0 top-0 h-full bg-primary transition-transform duration-300" style="width: 90.7336px; transform: translateX(0px);"></span>

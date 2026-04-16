@@ -28,10 +28,10 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
 
 <section id="<?= esc_attr($block_id); ?>" class="expertises <?php echo get_spacing_bottom_class(); ?> <?php if(!is_front_page()) { echo 'pt-[140px]';} ?>">
     <?php if($achtergrond) : ?>
-        <div class="bg-<?= $achtergrond ?> pb-[120px]">
+        <div class="bg-<?= $achtergrond ?> pb-[60px] lg:pb-[120px]">
     <?php endif; ?>
     <div class="container">
-        <div class="expertises_title <?= $tekst_kleur ?> mb-[48px]">
+        <div class="expertises_title <?= $tekst_kleur ?> mb-[28px] lg:mb-[48px]">
             <?= get_sub_field('titel') ?>
         </div>
         <?php if ($is_groot) : ?>
@@ -44,7 +44,7 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
                 <?php $thumbnail_url = advice2025_get_term_thumbnail_url($expertise, 'large'); ?>
                 <a
                     href="<?= get_term_link($expertise->term_id); ?>"
-                    class="expertise border <?= $border_kleur ?> p-[32px] <?= $tekst_kleur ?> <?php if ($is_groot) { echo 'js-expertise-hover-trigger'; } ?>"
+                    class="expertise border <?= $border_kleur ?> p-[28px] lg:p-[32px] <?= $tekst_kleur ?> <?php if ($is_groot) { echo 'js-expertise-hover-trigger'; } ?>"
                     <?php if ($is_groot && !empty($thumbnail_url)) : ?>
                         data-hover-image="<?= esc_url($thumbnail_url); ?>"
                     <?php endif; ?>
@@ -54,7 +54,7 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
                     <?= get_field('icoon', 'expertise_' . $expertise->term_id); ?>
                 </div>
                 
-                <h4 class="expertise_title mb-[132px]!">
+                <h4 class="expertise_title mb-[40px]! lg:mb-[132px]!">
                         <?= $expertise->name ?>
                     </h4>
 
@@ -77,14 +77,14 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
             <?php endforeach; ?>
 
             <?php if (!$is_groot && !empty($remaining_expertises)) : ?>
-                <div class="expertises_overige border border-[rgba(247,245,240,0.12)] rounded-lg p-[32px] text-white flex flex-col justify-between">
+                <div class="expertises_overige border border-[rgba(247,245,240,0.12)] p-[28px] lg:p-[32px] text-white flex flex-col justify-between">
                 <div>
                 <div class="expertise__icoon mb-[20px]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
   <path d="M30.8571 1.14286V14.8571H16V1.14286H30.8571ZM30.8571 16V30.8571H16V16H30.8571ZM14.8571 14.8571H1.14286V1.14286H14.8571V14.8571ZM1.14286 16H14.8571V30.8571H1.14286V16ZM1.14286 0H0V32H32V0H1.14286Z" fill="#EC663C"/>
 </svg>
                 </div>    
-                <h4 class="expertise_title mb-[132px]!">Alle expertises</h4>
+                <h4 class="expertise_title mb-[40px]! lg:mb-[132px]!">Alle expertises</h4>
                 </div>
                     <ul class="space-y-[10px]">
                         <?php foreach ($remaining_expertises as $expertise) : ?>

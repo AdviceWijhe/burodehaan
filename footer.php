@@ -1,5 +1,6 @@
+<div class="max-md:pt-[40px]">
 <?= get_template_part('blocks/cta', null, array('cta_type' => 'default', 'cta_buttons' => get_field('footer_cta', 'option'))) ?>
-
+</div>
 <footer id="colophon" class="site-footer mt-auto relative overflow-hidden w-full bg-black text-white">
     <?php
     $expertises = get_terms(array(
@@ -30,72 +31,153 @@
         ));
         $locations = !empty($fallback_location) ? array($fallback_location) : array();
     }
+    $footer_accordion_prefix = 'footer-accordion-' . uniqid();
     ?>
 
     <div class="w-full px-[20px] lg:px-[60px] py-[80px] lg:pt-[100px] lg:pb-[40px]">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-[60px] gap-x-[80px]">
-            <div class="grid grid-cols-1 gap-y-[120px]">
-                <div>
-                    <h6 class="mb-5 text-white title-small">Expertises</h6>
-                    <?php if (!is_wp_error($expertises) && !empty($expertises)) : ?>
-                        <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
-                            <?php foreach ($expertises as $expertise) : ?>
-                                <li>
-                                    <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_term_link($expertise)); ?>">
-                                        <?php echo esc_html($expertise->name); ?>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php endif; ?>
+        <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-y-[60px] gap-x-[80px]">
+            <div class="grid grid-cols-1 lg:gap-y-[120px]">
+                <?php
+                $expertises_content_id = $footer_accordion_prefix . '-expertises';
+                $themas_content_id = $footer_accordion_prefix . '-themas';
+                ?>
+                <div class="footer-accordion-item" data-footer-accordion-item>
+                    <button
+                        type="button"
+                        class="mb-5 flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
+                        aria-expanded="false"
+                        aria-controls="<?php echo esc_attr($expertises_content_id); ?>"
+                        data-footer-accordion-trigger
+                    >
+                        <span class="title-small">Expertises</span>
+                        <svg class="h-3 w-3 shrink-0 transition-transform duration-300 md:hidden" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" data-footer-accordion-icon>
+                            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                    </button>
+                    <div
+                        id="<?php echo esc_attr($expertises_content_id); ?>"
+                        class="footer-accordion-content max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out md:max-h-none md:overflow-visible md:transition-none"
+                        aria-hidden="true"
+                        data-footer-accordion-content
+                    >
+                        <?php if (!is_wp_error($expertises) && !empty($expertises)) : ?>
+                            <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
+                                <?php foreach ($expertises as $expertise) : ?>
+                                    <li>
+                                        <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_term_link($expertise)); ?>">
+                                            <?php echo esc_html($expertise->name); ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
                 </div>
 
-                <div>
-                    <h6 class="mb-5 text-white title-small">Thema's</h6>
-                    <?php if (!is_wp_error($themas) && !empty($themas)) : ?>
-                        <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
-                            <?php foreach ($themas as $thema) : ?>
-                                <li>
-                                    <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_term_link($thema)); ?>">
-                                        <?php echo esc_html($thema->name); ?>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php endif; ?>
+                <div class="footer-accordion-item" data-footer-accordion-item>
+                    <button
+                        type="button"
+                        class="mb-5 flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
+                        aria-expanded="false"
+                        aria-controls="<?php echo esc_attr($themas_content_id); ?>"
+                        data-footer-accordion-trigger
+                    >
+                        <span class="title-small">Thema's</span>
+                        <svg class="h-3 w-3 shrink-0 transition-transform duration-300 md:hidden" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" data-footer-accordion-icon>
+                            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                    </button>
+                    <div
+                        id="<?php echo esc_attr($themas_content_id); ?>"
+                        class="footer-accordion-content max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out md:max-h-none md:overflow-visible md:transition-none"
+                        aria-hidden="true"
+                        data-footer-accordion-content
+                    >
+                        <?php if (!is_wp_error($themas) && !empty($themas)) : ?>
+                            <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
+                                <?php foreach ($themas as $thema) : ?>
+                                    <li>
+                                        <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_term_link($thema)); ?>">
+                                            <?php echo esc_html($thema->name); ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-x-[50px] gap-y-[50px]">
-                <div class="col-span-1 md:col-span-2">
-                    <h6 class="mb-5 text-white title-small">Navigeer</h6>
-                    <?php
-                    if (has_nav_menu('footer-menu-1')) {
-                        wp_nav_menu(array(
-                            'theme_location' => 'footer-menu-1',
-                            'container' => false,
-                            'menu_class' => 'space-y-[28px] list-medium text-white/70',
-                            'fallback_cb' => false,
-                        ));
-                    }
-                    ?>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-x-[50px] lg:gap-y-[50px]">
+                <?php
+                $navigeer_content_id = $footer_accordion_prefix . '-navigeer';
+                $over_ons_content_id = $footer_accordion_prefix . '-over-ons';
+                ?>
+                <div class="col-span-1 md:col-span-2 footer-accordion-item" data-footer-accordion-item>
+                    <button
+                        type="button"
+                        class="mb-5 flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
+                        aria-expanded="false"
+                        aria-controls="<?php echo esc_attr($navigeer_content_id); ?>"
+                        data-footer-accordion-trigger
+                    >
+                        <span class="title-small">Navigeer</span>
+                        <svg class="h-3 w-3 shrink-0 transition-transform duration-300 md:hidden" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" data-footer-accordion-icon>
+                            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                    </button>
+                    <div
+                        id="<?php echo esc_attr($navigeer_content_id); ?>"
+                        class="footer-accordion-content max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out md:max-h-none md:overflow-visible md:transition-none"
+                        aria-hidden="true"
+                        data-footer-accordion-content
+                    >
+                        <?php
+                        if (has_nav_menu('footer-menu-1')) {
+                            wp_nav_menu(array(
+                                'theme_location' => 'footer-menu-1',
+                                'container' => false,
+                                'menu_class' => 'space-y-[28px] list-medium text-white/70',
+                                'fallback_cb' => false,
+                            ));
+                        }
+                        ?>
+                    </div>
                 </div>
 
-                <div class="col-span-1 md:col-span-3">
-                    <h6 class="mb-5 text-white title-small">Over ons</h6>
-                    <?php
-                    if (has_nav_menu('footer-menu-2')) {
-                        wp_nav_menu(array(
-                            'theme_location' => 'footer-menu-2',
-                            'container' => false,
-                            'menu_class' => 'space-y-[28px] list-medium text-white/70',
-                            'fallback_cb' => false,
-                        ));
-                    }
-                    ?>
+                <div class="col-span-1 md:col-span-3 footer-accordion-item" data-footer-accordion-item>
+                    <button
+                        type="button"
+                        class="mb-5 flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
+                        aria-expanded="false"
+                        aria-controls="<?php echo esc_attr($over_ons_content_id); ?>"
+                        data-footer-accordion-trigger
+                    >
+                        <span class="title-small">Over ons</span>
+                        <svg class="h-3 w-3 shrink-0 transition-transform duration-300 md:hidden" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" data-footer-accordion-icon>
+                            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                    </button>
+                    <div
+                        id="<?php echo esc_attr($over_ons_content_id); ?>"
+                        class="footer-accordion-content max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out md:max-h-none md:overflow-visible md:transition-none"
+                        aria-hidden="true"
+                        data-footer-accordion-content
+                    >
+                        <?php
+                        if (has_nav_menu('footer-menu-2')) {
+                            wp_nav_menu(array(
+                                'theme_location' => 'footer-menu-2',
+                                'container' => false,
+                                'menu_class' => 'space-y-[28px] list-medium text-white/70',
+                                'fallback_cb' => false,
+                            ));
+                        }
+                        ?>
+                    </div>
                 </div>
 
-                <div class="md:col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-5 gap-x-[28px] mt-[140px]">
+                <div class="md:col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-5 gap-x-[28px] mt-[60px] lg:mt-[140px]">
                     <?php 
                     $query = new WP_Query(array(
                         'post_type' => 'locatie',
@@ -165,8 +247,8 @@
             </div>
         </div>
 
-        <div class="mt-[120px] grid grid-cols-1 lg:grid-cols-12 gap-[40px] relative flex flex-col lg:flex-row lg:items-center gap-y-8">
-            <div class="flex items-center gap-4 col-span-1 lg:col-span-5">
+        <div class="mt-[80px] lg:mt-[120px] grid grid-cols-1 lg:grid-cols-12 gap-[40px] relative flex flex-col lg:flex-row lg:items-center gap-y-8">
+            <div class="flex items-center justify-center lg:justify-start gap-4 col-span-1 lg:col-span-5">
                 <?php if (!empty($socials) && is_array($socials)) : ?>
                     <?php foreach ($socials as $social) : ?>
                         <?php
@@ -199,21 +281,21 @@
             <div class="flex items-center justify-center col-span-1 lg:col-span-2 ">
                 <?php
                 if (is_numeric($footer_logo)) {
-                    echo wp_get_attachment_image((int) $footer_logo, 'full', false, array('class' => 'h-[160px] w-auto object-contain'));
+                    echo wp_get_attachment_image((int) $footer_logo, 'full', false, array('class' => 'h-[100px] lg:h-[160px] w-auto object-contain'));
                 } elseif (is_array($footer_logo) && !empty($footer_logo['url'])) {
                     ?>
-                    <img class="h-[160px] w-auto object-contain" src="<?php echo esc_url($footer_logo['url']); ?>" alt="<?php echo esc_attr($footer_logo['alt'] ?? get_bloginfo('name')); ?>">
+                    <img class="h-[100px] lg:h-[160px] w-auto object-contain" src="<?php echo esc_url($footer_logo['url']); ?>" alt="<?php echo esc_attr($footer_logo['alt'] ?? get_bloginfo('name')); ?>">
                     <?php
                 } elseif (is_string($footer_logo) && !empty($footer_logo)) {
                     ?>
-                    <img class="h-[160px] w-auto object-contain" src="<?php echo esc_url($footer_logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
+                    <img class="h-[100px] lg:h-[160px] w-auto object-contain" src="<?php echo esc_url($footer_logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
                     <?php
                 }
                 ?>
             </div>
 
-            <div class="w-full lg:w-auto lg:max-w-[429px] lg:ml-auto col-span-1 lg:col-span-5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="429" height="32" viewBox="0 0 429 32" fill="none">
+            <div class="w-full mx-auto max-w-[260px] lg:w-auto lg:max-w-[429px] lg:ml-auto col-span-1 lg:col-span-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="32" viewBox="0 0 429 32" fill="none">
                     <path d="M396.138 0L409.931 13.7931H414.345V18.2069L428.138 32V0H396.138Z" fill="white"/>
                     <path d="M409.931 13.7931L428.138 0L414.345 13.7931H409.931Z" fill="#E0E0DF"/>
                     <path d="M414.345 13.7931L428.138 0L414.345 18.2069V13.7931Z" fill="#EFEFF0"/>
@@ -249,11 +331,11 @@
             </div>
         </div>
 
-        <div class="mt-[70px] pt-6 border-t border-white/10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <div class="mt-[70px] pt-6 border-t border-white/10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 text-center">
             <div>
                 <p class="body-small mb-0! !text-white !font-normal">Alle rechten voorbehouden Buro De Haan</p>
             </div>
-            <div class="flex items-center gap-2 text-white/70 lg:ml-auto">
+            <div class="flex flex-col lg:flex-row items-center gap-2 text-white/70 lg:ml-auto">
                 <span class="body-small">Ontworpen en ontwikkeld door</span>
                 <a href="https://advice.nl" target="_blank" rel="noopener noreferrer" aria-label="Ga naar Advice.nl">
                 <svg xmlns="http://www.w3.org/2000/svg" width="216" height="14" viewBox="0 0 216 14" fill="none">
@@ -558,6 +640,79 @@ if (!empty($popups)) :
     <?php
 endif;
 ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var accordionItems = document.querySelectorAll('[data-footer-accordion-item]');
+    if (!accordionItems.length) {
+        return;
+    }
+
+    var mobileQuery = window.matchMedia('(max-width: 767px)');
+
+    function setItemState(item, isExpanded) {
+        var trigger = item.querySelector('[data-footer-accordion-trigger]');
+        var content = item.querySelector('[data-footer-accordion-content]');
+        var icon = item.querySelector('[data-footer-accordion-icon]');
+        if (!trigger || !content) {
+            return;
+        }
+
+        trigger.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        content.setAttribute('aria-hidden', isExpanded ? 'false' : 'true');
+        content.style.maxHeight = isExpanded ? content.scrollHeight + 'px' : '0px';
+
+        if (icon) {
+            icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+    }
+
+    function applyViewportState() {
+        if (mobileQuery.matches) {
+            accordionItems.forEach(function (item) {
+                setItemState(item, false);
+            });
+            return;
+        }
+
+        accordionItems.forEach(function (item) {
+            var trigger = item.querySelector('[data-footer-accordion-trigger]');
+            var content = item.querySelector('[data-footer-accordion-content]');
+            var icon = item.querySelector('[data-footer-accordion-icon]');
+            if (!trigger || !content) {
+                return;
+            }
+
+            trigger.setAttribute('aria-expanded', 'true');
+            content.setAttribute('aria-hidden', 'false');
+            content.style.maxHeight = 'none';
+            if (icon) {
+                icon.style.transform = 'rotate(0deg)';
+            }
+        });
+    }
+
+    accordionItems.forEach(function (item) {
+        var trigger = item.querySelector('[data-footer-accordion-trigger]');
+        var content = item.querySelector('[data-footer-accordion-content]');
+        if (!trigger || !content) {
+            return;
+        }
+
+        trigger.addEventListener('click', function () {
+            if (!mobileQuery.matches) {
+                return;
+            }
+
+            var isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+            setItemState(item, !isExpanded);
+        });
+    });
+
+    applyViewportState();
+    window.addEventListener('resize', applyViewportState);
+});
+</script>
 
 <?php wp_footer(); ?>
 

@@ -68,12 +68,12 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
 <!-- Image + Text Block -->
 <div id="<?php echo esc_attr($block_id); ?>" class="js-image-text <?php echo $background_color === '' ? 'js-image-text--bg-empty' : ''; ?> <?php echo get_spacing_bottom_class(); ?> lg:relative flex flex-col lg:flex-row">
   <!-- <div class="order-2 lg:absolute lg:order-none js-image-text-extend left-0 lg:left-auto lg:right-0 bottom-[60px] lg:top-[0px] lg:bottom-auto w-full h-[60px] lg:h-full bg-gray-100 <?php echo $content_first ? '' : 'hidden'; ?>" id="extend-element-<?php echo esc_attr($block_id); ?>"></div> -->
-    <div class="container mx-auto px-[20px] lg:px-0! order-1 lg:order-none">
+    <div class="container mx-auto max-md:px-0! lg:px-0! order-1 lg:order-0">
 		<div class="js-it-row flex flex-col-reverse lg:flex-row <?php echo $background_color === '' ? 'items-center' : 'items-stretch'; ?> order-1">
             
-           
+
             
-            <div class="js-it-content relative w-full pt-[40px] lg:pt-[60px] overflow-hidden default-content <?php if($background_color) { echo 'flex flex-col justify-center items-start';} ?>  lg:py-[60px]  text-<?= $text_color ?>  <?php echo $content_first ? 'order-1 lg:order-1' : 'order-1 lg:order-2'; ?> <?php echo $content_margin; ?> <?= $text_width ?>">
+            <div class="js-it-content max-md:px-[20px]! relative w-full pt-[40px] lg:pt-[60px] overflow-hidden default-content <?php if($background_color) { echo 'flex flex-col justify-center items-start';} ?>  lg:py-[60px]  text-<?= $text_color ?>  <?php echo $content_first ? 'order-1 lg:order-1' : 'order-1 lg:order-2'; ?> <?php echo $content_margin; ?> <?= $text_width ?>">
               <div class="bg-<?php echo $background_color; ?> absolute w-full <?php echo $content_first ? 'right-0' : 'left-0'; ?> top-0 h-full"></div>
                 
                 <?php if ($label) : ?>
