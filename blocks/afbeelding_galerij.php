@@ -10,7 +10,7 @@ $afbeeldingen = get_sub_field('afbeeldingen');
                 <div class="swiper-wrapper">
                     <?php foreach($afbeeldingen as $afbeelding) : ?>
                         <div class="swiper-slide">
-                            <div class=" h-[700px]">
+                            <div class=" h-[200px] lg:h-[700px]">
                             <?php echo wp_get_attachment_image($afbeelding['ID'], 'large', false, array('class' => 'w-full h-full object-cover object-center')); ?>
                             </div>
                         </div>

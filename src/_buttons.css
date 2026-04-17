@@ -8,10 +8,16 @@
     border-radius: 0px;
     display: inline-flex;
     align-items: center;
-    padding: 24px;
+    justify-content: center;
+    padding: 20px;
     font-weight: 500 !important;
     color: var(--color-white);
     /* box-shadow: var(--shadow-md); */
+
+    @media (min-width: 1024px) {
+        padding: 24px;
+        justify-content: flex-start;
+    }
 
     &:hover {
       @media (hover: hover) {

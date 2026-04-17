@@ -709,6 +709,11 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
 
     // End Element
     function end_el(&$output, $item, $depth = 0, $args = null) {
+        // Always reset expertise flag after each top-level item, regardless of whether
+        // start_lvl/end_lvl were called (they are skipped when children array is empty).
+        if ($depth === 0) {
+            $this->is_mobile_expertises = false;
+        }
         $output .= "</li>\n";
     }
 }

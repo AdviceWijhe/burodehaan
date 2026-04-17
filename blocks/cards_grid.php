@@ -231,7 +231,7 @@ $backgroundPatroon = 'pink';
   <?php endif; ?>
  
   <?php if(get_sub_field('buttons')) : ?>
-            <div class="block lg:hidden mt-[24px]">
+            <div class="flex justify-center lg:hidden mt-[24px]">
               <?php get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'no_margin' => true)); ?>
             </div>
           <?php endif; ?>

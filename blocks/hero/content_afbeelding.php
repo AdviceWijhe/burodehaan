@@ -5,13 +5,13 @@ $content = get_sub_field('content');
 $subtitle = get_sub_field('label');
 ?>
 
-<section class="hero__content_afbeelding bg-secondary relative mb-[160px]">
-<div class="hero__content--image absolute top-0 left-0 lg:w-[calc(50%-14px)] h-full">
+<section class="hero__content_afbeelding bg-secondary relative mb-[60px] lg:mb-[160px]">
+<div class="hero__content--image lg:absolute lg:top-0 lg:left-0 lg:w-[calc(50%-14px)] h-full">
  <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" class="w-full h-full object-cover object-center">
 </div>
 
 <div class="container">
-    <div class="hero__content--content w-full lg:w-1/2 ml-auto lg:p-[80px]">
+    <div class="hero__content--content max-md:py-[40px] w-full lg:w-1/2 ml-auto lg:p-[80px]">
         <div class="hero__content--content-inner">
             <div class="hero__content--content-inner-label mb-[20px]">
                 <p class="label label-large text-primary mb-0!"><?php echo $subtitle; ?></p>

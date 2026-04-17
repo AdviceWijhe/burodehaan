@@ -15,8 +15,8 @@ if(get_post_type() == 'project') {
 <main id="main" class="site-main">
     
 
-    <div class="post-header bg-black pt-[100px] mb-[160px] ">
-        <div class="container pb-[120px]">
+    <div class="post-header bg-black pt-[60px] lg:pt-[100px] mb-[40px] lg:mb-[160px] ">
+        <div class="container pb-[80px] lg:pb-[120px]">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
                 <div class="w-full lg:col-span-8 lg:col-start-3">
                     <p class="label-large text-primary mb-[20px]!"><?= $label; ?></p>
@@ -29,21 +29,21 @@ if(get_post_type() == 'project') {
             <div class="bg-secondary">
                 <div class="container py-[32px]!">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
-                        <div class="col-span-1 lg:col-span-8 lg:col-start-3 flex gap-[120px] items-center">
+                        <div class="col-span-1 lg:col-span-8 lg:col-start-3 flex gap-y-[40px] flex-wrap lg:gap-[120px] lg:items-center">
                         <?php if(get_field('project_informatie', get_the_ID())['locatie']) : ?>    
-                        <div class="">
+                        <div class="w-1/2 lg:w-auto">
                                 <p class="label label-large mb-[20px]!">Locatie</p>
                                 <p class="mb-0!"><?= get_field('project_informatie', get_the_ID())['locatie']; ?></p>
                             </div>
                             <?php endif; ?>
                             <?php if(get_field('project_informatie', get_the_ID())['opdrachtgever']) : ?>
-                            <div class="">
+                            <div class="w-1/2 lg:w-auto">
                                 <p class="label label-large mb-[20px]!">Opdrachtgever</p>
                                 <p class="mb-0!"><?= get_field('project_informatie', get_the_ID())['opdrachtgever']; ?></p>
                             </div>
                             <?php endif; ?>
                             <?php if(get_field('project_informatie', get_the_ID())['bouwjaar']) : ?>
-                            <div class="">
+                            <div class="w-1/2 lg:w-auto">
                                 <p class="label label-large mb-[20px]!">Bouwjaar</p>
                                 <p class="mb-0!"><?= get_field('project_informatie', get_the_ID())['bouwjaar']; ?></p>
                             </div>
@@ -51,7 +51,7 @@ if(get_post_type() == 'project') {
                             <?php if(get_field('project_informatie', get_the_ID())['overige']) : ?>
                                 
                                 <?php foreach(get_field('project_informatie', get_the_ID())['overige'] as $overig) : ?>
-                                    <div class="">
+                                    <div class="w-1/2 lg:w-auto">
                                         <p class="label label-large mb-[20px]!"><?= $overig['label']; ?></p>
                                         <p class="mb-0!"><?= $overig['waarde']; ?></p>
                                     </div>
@@ -60,7 +60,7 @@ if(get_post_type() == 'project') {
                             <?php endif; ?>
                         </div>
                         <div class="w-full lg:col-span-2 lg:col-start-11">
-                            <a href="#gallerij" class="btn border border-black text-black gap-[14px]">Direct naar gallerij <svg xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
+                            <a href="#gallerij" class="btn border w-full lg:w-auto border-black text-black gap-[14px]">Direct naar gallerij <svg xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
   <rect x="19.9996" width="2.22222" height="2.22222" transform="rotate(90 19.9996 0)" fill="#161616"/>
   <rect x="8.148" y="5.92578" width="2.22222" height="2.22222" transform="rotate(90 8.148 5.92578)" fill="#161616"/>
   <rect x="5.18511" y="2.96094" width="2.22222" height="2.22222" transform="rotate(90 5.18511 2.96094)" fill="#161616"/>
@@ -75,7 +75,7 @@ if(get_post_type() == 'project') {
             </div>
 
         <?php endif; ?>
-        <div class="post-header-image h-[650px]">
+        <div class="post-header-image h-[200px] lg:h-[650px]">
           
             <img src="<?= get_field('header_afbeelding', get_the_ID())['sizes']['1536x1536']; ?>" alt="<?= get_field('header_afbeelding', get_the_ID())['alt']; ?>" class="w-full h-full object-cover">
         </div>

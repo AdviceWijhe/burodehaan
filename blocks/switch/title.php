@@ -1,7 +1,7 @@
 <section class="switch__title <?php echo get_spacing_bottom_class(); ?>">
     <div class="container">
-        <div class="flex gap-[28px]">
-            <div class="w-full lg:w-5/12 ml-[calc(100%/12)] lg:pr-[10%]">
+        <div class="flex flex-col lg:flex-row gap-[28px]">
+            <div class="w-full lg:w-5/12 lg:ml-[calc(100%/12)] lg:pr-[10%]">
                 <p class="label label-large text-primary mb-[20px]!"><?php echo get_sub_field('label'); ?></p>
                 <div><?php echo get_sub_field('titel'); ?></div>
             </div>

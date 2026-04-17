@@ -16,10 +16,10 @@ $filter_panel_taxonomies = array(
 
 <main id="main" class="site-main">
 
-<div class="container mx-auto mb-[28px] pt-[60px] lg:pt-[120px]">
+<div class="container mx-auto mb-[60px] lg:mb-[28px] pt-[60px] lg:pt-[120px]">
     <div class="flex flex-col lg:flex-row lg:items-center justify-between">
 
-            <h1 class="headline-large">
+            <h1 class="headline-large mb-[28px]! lg:mb-0!">
                 Onze <b><?= $title; ?>.</b>
             </h1>
 

@@ -4,10 +4,10 @@
 <div class="container">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
         <?php endif; ?>
-  <div class="min-h-[580px] lg:min-h-[700px] relative flex items-end max-md:p-0! <?php if(is_single()) : ?>col-span-1 lg:col-span-10 lg:col-start-2<?php endif; ?>">
-    <div class="absolute h-full w-[300px] z-1 bottom-0 left-0" style="opacity: 0.5;
+  <div class="min-h-[280px] lg:min-h-[700px] relative flex items-end max-md:p-0! <?php if(is_single()) : ?>col-span-1 lg:col-span-10 lg:col-start-2<?php endif; ?>">
+    <div class="absolute h-full w-[200px] lg:w-[300px] z-1 bottom-0 left-0" style="opacity: 0.5;
 background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></div>
-    <div class="absolute h-[400px] w-full z-1 bottom-0 left-0" style="background: linear-gradient(180deg, rgba(22, 22, 22, 0.00) 0%, #161616 100%);"></div>
+    <div class="absolute h-[200px] lg:h-[400px] w-full z-1 bottom-0 left-0" style="background: linear-gradient(180deg, rgba(22, 22, 22, 0.00) 0%, #161616 100%);"></div>
 
     <div class="absolute h-full w-full overflow-hidden">
       <?php 

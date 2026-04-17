@@ -212,7 +212,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                     <?php endif; ?>
                 </div>
                 <?php if ($show_sidebar) : ?>
-                    <aside class="w-full mt-[40px] lg:mt-0 lg:col-span-3 lg:col-start-9 text-black">
+                    <aside class="w-full lg:mt-0 lg:col-span-3 lg:col-start-9 text-black order-first lg:order-last">
                         <?php if ($show_sidebar_author && $sidebar_author_post > 0) : ?>
                             <div class="mb-[32px]">
                                 <p class="label-medium mb-[16px]!">Geschreven door</p>

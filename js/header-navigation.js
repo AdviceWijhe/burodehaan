@@ -438,6 +438,14 @@ class HeaderNavigation {
     hideSubpanel(subpanel) {
         subpanel.classList.remove('opacity-100', 'visible', 'translate-x-0');
         subpanel.classList.add('opacity-0', 'invisible', 'translate-x-full');
+
+        // Reset all dropdown arrows when going back to the main menu
+        const mobileMenuRoot = document.getElementById('mobile-primary-menu');
+        if (mobileMenuRoot) {
+            mobileMenuRoot.querySelectorAll('.mobile-dropdown-arrow').forEach(arrow => {
+                arrow.style.transform = '';
+            });
+        }
     }
     
     /**

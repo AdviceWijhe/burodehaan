@@ -26,7 +26,7 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
 ?>
 
 
-<section id="<?= esc_attr($block_id); ?>" class="expertises <?php echo get_spacing_bottom_class(); ?> <?php if(!is_front_page()) { echo 'pt-[140px]';} ?>">
+<section id="<?= esc_attr($block_id); ?>" class="expertises <?php echo get_spacing_bottom_class(); ?> <?php if(!is_front_page()) { echo 'pt-[60px] lg:pt-[140px]';} ?>">
     <?php if($achtergrond) : ?>
         <div class="bg-<?= $achtergrond ?> pb-[60px] lg:pb-[120px]">
     <?php endif; ?>

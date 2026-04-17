@@ -59,7 +59,7 @@ if(is_tax()) {
                     'theme_location' => 'primary',
                     'menu_id'        => 'mobile-primary-menu',
                     'container'      => false,
-                    'menu_class'     => 'mobile-menu-list pt-[100px]',
+                    'menu_class'     => 'mobile-menu-list',
                     'fallback_cb'    => false,
                     'walker'         => new Advice2025_Mobile_Nav_Walker(),
                     'depth'          => 3,

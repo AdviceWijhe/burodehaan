@@ -47,7 +47,7 @@ if (is_array($header_image) && !empty($header_image['url'])) {
             </div>
         </div>
     <?php else : ?>
-        <div class="tax-header bg-black pt-[100px] mb-[160px]">
+        <div class="tax-header bg-black pt-[60px] lg:pt-[100px] mb-[40px] lg:mb-[160px]">
             <div class="container">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
                 <div class="w-full lg:col-span-6 lg:col-start-3">
