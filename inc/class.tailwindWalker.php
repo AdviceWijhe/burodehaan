@@ -451,7 +451,7 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
 
         $out  = "\n$indent<div class=\"mobile-dropdown overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0\">\n";
         $out .= "$indent\t<div class=\"pt-2 pb-4\">\n";
-        $out .= "$indent\t\t<ul class=\"space-y-0 max-h-[70vh] overflow-y-auto overscroll-contain\" data-mobile-dropdown-list data-mobile-dropdown-id=\"{$dropdown_id_attr}\">\n";
+        $out .= "$indent\t\t<ul class=\"space-y-3 max-h-[70vh] list-none! overflow-y-auto overscroll-contain\" data-mobile-dropdown-list data-mobile-dropdown-id=\"{$dropdown_id_attr}\">\n";
 
         if ( is_wp_error( $expertises ) || empty( $expertises ) ) {
             $out .= "$indent\t\t\t<li><span class=\"block px-[20px] py-[20px] text-[#161616]\">Er zijn momenteel geen expertises beschikbaar.</span></li>\n";
@@ -467,27 +467,43 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
                 $icon  = get_field( 'icoon', 'expertise_' . $expertise->term_id );
                 $title = $expertise->name ?? '';
 
-                $out .= "$indent\t\t\t<li>\n";
-                $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $term_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item block py-[20px] border-b border-light-blue/20 transition-all duration-300 hover:bg-light-blue/25\">\n";
-                $out .= "$indent\t\t\t\t\t<div class=\"flex items-center gap-3 px-[20px]\">\n";
-
+                $out .= "$indent\t\t\t<li class=\"list-none!\">\n";
+                $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $term_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item relative block min-h-[120px] border border-[rgba(22,22,22,0.12)] bg-white px-[24px] py-[20px] transition-colors duration-300 hover:bg-[#FAFAFA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
                 if ( ! empty( $icon ) ) {
-                    $out .= "$indent\t\t\t\t\t\t<span class=\"text-[#EC663C] flex-shrink-0 w-6 h-6 flex items-center justify-center\">" . $this->sanitize_expertise_icon_markup( (string) $icon ) . "</span>\n";
+                    $out .= "$indent\t\t\t\t\t<span class=\"absolute left-[24px] top-[16px] text-[#EC663C]\">" . $this->sanitize_expertise_icon_markup( (string) $icon ) . "</span>\n";
                 }
-
-                $out .= "$indent\t\t\t\t\t\t<span class=\"text-black\">" . esc_html( $title ) . "</span>\n";
-                $out .= "$indent\t\t\t\t\t</div>\n";
+                $out .= "$indent\t\t\t\t\t<span class=\"absolute right-[24px] top-1/2 -translate-y-1/2\" aria-hidden=\"true\">\n";
+                $out .= "$indent\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
+                $out .= "$indent\t\t\t\t\t\t\t<rect width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+                $out .= "$indent\t\t\t\t\t\t\t<rect x=\"5.92578\" y=\"11.8521\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+                $out .= "$indent\t\t\t\t\t\t\t<rect x=\"2.96094\" y=\"14.8149\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+                $out .= "$indent\t\t\t\t\t\t\t<rect y=\"17.7778\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+                $out .= "$indent\t\t\t\t\t\t\t<rect x=\"2.96094\" y=\"2.96289\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+                $out .= "$indent\t\t\t\t\t\t\t<rect x=\"8.89062\" y=\"8.88916\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+                $out .= "$indent\t\t\t\t\t\t\t<rect x=\"5.92578\" y=\"5.92578\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+                $out .= "$indent\t\t\t\t\t\t</svg>\n";
+                $out .= "$indent\t\t\t\t\t</span>\n";
+                $out .= "$indent\t\t\t\t\t<span class=\"flex min-h-[80px] items-end pr-10 text-[24px] font-light leading-[1.2] text-[#161616]\" style=\"font-family: 'Fira Sans', sans-serif;\">" . esc_html( $title ) . "</span>\n";
                 $out .= "$indent\t\t\t\t</a>\n";
                 $out .= "$indent\t\t\t</li>\n";
             }
 
             // "Alle expertises" link
             $all_link = home_url( '/expertises' );
-            $out .= "$indent\t\t\t<li>\n";
-            $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $all_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item block py-[20px] transition-all duration-300 hover:bg-light-blue/25\">\n";
-            $out .= "$indent\t\t\t\t\t<div class=\"flex items-center gap-3 px-[20px]\">\n";
-            $out .= "$indent\t\t\t\t\t\t<span class=\"text-black font-medium\">Alle expertises</span>\n";
-            $out .= "$indent\t\t\t\t\t</div>\n";
+            $out .= "$indent\t\t\t<li class=\"list-none!\">\n";
+            $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $all_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item relative block min-h-[120px] border border-[rgba(22,22,22,0.12)] bg-white px-[24px] py-[20px] transition-colors duration-300 hover:bg-[#FAFAFA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+            $out .= "$indent\t\t\t\t\t<span class=\"absolute right-[24px] top-1/2 -translate-y-1/2\" aria-hidden=\"true\">\n";
+            $out .= "$indent\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
+            $out .= "$indent\t\t\t\t\t\t\t<rect width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $out .= "$indent\t\t\t\t\t\t\t<rect x=\"5.92578\" y=\"11.8521\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $out .= "$indent\t\t\t\t\t\t\t<rect x=\"2.96094\" y=\"14.8149\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $out .= "$indent\t\t\t\t\t\t\t<rect y=\"17.7778\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $out .= "$indent\t\t\t\t\t\t\t<rect x=\"2.96094\" y=\"2.96289\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $out .= "$indent\t\t\t\t\t\t\t<rect x=\"8.89062\" y=\"8.88916\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $out .= "$indent\t\t\t\t\t\t\t<rect x=\"5.92578\" y=\"5.92578\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
+            $out .= "$indent\t\t\t\t\t\t</svg>\n";
+            $out .= "$indent\t\t\t\t\t</span>\n";
+            $out .= "$indent\t\t\t\t\t<span class=\"flex min-h-[80px] items-end pr-10 text-[24px] font-light leading-[1.2] text-[#161616]\" style=\"font-family: 'Fira Sans', sans-serif;\">Alle expertises</span>\n";
             $out .= "$indent\t\t\t\t</a>\n";
             $out .= "$indent\t\t\t</li>\n";
         }
@@ -631,7 +647,7 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
         // Different styles for different depths
         if ($depth == 0) {
             // Top level items - mobile style
-            $link_classes = 'mobile-nav-link block px-[20px] py-[20px] text-black transition-all duration-300 flex items-center justify-between';
+            $link_classes = 'mobile-nav-link block border-b border-[rgba(22,22,22,0.12)] py-[24px] text-black transition-all duration-300 flex items-center justify-between';
             
             if ($has_children) {
                 $link_classes .= ' cursor-pointer';
@@ -640,7 +656,7 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
 			// Count items and add a hook class for styling
 			$this->mobile_dropdown_item_count++;
 			// Dropdown items - mobile card style
-			$link_classes = 'mobile-dropdown-link mobile-dropdown-item block  py-[20px] border-b border-light-blue/20 transition-all duration-300 hover:bg-light-blue/25';
+			$link_classes = 'mobile-dropdown-link mobile-dropdown-item block  py-[28px] border-b border-[rgba(22,22,22,0.12)] transition-all duration-300 hover:bg-light-blue/25';
         }
 
         // Add active class to the link if this item is current
@@ -684,7 +700,7 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
             // Content section
 			$item_output .= '<div class="mobile-content flex-1 min-w-0">';
             $item_output .= '<span class="text-black mb-1 flex items-center justify-between gap-2">'
-                . '<span class="truncate">' . apply_filters('the_title', $item->title, $item->ID) . '</span>'
+                . '<span class="">' . apply_filters('the_title', $item->title, $item->ID) . '</span>'
                 . '</span>';
             
             if ($description) {

@@ -59,7 +59,7 @@ if(is_tax()) {
                     'theme_location' => 'primary',
                     'menu_id'        => 'mobile-primary-menu',
                     'container'      => false,
-                    'menu_class'     => 'mobile-menu-list',
+                    'menu_class'     => 'mobile-menu-list px-[16px]',
                     'fallback_cb'    => false,
                     'walker'         => new Advice2025_Mobile_Nav_Walker(),
                     'depth'          => 3,
@@ -101,21 +101,29 @@ if(is_tax()) {
             <!-- Drilldown subpanel -->
             <div id="mobile-subpanel" class="absolute inset-0 bg-white z-50 opacity-0 invisible translate-x-full transition-all duration-300 ease-out overflow-y-auto">
                 <div class="flex items-center gap-3 p-4 bg-white mt-[24px]">
-                    <button id="mobile-subpanel-back" type="button" class="btn border border-[#131611] text-[#131611] px-[16px]! py-[12px]! flex gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-0!" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                            <circle cx="12.5" cy="12.5" r="12" transform="rotate(-180 12.5 12.5)" stroke="currentColor"/>
-                            <rect x="9.6182" y="12.7574" width="0.5" height="5.5" transform="rotate(-45 9.6182 12.7574)" fill="currentColor" stroke="currentColor" stroke-width="0.5"/>
-                            <rect x="9.6182" y="12.7574" width="5.5" height="0.5" transform="rotate(-45 9.6182 12.7574)" fill="currentColor" stroke="currentColor" stroke-width="0.5"/>
-                        </svg>
+                    <button id="mobile-subpanel-back" type="button" class="flex gap-3 items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9" fill="none">
+  <rect x="3.57129" y="2.85742" width="1.42857" height="1.42857" transform="rotate(-180 3.57129 2.85742)" fill="#161616"/>
+  <rect x="4.28564" y="2.14258" width="1.42857" height="1.42857" transform="rotate(-180 4.28564 2.14258)" fill="#161616"/>
+  <rect x="5" y="1.42863" width="1.42857" height="1.42857" transform="rotate(-180 5 1.42863)" fill="#161616"/>
+  <rect x="2.85693" y="3.57137" width="1.42857" height="1.42857" transform="rotate(-180 2.85693 3.57137)" fill="#161616"/>
+  <rect x="2.14307" y="4.28613" width="1.42857" height="1.42857" transform="rotate(-180 2.14307 4.28613)" fill="#161616"/>
+  <rect x="1.42871" y="5" width="1.42857" height="1.42857" transform="rotate(-180 1.42871 5)" fill="#161616"/>
+  <rect x="2.14307" y="5.71387" width="1.42857" height="1.42857" transform="rotate(-180 2.14307 5.71387)" fill="#161616"/>
+  <rect x="2.85693" y="6.42863" width="1.42857" height="1.42857" transform="rotate(-180 2.85693 6.42863)" fill="#161616"/>
+  <rect x="3.57129" y="7.14258" width="1.42857" height="1.42857" transform="rotate(-180 3.57129 7.14258)" fill="#161616"/>
+  <rect x="4.28564" y="7.85742" width="1.42857" height="1.42857" transform="rotate(-180 4.28564 7.85742)" fill="#161616"/>
+  <rect x="5" y="8.57137" width="1.42857" height="1.42857" transform="rotate(-180 5 8.57137)" fill="#161616"/>
+</svg>
                         <span>Terug</span>
                     </button>
                 </div>
                 <div class="px-[20px] pt-[20px]">
-                    <div class="border-b border-[#131611]/10">
-                        <a id="mobile-subpanel-title" href="#" class="title-medium text-[#131611] mb-[20px] hover:text-[#131611]/80 transition-colors flex items-center w-full justify-between"></a>
+                    <div class="">
+                        <a id="mobile-subpanel-title" href="#" class="headline-small mb-[20px] transition-colors flex items-center w-full justify-between"></a>
                     </div>
                 </div>
-                <div id="mobile-subpanel-content" class="px-[20px] space-y-3"></div>
+                <div id="mobile-subpanel-content" class="space-y-[16px] px-[16px]"></div>
             </div>
         </div>
         <?php if (function_exists('yoast_breadcrumb') && !is_front_page()) { ?>

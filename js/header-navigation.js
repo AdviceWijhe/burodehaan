@@ -279,6 +279,15 @@ class HeaderNavigation {
         this.mobileNavigation.classList.remove('opacity-0', 'invisible');
         this.mobileNavigation.classList.add('opacity-100', 'visible');
         this.updateMobileMenuMaxHeight();
+
+        const navWrapper = document.querySelector('.navigation-wrapper');
+        if (this.header) {
+            this.header.style.backgroundColor = '#ffffff';
+        }
+        if (navWrapper) {
+            navWrapper.classList.add('is-dropdown-open');
+            navWrapper.style.backgroundColor = '#ffffff';
+        }
         
         this.mobileMenuButton.setAttribute('aria-expanded', 'true');
         this.mobileMenuButton.style.backgroundColor = '#f3f4f6';
@@ -299,6 +308,15 @@ class HeaderNavigation {
         this.mobileNavigation.classList.remove('opacity-100', 'visible');
         this.mobileNavigation.classList.add('opacity-0', 'invisible');
         this.mobileNavigation.style.maxHeight = '0px';
+
+        const navWrapper = document.querySelector('.navigation-wrapper');
+        if (this.header) {
+            this.header.style.backgroundColor = '';
+        }
+        if (navWrapper) {
+            navWrapper.classList.remove('is-dropdown-open');
+            navWrapper.style.backgroundColor = '';
+        }
         
         this.mobileMenuButton.setAttribute('aria-expanded', 'false');
         this.mobileMenuButton.style.backgroundColor = '';
