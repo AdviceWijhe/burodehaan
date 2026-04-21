@@ -14,7 +14,7 @@ if ($personen && is_array($personen) && !empty($personen)) :
     $rand_class = 'swiper-personen-slider-' . wp_rand(1000, 9999);
     ?>
     
-    <section class="personen-slider <?php echo get_spacing_bottom_class(); ?>">
+    <div class="personen-slider <?php echo get_spacing_bottom_class(); ?>">
         <div class="container mx-auto px-[20px] lg:px-0">
             <!-- Titel en Tekst naast elkaar -->
             <div class="flex flex-col lg:flex-row gap-[24px] lg:gap-[40px] mb-[40px] lg:mb-[60px]">
@@ -106,7 +106,7 @@ if ($personen && is_array($personen) && !empty($personen)) :
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

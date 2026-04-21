@@ -77,10 +77,10 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
               <div class="bg-<?php echo $background_color; ?> absolute w-full <?php echo $content_first ? 'right-0' : 'left-0'; ?> top-0 h-full"></div>
                 
                 <?php if ($label) : ?>
-                    <div class="label label-large text-primary mb-[20px]!"><?php echo $label; ?></div>
+                    <div class="label label-large text-primary lg:mb-[20px]! mb-[16px]!"><?php echo $label; ?></div>
                 <?php endif; ?>
                   <?php if ($heading) : ?>
-                 <div class="mb-[40px]">  <?php echo $heading; ?></div>
+                 <div class="lg:mb-[40px] mb-[28px]">  <?php echo $heading; ?></div>
                 <?php endif; ?>
      
 
@@ -95,7 +95,7 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
 
                 
                 <?php if(get_sub_field('buttons')) { ?>
-                    <div class="mt-[24px]! lg:mt-[32px]!">
+                    <div class="mt-[32px]!">
                       <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'))); ?>
                     </div>
                 <?php } ?>

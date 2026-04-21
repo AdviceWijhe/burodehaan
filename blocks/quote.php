@@ -1,4 +1,4 @@
-<section class="quote <?php echo get_spacing_bottom_class(); ?>">
+<div class="quote <?php echo get_spacing_bottom_class(); ?>">
     <div class="container">
         <div class="grid grid-cols-1 md:grid-cols-12">
             <div class="col-span-12 md:col-span-5 md:col-start-3">

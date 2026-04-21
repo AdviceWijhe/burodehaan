@@ -1,4 +1,4 @@
-<section class="stappenplan <?php echo get_spacing_bottom_class(); ?> relative text-white pt-[60px] lg:pt-0 mb-[60px] lg:mb-0" data-stappenplan-section>
+<div class="stappenplan <?php echo get_spacing_bottom_class(); ?> relative text-white pt-[60px] lg:pt-0 mb-[60px] lg:mb-0" data-stappenplan-section>
   <div class="absolute lg:sticky inset-0 lg:top-0 lg:left-0 w-full h-full lg:h-screen overflow-hidden pointer-events-none -z-10">
   </div>
   <div class="container mx-auto relative pt-[60px] lg:pt-[100px]">
@@ -50,7 +50,7 @@
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <style>
   /* Hide scrollbar */

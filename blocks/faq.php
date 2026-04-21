@@ -13,7 +13,7 @@ $faq_id = 'faq-' . uniqid();
 
 ?>
 
-<section class="faq <?php echo get_spacing_bottom_class(); ?>">
+<div class="faq <?php echo get_spacing_bottom_class(); ?>">
     <div class="container mx-auto">
         <h2 class="headline-medium text-center mb-[36px]! text-black"><?= get_sub_field('titel') ?></h2>
 
@@ -64,4 +64,4 @@ $faq_id = 'faq-' . uniqid();
             <p class="text-center">Geen FAQ items gevonden.</p>
         <?php } ?>
     </div>
-</section>
+</div>

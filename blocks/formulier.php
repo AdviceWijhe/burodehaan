@@ -35,7 +35,7 @@
  }
 ?>
 
-<section id="formulier" class="<?php echo get_spacing_bottom_class(); ?>">
+<div id="formulier" class="<?php echo get_spacing_bottom_class(); ?>">
   <div class="formulier pt-[20px] pb-[60px] lg:py-[160px] bg-light-blue/25">
   <div class="container mx-auto">
     <div class="flex flex-col lg:flex-row lg:gap-10 items-center">
@@ -81,4 +81,4 @@
               
   </div>
   </div>
-</section>
+</div>

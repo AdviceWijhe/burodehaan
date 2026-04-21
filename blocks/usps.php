@@ -13,7 +13,7 @@ if(get_sub_field('globaal')) {
 
 ?>
 
-<section class="usps <?php echo get_spacing_bottom_class(); ?>">
+<div class="usps <?php echo get_spacing_bottom_class(); ?>">
   <div class="container mx-auto">
   <?php 
     $titel = get_sub_field('titel');
@@ -51,4 +51,4 @@ if(get_sub_field('globaal')) {
         <?php endforeach; ?>
     </div>
   </div>
-</section>
+</div>

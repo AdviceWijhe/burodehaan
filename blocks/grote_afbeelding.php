@@ -1,5 +1,5 @@
 <!-- Section heeft achtergrondafbeelding -->
-<section class="grote_afbeelding <?php echo get_spacing_bottom_class(); ?> overflow-hidden">
+<div class="grote_afbeelding <?php echo get_spacing_bottom_class(); ?> overflow-hidden">
     <?php if(is_single()) : ?>
 <div class="container">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
@@ -84,4 +84,4 @@ background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></
       }
     })();
   </script>
-</section>
+</div>

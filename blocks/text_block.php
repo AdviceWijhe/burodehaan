@@ -171,7 +171,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
         if($soortBlock === 'intro') { ?>
             <div class="w-11/12 ml-[calc(100%/12*1)] lg:w-6/12 lg:ml-[calc(100%/12*2)] <?php echo esc_attr($text_color_class); ?>">
                 <?php if (!empty($tekst_label)) : ?>
-                    <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
+                    <div class="label-large text-primary lg:mb-[24px] mb-[16px]"><?php echo esc_html($tekst_label); ?></div>
                 <?php endif; ?>
                 <?php if (!empty($tekst)) : ?>
                     <div class="body-large">
@@ -180,7 +180,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                 <?php endif; 
                 
                 if(get_sub_field('buttons')) { ?>
-                    <div class="mt-[24px]! lg:mt-[32px]!">
+                    <div class="mt-[32px]!">
                       <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'))); ?>
                     </div>
                 <?php } ?>
@@ -197,7 +197,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
             <div class="<?php echo $is_single_or_tax ? 'grid grid-cols-1 lg:grid-cols-12 gap-[40px]' : ''; ?>">
                 <div class="w-full <?php echo $is_single_or_tax ? 'lg:col-span-5 lg:col-start-3' : $width . ' ml-[calc(100%/12*2)]'; ?> default-content <?php echo esc_attr($text_color_class); ?>">
                 <?php if (!empty($tekst_label)) : ?>
-                        <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
+                        <div class="label-large text-primary lg:mb-[24px] mb-[16px]"><?php echo esc_html($tekst_label); ?></div>
                     <?php endif; ?>
                 <?php if (!empty($titel)) : ?>
                 <div class="headline-medium mb-[28px] <?php echo esc_attr($text_color_class); ?>">
@@ -316,16 +316,16 @@ if ($show_sidebar_articles && $is_single_or_tax) {
            <div class="<?php echo esc_attr($text_color_class); ?>">
             <div class="w-full lg:w-8/12 lg:ml-[calc(100%/12*2)]">
             <?php if (!empty($tekst_label)) : ?>
-                <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
+                <div class="label-large text-primary lg:mb-[24px] mb-[16px]"><?php echo esc_html($tekst_label); ?></div>
             <?php endif; ?>
             <?php if (!empty($titel)) : ?>
-                <div class="mb-[40px] max-w-[790px] <?php echo esc_attr($text_color_class); ?>">
+                <div class="lg:mb-[40px] mb-[28px] max-w-[790px] <?php echo esc_attr($text_color_class); ?>">
                     <?php echo wp_kses_post($titel); ?>
                 </div>
             <?php endif; ?>
             <?php if (!empty($tekst)) : ?>
                 <!-- De content automatisch in 2 kolommen -->
-                <div class="content-columns title-large columns-1 lg:columns-2 lg:gap-[45px]">
+                <div class="content-columns title-large columns-1 lg:columns-2 lg:gap-[45px] [&>p:last-child]:mb-0! lg:[&>p:last-child]:mb-[28px]!">
                     <?php echo wp_kses_post($tekst); ?>
                 </div>
             <?php endif; ?>

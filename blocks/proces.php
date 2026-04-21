@@ -1,4 +1,4 @@
-<section class="proces <?php echo get_spacing_bottom_class(); ?> " data-proces-section>
+<div class="proces <?php echo get_spacing_bottom_class(); ?> " data-proces-section>
     <div class="proces-scroll-wrapper overflow-hidden p-[20px] lg:p-0! pt-[40px] lg:pt-[80px]! ">
         <div class="flex flex-col lg:flex-row items-stretch flex-nowrap proces-slides-container" data-proces-slides>
             <div class="w-full lg:min-w-[600px]  lg:w-[600px]  lg:pl-[60px] lg:pr-[100px] lg:pb-[60px] flex flex-col justify-end proces-intro-slide text-pink mb-[60px] lg:mb-0!">
@@ -580,4 +580,4 @@
         }
     })();
     </script>
-</section>
+</div>

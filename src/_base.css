@@ -220,7 +220,7 @@ small, .small {
 }
 
 .label {
-    font-size: clamp(.6875rem, calc(.1905vw + .6411rem), .8125rem);
+    /* font-size: clamp(.6875rem, calc(.1905vw + .6411rem), .8125rem); */
     font-weight: 600;
 }
 

@@ -12,7 +12,7 @@ if ($tekstblokken && is_array($tekstblokken) && !empty($tekstblokken)) :
     $aantal = count($tekstblokken);
     ?>
     
-    <section class="meerdere-blokken <?php echo get_spacing_bottom_class(); ?>">
+    <div class="meerdere-blokken <?php echo get_spacing_bottom_class(); ?>">
         <div class="container mx-auto px-[20px] lg:px-0!">
             <?php if ($aantal == 3) : ?>
                 <!-- Speciale layout voor 3 blokken: flex container, eerste links, 2e en 3e rechts onder elkaar -->
@@ -231,7 +231,7 @@ if ($tekstblokken && is_array($tekstblokken) && !empty($tekstblokken)) :
                 </div>
             <?php endif; ?>
         </div>
-    </section>
+    </div>
 
 <?php endif; ?>
 

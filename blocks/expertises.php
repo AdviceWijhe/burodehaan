@@ -26,7 +26,7 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
 ?>
 
 
-<section id="<?= esc_attr($block_id); ?>" class="expertises <?php echo get_spacing_bottom_class(); ?> <?php if(!is_front_page()) { echo 'pt-[60px] lg:pt-[140px]';} ?>">
+<div id="<?= esc_attr($block_id); ?>" class="expertises <?php echo get_spacing_bottom_class(); ?> <?php if(!is_front_page()) { echo 'pt-[60px] lg:pt-[140px]';} ?>">
     <?php if($achtergrond) : ?>
         <div class="bg-<?= $achtergrond ?> pb-[60px] lg:pb-[120px]">
     <?php endif; ?>
@@ -39,7 +39,7 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
                 <img src="" alt="" />
             </div>
         <?php endif; ?>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[28px]">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-[28px] gap-[16px]">
             <?php foreach ($visible_expertises as $expertise) : ?>
                 <?php $thumbnail_url = advice2025_get_term_thumbnail_url($expertise, 'large'); ?>
                 <a
@@ -108,7 +108,7 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
     <?php if($achtergrond) : ?>
         </div>
     <?php endif; ?>
-</section>
+</div>
 
 <?php if ($is_groot) : ?>
     <style>

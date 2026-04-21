@@ -22,7 +22,7 @@ $filter_options = array(
 );
 
 if ($vacatures) : ?>
-    <section id="vacatures" class="vacatures-section <?php echo get_spacing_bottom_class(); ?>">
+    <div id="vacatures" class="vacatures-section <?php echo get_spacing_bottom_class(); ?>">
         <div class="container mx-auto py-[60px]! lg:py-[100px]! relative overflow-hidden">
             <div class="lg:px-[100px] relative">
                 <div class="mb-7 lg:mb-12">
@@ -74,7 +74,7 @@ if ($vacatures) : ?>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -114,7 +114,7 @@ if ($vacatures) : ?>
         });
     </script>
 <?php else : ?>
-    <section class="vacatures-section <?php echo get_spacing_bottom_class(); ?>">
+    <div class="vacatures-section <?php echo get_spacing_bottom_class(); ?>">
         <div class="container mx-auto px-4">
             <div class="w-full lg:w-8/12 mx-auto">
                 <div class="text-center">
@@ -122,5 +122,5 @@ if ($vacatures) : ?>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 <?php endif; ?>

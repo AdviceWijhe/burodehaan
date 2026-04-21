@@ -11,7 +11,7 @@ $zinnen = array_values(array_filter($zinnen, static function ($item) {
 ?>
 
 <?php if (!empty($zinnen)) : ?>
-<section class="marquee" data-marquee>
+<div class="marquee" data-marquee>
     <div class="marquee__viewport">
         <div class="marquee__track" data-marquee-track>
             <?php for ($group_index = 0; $group_index < 2; $group_index++) : ?>
@@ -26,5 +26,5 @@ $zinnen = array_values(array_filter($zinnen, static function ($item) {
             <?php endfor; ?>
         </div>
     </div>
-</section>
+</div>
 <?php endif; ?>
