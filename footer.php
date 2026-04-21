@@ -687,6 +687,7 @@ document.addEventListener('DOMContentLoaded', function () {
             trigger.setAttribute('aria-expanded', 'true');
             content.setAttribute('aria-hidden', 'false');
             content.style.maxHeight = 'none';
+            content.style.marginTop = '28px';
             if (icon) {
                 icon.style.transform = 'rotate(0deg)';
             }

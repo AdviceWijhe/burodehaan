@@ -3,7 +3,7 @@
                       <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
                     <?php endif; ?>
                     <div class="absolute inset-0 bg-black/20"></div>
-                    <div class="absolute left-3 right-3 bottom-3 rounded-[12px] border border-white/20 bg-white/5 backdrop-blur-[20px] p-[32px] text-white flex items-end justify-between gap-3">
+                    <div class="absolute left-3 right-3 bottom-3 rounded-[12px] border border-white/20 bg-white/5 backdrop-blur-[20px] lg:p-[32px] p-[20px] text-white flex items-end justify-between gap-3">
                       <div>
                         <?php
                         $term_label = '';
@@ -19,9 +19,9 @@
                         }
                         ?>
                         <?php if ($term_label) : ?>
-                          <div class="label-medium text-white mb-[16px]"><?php echo esc_html($term_label); ?></div>
+                          <div class="label-medium text-white lg:mb-[16px] mb-[12px]"><?php echo esc_html($term_label); ?></div>
                         <?php endif; ?>
-                        <h3 class="title-medium text-white mb-0! w-2/3"><?php the_title(); ?></h3>
+                        <h3 class="headline-small text-white mb-0! w-2/3"><?php the_title(); ?></h3>
                       </div>
                       <span class="shrink-0 text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
