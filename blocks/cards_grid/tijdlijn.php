@@ -24,7 +24,41 @@
     #<?php echo esc_attr($tid); ?> .tijdlijn__track {
         display: flex;
         align-items: stretch;
-        gap: 28px;
+        gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+        #<?php echo esc_attr($tid); ?> .tijdlijn__track {
+            gap: 28px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #<?php echo esc_attr($tid); ?> {
+            margin-right: -16px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+
+        #<?php echo esc_attr($tid); ?>::-webkit-scrollbar {
+            display: none;
+        }
+
+        #<?php echo esc_attr($tid); ?> .tijdlijn__track {
+            transform: none !important;
+        }
+
+        #<?php echo esc_attr($tid); ?> .tijdlijn__item {
+            width: 82vw !important;
+            scroll-snap-align: start;
+        }
+
+        #<?php echo esc_attr($tid); ?> .tijdlijn__item__content {
+            opacity: 1 !important;
+        }
     }
 
     #<?php echo esc_attr($tid); ?> .tijdlijn__item {
@@ -115,13 +149,14 @@
         }
 
         /* ── Dimensions ────────────────────────────────────────────── */
-        var GAP         = 28;   /* flush, like Figma */
+        var GAP         = window.innerWidth < 768 ? 16 : 28;
         var activeIndex = 0;
         var inactiveW   = 0;   /* measured once at init from CSS */
         var activeW     = 0;   /* calculated from container width */
         var dragger     = null; /* kept for onComplete update call */
 
         function calcDimensions() {
+            GAP = window.innerWidth < 768 ? 16 : 28;
             var containerW = root.offsetWidth;
             /*
              * Target: active + 1.5 × inactive = containerW
@@ -132,8 +167,8 @@
             inactiveW = Math.round(containerW / 5);
             activeW   = containerW - Math.round(2 * inactiveW);
             if (containerW < 768) {
-                inactiveW = Math.round(containerW * 0.22);
-                activeW   = containerW - Math.round(1.5 * inactiveW);
+                inactiveW = Math.round(containerW * 0.15);
+                activeW   = Math.round(containerW * 0.82);
             }
         }
 
