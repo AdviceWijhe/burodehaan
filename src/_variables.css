@@ -26,4 +26,8 @@
   --color-white: #FFFFFF;
   --color-primary: #EC663C;
   --color-secondary: #F7F5F0;
+  --breakpoint-xl: 96rem;  /* 1440px */
+  --breakpoint-2xl: 128rem;  /* 1536px */
+  --breakpoint-3xl: 160rem; /* 2048px */
+  --breakpoint-4xl: 192rem; /* 2560px */
 }

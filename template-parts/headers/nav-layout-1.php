@@ -154,7 +154,7 @@ if(is_page()) {
                             <rect y="9" width="14" height="1" fill="white"/>
                         </svg>
                     </div>
-                    <span class="mobile-menu-label font-semibold">Menu</span>
+                    <span class="mobile-menu-label font-medium">Menu</span>
                 </button>
             </div>
         </div>

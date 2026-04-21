@@ -281,6 +281,7 @@ class HeaderNavigation {
         this.updateMobileMenuMaxHeight();
 
         const navWrapper = document.querySelector('.navigation-wrapper');
+        const breadcrumbsBar = document.querySelector('.header-breadcrumbs-bar');
         if (this.header) {
             this.header.style.backgroundColor = '#ffffff';
         }
@@ -288,13 +289,19 @@ class HeaderNavigation {
             navWrapper.classList.add('is-dropdown-open');
             navWrapper.style.backgroundColor = '#ffffff';
         }
+        if (breadcrumbsBar) {
+            breadcrumbsBar.style.backgroundColor = '#ffffff';
+            breadcrumbsBar.querySelectorAll('#breadcrumbs, #breadcrumbs a, #breadcrumbs span').forEach((node) => {
+                node.style.color = '#161616';
+            });
+        }
         
         this.mobileMenuButton.setAttribute('aria-expanded', 'true');
-        this.mobileMenuButton.style.backgroundColor = '#f3f4f6';
+        this.mobileMenuButton.style.backgroundColor = '#EC663C';
         
         const mobileMenuLabel = this.mobileMenuButton.querySelector('.mobile-menu-label');
         if (mobileMenuLabel) {
-            mobileMenuLabel.textContent = 'SLUIT';
+            mobileMenuLabel.textContent = 'Sluiten';
         }
         
         // Update icon to close (X)
@@ -310,6 +317,7 @@ class HeaderNavigation {
         this.mobileNavigation.style.maxHeight = '0px';
 
         const navWrapper = document.querySelector('.navigation-wrapper');
+        const breadcrumbsBar = document.querySelector('.header-breadcrumbs-bar');
         if (this.header) {
             this.header.style.backgroundColor = '';
         }
@@ -317,13 +325,19 @@ class HeaderNavigation {
             navWrapper.classList.remove('is-dropdown-open');
             navWrapper.style.backgroundColor = '';
         }
+        if (breadcrumbsBar) {
+            breadcrumbsBar.style.backgroundColor = '';
+            breadcrumbsBar.querySelectorAll('#breadcrumbs, #breadcrumbs a, #breadcrumbs span').forEach((node) => {
+                node.style.color = '';
+            });
+        }
         
         this.mobileMenuButton.setAttribute('aria-expanded', 'false');
         this.mobileMenuButton.style.backgroundColor = '';
         
         const mobileMenuLabel = this.mobileMenuButton.querySelector('.mobile-menu-label');
         if (mobileMenuLabel) {
-            mobileMenuLabel.textContent = 'MENU';
+            mobileMenuLabel.textContent = 'Menu';
         }
         
         // Update icon to hamburger
@@ -348,18 +362,17 @@ class HeaderNavigation {
     
     getHamburgerIcon() {
         return `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10" fill="none">
-            <rect width="14" height="1" fill="white"/>
-            <rect y="4.5" width="14" height="1" fill="white"/>
-            <rect y="9" width="14" height="1" fill="white"/>
-        </svg>`;
+  <rect width="14" height="1" fill="white"/>
+  <rect y="4.5" width="14" height="1" fill="white"/>
+  <rect y="9" width="14" height="1" fill="white"/>
+</svg>`;
     }
     
     getCloseIcon() {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-            <circle cx="12.5" cy="12.5" r="12" stroke="currentColor"/>
-            <rect x="9.35355" y="16.0711" width="9.5" height="0.5" transform="rotate(-45 9.35355 16.0711)" fill="currentColor" stroke="currentColor" stroke-width="0.5"/>
-            <rect x="9.70703" y="9.35355" width="9.5" height="0.5" transform="rotate(45 9.70703 9.35355)" fill="currentColor" stroke="currentColor" stroke-width="0.5"/>
-        </svg>`;
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
+  <rect x="0.707031" width="14" height="1" transform="rotate(45 0.707031 0)" fill="white"/>
+  <rect x="10.6069" y="0.707108" width="14" height="1" transform="rotate(135 10.6069 0.707108)" fill="white"/>
+</svg>`;
     }
     
     /**
