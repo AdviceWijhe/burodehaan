@@ -67,7 +67,7 @@ $backgroundPatroon = 'pink';
       <?php if($background_color) : ?><div class="absolute z-0 <?= get_sub_field('achtergrond_positie') ?>-0 left-0 w-full h-[50%] bg-<?= $background_color; ?>"></div><?php endif; ?>
     <?php endif; ?>
     <div class="container">
-      <div class="flex mb-[28px] lg:mb-[32px] justify-between items-center">
+      <div class="flex mb-[20px] lg:mb-[32px] justify-between items-center">
        
           <?php if(!empty($cards_heading)) : ?>
             <div class="w-full lg:w-6/12 <?php if(get_sub_field('soort_items') == 'themas' || get_sub_field('soort_items') == 'artikelen') : ?>lg:ml-[calc(100%/12*2)]<?php endif; ?>">
