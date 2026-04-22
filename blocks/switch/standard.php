@@ -77,10 +77,10 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
               <div class="bg-<?php echo $background_color; ?> absolute w-full <?php echo $content_first ? 'right-0' : 'left-0'; ?> top-0 h-full"></div>
                 
                 <?php if ($label) : ?>
-                    <div class="label label-large text-primary mb-[1.25rem]!"><?php echo $label; ?></div>
+                    <div class="label label-large text-primary mb-[1rem]! lg:mb-[1.25rem]!"><?php echo $label; ?></div>
                 <?php endif; ?>
                   <?php if ($heading) : ?>
-                 <div class="mb-[2.5rem]">  <?php echo $heading; ?></div>
+                 <div class="mb-[1.75rem] lg:mb-[2.5rem]">  <?php echo $heading; ?></div>
                 <?php endif; ?>
      
 

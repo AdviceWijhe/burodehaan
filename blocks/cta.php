@@ -6,7 +6,7 @@
 <?php get_template_part('template-parts/core/cta-default', null, $args); ?>
 
 <?php elseif(get_sub_field('cta_type') == 'big') : ?>
-<section class="cta <?php echo get_spacing_bottom_class(); ?>">
+<div class="cta <?php echo get_spacing_bottom_class(); ?>">
   
   <div class=" mx-auto bg-blue relative overflow-hidden">
     <div class="flex flex-col lg:items-center justify-center relative py-[3.75rem] lg:py-[10rem] ">
@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-</section>
+</div>
 
 
 <?php endif; ?>

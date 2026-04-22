@@ -47,12 +47,12 @@ if ($item instanceof WP_Term) {
 
 ?>
 
-<a href="<?php echo esc_url($link); ?>" class="card border border-[rgba(22,22,22,0.12)] flex flex-col lg:flex-row lg:items-stretch">
-                    <div class="card-image w-full lg:w-2/8">
+<a href="<?php echo esc_url($link); ?>" class="card border border-[rgba(22,22,22,0.12)] flex flex-col md:flex-row md:items-stretch">
+                    <div class="card-image w-full md:w-2/8">
                     <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($name); ?>" class="w-full h-full object-cover">
 
                     </div>
-                    <div class="card-body p-[1.75rem] lg:p-[2.5rem] relative w-full lg:w-6/8">
+                    <div class="card-body p-[1.75rem] lg:p-[2.5rem] relative w-full md:w-6/8">
                         <?php 
                         if($post_type == 'post') {
                             $category = get_the_category($id);

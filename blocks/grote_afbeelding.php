@@ -1,10 +1,10 @@
 <!-- Section heeft achtergrondafbeelding -->
-<section class="grote_afbeelding <?php echo get_spacing_bottom_class(); ?> overflow-hidden">
+<div class="grote_afbeelding <?php echo get_spacing_bottom_class(); ?> overflow-hidden">
     <?php if(is_single()) : ?>
 <div class="container">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
         <?php endif; ?>
-  <div class="min-h-[280px] lg:min-h-[700px] relative flex items-end max-md:p-0! <?php if(is_single()) : ?>col-span-1 lg:col-span-10 lg:col-start-2<?php endif; ?>">
+  <div class="min-h-[535px] lg:min-h-[700px] relative flex items-end max-md:p-0! <?php if(is_single()) : ?>col-span-1 lg:col-span-10 lg:col-start-2<?php endif; ?>">
     <div class="absolute h-full w-[200px] lg:w-[300px] z-1 bottom-0 left-0" style="opacity: 0.5;
 background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></div>
     <div class="absolute h-[200px] lg:h-[400px] w-full z-1 bottom-0 left-0" style="background: linear-gradient(180deg, rgba(22, 22, 22, 0.00) 0%, #161616 100%);"></div>
@@ -43,14 +43,14 @@ background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></
       <?php } ?>
     </div>
     <div class="container">
-    <div class="w-full flex flex-col lg:flex-row relative z-2 justify-between items-end lg:pb-[6.25rem] pb-[1.25rem] ">
+    <div class="w-full flex flex-col lg:flex-row relative z-2 justify-between gap-[2rem] items-end lg:pb-[6.25rem] pb-[1.25rem] ">
       <div class="w-full lg:w-5/12 lg:pl-[2.5rem] text-white">
         
         <div class=" mb-[2.5rem] max-w-[595px]"><?= get_sub_field('titel') ?></div>
         <div class="opacity-80"><?= get_sub_field('content', null) ?></div>
         
       </div>
-      <div class="w-full lg:w-6/12 px-5 lg:pr-[2.5rem] flex lg:justify-end">
+      <div class="w-full lg:w-6/12 px-5 lg:px-5 lg:pr-[2.5rem] flex lg:justify-end">
       <?php if(get_sub_field('buttons')) { ?>
           <div class="">
             <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'stretch')) ?>
@@ -84,4 +84,4 @@ background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></
       }
     })();
   </script>
-</section>
+</div>

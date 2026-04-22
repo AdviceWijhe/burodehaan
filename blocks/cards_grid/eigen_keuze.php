@@ -1,6 +1,6 @@
 
-    <div class="grid grid-cols-1 md:grid-cols-12">
-        <div class="w-full md:col-span-8 md:col-start-3 flex flex-col gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12">
+        <div class="w-full lg:col-span-8 lg:col-start-3 flex flex-col gap-6">
  
             <?php 
             $counter = 0;
@@ -37,11 +37,11 @@
                 }
                 $counter++;
                 if($counter == 1 && count($args['items']) > 1) { ?>
-                    <a href="<?php echo $link; ?>" class="card border border-[rgba(22,22,22,0.12)] flex flex-col lg:flex-row">
-                    <div class="card-image w-full lg:w-3/8 h-full">
+                    <a href="<?php echo $link; ?>" class="card border border-[rgba(22,22,22,0.12)] flex flex-col md:flex-row">
+                    <div class="card-image w-full md:w-3/8 h-full">
                         <img src="<?= $thumbnail ?>" alt="<?php echo $name; ?>" class="w-full h-full object-cover">
                     </div>
-                    <div class="card-body p-[3.75rem] w-full lg:w-5/8">
+                    <div class="card-body p-[3.75rem] w-full md:w-5/8">
                         <h3 class="card-title mb-[1.75rem]!"><?php echo $name; ?></h3>
                         <div class="card-description"><?php echo $description; ?></div>
                         <span class="btn bg-primary mt-[2.5rem]"><?php echo $name; ?></span>

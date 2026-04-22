@@ -1,4 +1,4 @@
-<section class="plattegrond <?php echo get_spacing_bottom_class(); ?> overflow-hidden relative">
+<div class="plattegrond <?php echo get_spacing_bottom_class(); ?> overflow-hidden relative">
     <div class="absolute h-1/2 w-full bg-gray bottom-0 left-0"></div>
     <div class="container mx-auto">
         <div class="flex flex-col lg:flex-row">
@@ -123,4 +123,4 @@
         @
         </style>
     </div>
-</section>
+</div>

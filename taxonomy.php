@@ -47,7 +47,7 @@ if (is_array($header_image) && !empty($header_image['url'])) {
             </div>
         </div>
     <?php else : ?>
-        <div class="tax-header bg-black pt-[3.75rem] lg:pt-[6.25rem] mb-[2.5rem] lg:mb-[10rem]">
+        <div class="tax-header bg-black pt-[3.75rem] lg:pt-[6.25rem] mb-[8rem] lg:mb-[10rem]">
             <div class="container">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
                 <div class="w-full lg:col-span-6 lg:col-start-3">
@@ -56,7 +56,7 @@ if (is_array($header_image) && !empty($header_image['url'])) {
                     <div class="text-white body-large max-w-[790px]"><?php echo get_field('introtekst', $term_key); ?></div>
                 </div>
                 <div class="w-full lg:col-span-3 lg:col-start-10">
-                    <div class="glass rounded-lg p-[2.5rem] mb-[-1rem]">
+                    <div class="glass rounded-lg p-[1.75rem] lg:p-[2.5rem] mb-[-1.75rem] lg:mb-[-1rem]">
                         <?php if($cta) : ?>
                             <div class="cta-content">
                                 <div class="text-white text-2xl font-bold mb-[2rem]"><?php echo wp_kses_post($cta['titel'] ?? ''); ?></div>

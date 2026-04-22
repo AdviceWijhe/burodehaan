@@ -27,6 +27,7 @@
   border-radius: 8px;
   text-box-trim: trim-both;
   text-box-edge: cap alphabetic;
+  overflow: visible;
 }
 
 /* Glassmorphism Card */

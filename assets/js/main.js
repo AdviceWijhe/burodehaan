@@ -918,6 +918,7 @@
       const applyButton = panel.querySelector("[data-archive-filter-apply]");
       const resetButton = panel.querySelector("[data-archive-filter-reset]");
       const checkboxes = panel.querySelectorAll("[data-filter-term]");
+      const filterIndicator = panel.querySelector("[data-archive-filter-indicator]");
 
       if (!openButton || !closeButton || !overlay || !drawer || !applyButton || !resetButton) {
         return;
@@ -948,6 +949,14 @@
         return activeFilters;
       }
 
+      function updateFilterIndicator() {
+        if (!filterIndicator) return;
+        const hasActiveFilters = Array.from(checkboxes).some(function (checkbox) {
+          return checkbox.checked;
+        });
+        filterIndicator.classList.toggle("hidden", !hasActiveFilters);
+      }
+
       function openDrawer() {
         overlay.classList.remove("hidden");
         drawer.classList.remove("translate-x-[calc(100%+40px)]");
@@ -966,9 +975,11 @@
         checkboxes.forEach(function (checkbox) {
           checkbox.checked = false;
         });
+        updateFilterIndicator();
       }
 
       function applyFilters() {
+        updateFilterIndicator();
         const event = new CustomEvent("advice2025:archive-search", {
           detail: {
             searchTerm: searchInput ? searchInput.value.trim() : "",
@@ -983,6 +994,9 @@
       closeButton.addEventListener("click", closeDrawer);
       overlay.addEventListener("click", closeDrawer);
       applyButton.addEventListener("click", applyFilters);
+      checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("change", updateFilterIndicator);
+      });
       resetButton.addEventListener("click", function () {
         resetFilters();
         applyFilters();
@@ -993,6 +1007,8 @@
           closeDrawer();
         }
       });
+
+      updateFilterIndicator();
     });
   }
 

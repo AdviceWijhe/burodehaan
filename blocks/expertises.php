@@ -39,7 +39,7 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
                 <img src="" alt="" />
             </div>
         <?php endif; ?>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1.75rem]">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1rem] lg:gap-[1.75rem]">
             <?php foreach ($visible_expertises as $expertise) : ?>
                 <?php $thumbnail_url = advice2025_get_term_thumbnail_url($expertise, 'large'); ?>
                 <a

@@ -114,7 +114,7 @@ if ($vacatures) : ?>
         });
     </script>
 <?php else : ?>
-    <section class="vacatures-section <?php echo get_spacing_bottom_class(); ?>">
+    <div class="vacatures-section <?php echo get_spacing_bottom_class(); ?>">
         <div class="container mx-auto px-4">
             <div class="w-full lg:w-8/12 mx-auto">
                 <div class="text-center">
@@ -122,5 +122,5 @@ if ($vacatures) : ?>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 <?php endif; ?>

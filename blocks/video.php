@@ -1,4 +1,4 @@
-<section class="video <?php echo get_spacing_bottom_class(); ?>" relative">
+<div class="video <?php echo get_spacing_bottom_class(); ?>" relative">
 
   <div class="container mx-auto relative px-0! lg:px-[1.25rem]">
     
@@ -191,4 +191,4 @@
     
   
   </div>
-</section>
+</div>
