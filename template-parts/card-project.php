@@ -2,7 +2,6 @@
                     <?php if (has_post_thumbnail()) : ?>
                       <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
                     <?php endif; ?>
-                    <div class="absolute inset-0 bg-black/20"></div>
                     <div class="absolute left-3 right-3 bottom-3 rounded-[12px] border border-white/20 bg-white/5 backdrop-blur-[20px] lg:p-[32px] p-[20px] text-white flex items-end justify-between gap-3">
                       <div>
                         <?php
