@@ -53,7 +53,7 @@ if ($personen && is_array($personen) && !empty($personen)) :
                                     $foto_alt = is_array($foto) ? $foto['alt'] : ($naam ?: 'Foto');
                                     $foto_id = is_array($foto) && isset($foto['id']) ? $foto['id'] : null;
                                 ?>
-                                    <div class="mb-[1.5rem] w-full aspect-[3/4] rounded-[20px] overflow-hidden bg-black">
+                                    <div class="mb-[1.5rem] w-full aspect-[3/4] rounded-[1.25rem] overflow-hidden bg-black">
                                         <?php if ($foto_id) : 
                                             $foto_src = wp_get_attachment_image_url($foto_id, 'medium');
                                             $foto_srcset = wp_get_attachment_image_srcset($foto_id, 'medium');

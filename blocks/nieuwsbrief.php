@@ -19,7 +19,7 @@ if ($has_bg) {
 
 <div class="nieuwsbrief-section <?php echo get_spacing_bottom_class(); ?>">
     <div class="flex justify-center">
-        <div class="relative min-h-[400px] lg:min-h-[500px] w-full max-w-6xl mx-[1.25rem] lg:mx-[5rem] flex items-center justify-center bg-cover bg-center bg-no-repeat rounded-lg overflow-hidden <?php echo $has_bg ? '' : 'bg-gray-800'; ?>"<?php echo $bg_style; ?>>
+        <div class="relative min-h-[25rem] lg:min-h-[31.25rem] w-full max-w-6xl mx-[1.25rem] lg:mx-[5rem] flex items-center justify-center bg-cover bg-center bg-no-repeat rounded-lg overflow-hidden <?php echo $has_bg ? '' : 'bg-gray-800'; ?>"<?php echo $bg_style; ?>>
             <!-- Zwarte overlay 50% -->
             <div class="absolute inset-0 bg-black/50" aria-hidden="true"></div>
 
@@ -30,7 +30,7 @@ if ($has_bg) {
                 <?php endif; ?>
 
                 <?php if ($tekst) : ?>
-                    <div class="text-white mb-8 body-medium lg:mb-10 max-w-[500px] ml-auto mr-auto">
+                    <div class="text-white mb-8 body-medium lg:mb-10 max-w-[31.25rem] ml-auto mr-auto">
                         <?php echo $tekst; ?>
                     </div>
                 <?php endif; ?>

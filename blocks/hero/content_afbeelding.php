@@ -6,7 +6,7 @@ $subtitle = get_sub_field('label');
 ?>
 
 <section class="hero__content_afbeelding bg-secondary relative mb-[3.75rem] lg:mb-[10rem]">
-<div class="hero__content--image lg:absolute lg:top-0 lg:left-0 lg:w-[calc(50%-14px)] h-full">
+<div class="hero__content--image lg:absolute lg:top-0 lg:left-0 lg:w-[calc(50%-0.875rem)] h-full">
  <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" class="w-full h-full object-cover object-center">
 </div>
 

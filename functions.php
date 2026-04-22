@@ -59,6 +59,129 @@ add_filter('acf/load_field/name=knop_kleur', function ($field) {
 });
 
 /**
+ * Convert a px (or unitless numeric) length to rem.
+ *
+ * @param string $value Raw attribute value.
+ * @return string Converted value or original input.
+ */
+function advice2025_convert_length_to_rem($value) {
+    if (!is_string($value)) {
+        return $value;
+    }
+
+    if (!preg_match('/^\s*(-?\d*\.?\d+)\s*(px)?\s*$/i', $value, $matches)) {
+        return $value;
+    }
+
+    $rem = ((float) $matches[1]) / 16;
+    $formatted = rtrim(rtrim(sprintf('%.6F', $rem), '0'), '.');
+
+    if ($formatted === '-0') {
+        $formatted = '0';
+    }
+
+    return $formatted . 'rem';
+}
+
+/**
+ * Convert inline style width/height declarations from px to rem.
+ *
+ * @param string $style Inline style value.
+ * @return string
+ */
+function advice2025_convert_svg_style_px_to_rem($style) {
+    if (!is_string($style) || $style === '') {
+        return $style;
+    }
+
+    return (string) preg_replace_callback(
+        '/\b(width|height)\s*:\s*(-?\d*\.?\d+)px\b/i',
+        static function ($matches) {
+            $rem = ((float) $matches[2]) / 16;
+            $formatted = rtrim(rtrim(sprintf('%.6F', $rem), '0'), '.');
+
+            if ($formatted === '-0') {
+                $formatted = '0';
+            }
+
+            return $matches[1] . ': ' . $formatted . 'rem';
+        },
+        $style
+    );
+}
+
+/**
+ * Normalize backend-inserted SVG dimensions (width/height) from px to rem.
+ *
+ * @param string $html HTML fragment that may contain SVG markup.
+ * @return string
+ */
+function advice2025_convert_svg_px_dimensions_to_rem($html) {
+    if (!is_string($html) || stripos($html, '<svg') === false) {
+        return $html;
+    }
+
+    if (!class_exists('DOMDocument')) {
+        return $html;
+    }
+
+    $internal_errors = libxml_use_internal_errors(true);
+    $document = new DOMDocument('1.0', 'UTF-8');
+    $wrapper_id = 'advice2025-svg-wrapper';
+    $wrapped_html = '<?xml encoding="UTF-8"><div id="' . $wrapper_id . '">' . $html . '</div>';
+
+    $loaded = $document->loadHTML($wrapped_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    if (!$loaded) {
+        libxml_clear_errors();
+        libxml_use_internal_errors($internal_errors);
+        return $html;
+    }
+
+    $svg_nodes = $document->getElementsByTagName('svg');
+    foreach ($svg_nodes as $svg_node) {
+        if ($svg_node->hasAttribute('width')) {
+            $svg_node->setAttribute('width', advice2025_convert_length_to_rem($svg_node->getAttribute('width')));
+        }
+        if ($svg_node->hasAttribute('height')) {
+            $svg_node->setAttribute('height', advice2025_convert_length_to_rem($svg_node->getAttribute('height')));
+        }
+        if ($svg_node->hasAttribute('style')) {
+            $svg_node->setAttribute('style', advice2025_convert_svg_style_px_to_rem($svg_node->getAttribute('style')));
+        }
+    }
+
+    $wrapper = $document->getElementById($wrapper_id);
+    if (!$wrapper) {
+        libxml_clear_errors();
+        libxml_use_internal_errors($internal_errors);
+        return $html;
+    }
+
+    $result = '';
+    foreach ($wrapper->childNodes as $child_node) {
+        $result .= $document->saveHTML($child_node);
+    }
+
+    libxml_clear_errors();
+    libxml_use_internal_errors($internal_errors);
+
+    return $result;
+}
+
+/**
+ * Apply SVG dimension normalization to ACF rich text outputs.
+ */
+function advice2025_normalize_svg_dimensions_in_acf_content($value, $post_id, $field) {
+    if (is_admin() && !wp_doing_ajax()) {
+        return $value;
+    }
+
+    return advice2025_convert_svg_px_dimensions_to_rem($value);
+}
+add_filter('acf/format_value/type=wysiwyg', 'advice2025_normalize_svg_dimensions_in_acf_content', 20, 3);
+add_filter('acf/format_value/type=textarea', 'advice2025_normalize_svg_dimensions_in_acf_content', 20, 3);
+
+/**
  * Theme setup
  */
 function advice2025_setup() {

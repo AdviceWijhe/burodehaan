@@ -27,11 +27,11 @@ $bgColors = [
 
 
 
-<div class="backgrounds w-[3535px] h-[3535px] rotate-[-45deg] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-<?= $scale ?> lg:scale-<?= $scaleLg ?>">
+<div class="backgrounds w-[220.9375rem] h-[220.9375rem] rotate-[-45deg] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-<?= $scale ?> lg:scale-<?= $scaleLg ?>">
   <div class="background absolute top-0 left-0 w-full h-full" style="background: <?= $bgColors[$color]['gradient-1'] ?>"></div>
-  <div class="background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[3093px] h-[3093px]" style="background: <?= $bgColors[$color]['gradient-2'] ?>"></div>
-  <div class="background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[2649px] h-[2649px]" style="background: <?= $bgColors[$color]['gradient-1'] ?>"></div>
-  <div class="background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[2205px] h-[2205px]" style="background: <?= $bgColors[$color]['gradient-2'] ?>"></div>
-  <div class="background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1761px] h-[1761px]" style="background: <?= $bgColors[$color]['gradient-1'] ?>"></div>
-  <div class="background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1317px] h-[1317px] bg-<?= $color ?>"></div>
+  <div class="background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[193.3125rem] h-[193.3125rem]" style="background: <?= $bgColors[$color]['gradient-2'] ?>"></div>
+  <div class="background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[165.5625rem] h-[165.5625rem]" style="background: <?= $bgColors[$color]['gradient-1'] ?>"></div>
+  <div class="background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[137.8125rem] h-[137.8125rem]" style="background: <?= $bgColors[$color]['gradient-2'] ?>"></div>
+  <div class="background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110.0625rem] h-[110.0625rem]" style="background: <?= $bgColors[$color]['gradient-1'] ?>"></div>
+  <div class="background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[82.3125rem] h-[82.3125rem] bg-<?= $color ?>"></div>
 </div>

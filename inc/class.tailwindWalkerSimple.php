@@ -25,7 +25,7 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
             return '';
         }
 
-        return wp_kses(
+        $sanitized_markup = wp_kses(
             $markup,
             array(
                 'svg' => array(
@@ -79,6 +79,12 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
                 ),
             )
         );
+
+        if (function_exists('advice2025_convert_svg_px_dimensions_to_rem')) {
+            return advice2025_convert_svg_px_dimensions_to_rem($sanitized_markup);
+        }
+
+        return $sanitized_markup;
     }
     
     /**
@@ -142,10 +148,10 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
             $term_icon = get_field('icoon', 'expertise_' . $expertise->term_id);
             $title = $expertise->name ?? '';
 
-            $output .= "$indent\t\t\t<a href=\"" . esc_url($term_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[136px] px-[2rem] py-[1.75rem] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
-            $output .= "$indent\t\t\t\t<div class=\"absolute left-[24px] top-[1.25rem] text-[#EC663C]\">" . $this->sanitize_expertise_icon_markup((string) $term_icon) . "</div>\n";
+            $output .= "$indent\t\t\t<a href=\"" . esc_url($term_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[8.5rem] px-[2rem] py-[1.75rem] flex flex-col items-start transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+            $output .= "$indent\t\t\t\t<div class=\" text-[#EC663C] mb-[1.3rem]\">" . $this->sanitize_expertise_icon_markup((string) $term_icon) . "</div>\n";
             $output .= "$indent\t\t\t\t<span class=\"pr-10 title-large text-black\">" . esc_html($title) . "</span>\n";
-            $output .= "$indent\t\t\t\t<span class=\"absolute right-[20px] bottom-[1.375rem]\" aria-hidden=\"true\">\n";
+            $output .= "$indent\t\t\t\t<span class=\"absolute right-[1.25rem] bottom-[1.375rem]\" aria-hidden=\"true\">\n";
             $output .= "$indent\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
             $output .= "$indent\t\t\t\t\t\t<rect width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
             $output .= "$indent\t\t\t\t\t\t<rect x=\"5.92578\" y=\"11.8521\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
@@ -160,10 +166,10 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         }
 
         $all_expertises_link = home_url('/expertises');
-        $output .= "$indent\t\t\t<a href=\"" . esc_url($all_expertises_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[136px] px-[2rem] py-[1.75rem] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+        $output .= "$indent\t\t\t<a href=\"" . esc_url($all_expertises_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[8.5rem] px-[2rem] py-[1.75rem] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
 
         $output .= "$indent\t\t\t\t<span class=\"pr-10 title-large text-black\">Alle expertises</span>\n";
-        $output .= "$indent\t\t\t\t<span class=\"absolute right-[20px] bottom-[1.375rem]\" aria-hidden=\"true\">\n";
+        $output .= "$indent\t\t\t\t<span class=\"absolute right-[1.25rem] bottom-[1.375rem]\" aria-hidden=\"true\">\n";
         $output .= "$indent\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
         $output .= "$indent\t\t\t\t\t\t<rect width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
         $output .= "$indent\t\t\t\t\t\t<rect x=\"5.92578\" y=\"11.8521\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
@@ -215,11 +221,11 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
                 $output .= "$indent\t\t\t\t<ul class=\"grid grid-cols-3 gap-6\">\n";
             } else {
                 // Regular dropdown menu (pt-2 adds small gap for regular dropdowns)
-                $output .= "\n$indent<ul class=\"absolute left-0 top-full pt-2 min-w-[200px] bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 transition-visibility delay-200 z-50 py-2 hover:opacity-100 hover:visible hover:delay-0\">\n";
+                $output .= "\n$indent<ul class=\"absolute left-0 top-full pt-2 min-w-[12.5rem] bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 transition-visibility delay-200 z-50 py-2 hover:opacity-100 hover:visible hover:delay-0\">\n";
             }
         } else {
             // Nested submenu
-            $output .= "\n$indent<ul class=\"absolute left-full top-0 ml-2 min-w-[200px] bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 transition-visibility delay-200 z-50 py-2 hover:opacity-100 hover:visible hover:delay-0\">\n";
+            $output .= "\n$indent<ul class=\"absolute left-full top-0 ml-2 min-w-[12.5rem] bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 transition-visibility delay-200 z-50 py-2 hover:opacity-100 hover:visible hover:delay-0\">\n";
         }
     }
 
@@ -236,7 +242,7 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
             
             // Add CTA section if text and URL are provided
             if (!empty($this->mega_menu_cta_text) && !empty($this->mega_menu_cta_url)) {
-                $output .= "$indent\t\t\t<div class=\"w-[300px] flex-shrink-0\">\n";
+                $output .= "$indent\t\t\t<div class=\"w-[18.75rem] flex-shrink-0\">\n";
                 $output .= "$indent\t\t\t\t<div class=\"bg-gray-50 rounded-lg p-6 h-full flex flex-col justify-center items-start\">\n";
                 $output .= "$indent\t\t\t\t\t<h3 class=\"text-xl font-semibold text-[#131611] mb-4\">Ontdek meer</h3>\n";
                 $output .= "$indent\t\t\t\t\t<a href=\"" . esc_url($this->mega_menu_cta_url) . "\" class=\"inline-flex items-center gap-2 px-6 py-3 bg-[#FF5822] text-[#131611] rounded font-medium hover:opacity-90 transition-opacity\">\n";
@@ -339,7 +345,7 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         
         // Add min-height for top-level items to match logo height
         if ($depth == 0) {
-            $class_names .= ' min-h-[80px] flex items-center';
+            $class_names .= ' min-h-[5rem] flex items-center';
         }
         
         $class_names = $class_names ? ' class="' . esc_attr(trim($class_names)) . '"' : '';

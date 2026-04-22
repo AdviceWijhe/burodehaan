@@ -7,7 +7,7 @@
                         <?php echo get_sub_field('quote'); ?>
                     </div>
                     <div class="quote-author flex items-center justify-center gap-[1rem] mt-[2.5rem]">
-                        <div class="quote-author__image w-[60px] h-[60px] rounded-full overflow-hidden">
+                        <div class="quote-author__image w-[3.75rem] h-[3.75rem] rounded-full overflow-hidden">
                             <?php echo wp_get_attachment_image(get_sub_field('foto')['ID'], 'medium', false, array(
                                 'class' => 'w-full h-full object-cover object-center',
                                 'alt' => get_sub_field('naam') ?? '',

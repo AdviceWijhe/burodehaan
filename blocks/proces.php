@@ -1,9 +1,9 @@
 <section class="proces <?php echo get_spacing_bottom_class(); ?> " data-proces-section>
     <div class="proces-scroll-wrapper overflow-hidden p-[1.25rem] lg:p-0! pt-[2.5rem] lg:pt-[5rem]! ">
         <div class="flex flex-col lg:flex-row items-stretch flex-nowrap proces-slides-container" data-proces-slides>
-            <div class="w-full lg:min-w-[600px]  lg:w-[600px]  lg:pl-[3.75rem] lg:pr-[6.25rem] lg:pb-[3.75rem] flex flex-col justify-end proces-intro-slide text-pink mb-[3.75rem] lg:mb-0!">
+            <div class="w-full lg:min-w-[37.5rem]  lg:w-[37.5rem]  lg:pl-[3.75rem] lg:pr-[6.25rem] lg:pb-[3.75rem] flex flex-col justify-end proces-intro-slide text-pink mb-[3.75rem] lg:mb-0!">
                 <h4 class="mb-[1.5rem]! lg:mb-[2rem]! title-large"><?= get_sub_field('titel') ?></h4>
-                <div class="mb-[1.5rem]! lg:mb-[2rem]! max-w-[333px] body-medium font-normal"><?= get_sub_field('content', null, null) ?></div>
+                <div class="mb-[1.5rem]! lg:mb-[2rem]! max-w-[20.8125rem] body-medium font-normal"><?= get_sub_field('content', null, null) ?></div>
                 <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'))) ?>
             </div>
             <?php 
@@ -12,9 +12,9 @@
             foreach($processen as $stap) { 
                 $count++;
                 ?>
-                <div class="w-full lg:w-10/12 lg:min-w-[1200px] mr-[5rem]! proces-slide mb-[1.5rem] lg:mb-0!" data-slide-index="<?= $count ?>">
+                <div class="w-full lg:w-10/12 lg:min-w-[75rem] mr-[5rem]! proces-slide mb-[1.5rem] lg:mb-0!" data-slide-index="<?= $count ?>">
                     <div class="flex flex-col lg:flex-row flex-stretch">
-                        <div class="w-full lg:w-5/12 aspect-square lg:aspect-auto lg:h-[calc(100vh-200px)]">
+                        <div class="w-full lg:w-5/12 aspect-square lg:aspect-auto lg:h-[calc(100vh-12.5rem)]">
                             <img src="<?= $stap['afbeelding']['url'] ?>" alt="<?= $stap['afbeelding']['alt'] ?>" class="w-full h-full object-cover object-center">
                         </div>
                         <div class="w-full lg:w-7/12 bg-light-blue/25 p-[2.5rem] lg:p-[3.75rem] flex flex-col justify-between items-start">
@@ -29,7 +29,7 @@
                 </div>
             <?php } ?>
             <!-- Blanko slide zodat laatste slide volledig in beeld komt -->
-            <!-- <div class="w-full lg:w-10/12 lg:min-w-[1200px] proces-slide" ></div> -->
+            <!-- <div class="w-full lg:w-10/12 lg:min-w-[75rem] proces-slide" ></div> -->
         </div>
     </div>
 
@@ -75,7 +75,7 @@
                 $count++;
                 ?>
                 <div class="step border rounded-full border-light-blue/25 p-[0.25rem] inline-flex items-center gap-2 transition-all duration-300" data-step-index="<?= $count ?>">
-                    <span class="bg-light-blue aspect-square w-[20px] rounded-full flex items-center justify-center text-center text-white text-[0.75rem] font-bold step-number"><?= $count ?></span>
+                    <span class="bg-light-blue aspect-square w-[1.25rem] rounded-full flex items-center justify-center text-center text-white text-[0.75rem] font-bold step-number"><?= $count ?></span>
                     <span class="step-text pr-[0.5rem]"><?= $stap['proces_naam'] ?></span>
                 </div>
             <?php } ?>

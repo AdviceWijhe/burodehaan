@@ -10,7 +10,7 @@ get_header(); ?>
 
 
 <section class="hero pb-0 mb-20 lg:mb-0 lg:pb-20 pt-8 relative">
-  <div class="absolute bg-gray lg:h-full h-[calc(100%-30px)] max-h-[362px] left-0 top-0 w-full"></div>
+  <div class="absolute bg-gray lg:h-full h-[calc(100%-1.875rem)] max-h-[22.625rem] left-0 top-0 w-full"></div>
   <div class="px-5 lg:px-8 relative z-1 mb-3 lg:mb-20">
     <!-- yoast breadcrumbs -->
     <?php if (function_exists('yoast_breadcrumb')) {
@@ -156,7 +156,7 @@ get_header(); ?>
                                 
                                 ?>
                                 <a href="<?php echo esc_url($download_url); ?>"  target="_blank" download
-                                   class="btn btn-red flex items-center gap-2 transition-colors self-end lg:min-w-[195px]"
+                                   class="btn btn-red flex items-center gap-2 transition-colors self-end lg:min-w-[12.1875rem]"
                                    <?php if (!empty($attachments)) echo 'download'; ?>>
                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="15" viewBox="0 0 11 15" fill="none">
   <path d="M5.39746 12.1455L0.0761716 6.82519L1.14062 5.76074L4.69922 9.32031L4.69922 -2.63079e-07L6.2041 -1.97299e-07L6.2041 9.21191L9.6543 5.76074L10.7178 6.8252L5.39746 12.1455Z" fill="white"/>

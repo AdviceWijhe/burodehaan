@@ -22,7 +22,7 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
                             $custom_logo_id = get_theme_mod('custom_logo');
                             $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
                             if ($logo) {
-                                echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="h-[38px] w-auto object-contain">';
+                                echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="h-[2.375rem] w-auto object-contain">';
                             }
                             ?>
                         </a>
@@ -40,7 +40,7 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
             <div class="flex items-center gap-4">
                 <!-- Search Button -->
                 <div class="relative">
-                    <button id="header-search-toggle" class="w-[54px] h-[54px] flex items-center justify-center border border-[#131611] rounded hover:bg-gray-100 transition-colors" aria-label="Zoeken" aria-expanded="false">
+                    <button id="header-search-toggle" class="w-[3.375rem] h-[3.375rem] flex items-center justify-center border border-[#131611] rounded hover:bg-gray-100 transition-colors" aria-label="Zoeken" aria-expanded="false">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
@@ -48,7 +48,7 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
                     
                     <!-- Search Bar (expandable) -->
                     <div id="header-search-bar" class="hidden absolute right-full top-0 mr-2 bg-white border border-[#131611] rounded shadow-lg z-50 transition-all duration-300" style="width: 0; opacity: 0;">
-                        <div class="w-[300px] p-2">
+                        <div class="w-[18.75rem] p-2">
                             <?php get_search_form(); ?>
                         </div>
                     </div>
@@ -60,7 +60,7 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
                 $secondary_text = $secondary_button && isset($secondary_button['title']) ? $secondary_button['title'] : 'Secondary button';
                 $secondary_url = $secondary_button && isset($secondary_button['url']) ? $secondary_button['url'] : '#';
                 ?>
-                <a href="<?php echo esc_url($secondary_url); ?>" class="hidden xl:inline-block px-5 py-4 bg-[rgba(19,22,17,0.4)] backdrop-blur-[7px] text-white rounded font-medium hover:opacity-80 transition-opacity whitespace-nowrap">
+                <a href="<?php echo esc_url($secondary_url); ?>" class="hidden xl:inline-block px-5 py-4 bg-[rgba(19,22,17,0.4)] backdrop-blur-[0.4375rem] text-white rounded font-medium hover:opacity-80 transition-opacity whitespace-nowrap">
                     <?php echo esc_html($secondary_text); ?>
                 </a>
 

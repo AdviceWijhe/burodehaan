@@ -3,7 +3,7 @@
                       <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
                     <?php endif; ?>
                     <div class="absolute inset-0 bg-black/20"></div>
-                    <div class="absolute left-3 right-3 bottom-3 rounded-[12px] border border-white/20 bg-white/5 backdrop-blur-[20px] p-[1.25rem] lg:p-[2rem] text-white flex items-end justify-between gap-3">
+                    <div class="absolute left-3 right-3 bottom-3 rounded-[0.75rem] border border-white/20 bg-white/5 backdrop-blur-[1.25rem] p-[1.25rem] lg:p-[2rem] text-white flex items-end justify-between gap-3">
                       <div>
                         <?php
                         $term_label = '';

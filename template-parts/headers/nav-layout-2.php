@@ -22,7 +22,7 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
                                 $custom_logo_id = get_theme_mod('custom_logo');
                                 $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
                                 if ($logo) {
-                                    echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="h-[38px] w-auto object-contain">';
+                                    echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="h-[2.375rem] w-auto object-contain">';
                                 }
                                 ?>
                             </a>

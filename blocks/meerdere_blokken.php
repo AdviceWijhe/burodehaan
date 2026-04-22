@@ -192,7 +192,7 @@ if ($tekstblokken && is_array($tekstblokken) && !empty($tekstblokken)) :
                                 
                                 // Voor 1 kolom: max-height van 350px
                                 $image_container_class = $aantal == 1 
-                                    ? 'w-full mb-6 lg:mb-8 overflow-hidden lg:max-h-[350px]' 
+                                    ? 'w-full mb-6 lg:mb-8 overflow-hidden lg:max-h-[21.875rem]' 
                                     : 'w-full aspect-video lg:aspect-[4/3] mb-6 lg:mb-8 overflow-hidden';
                             ?>
                                 <div class="<?php echo esc_attr($image_container_class); ?>">

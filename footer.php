@@ -281,20 +281,20 @@
             <div class="flex items-center justify-center col-span-1 lg:col-span-2 ">
                 <?php
                 if (is_numeric($footer_logo)) {
-                    echo wp_get_attachment_image((int) $footer_logo, 'full', false, array('class' => 'h-[100px] lg:h-[160px] w-auto object-contain'));
+                    echo wp_get_attachment_image((int) $footer_logo, 'full', false, array('class' => 'h-[6.25rem] lg:h-[10rem] w-auto object-contain'));
                 } elseif (is_array($footer_logo) && !empty($footer_logo['url'])) {
                     ?>
-                    <img class="h-[100px] lg:h-[160px] w-auto object-contain" src="<?php echo esc_url($footer_logo['url']); ?>" alt="<?php echo esc_attr($footer_logo['alt'] ?? get_bloginfo('name')); ?>">
+                    <img class="h-[6.25rem] lg:h-[10rem] w-auto object-contain" src="<?php echo esc_url($footer_logo['url']); ?>" alt="<?php echo esc_attr($footer_logo['alt'] ?? get_bloginfo('name')); ?>">
                     <?php
                 } elseif (is_string($footer_logo) && !empty($footer_logo)) {
                     ?>
-                    <img class="h-[100px] lg:h-[160px] w-auto object-contain" src="<?php echo esc_url($footer_logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
+                    <img class="h-[6.25rem] lg:h-[10rem] w-auto object-contain" src="<?php echo esc_url($footer_logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
                     <?php
                 }
                 ?>
             </div>
 
-            <div class="w-full mx-auto max-w-[260px] lg:w-auto lg:max-w-[429px] lg:ml-auto col-span-1 lg:col-span-5">
+            <div class="w-full mx-auto max-w-[16.25rem] lg:w-auto lg:max-w-[26.8125rem] lg:ml-auto col-span-1 lg:col-span-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="32" viewBox="0 0 429 32" fill="none">
                     <path d="M396.138 0L409.931 13.7931H414.345V18.2069L428.138 32V0H396.138Z" fill="white"/>
                     <path d="M409.931 13.7931L428.138 0L414.345 13.7931H409.931Z" fill="#E0E0DF"/>
@@ -472,15 +472,15 @@ if (!empty($popups)) :
 
     <!-- Popup container -->
     <div id="popup-overlay" class="fixed inset-0 bg-black/50 z-50 hidden items-end lg:items-center justify-center pb-0 lg:pb-8 py-4 lg:p-8 z-[100]" aria-modal="true" role="dialog" aria-labelledby="popup-title">
-        <div class="relative max-w-[1628px] w-full h-[100vh] lg:max-h-[90vh] shadow-2xl flex flex-col">
+        <div class="relative max-w-[101.75rem] w-full h-[100vh] lg:max-h-[90vh] shadow-2xl flex flex-col">
             <div id="popup-container" class="flex-1 flex flex-col lg:flex-row right-0 lg:right-auto overflow-y-auto lg:overflow-hidden">
                 <!-- Close button -->
                 <button 
                     id="popup-close" 
-                    class="self-end lg:absolute lg:top-4 lg:right-4 z-50 w-[60px] h-[60px] lg:w-10 lg:h-10 flex items-center justify-center text-[#00344c] hover:text-[#0a2031] transition-colors hover:cursor-pointer bg-light-blue lg:bg-transparent flex-shrink-0"
+                    class="self-end lg:absolute lg:top-4 lg:right-4 z-50 w-[3.75rem] h-[3.75rem] lg:w-10 lg:h-10 flex items-center justify-center text-[#00344c] hover:text-[#0a2031] transition-colors hover:cursor-pointer bg-light-blue lg:bg-transparent flex-shrink-0"
                     aria-label="Sluit popup"
                 >
-                <svg class="w-[36px] h-[36px] lg:w-[40px] lg:h-[40px]" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-[2.25rem] h-[2.25rem] lg:w-[2.5rem] lg:h-[2.5rem]" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="26.5156" y="8.83882" width="1" height="25" transform="rotate(45 26.5156 8.83882)" fill="#00344C"/>
   <rect x="26.5156" y="26.5165" width="1" height="25" transform="rotate(135 26.5156 26.5165)" fill="#00344C"/>
 </svg>
@@ -493,7 +493,7 @@ if (!empty($popups)) :
             </div>
             
             <!-- Mobile scroll gradient (absoluut gepositioneerd onderaan, BOVEN alle content) -->
-            <div id="mobile-scroll-gradient" class="lg:hidden absolute bottom-0 left-0 right-0 w-full h-[80px] pointer-events-none transition-opacity duration-300 z-[60]" style="background: linear-gradient(to bottom, rgba(10, 32, 49, 0) 0%, rgba(10, 32, 49, 0.95) 100%); opacity: 0;"></div>
+            <div id="mobile-scroll-gradient" class="lg:hidden absolute bottom-0 left-0 right-0 w-full h-[5rem] pointer-events-none transition-opacity duration-300 z-[60]" style="background: linear-gradient(to bottom, rgba(10, 32, 49, 0) 0%, rgba(10, 32, 49, 0.95) 100%); opacity: 0;"></div>
         </div>
     </div>
 

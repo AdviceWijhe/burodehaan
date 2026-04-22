@@ -67,7 +67,7 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
             ?>
 <!-- Image + Text Block -->
 <div id="<?php echo esc_attr($block_id); ?>" class="js-image-text <?php echo $background_color === '' ? 'js-image-text--bg-empty' : ''; ?> <?php echo get_spacing_bottom_class(); ?> lg:relative flex flex-col lg:flex-row">
-  <!-- <div class="order-2 lg:absolute lg:order-none js-image-text-extend left-0 lg:left-auto lg:right-0 bottom-[3.75rem] lg:top-[0rem] lg:bottom-auto w-full h-[60px] lg:h-full bg-gray-100 <?php echo $content_first ? '' : 'hidden'; ?>" id="extend-element-<?php echo esc_attr($block_id); ?>"></div> -->
+  <!-- <div class="order-2 lg:absolute lg:order-none js-image-text-extend left-0 lg:left-auto lg:right-0 bottom-[3.75rem] lg:top-[0rem] lg:bottom-auto w-full h-[3.75rem] lg:h-full bg-gray-100 <?php echo $content_first ? '' : 'hidden'; ?>" id="extend-element-<?php echo esc_attr($block_id); ?>"></div> -->
     <div class="container mx-auto max-md:px-0! lg:px-0! order-1 lg:order-0">
 		<div class="js-it-row flex flex-col-reverse lg:flex-row <?php echo $background_color === '' ? 'items-center' : 'items-stretch'; ?> order-1">
             

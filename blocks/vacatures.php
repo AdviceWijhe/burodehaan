@@ -35,7 +35,7 @@ if ($vacatures) : ?>
                     <span class="font-medium">Filter:</span>
                     <?php foreach ($filter_options as $value => $label) : ?>
                         <button 
-                            class="vacature-filter-btn px-6 py-3 rounded-[4px] border-2 border-light/30 text-black hover:border-light hover:bg-black/5 transition-all duration-300 <?php echo $value === 'alle' ? 'active bg-black/10 border-light' : ''; ?>"
+                            class="vacature-filter-btn px-6 py-3 rounded-[0.25rem] border-2 border-light/30 text-black hover:border-light hover:bg-black/5 transition-all duration-300 <?php echo $value === 'alle' ? 'active bg-black/10 border-light' : ''; ?>"
                             data-filter="<?php echo esc_attr($value); ?>"
                             type="button">
                             <?php echo esc_html($label); ?>

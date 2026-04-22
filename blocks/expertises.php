@@ -51,7 +51,103 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
                 >
                     
                 <div class="expertise__icoon mb-[1.25rem]">
-                    <?= get_field('icoon', 'expertise_' . $expertise->term_id); ?>
+                    <?php
+                    $expertise_icon_markup = (string) get_field('icoon', 'expertise_' . $expertise->term_id);
+                    $expertise_icon_markup = wp_kses(
+                        $expertise_icon_markup,
+                        array(
+                            'svg' => array(
+                                'xmlns' => true,
+                                'width' => true,
+                                'height' => true,
+                                'viewbox' => true,
+                                'viewBox' => true,
+                                'fill' => true,
+                                'stroke' => true,
+                                'aria-hidden' => true,
+                                'focusable' => true,
+                                'role' => true,
+                                'class' => true,
+                                'style' => true,
+                            ),
+                            'path' => array(
+                                'd' => true,
+                                'fill' => true,
+                                'stroke' => true,
+                                'stroke-width' => true,
+                                'stroke-linecap' => true,
+                                'stroke-linejoin' => true,
+                                'class' => true,
+                            ),
+                            'rect' => array(
+                                'x' => true,
+                                'y' => true,
+                                'width' => true,
+                                'height' => true,
+                                'rx' => true,
+                                'ry' => true,
+                                'fill' => true,
+                                'stroke' => true,
+                                'stroke-width' => true,
+                                'class' => true,
+                            ),
+                            'circle' => array(
+                                'cx' => true,
+                                'cy' => true,
+                                'r' => true,
+                                'fill' => true,
+                                'stroke' => true,
+                                'stroke-width' => true,
+                                'class' => true,
+                            ),
+                            'g' => array(
+                                'fill' => true,
+                                'stroke' => true,
+                                'class' => true,
+                                'transform' => true,
+                            ),
+                            'defs' => array(),
+                            'clipPath' => array(
+                                'id' => true,
+                            ),
+                            'mask' => array(
+                                'id' => true,
+                                'maskUnits' => true,
+                                'x' => true,
+                                'y' => true,
+                                'width' => true,
+                                'height' => true,
+                            ),
+                            'use' => array(
+                                'href' => true,
+                                'xlink:href' => true,
+                            ),
+                            'linearGradient' => array(
+                                'id' => true,
+                                'x1' => true,
+                                'y1' => true,
+                                'x2' => true,
+                                'y2' => true,
+                                'gradientUnits' => true,
+                            ),
+                            'stop' => array(
+                                'offset' => true,
+                                'stop-color' => true,
+                                'stop-opacity' => true,
+                            ),
+                            'polygon' => array(
+                                'points' => true,
+                                'fill' => true,
+                                'stroke' => true,
+                                'stroke-width' => true,
+                            ),
+                        )
+                    );
+                    if (function_exists('advice2025_convert_svg_px_dimensions_to_rem')) {
+                        $expertise_icon_markup = advice2025_convert_svg_px_dimensions_to_rem($expertise_icon_markup);
+                    }
+                    echo $expertise_icon_markup;
+                    ?>
                 </div>
                 
                 <h4 class="expertise_title mb-[2.5rem]! lg:mb-[8.25rem]!">

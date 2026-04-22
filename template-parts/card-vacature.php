@@ -118,7 +118,7 @@ $wrap_classes = array_filter(
     array(
         'vacature-card-wrap',
         $background_class,
-        $background_class !== '' ? 'rounded-[4px] py-2 md:py-3' : '',
+        $background_class !== '' ? 'rounded-[0.25rem] py-2 md:py-3' : '',
     )
 );
 ?>
@@ -129,7 +129,7 @@ $wrap_classes = array_filter(
         class="vacature-item group flex flex-col md:flex-row bg-white border border-black/12 overflow-hidden transition-shadow duration-300 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         <?php echo $is_external ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>
     >
-        <div class="relative w-full md:w-[245px] md:min-w-[245px] h-[200px] md:h-[169px] shrink-0 bg-secondary overflow-hidden">
+        <div class="relative w-full md:w-[15.3125rem] md:min-w-[15.3125rem] h-[12.5rem] md:h-[10.5625rem] shrink-0 bg-secondary overflow-hidden">
             <?php if ($has_thumb) : ?>
                 <?php
                 echo get_the_post_thumbnail(

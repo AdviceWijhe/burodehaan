@@ -140,7 +140,7 @@
             if (totalEl)   totalEl.textContent   = pad(total);
 
             if (progressEl) {
-                var trackW     = 235; /* matches the fixed w-[235px] in cards_grid.php */
+                var trackW     = 235; /* matches the fixed w-[14.6875rem] in cards_grid.php */
                 var indicatorW = progressEl.offsetWidth || 90.7336;
                 var maxMove    = trackW - indicatorW;
                 var progress   = total > 1 ? (step - 1) / (total - 1) : 0;

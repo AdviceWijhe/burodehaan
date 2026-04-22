@@ -16,7 +16,7 @@ if($cta_background_color) {
 <section class="cta  <?php echo get_spacing_bottom_class(); ?> <?php echo isset($args['cta_type']) ? '' : ''; ?> bg-<?php echo $cta_background_color; ?> text-<?php echo $text_color; ?>! <?php if($cta_background_color) { echo 'pt-[3.75rem] lg:pt-[7.5rem]';} ?>">
     <div class="container">
         <div class="w-full lg:w-10/12 mx-auto px-0 lg:px-[4.0625rem] overflow-hidden relative">
-            <div class="flex flex-col items-center lg:flex-row border border-[<?php echo $border_color; ?>] rounded-[20px] p-[2.25rem] lg:p-[3.75rem]">
+            <div class="flex flex-col items-center lg:flex-row border border-[<?php echo $border_color; ?>] rounded-[1.25rem] p-[2.25rem] lg:p-[3.75rem]">
             <div class="w-full lg:w-6/12 order-1 lg:order-2 relative mb-[1.5rem] lg:mb-0! lg:pr-[10rem]">
                 <?php if (!empty($cta_titel)): ?>
                     <div class="mt-0! mb-[1.75rem] lg:mb-[2.5rem] pr-[12%]"><?php echo $cta_titel; ?></div>

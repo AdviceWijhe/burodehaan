@@ -77,7 +77,7 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
                 
                 // Add CTA section if provided
                 if (!empty($this->mega_menu_cta_text) && !empty($this->mega_menu_cta_url)) {
-                    $output .= "$indent\t\t\t<div class=\"w-[350px] flex-shrink-0\">\n";
+                    $output .= "$indent\t\t\t<div class=\"w-[21.875rem] flex-shrink-0\">\n";
                     $output .= "$indent\t\t\t\t<div class=\"bg-gray-50 rounded-lg p-8 h-full flex flex-col justify-center\">\n";
                     $output .= "$indent\t\t\t\t\t<h3 class=\"text-2xl font-bold text-[#131611] mb-4\">Ontdek meer</h3>\n";
                     $output .= "$indent\t\t\t\t\t<p class=\"text-gray-600 mb-6\">Neem contact op met ons team voor persoonlijk advies en maatwerkoplossingen.</p>\n";
@@ -200,7 +200,7 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
         // Different styles for different depths
         if ($depth == 0) {
             // Top level items
-            $link_classes = 'nav-link relative px-4 py-2 min-h-[96px] text-black tracking-wide transition-all duration-300 flex items-center min-w-0';
+            $link_classes = 'nav-link relative px-4 py-2 min-h-[6rem] text-black tracking-wide transition-all duration-300 flex items-center min-w-0';
             
             if ($has_children) {
                 $link_classes .= ' ';
@@ -279,7 +279,7 @@ class Advice2025_Nav_Walker extends Walker_Nav_Menu {
             // Content section met pijlen-animatie zoals productkaart
             $item_output .= '<div class="flex-1 flex-wrap">';
             $item_output .= '<div class="js-title-container overflow-hidden">';
-            $item_output .= '<div class="span w-full items-center transition-transform duration-300 group-hover/submenu:-translate-x-[38px]  ">';
+            $item_output .= '<div class="span w-full items-center transition-transform duration-300 group-hover/submenu:-translate-x-[2.375rem]  ">';
             // $item_output .= '<svg class="mt-[0.25rem]" xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none" aria-hidden="true" focusable="false">';
             // $item_output .= '<path d="M18 7.88477V7.88574L10.1152 15.7705L8.53809 14.1934L13.8105 8.9209H0V6.69043H13.6514L8.53809 1.57715L10.1152 0L18 7.88477Z" fill="#E1322C"></path>';
             // $item_output .= '</svg>';
@@ -468,11 +468,11 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
                 $title = $expertise->name ?? '';
 
                 $out .= "$indent\t\t\t<li class=\"list-none!\">\n";
-                $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $term_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item relative block min-h-[120px] border border-[rgba(22,22,22,0.12)] bg-white px-[1.5rem] py-[1.25rem] transition-colors duration-300 hover:bg-[#FAFAFA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+                $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $term_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item relative block min-h-[7.5rem] border border-[rgba(22,22,22,0.12)] bg-white px-[1.5rem] py-[1.25rem] transition-colors duration-300 hover:bg-[#FAFAFA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
                 if ( ! empty( $icon ) ) {
-                    $out .= "$indent\t\t\t\t\t<span class=\"absolute left-[24px] top-[1rem] text-[#EC663C]\">" . $this->sanitize_expertise_icon_markup( (string) $icon ) . "</span>\n";
+                    $out .= "$indent\t\t\t\t\t<span class=\"absolute left-[1.5rem] top-[1rem] text-[#EC663C]\">" . $this->sanitize_expertise_icon_markup( (string) $icon ) . "</span>\n";
                 }
-                $out .= "$indent\t\t\t\t\t<span class=\"absolute right-[24px] top-1/2 -translate-y-1/2\" aria-hidden=\"true\">\n";
+                $out .= "$indent\t\t\t\t\t<span class=\"absolute right-[1.5rem] top-1/2 -translate-y-1/2\" aria-hidden=\"true\">\n";
                 $out .= "$indent\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
                 $out .= "$indent\t\t\t\t\t\t\t<rect width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
                 $out .= "$indent\t\t\t\t\t\t\t<rect x=\"5.92578\" y=\"11.8521\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
@@ -483,7 +483,7 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
                 $out .= "$indent\t\t\t\t\t\t\t<rect x=\"5.92578\" y=\"5.92578\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
                 $out .= "$indent\t\t\t\t\t\t</svg>\n";
                 $out .= "$indent\t\t\t\t\t</span>\n";
-                $out .= "$indent\t\t\t\t\t<span class=\"flex min-h-[80px] items-end pr-10 text-[1.5rem] font-light leading-[1.2] text-[#161616]\" style=\"font-family: 'Fira Sans', sans-serif;\">" . esc_html( $title ) . "</span>\n";
+                $out .= "$indent\t\t\t\t\t<span class=\"flex min-h-[5rem] items-end pr-10 text-[1.5rem] font-light leading-[1.2] text-[#161616]\" style=\"font-family: 'Fira Sans', sans-serif;\">" . esc_html( $title ) . "</span>\n";
                 $out .= "$indent\t\t\t\t</a>\n";
                 $out .= "$indent\t\t\t</li>\n";
             }
@@ -491,8 +491,8 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
             // "Alle expertises" link
             $all_link = home_url( '/expertises' );
             $out .= "$indent\t\t\t<li class=\"list-none!\">\n";
-            $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $all_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item relative block min-h-[120px] border border-[rgba(22,22,22,0.12)] bg-white px-[1.5rem] py-[1.25rem] transition-colors duration-300 hover:bg-[#FAFAFA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
-            $out .= "$indent\t\t\t\t\t<span class=\"absolute right-[24px] top-1/2 -translate-y-1/2\" aria-hidden=\"true\">\n";
+            $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $all_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item relative block min-h-[7.5rem] border border-[rgba(22,22,22,0.12)] bg-white px-[1.5rem] py-[1.25rem] transition-colors duration-300 hover:bg-[#FAFAFA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+            $out .= "$indent\t\t\t\t\t<span class=\"absolute right-[1.5rem] top-1/2 -translate-y-1/2\" aria-hidden=\"true\">\n";
             $out .= "$indent\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
             $out .= "$indent\t\t\t\t\t\t\t<rect width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
             $out .= "$indent\t\t\t\t\t\t\t<rect x=\"5.92578\" y=\"11.8521\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
@@ -503,7 +503,7 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
             $out .= "$indent\t\t\t\t\t\t\t<rect x=\"5.92578\" y=\"5.92578\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
             $out .= "$indent\t\t\t\t\t\t</svg>\n";
             $out .= "$indent\t\t\t\t\t</span>\n";
-            $out .= "$indent\t\t\t\t\t<span class=\"flex min-h-[80px] items-end pr-10 text-[1.5rem] font-light leading-[1.2] text-[#161616]\" style=\"font-family: 'Fira Sans', sans-serif;\">Alle expertises</span>\n";
+            $out .= "$indent\t\t\t\t\t<span class=\"flex min-h-[5rem] items-end pr-10 text-[1.5rem] font-light leading-[1.2] text-[#161616]\" style=\"font-family: 'Fira Sans', sans-serif;\">Alle expertises</span>\n";
             $out .= "$indent\t\t\t\t</a>\n";
             $out .= "$indent\t\t\t</li>\n";
         }

@@ -79,7 +79,7 @@ $backgroundPatroon = 'pink';
           <?php $cards_rand_class = 'cards-grid-' . wp_rand(1000, 9999); ?>
           <div class="swiper-controls hidden md:flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 <?= esc_attr($cards_rand_class); ?>-controls">
             <div class="w-full lg:w-auto flex items-center gap-6">
-              <div class="w-[235px] h-[2px] relative overflow-hidden bg-[#161616]/20">
+              <div class="w-[14.6875rem] h-[0.125rem] relative overflow-hidden bg-[#161616]/20">
                 <span class="<?= esc_attr($cards_rand_class); ?>-progress absolute left-0 top-0 h-full bg-primary transition-transform duration-300" style="width: 90.7336px; transform: translateX(0px);"></span>
               </div>
               <div class="title-large text-black">

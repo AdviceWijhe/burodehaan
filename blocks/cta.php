@@ -10,8 +10,8 @@
   
   <div class=" mx-auto bg-blue relative overflow-hidden">
     <div class="flex flex-col lg:items-center justify-center relative py-[3.75rem] lg:py-[10rem] ">
-      <div class="w-full max-w-[700px]  text-white text-center mx-auto px-[1.25rem] lg:px-0">
-        <h2 class="headline-medium text-white mb-[2rem]! max-w-[579px] mx-auto"><?= get_sub_field('titel') ?></h2>
+      <div class="w-full max-w-[43.75rem]  text-white text-center mx-auto px-[1.25rem] lg:px-0">
+        <h2 class="headline-medium text-white mb-[2rem]! max-w-[36.1875rem] mx-auto"><?= get_sub_field('titel') ?></h2>
 
         <?php if(get_sub_field('usps')) { ?>
           <div class="usps relative flex flex-col lg:flex-row flex-wrap items-center justify-center gap-[1rem] lg:gap-[1.75rem] mb-[2.125rem]">
@@ -29,7 +29,7 @@
         <?php } ?>
 
         <?php if(get_sub_field('content')) { ?>
-          <div class="relative max-w-[579px] mx-auto body-medium font-normal">
+          <div class="relative max-w-[36.1875rem] mx-auto body-medium font-normal">
             <?php echo get_sub_field('content', null, null); ?>
           </div>
         <?php } ?>

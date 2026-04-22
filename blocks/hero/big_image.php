@@ -1,8 +1,8 @@
 <section class="hero hero__big_image overflow-hidden relative w-full max-w-full">
-    <div class="relative flex items-end w-full p-0 h-[600px] md:h-auto md:aspect-[1728/750]">
+    <div class="relative flex items-end w-full p-0 h-[37.5rem] md:h-auto md:aspect-[1728/750]">
         <div class="absolute inset-0 h-full w-full">
             <div class="absolute top-0 left-0 w-1/2 h-full" style="background: linear-gradient(90deg, rgba(22, 22, 22, 0.5) 0%, rgba(22, 22, 22, 0) 100%); z-index: 2;"></div>
-<div class="absolute bottom-0 left-0 w-full h-[300px]" style="opacity: 0.5;
+<div class="absolute bottom-0 left-0 w-full h-[18.75rem]" style="opacity: 0.5;
 background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%); z-index: 2;"></div>
             <?php
             $video_input = trim((string) get_sub_field('video_id'));

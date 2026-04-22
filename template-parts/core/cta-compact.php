@@ -4,9 +4,9 @@ include locate_template('template-parts/core/cta-get-data.php');
 ?>
 
 <div class="flex flex-col gap-4">
-    <div class="flex items-center gap-4 w-full max-w-[390px]">
+    <div class="flex items-center gap-4 w-full max-w-[24.375rem]">
         <?php if (!empty($cta_afbeelding) && !empty($cta_afbeelding['url'])): ?>
-            <div class="aspect-square w-[80px] flex-shrink-0">
+            <div class="aspect-square w-[5rem] flex-shrink-0">
                 <?php 
                 if ($cta_afbeelding && isset($cta_afbeelding['ID'])) {
                   echo wp_get_attachment_image($cta_afbeelding['ID'], 'thumbnail', false, array(

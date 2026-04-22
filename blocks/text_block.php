@@ -281,7 +281,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                                         ?>
                                         <a href="<?php echo esc_url($related_permalink); ?>" class="flex items-stretch border border-[rgba(22,22,22,0.12)]">
                                             <?php if ($related_thumb) : ?>
-                                                <div class="w-[72px] min-w-[72px] self-stretch">
+                                                <div class="w-[4.5rem] min-w-[4.5rem] self-stretch">
                                                     <img src="<?php echo esc_url($related_thumb); ?>" alt="<?php echo esc_attr($related_title); ?>" class="w-full h-full object-cover" loading="lazy">
                                                 </div>
                                             <?php endif; ?>
@@ -319,7 +319,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                 <div class="label-large text-primary mb-[1rem] lg:mb-[1.5rem]"><?php echo esc_html($tekst_label); ?></div>
             <?php endif; ?>
             <?php if (!empty($titel)) : ?>
-                <div class="mb-[1.75rem] lg:mb-[2.5rem] max-w-[790px] <?php echo esc_attr($text_color_class); ?>">
+                <div class="mb-[1.75rem] lg:mb-[2.5rem] max-w-[49.375rem] <?php echo esc_attr($text_color_class); ?>">
                     <?php echo wp_kses_post($titel); ?>
                 </div>
             <?php endif; ?>

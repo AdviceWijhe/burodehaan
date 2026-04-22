@@ -4,7 +4,7 @@
     <div class="w-full lg:w-5/12 flex flex-col justify-between ">
     
         <div class="hero-content lg:pt-[5rem] px-[1.25rem] lg:px-0!">
-        <div class="pt-[1.25rem] lg:px-0! lg:pt-[0] relative z-1 lg:mb-[6.25rem] xl:translate-x-[-124px]">
+        <div class="pt-[1.25rem] lg:px-0! lg:pt-[0] relative z-1 lg:mb-[6.25rem] xl:translate-x-[-7.75rem]">
     <!-- yoast breadcrumbs -->
     <?php if (function_exists('yoast_breadcrumb')) {
       yoast_breadcrumb('<p id="breadcrumbs">', '</p>');
@@ -12,7 +12,7 @@
   </div>
   <div class="text-center lg:text-left mt-[2.5rem] lg:mt-0! pr-[2rem] xl:pr-0">
             <h1 class="text-blue mb-[2rem]!"><?= get_sub_field('titel') ?></h1>
-            <div class="body-large lg:max-w-[540px]"><?= get_sub_field('content') ?></div>
+            <div class="body-large lg:max-w-[33.75rem]"><?= get_sub_field('content') ?></div>
         <?php
             if(!get_sub_field('met_contact')) { ?>
           </div>

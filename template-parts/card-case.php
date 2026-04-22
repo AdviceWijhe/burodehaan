@@ -1,5 +1,5 @@
-<a href="<?= get_the_permalink() ?>" class="relative min-h-[220px] lg:min-h-[400px] flex flex-col justify-end group">
-  <div class="relative *:top-0 left-0 w-full  group-hover:scale-[0.95] overflow-hidden transition-transform duration-300 origin-center h-[220px] lg:h-[468px]">
+<a href="<?= get_the_permalink() ?>" class="relative min-h-[13.75rem] lg:min-h-[25rem] flex flex-col justify-end group">
+  <div class="relative *:top-0 left-0 w-full  group-hover:scale-[0.95] overflow-hidden transition-transform duration-300 origin-center h-[13.75rem] lg:h-[29.25rem]">
     <?php echo wp_get_attachment_image(get_post_thumbnail_id(get_the_ID()), 'large', false, array(
       'class' => 'object-cover object-top w-full h-full group-hover:scale-[1.2] transition-transform duration-300 origin-center',
       'alt' => get_the_title(),

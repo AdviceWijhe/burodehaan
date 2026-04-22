@@ -2,8 +2,8 @@
   <div class="absolute lg:sticky inset-0 lg:top-0 lg:left-0 w-full h-full lg:h-screen overflow-hidden pointer-events-none -z-10">
   </div>
   <div class="container mx-auto relative pt-[3.75rem] lg:pt-[6.25rem]">
-    <div class="flex flex-col lg:flex-row items-start lg:gap-[3.75rem] lg:-mt-[calc(100vh-100px)]">
-      <div class="w-full lg:w-5/12 lg:sticky lg:top-[6.25rem] lg:self-start lg:h-[calc(100vh-260px)] mb-0 lg:mb-[10rem] flex flex-col justify-between order-1" data-stappenplan-content>
+    <div class="flex flex-col lg:flex-row items-start lg:gap-[3.75rem] lg:-mt-[calc(100vh-6.25rem)]">
+      <div class="w-full lg:w-5/12 lg:sticky lg:top-[6.25rem] lg:self-start lg:h-[calc(100vh-16.25rem)] mb-0 lg:mb-[10rem] flex flex-col justify-between order-1" data-stappenplan-content>
         <div class="mb-[2.5rem] lg:mb-0 text-center lg:text-left">
           <h3 class="headline-medium"><?= get_sub_field('titel') ?></h3>
           <p><?= get_sub_field('content') ?></p>

@@ -10,7 +10,7 @@ get_header(); ?>
     
     <!-- Page Header -->
     <section class="hero pt-8 pb-20 relative">
-        <div class="absolute bg-gray h-full max-h-[600px] left-0 top-0 w-full"></div>
+        <div class="absolute bg-gray h-full max-h-[37.5rem] left-0 top-0 w-full"></div>
         <div class="px-8 relative z-1 mb-12">
             <!-- yoast breadcrumbs -->
             <?php if (function_exists('yoast_breadcrumb')) {
@@ -22,7 +22,7 @@ get_header(); ?>
                 <div class="w-full lg:w-5/12">
                     <div class="label badge">Werken bij</div>
                     <h1 class="mb-5">Werken bij <?php bloginfo('name'); ?></h1>
-                    <div class="max-w-[580px] lead">
+                    <div class="max-w-[36.25rem] lead">
                         <p>Ontdek de mogelijkheden om bij ons te komen werken. We zoeken altijd naar getalenteerde mensen die ons team willen versterken.</p>
                     </div>
                 </div>

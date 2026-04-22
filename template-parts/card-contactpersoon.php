@@ -14,7 +14,7 @@ $text_color = $args['text-color'] ?? 'blue';
 ?>
 
 <div class="flex <?php if($variant == 'big') {echo 'lg:gap-20  flex-col lg:items-start items-center lg:flex-row';}else {echo 'lg:gap-5 gap-3 items-center';} ?>   text-<?= $text_color ?> ">
-  <div class="<?php if($variant == 'default') { echo 'w-[60px] h-[60px]';} else if($variant == 'big') {echo 'w-[180px] h-[180px] lg:w-[250px] lg:h-[250px]';} ?> overflow-hidden">
+  <div class="<?php if($variant == 'default') { echo 'w-[3.75rem] h-[3.75rem]';} else if($variant == 'big') {echo 'w-[11.25rem] h-[11.25rem] lg:w-[15.625rem] lg:h-[15.625rem]';} ?> overflow-hidden">
     <?php echo wp_get_attachment_image(get_post_thumbnail_id($contactpersoon), 'large', false, array(
       'class' => 'object-cover object-top',
       'alt' => get_the_title($contactpersoon),

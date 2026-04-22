@@ -95,9 +95,15 @@ h6 strong, h6 b {
 }
 
 /* Labels */
+.label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+
 .label-large {
   font-family: var(--font-family-primary);
-  font-size: max(0.875rem, calc((100vw - 7.5rem) * 0.008));
+  font-size: 1rem;
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
@@ -107,7 +113,7 @@ h6 strong, h6 b {
 
 .label-medium {
   font-family: var(--font-family-primary);
-  font-size: max(0.6875rem, calc((100vw - 7.5rem) * 0.008));
+  font-size: 0.8125rem;
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
@@ -117,7 +123,7 @@ h6 strong, h6 b {
 
 .label-small {
   font-family: var(--font-family-primary);
-  font-size: max(0.625rem, calc((100vw - 7.5rem) * 0.008));
+  font-size: 0.6875rem;
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
@@ -226,10 +232,6 @@ small, .small {
     font-size: 0.875rem;
 }
 
-.label {
-    font-size: 0.8125rem;
-    font-weight: 600;
-}
 
 /* ==========================================================================
    Marquee Block

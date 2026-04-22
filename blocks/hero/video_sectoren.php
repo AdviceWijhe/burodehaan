@@ -105,7 +105,7 @@ $query = new WP_Query($args);
 
                 <h5 class=""><?php the_title(); ?></h5>
 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none" class="absolute right-[8px] top-1/2 translate-y-[-50%] sector-item__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none" class="absolute right-[0.5rem] top-1/2 translate-y-[-50%] sector-item__icon">
 <path d="M10.9482 4.20605H10.9492L12 5.25684L6.74316 10.5137L5.69238 9.46289L9.20801 5.94727H0V4.46094H9.09961L5.69043 1.05176L6.74219 0L10.9482 4.20605Z" fill="white"/>
 </svg>
                 </a>

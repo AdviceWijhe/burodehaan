@@ -26,7 +26,7 @@ if (empty($taxonomies)) {
 >
     <button
         type="button"
-        class="filter_item_label relative overflow-visible h-[59px] px-[1.5rem] flex items-center group justify-center font-medium! gap-[0.5rem] border border-black text-black body-small hover:cursor-pointer hover:bg-black hover:text-white"
+        class="filter_item_label relative overflow-visible h-[3.6875rem] px-[1.5rem] flex items-center group justify-center font-medium! gap-[0.5rem] border border-black text-black body-small hover:cursor-pointer hover:bg-black hover:text-white"
         data-archive-filter-open
         aria-haspopup="dialog"
         aria-controls="<?php echo esc_attr($panel_id); ?>"
@@ -36,7 +36,7 @@ if (empty($taxonomies)) {
             <path class="group-hover:fill-white" d="M0.791667 18.2083H7.125V11.875H0.791667V18.2083ZM7.91667 15.4375V19H0V11.0833H7.91667V14.6458H25.3333V15.4375H7.91667ZM0.395833 4.35417H0V3.5625H17.4167V0H25.3333V7.91667H17.4167V4.35417H0.395833ZM18.2083 7.125H24.5417V0.791667H18.2083V7.125Z" fill="#161616"/>
         </svg>
         <?php echo esc_html($label); ?>
-        <span class="hidden absolute -top-[8px] -right-[8px] bg-white pl-[4px] pb-[4px] pointer-events-none" data-archive-filter-indicator aria-hidden="true">
+        <span class="hidden absolute -top-[0.5rem] -right-[0.5rem] bg-white pl-[0.25rem] pb-[0.25rem] pointer-events-none" data-archive-filter-indicator aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <circle cx="11" cy="11" r="8" fill="#EC663C" stroke="white" stroke-width="6"/>
             </svg>
@@ -50,7 +50,7 @@ if (empty($taxonomies)) {
 
     <aside
         id="<?php echo esc_attr($panel_id); ?>"
-        class="fixed top-0 right-0 h-auto w-full lg:top-10 lg:right-10 lg:h-[calc(100%-80px)] lg:w-[600px] bg-white z-100 translate-x-[calc(100%+40px)] transition-transform duration-300 ease-out shadow-2xl"
+        class="fixed top-0 right-0 h-auto w-full lg:top-10 lg:right-10 lg:h-[calc(100%-5rem)] lg:w-[37.5rem] bg-white z-100 translate-x-[calc(100%+2.5rem)] transition-transform duration-300 ease-out shadow-2xl"
         data-archive-filter-drawer
         role="dialog"
         aria-modal="true"
@@ -63,7 +63,7 @@ if (empty($taxonomies)) {
                 </h4>
                 <button
                     type="button"
-                    class="w-[66px] h-[66px] flex items-center justify-center text-secondary text-[2.125rem] leading-none absolute top-0 right-0 hover:cursor-pointer"
+                    class="w-[4.125rem] h-[4.125rem] flex items-center justify-center text-secondary text-[2.125rem] leading-none absolute top-0 right-0 hover:cursor-pointer"
                     data-archive-filter-close
                     aria-label="<?php esc_attr_e('Sluit filter', 'advice2025'); ?>"
                 >
@@ -128,8 +128,8 @@ if (empty($taxonomies)) {
                                         value="<?php echo esc_attr((string) $term->term_id); ?>"
                                         <?php checked($is_checked); ?>
                                     />
-                                    <span class="w-[23px] h-[23px] border border-black/50 peer-checked:border-black peer-checked:[&>span]:opacity-100 flex items-center justify-center transition-colors">
-                                        <span class="w-[11px] h-[11px] bg-black opacity-0 transition-opacity"></span>
+                                    <span class="w-[1.4375rem] h-[1.4375rem] border border-black/50 peer-checked:border-black peer-checked:[&>span]:opacity-100 flex items-center justify-center transition-colors">
+                                        <span class="w-[0.6875rem] h-[0.6875rem] bg-black opacity-0 transition-opacity"></span>
                                     </span>
                                     <span class="text-[1rem] leading-normal font-light text-black opacity-70 peer-checked:opacity-100 transition-opacity">
                                         <?php echo esc_html($term->name); ?>

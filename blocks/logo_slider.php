@@ -27,7 +27,7 @@ if ($logos && is_array($logos) && !empty($logos)) :
                             $logo_alt = is_array($logo) ? $logo['alt'] : '';
                     ?>
                         <div class="swiper-slide">
-                            <div class="rounded-[20px] p-5 flex items-center justify-center aspect-[210/120] w-full">
+                            <div class="rounded-[1.25rem] p-5 flex items-center justify-center aspect-[210/120] w-full">
                                 <?php if (is_array($logo) && isset($logo['id'])) : 
                                     // Use WordPress image functions for better quality
                                     $logo_src = wp_get_attachment_image_url($logo['id'], 'medium');

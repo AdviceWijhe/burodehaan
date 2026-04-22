@@ -11,7 +11,7 @@ get_header(); ?>
             <!-- Page Header -->
             <?php if (get_the_title()) : ?>
                 <section class="hero pt-8 pb-20 relative">
-  <!-- <div class="absolute bg-gray h-full max-h-[700px] left-0 top-0 w-full"></div> -->
+  <!-- <div class="absolute bg-gray h-full max-h-[43.75rem] left-0 top-0 w-full"></div> -->
   <div class="px-8 relative z-1 mb-20">
     <!-- yoast breadcrumbs -->
     <?php if (function_exists('yoast_breadcrumb')) {
@@ -35,11 +35,11 @@ $datum = date('d M Y', strtotime($datum));
  ?>
         <h1 class="mb-5"> Meld je aan voor de excursie op <?= date('d M Y', strtotime($datum)) ?></h1>
 
-        <div class="max-w-[580px] lead prose"><?= the_content() ?></div>
+        <div class="max-w-[36.25rem] lead prose"><?= the_content() ?></div>
         <!-- Deze knop moet een scroll down van 250px krijgen onclick -->
       
         <div class="flex items-center gap-4 hover:cursor-pointer mt-[2.5rem] mb-15" onclick="window.scrollTo({top: 1000, behavior: 'smooth'})">
-          <div class="icon-round min-w-[50px] min-h-[50px] lg:min-w-[60px] lg:min-h-[60px] rounded-full border border-gray-300 flex items-center justify-center">
+          <div class="icon-round min-w-[3.125rem] min-h-[3.125rem] lg:min-w-[3.75rem] lg:min-h-[3.75rem] rounded-full border border-gray-300 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
               <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
             </svg>
@@ -49,7 +49,7 @@ $datum = date('d M Y', strtotime($datum));
         </div>
       </div>
 
-      <div class="w-full lg:w-5/12 max-h-[600px] overflow-hidden relative z-1 lg:absolute lg:top-0 lg:right-0">
+      <div class="w-full lg:w-5/12 max-h-[37.5rem] overflow-hidden relative z-1 lg:absolute lg:top-0 lg:right-0">
         <?php echo wp_get_attachment_image(get_post_thumbnail_id(), 'full', false, array(
           'class' => 'w-full h-full object-cover object-center will-change-transform transform-gpu scale-120! lg:scale-120! origin-center',
           'alt' => get_the_title(),

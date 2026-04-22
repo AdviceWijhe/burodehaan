@@ -10,11 +10,11 @@ if (empty($afbeeldingen) || !is_array($afbeeldingen)) {
     <div class="swiper <?php echo esc_attr($swiper_class); ?> relative w-full">
         <div class="swiper-wrapper">
             <?php foreach ($afbeeldingen as $afbeelding) : ?>
-            <div class="swiper-slide h-96 rounded-[16px] overflow-hidden">
+            <div class="swiper-slide h-96 rounded-[1rem] overflow-hidden">
                 <?php
                 if ($afbeelding && isset($afbeelding['ID'])) {
                     echo wp_get_attachment_image($afbeelding['ID'], 'large', false, array(
-                        'class' => 'relative w-full h-96 object-cover object-center rounded-[16px]',
+                        'class' => 'relative w-full h-96 object-cover object-center rounded-[1rem]',
                         'alt' => $afbeelding['alt'] ?? '',
                         'loading' => 'lazy'
                     ));
@@ -25,7 +25,7 @@ if (empty($afbeeldingen) || !is_array($afbeeldingen)) {
                     <img src="<?= esc_url($afbeelding['url']) ?>"
                          <?php if ($image_srcset) : ?>srcset="<?= esc_attr($image_srcset) ?>" sizes="<?= esc_attr($image_sizes ?: '100vw') ?>"<?php endif; ?>
                          alt="<?= esc_attr($afbeelding['alt'] ?? '') ?>"
-                         class="relative w-full h-96 object-cover object-center rounded-[16px]"
+                         class="relative w-full h-96 object-cover object-center rounded-[1rem]"
                          loading="lazy">
                 <?php } ?>
             </div>
@@ -33,12 +33,12 @@ if (empty($afbeeldingen) || !is_array($afbeeldingen)) {
         </div>
         <!-- Pijltjes in de slider, links en rechts van de middelste foto -->
         <div class="swiper-arrows absolute inset-y-0 left-0 right-0 flex justify-between items-center pointer-events-none px-2 lg:px-4 z-10">
-            <div class="swiper-prev pointer-events-auto w-10 h-10 lg:w-12 lg:h-12 rounded-[4px] border-[1px] bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center cursor-pointer transition-colors shadow-sm" aria-label="<?php esc_attr_e('Vorige', 'advice2025'); ?>">
+            <div class="swiper-prev pointer-events-auto w-10 h-10 lg:w-12 lg:h-12 rounded-[0.25rem] border-[0.0625rem] bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center cursor-pointer transition-colors shadow-sm" aria-label="<?php esc_attr_e('Vorige', 'advice2025'); ?>">
                 <svg class="w-4 h-4 text-gray-700 rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5.3 8.48" fill="currentColor">
                     <path d="M0,7.42l3.18-3.18L0,1.06,1.06,0l3.18,3.18h0s1.06,1.06,1.06,1.06L1.06,8.48,0,7.42Z"/>
                 </svg>
             </div>
-            <div class="swiper-next pointer-events-auto w-10 h-10 lg:w-12 lg:h-12 rounded-[4px] border-[1px] bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center cursor-pointer transition-colors shadow-sm" aria-label="<?php esc_attr_e('Volgende', 'advice2025'); ?>">
+            <div class="swiper-next pointer-events-auto w-10 h-10 lg:w-12 lg:h-12 rounded-[0.25rem] border-[0.0625rem] bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center cursor-pointer transition-colors shadow-sm" aria-label="<?php esc_attr_e('Volgende', 'advice2025'); ?>">
                 <svg class="w-4 h-4 text-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5.3 8.48" fill="currentColor">
                     <path d="M0,7.42l3.18-3.18L0,1.06,1.06,0l3.18,3.18h0s1.06,1.06,1.06,1.06L1.06,8.48,0,7.42Z"/>
                 </svg>

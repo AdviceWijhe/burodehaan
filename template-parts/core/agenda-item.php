@@ -6,7 +6,7 @@ $url = $args['url'];
 ?>
 
 <div class="agenda-item w-full flex items-stretch border border-blue/20">
-  <div class="agenda-item__date aspect-square w-[82px] lg:w-[150px] bg-blue flex flex-col items-center justify-center text-center text-white">
+  <div class="agenda-item__date aspect-square w-[5.125rem] lg:w-[9.375rem] bg-blue flex flex-col items-center justify-center text-center text-white">
     <?php
     // Converteer datum naar gewenst formaat
     // Parseer datum als DD/MM/YYYY formaat

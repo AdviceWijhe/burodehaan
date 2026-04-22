@@ -27,7 +27,7 @@ if (is_array($header_image) && !empty($header_image['url'])) {
             <div class="container relative">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem] items-end pt-[5rem] pb-[1.875rem]">
                     <div class="w-full lg:col-span-6 lg:col-start-3">
-                        <div class="text-white body-large max-w-[790px]"><?php echo get_field('introtekst', $term_key); ?></div>
+                        <div class="text-white body-large max-w-[49.375rem]"><?php echo get_field('introtekst', $term_key); ?></div>
                     </div>
                     <div class="w-full lg:col-span-3 lg:col-start-10">
                         <?php if ($cta) : ?>
@@ -53,7 +53,7 @@ if (is_array($header_image) && !empty($header_image['url'])) {
                 <div class="w-full lg:col-span-6 lg:col-start-3">
                     <p class="label-large text-primary mb-[1.25rem]!"><?php echo esc_html($tax_slug); ?></p>
                     <h1 class="text-white text-4xl font-bold mb-[2.5rem]"><?php single_term_title(); ?></h1>
-                    <div class="text-white body-large max-w-[790px]"><?php echo get_field('introtekst', $term_key); ?></div>
+                    <div class="text-white body-large max-w-[49.375rem]"><?php echo get_field('introtekst', $term_key); ?></div>
                 </div>
                 <div class="w-full lg:col-span-3 lg:col-start-10">
                     <div class="glass rounded-lg p-[1.75rem] lg:p-[2.5rem] mb-[-1.75rem] lg:mb-[-1rem]">

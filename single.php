@@ -21,7 +21,7 @@ if(get_post_type() == 'project') {
                 <div class="w-full lg:col-span-8 lg:col-start-3">
                     <p class="label-large text-primary mb-[1.25rem]!"><?= $label; ?></p>
                     <h1 class="text-white text-4xl font-bold mb-[2.5rem]"><?= get_the_title(); ?></h1>
-                    <div class="text-white body-large max-w-[790px]"><?php echo get_field('introtekst', get_the_ID()); ?></div>
+                    <div class="text-white body-large max-w-[49.375rem]"><?php echo get_field('introtekst', get_the_ID()); ?></div>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@ if(get_post_type() == 'project') {
             </div>
 
         <?php endif; ?>
-        <div class="post-header-image h-[200px] lg:h-[650px]">
+        <div class="post-header-image h-[12.5rem] lg:h-[40.625rem]">
           
             <img src="<?= get_field('header_afbeelding', get_the_ID())['sizes']['1536x1536']; ?>" alt="<?= get_field('header_afbeelding', get_the_ID())['alt']; ?>" class="w-full h-full object-cover">
         </div>

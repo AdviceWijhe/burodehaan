@@ -40,7 +40,7 @@ if(get_sub_field('globaal')) {
         ?>
 
         <div class="w-full lg:w-4/12 flex items-center gap-5 lg:pr-24 intersect:animate-fade-up intersect-once" style="animation-delay: <?= intval($delay) ?>ms">
-          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" class="min-w-[50px] min-h-[50px]" viewBox="0 0 50 50" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" class="min-w-[3.125rem] min-h-[3.125rem]" viewBox="0 0 50 50" fill="none">
 <circle cx="25" cy="25" r="24" stroke="#42AB41" stroke-width="2"/>
 <rect x="17.3945" y="26.6067" width="8" height="2" transform="rotate(45 17.3945 26.6067)" fill="#42AB41"/>
 <rect x="32.2422" y="20.2427" width="2" height="17" transform="rotate(45 32.2422 20.2427)" fill="#42AB41"/>

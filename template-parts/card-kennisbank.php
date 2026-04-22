@@ -78,7 +78,7 @@ if ($item instanceof WP_Term) {
                         <h3 class="card-title mb-[1.75rem]! mt-0!"><?php echo esc_html($name); ?></h3>
                         <div class="card-description"><?php echo wp_kses_post($description); ?></div>
                     </div>
-                    <div class="shrink-0 max-md:absolute max-md:bottom-0 max-md:w-[12px] max-md:h-[20px] max-md:right-0 flex items-center justify-center pr-[1.25rem]">
+                    <div class="shrink-0 max-md:absolute max-md:bottom-0 max-md:w-[0.75rem] max-md:h-[1.25rem] max-md:right-0 flex items-center justify-center pr-[1.25rem]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
 <rect width="2.22222" height="2.22222" fill="#EC663C"/>
 <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#EC663C"/>

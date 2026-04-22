@@ -18,7 +18,7 @@ $faq_id = 'faq-' . uniqid();
         <h2 class="headline-medium text-center mb-[2.25rem]! text-black"><?= get_sub_field('titel') ?></h2>
 
         <?php if($faq_query->have_posts()) { ?>
-            <div class="faq-items max-w-[702px] mx-auto space-y-6">
+            <div class="faq-items max-w-[43.875rem] mx-auto space-y-6">
                 <?php 
                 $index = 0;
                 while($faq_query->have_posts()) : $faq_query->the_post();
@@ -28,7 +28,7 @@ $faq_id = 'faq-' . uniqid();
                     ?>
                     <div class="faq-item border-b border-transparent">
                         <button 
-                            class="faq-question w-full bg-light p-[1.25rem] lg:p-[1.75rem] flex items-center justify-between text-left transition-all duration-300 hover:opacity-90 hover:cursor-pointer rounded-t-[16px] rounded-b-[16px]"
+                            class="faq-question w-full bg-light p-[1.25rem] lg:p-[1.75rem] flex items-center justify-between text-left transition-all duration-300 hover:opacity-90 hover:cursor-pointer rounded-t-[1rem] rounded-b-[1rem]"
                             aria-expanded="false"
                             aria-controls="<?php echo esc_attr($item_id); ?>"
                             data-faq-toggle
@@ -36,9 +36,9 @@ $faq_id = 'faq-' . uniqid();
                             <span class="body-medium-bold pr-4 text-black">
                                 <?php echo esc_html($vraag); ?>
                             </span>
-                            <div class="faq-icon flex-shrink-0 lg:w-[20px] lg:h-[20px] w-[16px] h-[16px] flex items-center justify-center relative">
-                                <div class="faq-icon-vertical absolute bg-black lg:w-[2px] w-[1px] lg:h-[20px] h-[16px] transition-transform duration-300 origin-center"></div>
-                                <div class="faq-icon-horizontal absolute bg-black lg:w-[20px] w-[16px] lg:h-[2px] h-[2px] transition-opacity duration-300"></div>
+                            <div class="faq-icon flex-shrink-0 lg:w-[1.25rem] lg:h-[1.25rem] w-[1rem] h-[1rem] flex items-center justify-center relative">
+                                <div class="faq-icon-vertical absolute bg-black lg:w-[0.125rem] w-[0.0625rem] lg:h-[1.25rem] h-[1rem] transition-transform duration-300 origin-center"></div>
+                                <div class="faq-icon-horizontal absolute bg-black lg:w-[1.25rem] w-[1rem] lg:h-[0.125rem] h-[0.125rem] transition-opacity duration-300"></div>
                             </div>
                         </button>
                         <div 
@@ -47,7 +47,7 @@ $faq_id = 'faq-' . uniqid();
                             style="max-height: 0;"
                             aria-hidden="true"
                         >
-                            <div class="bg-light px-[1.25rem] lg:px-[1.75rem] pb-[1.25rem] lg:pb-[1.75rem] pt-[0.625rem] lg:pt-[0.625rem] rounded-b-[16px]">
+                            <div class="bg-light px-[1.25rem] lg:px-[1.75rem] pb-[1.25rem] lg:pb-[1.75rem] pt-[0.625rem] lg:pt-[0.625rem] rounded-b-[1rem]">
                                 <div class="body-medium text-black">
                                     <?php echo wp_kses_post($antwoord); ?>
                                 </div>
