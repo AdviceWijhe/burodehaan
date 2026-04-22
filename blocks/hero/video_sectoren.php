@@ -23,8 +23,8 @@ $query = new WP_Query($args);
 <section class="hero hero__sectors relative <?php echo get_spacing_bottom_class('hero_banner'); ?>">
   <div class="bg-gray-100 absolute w-full h-96 z-0 top-0 left-0"></div>
   <div class="container px-0! mx-auto *:relative ">
-    <div class="flex lg:gap-8 flex-col lg:flex-row items-start lg:pt-[100px]">
-    <div class="hero__sectors--video aspect-video  w-full pr-[20px] lg:pr-0 lg:w-7/12">
+    <div class="flex lg:gap-8 flex-col lg:flex-row items-start lg:pt-[6.25rem]">
+    <div class="hero__sectors--video aspect-video  w-full pr-[1.25rem] lg:pr-0 lg:w-7/12">
       <?php
       if(!empty(get_sub_field('youtube_video_id'))) {
       // --- YouTube API-less fetch via oEmbed (cached) ---
@@ -55,7 +55,7 @@ $query = new WP_Query($args);
       $video_title = $yt_data['title'] ?? __('Video', 'advice2025');
       ?>
 
-      <div class="aspect-video relative mt-[20px] lg:mt-0 overflow-hidden" data-youtube-id="<?php echo esc_attr( $video_id ); ?>">
+      <div class="aspect-video relative mt-[1.25rem] lg:mt-0 overflow-hidden" data-youtube-id="<?php echo esc_attr( $video_id ); ?>">
         <?php if ( $video_id ) : ?>
           <iframe class="absolute top-1/2 -translate-y-1/2  scale-150 left-0 w-full h-full pointer-events-none select-none"
             src="https://www.youtube-nocookie.com/embed/<?php echo esc_attr( $video_id ); ?>?autoplay=1&mute=1&controls=0&loop=1&playlist=<?php echo esc_attr( $video_id ); ?>&modestbranding=1&rel=0&fs=0&disablekb=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&showinfo=0"
@@ -74,7 +74,7 @@ $query = new WP_Query($args);
       </div>
       <?php 
       } else { ?>
-    <div class="aspect-video relative mt-[20px] lg:mt-0 overflow-hidden" ">
+    <div class="aspect-video relative mt-[1.25rem] lg:mt-0 overflow-hidden" ">
  
         <img src="<?= get_sub_field('background_image') ?>" alt="Welkom bij Beutech" class="w-full h-full object-cover object-center">
       </div>
@@ -83,9 +83,9 @@ $query = new WP_Query($args);
     
    
     </div>
-    <div class="hero__sectors--sectors w-full relative lg:w-6/12 mt-[-40px] lg:mt-25 pl-[20px] lg:pl-0 lg:ml-[-8.33%]">
-      <div class="hero__sectors--content w-full bg-blue-950 text-white py-[40px] px-[20px] lg:p-[60px]">
-        <h2 class=" mb-[28px] mt-0 intersect:animate-fade-up intersect-once">Onze sectoren</h2>
+    <div class="hero__sectors--sectors w-full relative lg:w-6/12 mt-[-2.5rem] lg:mt-25 pl-[1.25rem] lg:pl-0 lg:ml-[-8.33%]">
+      <div class="hero__sectors--content w-full bg-blue-950 text-white py-[2.5rem] px-[1.25rem] lg:p-[3.75rem]">
+        <h2 class=" mb-[1.75rem] mt-0 intersect:animate-fade-up intersect-once">Onze sectoren</h2>
         
         <?php 
         
@@ -117,7 +117,7 @@ $query = new WP_Query($args);
         <?php endif; wp_reset_postdata(); ?>
         
 
-        <!-- <a href="#sectoren" class="btn btn-outline-white mt-[40px] intersect:animate-fade-up intersect-once intersect:animate-delay-[700ms]">Bekijk al onze sectoren</a> -->
+        <!-- <a href="#sectoren" class="btn btn-outline-white mt-[2.5rem] intersect:animate-fade-up intersect-once intersect:animate-delay-[700ms]">Bekijk al onze sectoren</a> -->
       </div>
     </div>
   </div>

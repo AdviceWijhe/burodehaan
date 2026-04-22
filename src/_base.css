@@ -9,10 +9,15 @@
 }
 
 /* Base Styles */
+html {
+    /* 16px at 1920px viewport width, with practical min/max bounds */
+    font-size: clamp(0.875rem, calc(100vw / 120), 1.375rem);
+}
+
 body {
     font-family: var(--font-family-primary);
     line-height: 150%;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 300;
     -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -48,32 +53,32 @@ p, ul, ol, a span {
 }
 
 h1, .headline-large {
-  font-size: max(40px, calc((100vw - 120px) * 0.0365));
+  font-size: 3.875rem;
   font-weight: 300;
 }
 
 h2, .headline-medium {
-  font-size: max(32px, calc((100vw - 120px) * 0.0234));
+  font-size: 2.625rem;
   font-weight: 300;
 }
 
 h3, .headline-small {
-  font-size: max(26px, calc((100vw - 120px) * 0.019));
+  font-size: 2rem;
   font-weight: 300;
 }
 
 h4, .title-large {
-  font-size: max(24px, calc((100vw - 120px) * 0.0168));
+  font-size: 1.75rem;
   font-weight: 300;
 }
 
 h5, .title-medium {
-  font-size: max(20px, calc((100vw - 120px) * 0.0144));
+  font-size: 1.5rem;
   font-weight: 300;
 }
 
 h6, .title-small {
-  font-size: max(16px, calc((100vw - 120px) * 0.0112));
+  font-size: 1.125rem;
   font-weight: 400;
 }
 
@@ -90,38 +95,38 @@ h6 strong, h6 b {
 /* Labels */
 .label-large {
   font-family: var(--font-family-primary);
-  font-size: max(14px, calc((100vw - 120px) * 0.008));
+  font-size: max(0.875rem, calc((100vw - 7.5rem) * 0.008));
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
-  letter-spacing: 1.6px;
+  letter-spacing: 0.1rem;
   text-transform: uppercase;
 }
 
 .label-medium {
   font-family: var(--font-family-primary);
-  font-size: max(11px, calc((100vw - 120px) * 0.008));
+  font-size: max(0.6875rem, calc((100vw - 7.5rem) * 0.008));
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
-  letter-spacing: 1.3px;
+  letter-spacing: 0.08125rem;
   text-transform: uppercase;
 }
 
 .label-small {
   font-family: var(--font-family-primary);
-  font-size: max(10px, calc((100vw - 120px) * 0.008));
+  font-size: max(0.625rem, calc((100vw - 7.5rem) * 0.008));
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
-  letter-spacing: 1.1px;
+  letter-spacing: 0.06875rem;
   text-transform: uppercase;
 }
 
 /* Body Text Variants */
 .body-large, .body-large p {
   font-family: var(--font-family-primary);
-  font-size: max(16px, calc((100vw - 120px) * 0.011));
+  font-size: 1.3125rem;
   font-style: normal;
   line-height: 150%;
   font-weight: 300;
@@ -129,14 +134,14 @@ h6 strong, h6 b {
 
 .body-large-bold {
   font-family: var(--font-family-primary);
-  font-size: clamp(15px, calc(14.143px + 0.268vw), 18px);
+  font-size: 1.3125rem;
   line-height: 160%;
   font-weight: 500;
 }
 
 .body-medium, p {
   font-family: var(--font-family-primary);
-  font-size: max(15px, calc((100vw - 120px) * 0.008));
+  font-size: 1rem;
 
   font-style: normal;
   line-height: 150%;
@@ -145,7 +150,7 @@ h6 strong, h6 b {
 
 .body-medium-bold {
   font-family: var(--font-family-primary);
-  font-size: clamp(14px, calc(13.429px + 0.179vw), 16px);
+  font-size: 1rem;
   line-height: 160%;
   font-weight: 500;
 }
@@ -156,7 +161,7 @@ b, strong {
 
 .body-small {
   font-family: var(--font-family-primary);
-  font-size: max(13px, calc((100vw - 120px) * 0.008));
+  font-size: 0.875rem;
   font-style: normal;
   line-height: 150%;
   font-weight: 300;
@@ -164,7 +169,7 @@ b, strong {
 
 .body-small-bold {
   font-family: var(--font-family-primary);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 150%;
   font-weight: 500;
 }
@@ -172,7 +177,7 @@ b, strong {
 /* List Text Variants */
 .list-large {
   font-family: var(--font-family-primary);
-  font-size: max(16px, calc((100vw - 120px) * 0.011));
+  font-size: 1.3125rem;
   font-style: normal;
   font-weight: 300;
   line-height: 130%;
@@ -180,7 +185,7 @@ b, strong {
 
 .list-medium {
   font-family: var(--font-family-primary);
-  font-size: max(15px, calc((100vw - 120px) * 0.011));
+  font-size: 1rem;
   font-style: normal;
   font-weight: 300;
   line-height: 130%;
@@ -188,7 +193,7 @@ b, strong {
 
 .list-small {
   font-family: var(--font-family-primary);
-  font-size: max(13px, calc((100vw - 120px) * 0.011));
+  font-size: 0.875rem;
   font-style: normal;
   font-weight: 300;
   line-height: 130%;
@@ -196,7 +201,7 @@ b, strong {
 
 /* Paragraphs */
 p {
-  margin-bottom: 28px;
+  margin-bottom: 1.75rem;
   font-weight: 300;
 }
 
@@ -209,18 +214,18 @@ ul, ol, li {
 }
 
 .lead, p.lead, p .lead, p.has-large-font-size, .lead p {
-    font-size: clamp(1rem, calc(.0952vw + .9768rem), 1.0625rem) !important;
+    font-size: 1.3125rem !important;
     font-weight: 500 !important;
     line-height: 1.4 !important;
 }
 
 /* Small Text */
 small, .small {
-    font-size: clamp(.75rem, calc(.0952vw + .7268rem), .8125rem);
+    font-size: 0.875rem;
 }
 
 .label {
-    font-size: clamp(.6875rem, calc(.1905vw + .6411rem), .8125rem);
+    font-size: 0.8125rem;
     font-weight: 600;
 }
 
@@ -260,7 +265,7 @@ small, .small {
 .marquee__text {
   color: #161616;
   font-family: var(--font-family-primary);
-  font-size: clamp(42px, 9vw, 100px);
+  font-size: clamp(2.625rem, 9vw, 6.25rem);
   font-style: normal;
   font-weight: 300;
   letter-spacing: -0.02em;
@@ -274,8 +279,8 @@ small, .small {
   display: inline-block;
   flex: 0 0 auto;
   height: 12px;
-  margin-left: clamp(20px, 2.2vw, 32px);
-  margin-right: clamp(20px, 2.2vw, 32px);
+  margin-left: clamp(1.25rem, 2.2vw, 2rem);
+  margin-right: clamp(1.25rem, 2.2vw, 2rem);
   width: 12px;
 }
 
@@ -297,16 +302,16 @@ backdrop-filter: blur(20px);
 .default-content {
     ul {
         list-style: square;
-        padding-left: 20px;
+        padding-left: 1.25rem;
         font-weight: 300 !important;
-        margin-bottom: 40px;
+        margin-bottom: 2.5rem;
 
         li {
             font-weight: 300 !important;
-            padding-left: 10px;
+            padding-left: 0.625rem;
             font-style: normal;
 line-height: 130%; /* 20.8px */
-            margin-bottom: 18px;
+            margin-bottom: 1.125rem;
         }
         li::marker {
             color: var(--color-primary);
@@ -316,16 +321,16 @@ line-height: 130%; /* 20.8px */
 
     ol {
         list-style: decimal;
-        padding-left: 20px;
+        padding-left: 1.25rem;
         font-weight: 300 !important;
-        margin-bottom: 40px;
+        margin-bottom: 2.5rem;
 
         li {
             font-weight: 300 !important;
             font-style: normal;
 line-height: 130%; /* 20.8px */ 
-            padding-left: 10px;
-            margin-bottom: 18px;
+            padding-left: 0.625rem;
+            margin-bottom: 1.125rem;
         }
         li::marker {
             color: var(--color-primary);

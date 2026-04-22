@@ -1,6 +1,6 @@
 <section class="video <?php echo get_spacing_bottom_class(); ?>" relative">
 
-  <div class="container mx-auto relative px-0! lg:px-[20px]">
+  <div class="container mx-auto relative px-0! lg:px-[1.25rem]">
     
     <?php 
       $video_input = trim((string) get_sub_field('video_id'));
@@ -64,7 +64,7 @@
 
           <!-- TItle -->
           <?php if (get_sub_field('titel')) : ?>
-          <div class="absolute left-1/2 bottom-[20px] lg:bottom-[28px] -translate-x-1/2 w-full text-center px-[20px]">
+          <div class="absolute left-1/2 bottom-[1.25rem] lg:bottom-[1.75rem] -translate-x-1/2 w-full text-center px-[1.25rem]">
             <h3 class="title-medium text-white"><?= get_sub_field('titel') ?></h3>
           </div>
           <?php endif; ?>
@@ -73,7 +73,7 @@
             class="pointer-events-none absolute text-center left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2"
             aria-hidden="true"
           >
-          <svg xmlns="http://www.w3.org/2000/svg" class="mb-[20px]!" width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="mb-[1.25rem]!" width="120" height="120" viewBox="0 0 120 120" fill="none">
   <foreignObject x="-40" y="-40" width="200" height="200"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(20px);clip-path:url(#bgblur_0_4403_7484_clip_path);height:100%;width:100%"></div></foreignObject><g data-figma-bg-blur-radius="40">
     <circle cx="60" cy="60" r="60" fill="white" fill-opacity="0.05"/>
     <circle cx="60" cy="60" r="59.5" stroke="white" stroke-opacity="0.2"/>
@@ -83,7 +83,7 @@
     <clipPath id="bgblur_0_4403_7484_clip_path" transform="translate(40 40)"><circle cx="60" cy="60" r="60"/>
   </clipPath></defs>
 </svg>
-<span class="title-medium text-white text-center font-light! mt-[20px]!">Speel af</span>
+<span class="title-medium text-white text-center font-light! mt-[1.25rem]!">Speel af</span>
           </div>
         </div>
         

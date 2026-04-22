@@ -15,7 +15,7 @@ $faq_id = 'faq-' . uniqid();
 
 <section class="faq <?php echo get_spacing_bottom_class(); ?>">
     <div class="container mx-auto">
-        <h2 class="headline-medium text-center mb-[36px]! text-black"><?= get_sub_field('titel') ?></h2>
+        <h2 class="headline-medium text-center mb-[2.25rem]! text-black"><?= get_sub_field('titel') ?></h2>
 
         <?php if($faq_query->have_posts()) { ?>
             <div class="faq-items max-w-[702px] mx-auto space-y-6">
@@ -28,7 +28,7 @@ $faq_id = 'faq-' . uniqid();
                     ?>
                     <div class="faq-item border-b border-transparent">
                         <button 
-                            class="faq-question w-full bg-light p-[20px] lg:p-[28px] flex items-center justify-between text-left transition-all duration-300 hover:opacity-90 hover:cursor-pointer rounded-t-[16px] rounded-b-[16px]"
+                            class="faq-question w-full bg-light p-[1.25rem] lg:p-[1.75rem] flex items-center justify-between text-left transition-all duration-300 hover:opacity-90 hover:cursor-pointer rounded-t-[16px] rounded-b-[16px]"
                             aria-expanded="false"
                             aria-controls="<?php echo esc_attr($item_id); ?>"
                             data-faq-toggle
@@ -47,7 +47,7 @@ $faq_id = 'faq-' . uniqid();
                             style="max-height: 0;"
                             aria-hidden="true"
                         >
-                            <div class="bg-light px-[20px] lg:px-[28px] pb-[20px] lg:pb-[28px] pt-[10px] lg:pt-[10px] rounded-b-[16px]">
+                            <div class="bg-light px-[1.25rem] lg:px-[1.75rem] pb-[1.25rem] lg:pb-[1.75rem] pt-[0.625rem] lg:pt-[0.625rem] rounded-b-[16px]">
                                 <div class="body-medium text-black">
                                     <?php echo wp_kses_post($antwoord); ?>
                                 </div>

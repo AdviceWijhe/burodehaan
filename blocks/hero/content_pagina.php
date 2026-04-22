@@ -1,17 +1,17 @@
 <section id="hero__content" class="hero hero__content  <?php echo get_spacing_bottom_class('hero_banner'); ?> relative">
-  <div class="container mx-auto px-0! lg:px-[20px]">
+  <div class="container mx-auto px-0! lg:px-[1.25rem]">
     <div class="flex flex-col-reverse lg:flex-row items-stretch">
     <div class="w-full lg:w-5/12 flex flex-col justify-between ">
     
-        <div class="hero-content lg:pt-[80px] px-[20px] lg:px-0!">
-        <div class="pt-[20px] lg:px-0! lg:pt-[0] relative z-1 lg:mb-[100px] xl:translate-x-[-124px]">
+        <div class="hero-content lg:pt-[5rem] px-[1.25rem] lg:px-0!">
+        <div class="pt-[1.25rem] lg:px-0! lg:pt-[0] relative z-1 lg:mb-[6.25rem] xl:translate-x-[-124px]">
     <!-- yoast breadcrumbs -->
     <?php if (function_exists('yoast_breadcrumb')) {
       yoast_breadcrumb('<p id="breadcrumbs">', '</p>');
     } ?>
   </div>
-  <div class="text-center lg:text-left mt-[40px] lg:mt-0! pr-[32px] xl:pr-0">
-            <h1 class="text-blue mb-[32px]!"><?= get_sub_field('titel') ?></h1>
+  <div class="text-center lg:text-left mt-[2.5rem] lg:mt-0! pr-[2rem] xl:pr-0">
+            <h1 class="text-blue mb-[2rem]!"><?= get_sub_field('titel') ?></h1>
             <div class="body-large lg:max-w-[540px]"><?= get_sub_field('content') ?></div>
         <?php
             if(!get_sub_field('met_contact')) { ?>
@@ -21,8 +21,8 @@
 
      <?php 
      if(get_sub_field('met_contact')) { ?>
-     <div class="contact-info mt-[80px] ">
-      <div class="flex flex-col lg:flex-row gap-[20px] lg:gap-[80px]">
+     <div class="contact-info mt-[5rem] ">
+      <div class="flex flex-col lg:flex-row gap-[1.25rem] lg:gap-[5rem]">
         <div class="">
         <span class="block">Telefoon</span>
         <a href="tel:<?= get_field('telefoonnummer', 'option') ?>" class="font-normal"><?= get_field('telefoonnummer', 'option') ?></a>
@@ -33,7 +33,7 @@
         </div>
       </div>
       <?php if (!empty(get_field('socials', 'option'))) { ?>
-                <div class="footer_socials socials mb-[60px] lg:mb-0 mt-[60px]">
+                <div class="footer_socials socials mb-[3.75rem] lg:mb-0 mt-[3.75rem]">
                 <?php foreach (get_field('socials', 'option') as $social) { ?>
                     <a href="<?= $social['link']['url'] ?>" target="<?= esc_attr($social['link']['target'] ?: '_blank') ?>" rel="noopener" class="btn border border-primary text-primary inline-flex gap-2">
                         <?= $social['icon'] ?> LinkedIn
@@ -45,7 +45,7 @@
                 </div>
      
 
-     <div class="flex gap-[80px] px-[20px] lg:px-0!">
+     <div class="flex gap-[5rem] px-[1.25rem] lg:px-0!">
       <div>
         <span class="block">Locatie</span>
         <p class="font-normal"><?= get_field('adres', 'option') ?><br><?= get_field('postcode_+_woonplaats', 'option') ?></p>
@@ -63,7 +63,7 @@
     <?php } ?>
 
     <?php if(get_sub_field('met_cta')) { ?>
-      <div class="px-[20px] lg:px-0!">
+      <div class="px-[1.25rem] lg:px-0!">
         <?php get_template_part('template-parts/core/cta-compact'); ?>
       </div>
      <?php } ?>
@@ -73,8 +73,8 @@
     </div>
                
                 
-    <div class="w-full lg:w-7/12 pt-[40px] lg:pt-[80px]">
-        <div class="hero-image aspect-landscape relative overflow-hidden lg:mt-[160px]">
+    <div class="w-full lg:w-7/12 pt-[2.5rem] lg:pt-[5rem]">
+        <div class="hero-image aspect-landscape relative overflow-hidden lg:mt-[10rem]">
             <?php 
             $afbeelding = get_sub_field('afbeelding');
             if ($afbeelding && isset($afbeelding['ID'])) {

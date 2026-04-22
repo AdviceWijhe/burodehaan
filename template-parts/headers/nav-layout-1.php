@@ -39,7 +39,7 @@ if(is_page()) {
 
 <?php $default_logo_theme = ($header_background_color === 'bg-black') ? 'light' : 'dark'; ?>
 <div class="navigation-wrapper <?php echo esc_attr($header_background_color); ?>" data-default-logo-theme="<?php echo esc_attr($default_logo_theme); ?>">
-    <div class="<?php echo esc_attr($container_class); ?> pt-[16px] pb-[16px] xl:pt-[28px] <?php if(is_front_page()) { echo 'xl:pb-[28px]'; } ?>">
+    <div class="<?php echo esc_attr($container_class); ?> pt-[1rem] pb-[1rem] xl:pt-[1.75rem] <?php if(is_front_page()) { echo 'xl:pb-[1.75rem]'; } ?>">
         <div class="flex items-center justify-between gap-10 xl:pl-0 xl:pr-0">
             <!-- Logo -->
             <div class="site-branding flex-shrink-0">
@@ -145,7 +145,7 @@ if(is_page()) {
 
             <!-- Mobile Menu Button -->
             <div class="xl:hidden">
-                <button id="mobile-menu-button" class="relative inline-flex items-center gap-2 py-3 pl-[20px] pr-[13px] bg-primary border border-primary text-white hover:opacity-90 transition-opacity" aria-expanded="false">
+                <button id="mobile-menu-button" class="relative inline-flex items-center gap-2 py-3 pl-[1.25rem] pr-[0.8125rem] bg-primary border border-primary text-white hover:opacity-90 transition-opacity" aria-expanded="false">
                     <span class="sr-only">Menu openen</span>
                     <div class="hamburger-lines">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10" fill="none">

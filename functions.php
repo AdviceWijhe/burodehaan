@@ -1075,7 +1075,7 @@ function advice2025_pagination($args = array()) {
     // Start output
     ob_start();
     ?>
-    <div class="custom-pagination flex flex-col sm:flex-row gap-1 mb-[40px] sm:mb-0! items-stretch w-full">
+    <div class="custom-pagination flex flex-col sm:flex-row gap-1 mb-[2.5rem] sm:mb-0! items-stretch w-full">
         <!-- Vorige projecten (links) -->
         <div class="flex items-center w-full lg:w-auto prev">
             <?php if ($prev_url) : ?>

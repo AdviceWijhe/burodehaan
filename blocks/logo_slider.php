@@ -15,7 +15,7 @@ if ($logos && is_array($logos) && !empty($logos)) :
     <section class="logo-slider <?php echo get_spacing_bottom_class(); ?> overflow-hidden">
         <div class="container mx-auto px-0!">
             <div class="text-center">
-                <div class="body-large mb-[40px] font-medium!"><?php echo get_sub_field('titel'); ?></div>
+                <div class="body-large mb-[2.5rem] font-medium!"><?php echo get_sub_field('titel'); ?></div>
             </div>
             <div class="swiper-container logo-slider-swiper <?php echo esc_attr($rand_class); ?>">
                 <div class="swiper-wrapper">

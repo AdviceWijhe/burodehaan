@@ -1,4 +1,4 @@
-<div class="max-md:pt-[40px]">
+<div class="max-md:pt-[2.5rem]">
 <?= get_template_part('blocks/cta', null, array('cta_type' => 'default', 'cta_buttons' => get_field('footer_cta', 'option'))) ?>
 </div>
 <footer id="colophon" class="site-footer mt-auto relative overflow-hidden w-full bg-black text-white">
@@ -34,14 +34,14 @@
     $footer_accordion_prefix = 'footer-accordion-' . uniqid();
     ?>
 
-    <div class="w-full px-[20px] lg:px-[60px] py-[80px] lg:pt-[100px] lg:pb-[40px]">
-        <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-y-[60px] gap-x-[80px]">
-            <div class="grid grid-cols-1 lg:gap-y-[120px]">
+    <div class="w-full px-[1.25rem] lg:px-[3.75rem] py-[5rem] lg:pt-[6.25rem] lg:pb-[2.5rem]">
+        <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-y-[3.75rem] gap-x-[5rem]">
+            <div class="grid grid-cols-1 lg:gap-y-[7.5rem]">
                 <?php
                 $expertises_content_id = $footer_accordion_prefix . '-expertises';
                 $themas_content_id = $footer_accordion_prefix . '-themas';
                 ?>
-                <div class="footer-accordion-item max-md:py-[28px] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
+                <div class="footer-accordion-item max-md:py-[1.75rem] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
                     <button
                         type="button"
                         class="flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
@@ -61,7 +61,7 @@
                         data-footer-accordion-content
                     >
                         <?php if (!is_wp_error($expertises) && !empty($expertises)) : ?>
-                            <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
+                            <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content] gap-x-[2.5rem] gap-y-[1.75rem] list-medium">
                                 <?php foreach ($expertises as $expertise) : ?>
                                     <li>
                                         <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_term_link($expertise)); ?>">
@@ -74,7 +74,7 @@
                     </div>
                 </div>
 
-                <div class="footer-accordion-item max-md:py-[28px] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
+                <div class="footer-accordion-item max-md:py-[1.75rem] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
                     <button
                         type="button"
                         class="flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
@@ -94,7 +94,7 @@
                         data-footer-accordion-content
                     >
                         <?php if (!is_wp_error($themas) && !empty($themas)) : ?>
-                            <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
+                            <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content_max-content] gap-x-[2.5rem] gap-y-[1.75rem] list-medium">
                                 <?php foreach ($themas as $thema) : ?>
                                     <li>
                                         <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_term_link($thema)); ?>">
@@ -108,12 +108,12 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-x-[50px] lg:gap-y-[50px]">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-x-[3.125rem] lg:gap-y-[3.125rem]">
                 <?php
                 $navigeer_content_id = $footer_accordion_prefix . '-navigeer';
                 $over_ons_content_id = $footer_accordion_prefix . '-over-ons';
                 ?>
-                <div class="col-span-1 md:col-span-2 footer-accordion-item max-md:py-[28px] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
+                <div class="col-span-1 md:col-span-2 footer-accordion-item max-md:py-[1.75rem] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
                     <button
                         type="button"
                         class="flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
@@ -137,7 +137,7 @@
                             wp_nav_menu(array(
                                 'theme_location' => 'footer-menu-1',
                                 'container' => false,
-                                'menu_class' => 'space-y-[28px] list-medium text-white/70',
+                                'menu_class' => 'space-y-[1.75rem] list-medium text-white/70',
                                 'fallback_cb' => false,
                             ));
                         }
@@ -145,7 +145,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-1 md:col-span-3 footer-accordion-item max-md:py-[28px] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
+                <div class="col-span-1 md:col-span-3 footer-accordion-item max-md:py-[1.75rem] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
                     <button
                         type="button"
                         class="flex w-full items-center justify-between border-0 bg-transparent p-0 text-left text-white"
@@ -169,7 +169,7 @@
                             wp_nav_menu(array(
                                 'theme_location' => 'footer-menu-2',
                                 'container' => false,
-                                'menu_class' => 'space-y-[28px] list-medium text-white/70',
+                                'menu_class' => 'space-y-[1.75rem] list-medium text-white/70',
                                 'fallback_cb' => false,
                             ));
                         }
@@ -177,7 +177,7 @@
                     </div>
                 </div>
 
-                <div class="md:col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-5 gap-x-[28px] mt-[60px] lg:mt-[140px]">
+                <div class="md:col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-5 gap-x-[1.75rem] mt-[3.75rem] lg:mt-[8.75rem]">
                     <?php 
                     $query = new WP_Query(array(
                         'post_type' => 'locatie',
@@ -217,7 +217,7 @@
                             ?>
                             <div class="mb-8 lg:mb-0 last:mb-0 col-span-1 md:col-span-2">
                                 <?php if (!empty($location_title)) : ?>
-                                    <h6 class="mb-[28px]! text-white title-small"><?php echo esc_html($location_title); ?></h6>
+                                    <h6 class="mb-[1.75rem]! text-white title-small"><?php echo esc_html($location_title); ?></h6>
                                 <?php endif; ?>
                                 <?php if (!empty($location_address)) : ?>
                                     <p class="mb-3! text-white/80 body-medium"><?php echo esc_html($location_address); ?></p>
@@ -247,7 +247,7 @@
             </div>
         </div>
 
-        <div class="mt-[80px] lg:mt-[120px] grid grid-cols-1 lg:grid-cols-12 gap-[40px] relative flex flex-col lg:flex-row lg:items-center gap-y-8">
+        <div class="mt-[5rem] lg:mt-[7.5rem] grid grid-cols-1 lg:grid-cols-12 gap-[2.5rem] relative flex flex-col lg:flex-row lg:items-center gap-y-8">
             <div class="flex items-center justify-center lg:justify-start gap-4 col-span-1 lg:col-span-5">
                 <?php if (!empty($socials) && is_array($socials)) : ?>
                     <?php foreach ($socials as $social) : ?>
@@ -331,7 +331,7 @@
             </div>
         </div>
 
-        <div class="mt-[70px] pt-6 border-t border-white/10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 text-center">
+        <div class="mt-[4.375rem] pt-6 border-t border-white/10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 text-center">
             <div>
                 <p class="body-small mb-0! !text-white !font-normal">Alle rechten voorbehouden Buro De Haan</p>
             </div>

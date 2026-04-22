@@ -22,7 +22,7 @@ if(get_post_type() == 'project') {
         <input
             type="search"
             id="search-field"
-            class="search-field h-full min-w-0 flex-1 border-0 bg-transparent px-5 py-0 text-[16px] font-light leading-[1.5] text-[#161616] placeholder:text-[#161616] placeholder:opacity-70 focus:outline-none"
+            class="search-field h-full min-w-0 flex-1 border-0 bg-transparent px-5 py-0 text-[1rem] font-light leading-[1.5] text-[#161616] placeholder:text-[#161616] placeholder:opacity-70 focus:outline-none"
             placeholder="Zoeken naar <?= $title; ?>..."
             value="<?php echo get_search_query(); ?>"
             name="s"

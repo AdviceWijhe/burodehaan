@@ -2,11 +2,11 @@
     <div class="container">
         <div class="grid grid-cols-1 md:grid-cols-12">
             <div class="col-span-12 md:col-span-5 md:col-start-3">
-                <div class="quote-content p-[20px] lg:p-[60px] border border-[rgba(22,22,22,0.12)]">
+                <div class="quote-content p-[1.25rem] lg:p-[3.75rem] border border-[rgba(22,22,22,0.12)]">
                     <div class="quote-text headline-small text-center">
                         <?php echo get_sub_field('quote'); ?>
                     </div>
-                    <div class="quote-author flex items-center justify-center gap-[16px] mt-[40px]">
+                    <div class="quote-author flex items-center justify-center gap-[1rem] mt-[2.5rem]">
                         <div class="quote-author__image w-[60px] h-[60px] rounded-full overflow-hidden">
                             <?php echo wp_get_attachment_image(get_sub_field('foto')['ID'], 'medium', false, array(
                                 'class' => 'w-full h-full object-cover object-center',

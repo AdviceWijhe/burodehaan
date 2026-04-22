@@ -4,7 +4,7 @@ $afbeeldingen = get_sub_field('afbeeldingen');
 
 <section class="afbeelding_galerij overflow-hidden">
     <div class="container">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
             <div class="col-span-1 lg:col-span-10 lg:col-start-2">
             <div class="swiper-galerij relative">
                 <div class="swiper-wrapper">

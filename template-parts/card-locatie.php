@@ -4,9 +4,9 @@
                         <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
                       <?php endif; ?>
                     </div>
-                    <div class="bg-white p-[40px] flex items-end justify-between gap-4" style="border: 1px solid rgba(22, 22, 22, 0.12);">
+                    <div class="bg-white p-[2.5rem] flex items-end justify-between gap-4" style="border: 1px solid rgba(22, 22, 22, 0.12);">
                       <div class="min-w-0">
-                        <h3 class="title-medium text-black mb-[28px]!"><?php the_title(); ?></h3>
+                        <h3 class="title-medium text-black mb-[1.75rem]!"><?php the_title(); ?></h3>
                         <div class="">
                             <p class="mb-2! opacity-70"><?php the_field('adres'); ?></p>
                             <p class="opacity-70"><?php the_field('postcode'); ?>, <?php the_field('plaats'); ?></p>

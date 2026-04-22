@@ -9,7 +9,7 @@
   </div>
   <!-- gradient overlay -->
   
-  <div class="relative z-2 pt-[28px]">
+  <div class="relative z-2 pt-[1.75rem]">
     <div class="flex flex-wrap gap-2">
       <?php $categories = get_the_category(); ?>
       <?php foreach($categories as $category) { ?>
@@ -17,6 +17,6 @@
       <?php } ?>
       <div class="label-small text-primary border border-light-blue badge"><?= date('Y', strtotime(get_the_date())) ?></div>
     </div>
-    <h5 class="mt-[12px]"><?= get_the_title() ?></h5>
+    <h5 class="mt-[0.75rem]"><?= get_the_title() ?></h5>
 </div>
 </a>

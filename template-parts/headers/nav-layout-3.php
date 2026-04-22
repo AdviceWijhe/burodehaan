@@ -96,7 +96,7 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
     </div>
 
     <!-- Bottom Row: Centered Navigation -->
-    <div class="bg-[rgba(216,214,212,0.4)] py-[27px]">
+    <div class="bg-[rgba(216,214,212,0.4)] py-[1.6875rem]">
         <div class="<?php echo esc_attr($container_class); ?>">
             <nav class="main-navigation hidden xl:flex items-center justify-center gap-10">
                 <?php

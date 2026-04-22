@@ -23,8 +23,8 @@ $filter_options = array(
 
 if ($vacatures) : ?>
     <section id="vacatures" class="vacatures-section <?php echo get_spacing_bottom_class(); ?>">
-        <div class="container mx-auto py-[60px]! lg:py-[100px]! relative overflow-hidden">
-            <div class="lg:px-[100px] relative">
+        <div class="container mx-auto py-[3.75rem]! lg:py-[6.25rem]! relative overflow-hidden">
+            <div class="lg:px-[6.25rem] relative">
                 <div class="mb-7 lg:mb-12">
                     <h2 class="headline-large text-center"><?= get_sub_field('titel') ?></h2>
                     <div class="body-large text-center"><?= get_sub_field('tekst') ?></div>
@@ -44,7 +44,7 @@ if ($vacatures) : ?>
                 </div>
                 
                 <div class="w-full">
-                    <div class="vacatures-lijst flex flex-col gap-[20px]">
+                    <div class="vacatures-lijst flex flex-col gap-[1.25rem]">
                         <?php foreach ($vacatures as $index => $vacature) : 
                             // Haal genest veld op uit Header group
                             $header_group = get_field('header', $vacature->ID);

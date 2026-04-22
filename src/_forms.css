@@ -23,7 +23,7 @@
       color: rgb(22 22 22 / 70%);
       font-family: var(--font-family-primary);
       font-weight: 300;
-      font-size: 16px;
+      font-size: 1rem;
       line-height: 1.5;
       transform: translateY(-50%);
       transform-origin: left top;
@@ -44,7 +44,7 @@
       transform: none;
       color: var(--color-black);
       font-weight: 500;
-      font-size: 11px;
+      font-size: 0.6875rem;
       line-height: 1.4;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -64,7 +64,7 @@
       color: var(--color-black);
       font-family: var(--font-family-primary);
       font-weight: 500;
-      font-size: 11px;
+      font-size: 0.6875rem;
       line-height: 1.4;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -86,7 +86,7 @@
       }
 
       .gf_progressbar {
-        margin: 10px 0;
+        margin: 0.625rem 0;
 
         span {
           display: none;
@@ -95,11 +95,11 @@
     }
 
     .gform-page-footer {
-      margin-top: 24px;
+      margin-top: 1.5rem;
     }
 
     .gfield_description {
-      margin-bottom: 12px;
+      margin-bottom: 0.75rem;
     }
 
     input[type="text"],
@@ -120,10 +120,10 @@
       color: var(--color-black);
       font-family: var(--font-family-primary);
       font-weight: 300;
-      font-size: 16px;
+      font-size: 1rem;
       line-height: 1.5;
       width: 100%;
-      padding: 24px 24px 8px;
+      padding: 1.5rem 1.5rem 0.5rem;
       min-height: 59px;
       height: 59px;
     }
@@ -132,8 +132,8 @@
     .ginput_container textarea {
       min-height: 140px;
       height: 140px;
-      padding-top: 32px;
-      padding-bottom: 16px;
+      padding-top: 2rem;
+      padding-bottom: 1rem;
       resize: vertical;
     }
 
@@ -153,9 +153,9 @@
         color: var(--color-blue);
         font-family: var(--font-family-primary);
         font-weight: 600;
-        font-size: 13px;
+        font-size: 0.8125rem;
         line-height: 1.4;
-        margin-bottom: 8px;
+        margin-bottom: 0.5rem;
         display: block;
       }
 
@@ -164,9 +164,9 @@
         color: var(--color-blue);
         font-family: var(--font-family-primary);
         font-weight: 600;
-        font-size: 13px;
+        font-size: 0.8125rem;
         line-height: 1.4;
-        margin-top: 8px;
+        margin-top: 0.5rem;
         display: block;
       }
 
@@ -179,9 +179,9 @@
       .gform_radio {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 0.5rem;
         label {
-          font-size: 13px;
+          font-size: 0.8125rem;
           line-height: 1.4;
         }
         input[type="radio"] {
@@ -203,8 +203,8 @@
         align-items: center;
         justify-content: space-between;
         position: relative;
-        padding: 40px 40px;
-        padding-left: 80px;
+        padding: 2.5rem 2.5rem;
+        padding-left: 5rem;
         text-align: center;
         transition: border-color 0.3s ease;
 
@@ -232,9 +232,9 @@
         color: var(--color-blue);
         font-family: var(--font-family-primary);
         font-weight: 500;
-        font-size: 15px;
+        font-size: 0.9375rem;
         line-height: 1.5;
-        margin-right: 8px;
+        margin-right: 0.5rem;
       }
 
       /* Browse button styling */
@@ -242,10 +242,10 @@
         background-color: var(--color-white);
         border: 1px solid #d6dde1;
         border-radius: 4px;
-        padding: 12px 16px;
+        padding: 0.75rem 1rem;
         font-family: var(--font-family-primary);
         font-weight: 500;
-        font-size: 15px;
+        font-size: 0.9375rem;
         line-height: 1.5;
         color: var(--color-blue);
         cursor: pointer;
@@ -279,21 +279,21 @@
       /* File upload rules styling */
       .gform_fileupload_rules {
         color: var(--color-gray-600);
-        font-size: 12px;
-        margin-top: 8px;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
         display: block;
       }
 
       /* Preview list styling */
       .ginput_preview_list {
-        margin-top: 16px;
+        margin-top: 1rem;
         
         li {
           background-color: var(--color-gray-50);
           border: 1px solid var(--color-gray-200);
           border-radius: 4px;
-          padding: 8px 12px;
-          margin-bottom: 8px;
+          padding: 0.5rem 0.75rem;
+          margin-bottom: 0.5rem;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -304,7 +304,7 @@
     /* Grid: 2 kolommen op >=1024px */
     .gform_fields {
       display: grid;
-      gap: 24px 24px;
+      gap: 1.5rem 1.5rem;
     }
 
     @media (min-width: 1024px) {
@@ -321,7 +321,7 @@
         .ginput_complex {
           display: flex;
           flex-wrap: wrap;
-          gap: 24px;
+          gap: 1.5rem;
           .ginput_container {
             width: 100%;
           }
@@ -340,14 +340,14 @@
     .gform-footer .gform_button,
     .gform-footer input[type="submit"] {
       min-height: 59px;
-      padding: 16px 24px;
+      padding: 1rem 1.5rem;
       border: 1px solid var(--color-primary);
       border-radius: 0;
       background-color: var(--color-primary);
       color: var(--color-secondary);
       font-family: var(--font-family-primary);
       font-weight: 400;
-      font-size: 16px;
+      font-size: 1rem;
       line-height: 1.5;
       transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
@@ -375,21 +375,21 @@
       border: 1px solid var(--color-red-200) !important;
       border-radius: 4px !important;
       color: var(--color-red-900) !important;
-      padding: 16px !important;
-      margin-bottom: 20px !important;
+      padding: 1rem !important;
+      margin-bottom: 1.25rem !important;
       
       h2 {
         color: var(--color-red-900) !important;
-        font-size: 15px !important;
+        font-size: 0.9375rem !important;
         font-weight: 600 !important;
-        margin: 0 0 8px 0 !important;
+        margin: 0 0 0.5rem 0 !important;
         line-height: 1.4 !important;
       }
       ol {
         margin: 0 !important;
-        padding-left: 18px !important;
+        padding-left: 1.125rem !important;
         li {
-          margin: 4px 0 !important;
+          margin: 0.25rem 0 !important;
           a {
             color: var(--color-red-800) !important;
             text-decoration: underline !important;
@@ -426,9 +426,9 @@
     .gfield_description.validation_message,
     .validation_message {
       color: var(--color-red-900) !important;
-      font-size: 12px !important;
+      font-size: 0.75rem !important;
       line-height: 1.4 !important;
-      margin-top: 6px !important;
+      margin-top: 0.375rem !important;
     }
 
     /* Verplicht indicator */
@@ -438,7 +438,7 @@
   }
 
   .gform-footer {
-    margin-top: 28px;
+    margin-top: 1.75rem;
   }
 
   /* Nieuwsbrief-block: labels verbergen (ook als in GF uitgezet), weinig ruimte rond knop */
@@ -449,7 +449,7 @@
 
   .nieuwsbrief-section .gform_footer,
   .nieuwsbrief-section .gform-footer {
-    margin-top: 16px;
+    margin-top: 1rem;
     margin-bottom: 0;
   }
 

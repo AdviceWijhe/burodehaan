@@ -13,8 +13,8 @@ $ID = $args['post'] ?? get_the_ID();
     )); ?>
   </div>
   <div class="product__content">
-    <div class="pt-[24px] lg:pt-[32px] overflow-hidden js-title-container">
-    <div class="span flex gap-[20px] w-full items-center transition-transform duration-300 group-hover:-translate-x-[38px] with-arrows">
+    <div class="pt-[1.5rem] lg:pt-[2rem] overflow-hidden js-title-container">
+    <div class="span flex gap-[1.25rem] w-full items-center transition-transform duration-300 group-hover:-translate-x-[38px] with-arrows">
       <!-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none">
 <path d="M18 7.88477V7.88574L10.1152 15.7705L8.53809 14.1934L13.8105 8.9209H0V6.69043H13.6514L8.53809 1.57715L10.1152 0L18 7.88477Z" fill="#E1322C"/>
 </svg>  -->

@@ -26,7 +26,7 @@ if (empty($taxonomies)) {
 >
     <button
         type="button"
-        class="filter_item_label h-[59px] px-[24px] flex items-center group justify-center font-medium! gap-[8px] border border-black text-black body-small hover:cursor-pointer hover:bg-black hover:text-white"
+        class="filter_item_label h-[59px] px-[1.5rem] flex items-center group justify-center font-medium! gap-[0.5rem] border border-black text-black body-small hover:cursor-pointer hover:bg-black hover:text-white"
         data-archive-filter-open
         aria-haspopup="dialog"
         aria-controls="<?php echo esc_attr($panel_id); ?>"
@@ -52,13 +52,13 @@ if (empty($taxonomies)) {
         aria-labelledby="<?php echo esc_attr($panel_id); ?>-title"
     >
         <div class="h-full flex flex-col">
-            <div class="flex items-start justify-between px-6 pt-6 lg:px-[60px] lg:pt-[60px]">
+            <div class="flex items-start justify-between px-6 pt-6 lg:px-[3.75rem] lg:pt-[3.75rem]">
                 <h4 id="<?php echo esc_attr($panel_id); ?>-title" class="mb-0! text-black">
                     <?php esc_html_e('Selecteer je ', 'advice2025'); ?><span class="font-semibold"><?php esc_html_e('filters', 'advice2025'); ?></span>
                 </h4>
                 <button
                     type="button"
-                    class="w-[66px] h-[66px] flex items-center justify-center text-secondary text-[34px] leading-none absolute top-0 right-0 hover:cursor-pointer"
+                    class="w-[66px] h-[66px] flex items-center justify-center text-secondary text-[2.125rem] leading-none absolute top-0 right-0 hover:cursor-pointer"
                     data-archive-filter-close
                     aria-label="<?php esc_attr_e('Sluit filter', 'advice2025'); ?>"
                 >
@@ -82,7 +82,7 @@ if (empty($taxonomies)) {
                 </button>
             </div>
 
-            <div class="flex-1 overflow-y-auto px-6 pt-8 pb-6 lg:px-[60px] lg:pt-[44px] lg:pb-[24px] space-y-[44px]">
+            <div class="flex-1 overflow-y-auto px-6 pt-8 pb-6 lg:px-[3.75rem] lg:pt-[2.75rem] lg:pb-[1.5rem] space-y-[2.75rem]">
                 <?php foreach ($taxonomies as $taxonomy_key => $taxonomy_config) : ?>
                     <?php
                     $taxonomy = is_string($taxonomy_key)
@@ -106,15 +106,15 @@ if (empty($taxonomies)) {
                     $active_term_ids = isset($active_filters[$taxonomy]) && is_array($active_filters[$taxonomy])
                         ? array_map('intval', $active_filters[$taxonomy])
                         : array();
-                    $group_class = $taxonomy === 'expertise' ? 'grid grid-cols-1 md:grid-cols-2 gap-x-[42px] gap-y-[10px]' : 'space-y-[10px]';
+                    $group_class = $taxonomy === 'expertise' ? 'grid grid-cols-1 md:grid-cols-2 gap-x-[2.625rem] gap-y-[0.625rem]' : 'space-y-[0.625rem]';
                     ?>
-                    <fieldset class="space-y-[14px]" data-filter-taxonomy="<?php echo esc_attr($taxonomy); ?>">
-                        <legend class="font-normal text-[18px] leading-[1.2] text-black"><?php echo esc_html($group_label); ?></legend>
+                    <fieldset class="space-y-[0.875rem]" data-filter-taxonomy="<?php echo esc_attr($taxonomy); ?>">
+                        <legend class="font-normal text-[1.125rem] leading-[1.2] text-black"><?php echo esc_html($group_label); ?></legend>
 
                         <div class="<?php echo esc_attr($group_class); ?>">
                             <?php foreach ($terms as $term) : ?>
                                 <?php $is_checked = in_array((int) $term->term_id, $active_term_ids, true); ?>
-                                <label class="flex items-center gap-[12px] cursor-pointer">
+                                <label class="flex items-center gap-[0.75rem] cursor-pointer">
                                     <input
                                         type="checkbox"
                                         class="peer sr-only"
@@ -126,7 +126,7 @@ if (empty($taxonomies)) {
                                     <span class="w-[23px] h-[23px] border border-black/50 peer-checked:border-black peer-checked:[&>span]:opacity-100 flex items-center justify-center transition-colors">
                                         <span class="w-[11px] h-[11px] bg-black opacity-0 transition-opacity"></span>
                                     </span>
-                                    <span class="text-[16px] leading-normal font-light text-black opacity-70 peer-checked:opacity-100 transition-opacity">
+                                    <span class="text-[1rem] leading-normal font-light text-black opacity-70 peer-checked:opacity-100 transition-opacity">
                                         <?php echo esc_html($term->name); ?>
                                     </span>
                                 </label>
@@ -136,7 +136,7 @@ if (empty($taxonomies)) {
                 <?php endforeach; ?>
             </div>
 
-            <div class="px-6 pb-6 pt-4 lg:px-[60px] lg:pb-[40px] lg:pt-[20px] flex flex-wrap items-stretch lg:items-center gap-[16px]">
+            <div class="px-6 pb-6 pt-4 lg:px-[3.75rem] lg:pb-[2.5rem] lg:pt-[1.25rem] flex flex-wrap items-stretch lg:items-center gap-[1rem]">
                 <button
                     type="button"
                     class="bg-primary btn text-secondary  max-md:w-full"
@@ -146,7 +146,7 @@ if (empty($taxonomies)) {
                 </button>
                 <button
                     type="button"
-                    class="bg-transparent border border-black btn text-black text-[16px] leading-normal max-md:w-full font-normal py-[24px] px-[34px]"
+                    class="bg-transparent border border-black btn text-black text-[1rem] leading-normal max-md:w-full font-normal py-[1.5rem] px-[2.125rem]"
                     data-archive-filter-reset
                 >
                    <span><?php esc_html_e('Wis alle filters', 'advice2025'); ?></span> 

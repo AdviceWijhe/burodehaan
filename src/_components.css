@@ -15,7 +15,7 @@
 
 /* .container {
   @media (max-width: 1024px) {
-    padding: 0 20px;
+    padding: 0 1.25rem;
   }
 } */
 
@@ -23,7 +23,7 @@
 .badge {
   display: inline-block;
   position: relative;
-  padding: 10px;
+  padding: 0.625rem;
   border-radius: 8px;
   text-box-trim: trim-both;
   text-box-edge: cap alphabetic;

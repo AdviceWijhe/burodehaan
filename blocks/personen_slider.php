@@ -15,9 +15,9 @@ if ($personen && is_array($personen) && !empty($personen)) :
     ?>
     
     <section class="personen-slider <?php echo get_spacing_bottom_class(); ?>">
-        <div class="container mx-auto px-[20px] lg:px-0">
+        <div class="container mx-auto px-[1.25rem] lg:px-0">
             <!-- Titel en Tekst naast elkaar -->
-            <div class="flex flex-col lg:flex-row gap-[24px] lg:gap-[40px] mb-[40px] lg:mb-[60px]">
+            <div class="flex flex-col lg:flex-row gap-[1.5rem] lg:gap-[2.5rem] mb-[2.5rem] lg:mb-[3.75rem]">
                 <!-- Titel links -->
                 <div class="w-full lg:w-1/2">
                     <?php if ($titel) : ?>
@@ -53,7 +53,7 @@ if ($personen && is_array($personen) && !empty($personen)) :
                                     $foto_alt = is_array($foto) ? $foto['alt'] : ($naam ?: 'Foto');
                                     $foto_id = is_array($foto) && isset($foto['id']) ? $foto['id'] : null;
                                 ?>
-                                    <div class="mb-[24px] w-full aspect-[3/4] rounded-[20px] overflow-hidden bg-black">
+                                    <div class="mb-[1.5rem] w-full aspect-[3/4] rounded-[20px] overflow-hidden bg-black">
                                         <?php if ($foto_id) : 
                                             $foto_src = wp_get_attachment_image_url($foto_id, 'medium');
                                             $foto_srcset = wp_get_attachment_image_srcset($foto_id, 'medium');
@@ -75,17 +75,17 @@ if ($personen && is_array($personen) && !empty($personen)) :
                                 
                                 <!-- Naam -->
                                 <?php if ($naam) : ?>
-                                    <h3 class="mb-[8px]! text-lg lg:text-xl font-semibold"><?php echo esc_html($naam); ?></h3>
+                                    <h3 class="mb-[0.5rem]! text-lg lg:text-xl font-semibold"><?php echo esc_html($naam); ?></h3>
                                 <?php endif; ?>
                                 
                                 <!-- Functie -->
                                 <?php if ($functie) : ?>
-                                    <p class="mb-[12px]! text-base text-gray-600"><?php echo esc_html($functie); ?></p>
+                                    <p class="mb-[0.75rem]! text-base text-gray-600"><?php echo esc_html($functie); ?></p>
                                 <?php endif; ?>
                                 
                                 <!-- Telefoon -->
                                 <?php if ($telefoon) : ?>
-                                    <p class="mb-[8px]! text-base">
+                                    <p class="mb-[0.5rem]! text-base">
                                         <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $telefoon)); ?>" class="hover:underline">
                                             <?php echo esc_html($telefoon); ?>
                                         </a>

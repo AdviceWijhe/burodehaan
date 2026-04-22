@@ -24,8 +24,8 @@
  }
  $has_background_color = is_string($achtergrondkleur) && trim($achtergrondkleur) !== '';
  $wrapper_spacing_class = $has_background_color
-     ? 'py-[160px]'
-     : (is_single() ? 'lg:pb-[100px] pb-[60px]' : get_spacing_bottom_class());
+     ? 'py-[10rem]'
+     : (is_single() ? 'lg:pb-[6.25rem] pb-[3.75rem]' : get_spacing_bottom_class());
 
  // Achtergrondkleur kan slug (primary/secondary/black/white) of een hexkleur zijn.
  $bg_style = '';
@@ -162,7 +162,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
 <!-- Text Block -->
 <div class="<?php echo get_spacing_bottom_class(); ?>">
     <?php if($has_background_color) : ?>
-        <div class="bg-<?= $achtergrondkleur ?> lg:pb-[160px] lg:pt-[160px] pb-[100px] pt-[100px]"<?php echo $bg_style; ?>>
+        <div class="bg-<?= $achtergrondkleur ?> lg:pb-[10rem] lg:pt-[10rem] pb-[6.25rem] pt-[6.25rem]"<?php echo $bg_style; ?>>
     <?php endif; ?>
     <div class="container">
  
@@ -171,7 +171,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
         if($soortBlock === 'intro') { ?>
             <div class="w-11/12 ml-[calc(100%/12*1)] lg:w-6/12 lg:ml-[calc(100%/12*2)] <?php echo esc_attr($text_color_class); ?>">
                 <?php if (!empty($tekst_label)) : ?>
-                    <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
+                    <div class="label-large text-primary mb-[1.5rem]"><?php echo esc_html($tekst_label); ?></div>
                 <?php endif; ?>
                 <?php if (!empty($tekst)) : ?>
                     <div class="body-large">
@@ -180,7 +180,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                 <?php endif; 
                 
                 if(get_sub_field('buttons')) { ?>
-                    <div class="mt-[24px]! lg:mt-[32px]!">
+                    <div class="mt-[1.5rem]! lg:mt-[2rem]!">
                       <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'))); ?>
                     </div>
                 <?php } ?>
@@ -194,13 +194,13 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                 $width = 'lg:w-5/12';
             }
             ?>
-            <div class="<?php echo $is_single_or_tax ? 'grid grid-cols-1 lg:grid-cols-12 gap-[40px]' : ''; ?>">
+            <div class="<?php echo $is_single_or_tax ? 'grid grid-cols-1 lg:grid-cols-12 gap-[2.5rem]' : ''; ?>">
                 <div class="w-full <?php echo $is_single_or_tax ? 'lg:col-span-5 lg:col-start-3' : $width . ' ml-[calc(100%/12*2)]'; ?> default-content <?php echo esc_attr($text_color_class); ?>">
                 <?php if (!empty($tekst_label)) : ?>
-                        <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
+                        <div class="label-large text-primary mb-[1.5rem]"><?php echo esc_html($tekst_label); ?></div>
                     <?php endif; ?>
                 <?php if (!empty($titel)) : ?>
-                <div class="headline-medium mb-[28px] <?php echo esc_attr($text_color_class); ?>">
+                <div class="headline-medium mb-[1.75rem] <?php echo esc_attr($text_color_class); ?>">
                     <?php echo wp_kses_post($titel); ?>
                 </div>
             <?php endif; ?>    
@@ -214,23 +214,23 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                 <?php if ($show_sidebar) : ?>
                     <aside class="w-full lg:mt-0 lg:col-span-3 lg:col-start-9 text-black order-first lg:order-last">
                         <?php if ($show_sidebar_author && $sidebar_author_post > 0) : ?>
-                            <div class="mb-[32px]">
-                                <p class="label-medium mb-[16px]!">Geschreven door</p>
+                            <div class="mb-[2rem]">
+                                <p class="label-medium mb-[1rem]!">Geschreven door</p>
                                 <?php get_template_part('template-parts/card-contactpersoon', null, array('variant' => 'default', 'text-color' => 'black', 'medewerker' => $sidebar_author_post)); ?>
                             </div>
                         <?php endif; ?>
 
                         <?php if ($show_sidebar_date) : ?>
-                            <div class="mb-[32px]">
-                                <p class="label-medium mb-[12px]!">Datum</p>
+                            <div class="mb-[2rem]">
+                                <p class="label-medium mb-[0.75rem]!">Datum</p>
                                 <p class="body-medium mb-0!"><?php echo esc_html(get_the_date('j F Y', $current_post_id ?: null)); ?></p>
                             </div>
                         <?php endif; ?>
 
                         <?php if ($show_sidebar_expertises && !empty($expertise_terms)) : ?>
-                            <div class="mb-[32px]">
-                                <p class="label-medium mb-[12px]!">Expertises</p>
-                                <div class="flex flex-wrap gap-[8px]">
+                            <div class="mb-[2rem]">
+                                <p class="label-medium mb-[0.75rem]!">Expertises</p>
+                                <div class="flex flex-wrap gap-[0.5rem]">
                                     <?php foreach ($expertise_terms as $expertise_term) : ?>
                                         <?php $expertise_link = get_term_link($expertise_term); ?>
                                         <?php if (!is_wp_error($expertise_link)) : ?>
@@ -244,9 +244,9 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                         <?php endif; ?>
 
                         <?php if ($show_sidebar_themas && !empty($thema_terms)) : ?>
-                            <div class="mb-[32px]">
-                                <p class="label-medium mb-[12px]!">Thema's</p>
-                                <div class="flex flex-wrap gap-[8px]">
+                            <div class="mb-[2rem]">
+                                <p class="label-medium mb-[0.75rem]!">Thema's</p>
+                                <div class="flex flex-wrap gap-[0.5rem]">
                                     <?php foreach ($thema_terms as $thema_term) : ?>
                                         <?php $thema_link = get_term_link($thema_term); ?>
                                         <?php if (!is_wp_error($thema_link)) : ?>
@@ -261,8 +261,8 @@ if ($show_sidebar_articles && $is_single_or_tax) {
 
                         <?php if ($show_sidebar_articles && !empty($related_posts)) : ?>
                             <div>
-                                <p class="label-medium mb-[16px]!">Gerelateerde artikelen</p>
-                                <div class="flex flex-col gap-[16px]">
+                                <p class="label-medium mb-[1rem]!">Gerelateerde artikelen</p>
+                                <div class="flex flex-col gap-[1rem]">
                                     <?php foreach ($related_posts as $related_post) : ?>
                                         <?php
                                         $related_id = (int) $related_post->ID;
@@ -285,13 +285,13 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                                                     <img src="<?php echo esc_url($related_thumb); ?>" alt="<?php echo esc_attr($related_title); ?>" class="w-full h-full object-cover" loading="lazy">
                                                 </div>
                                             <?php endif; ?>
-                                            <div class="flex-1 min-w-0 p-[20px]">
+                                            <div class="flex-1 min-w-0 p-[1.25rem]">
                                                 <?php if (!empty($related_taxonomy_label)) : ?>
-                                                    <span class="inline-flex body-small font-normal! border border-black text-black badge mb-[16px]"><?php echo esc_html($related_taxonomy_label); ?></span>
+                                                    <span class="inline-flex body-small font-normal! border border-black text-black badge mb-[1rem]"><?php echo esc_html($related_taxonomy_label); ?></span>
                                                 <?php endif; ?>
                                                 <p class="body-medium font-normal! mb-0!"><?php echo esc_html($related_title); ?></p>
                                             </div>
-                                            <div class="shrink-0 flex items-center pr-[20px]">
+                                            <div class="shrink-0 flex items-center pr-[1.25rem]">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16" fill="none">
                                                     <rect width="1.77777" height="1.77777" fill="#EC663C"/>
                                                     <rect x="4.74072" y="9.48169" width="1.77777" height="1.77777" fill="#EC663C"/>
@@ -316,16 +316,16 @@ if ($show_sidebar_articles && $is_single_or_tax) {
            <div class="<?php echo esc_attr($text_color_class); ?>">
             <div class="w-full lg:w-8/12 lg:ml-[calc(100%/12*2)]">
             <?php if (!empty($tekst_label)) : ?>
-                <div class="label-large text-primary mb-[24px]"><?php echo esc_html($tekst_label); ?></div>
+                <div class="label-large text-primary mb-[1.5rem]"><?php echo esc_html($tekst_label); ?></div>
             <?php endif; ?>
             <?php if (!empty($titel)) : ?>
-                <div class="mb-[40px] max-w-[790px] <?php echo esc_attr($text_color_class); ?>">
+                <div class="mb-[2.5rem] max-w-[790px] <?php echo esc_attr($text_color_class); ?>">
                     <?php echo wp_kses_post($titel); ?>
                 </div>
             <?php endif; ?>
             <?php if (!empty($tekst)) : ?>
                 <!-- De content automatisch in 2 kolommen -->
-                <div class="content-columns title-large columns-1 lg:columns-2 lg:gap-[45px]">
+                <div class="content-columns title-large columns-1 lg:columns-2 lg:gap-[2.8125rem]">
                     <?php echo wp_kses_post($tekst); ?>
                 </div>
             <?php endif; ?>

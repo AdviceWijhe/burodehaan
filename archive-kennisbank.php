@@ -115,7 +115,7 @@ get_header(); ?>
                 </div>
                 
                 <!-- Posts in deze categorie -->
-                <div class="pb-[100px]">
+                <div class="pb-[6.25rem]">
                     <?php foreach ($category_posts as $index => $post) : 
                         setup_postdata($post);
                         $is_even = ($index % 2 == 1);

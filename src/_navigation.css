@@ -183,7 +183,7 @@
 
   .main-navigation .expertises-dropdown-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 28px 20px;
+    gap: 1.75rem 1.25rem;
   }
 
   .main-navigation .expertises-dropdown-card {
@@ -218,7 +218,7 @@
 
 /* Breadcrumbs */
 #breadcrumbs {
-    font-size: 14px;
+    font-size: 0.875rem;
   a {
     font-weight: 400;
     position: relative;
@@ -270,11 +270,11 @@
   border: 1px solid var(--color-white);
   color: var(--color-white);
   border-radius: 50%;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1;
-  margin-left: 12px;
-  padding: 0 4px;
+  margin-left: 0.75rem;
+  padding: 0 0.25rem;
   transition: all 0.3s ease;
   
   /* Hide counter when count is 0 */
@@ -302,8 +302,8 @@
 
 /* Mobile menu counter styling */
 .mobile-nav-link .vacature-counter {
-  margin-left: 8px;
+  margin-left: 0.5rem;
   min-width: 22px;
   height: 22px;
-  font-size: 12px;
+  font-size: 0.75rem;
 }

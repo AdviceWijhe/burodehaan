@@ -1,19 +1,19 @@
 grid-cols-4
 grid-cols-5
-pb-[60px]
-pb-[80px]
-pb-[100px]
-pb-[120px]
-lg:pb-[80px]
-md:pb-[60px]
-md:pb-[100px]
-md:pb-[140px]
-md:pb-[160px]
-md:pb-[260px]
+pb-[3.75rem]
+pb-[5rem]
+pb-[6.25rem]
+pb-[7.5rem]
+lg:pb-[5rem]
+md:pb-[3.75rem]
+md:pb-[6.25rem]
+md:pb-[8.75rem]
+md:pb-[10rem]
+md:pb-[16.25rem]
 
-lg:pb-[160px]
-lg:pb-[200px]
-lg:pb-[260px]
+lg:pb-[10rem]
+lg:pb-[12.5rem]
+lg:pb-[16.25rem]
 
 bg-primary
 bg-secondary

@@ -14,7 +14,7 @@ $label = get_sub_field('label');
 
 //  Als background-color leeg is dan moet de breedte van de tekst 5/12 zijn en de afbeelding 6/12 ml-auto en als image_position left is moet de content ml-auto hebben en de image niet ml-auto hebben
 
-$text_width = 'lg:w-6/12 px-[20px] lg:px-[80px] pb-[60px]';
+$text_width = 'lg:w-6/12 px-[1.25rem] lg:px-[5rem] pb-[3.75rem]';
 $image_width = 'lg:w-[50vw]';
 $content_margin = '';
 $image_margin = '';
@@ -67,20 +67,20 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
             ?>
 <!-- Image + Text Block -->
 <div id="<?php echo esc_attr($block_id); ?>" class="js-image-text <?php echo $background_color === '' ? 'js-image-text--bg-empty' : ''; ?> <?php echo get_spacing_bottom_class(); ?> lg:relative flex flex-col lg:flex-row">
-  <!-- <div class="order-2 lg:absolute lg:order-none js-image-text-extend left-0 lg:left-auto lg:right-0 bottom-[60px] lg:top-[0px] lg:bottom-auto w-full h-[60px] lg:h-full bg-gray-100 <?php echo $content_first ? '' : 'hidden'; ?>" id="extend-element-<?php echo esc_attr($block_id); ?>"></div> -->
+  <!-- <div class="order-2 lg:absolute lg:order-none js-image-text-extend left-0 lg:left-auto lg:right-0 bottom-[3.75rem] lg:top-[0rem] lg:bottom-auto w-full h-[60px] lg:h-full bg-gray-100 <?php echo $content_first ? '' : 'hidden'; ?>" id="extend-element-<?php echo esc_attr($block_id); ?>"></div> -->
     <div class="container mx-auto max-md:px-0! lg:px-0! order-1 lg:order-0">
 		<div class="js-it-row flex flex-col-reverse lg:flex-row <?php echo $background_color === '' ? 'items-center' : 'items-stretch'; ?> order-1">
             
 
             
-            <div class="js-it-content max-md:px-[20px]! relative w-full pt-[40px] lg:pt-[60px] overflow-hidden default-content <?php if($background_color) { echo 'flex flex-col justify-center items-start';} ?>  lg:py-[60px]  text-<?= $text_color ?>  <?php echo $content_first ? 'order-1 lg:order-1' : 'order-1 lg:order-2'; ?> <?php echo $content_margin; ?> <?= $text_width ?>">
+            <div class="js-it-content max-md:px-[1.25rem]! relative w-full pt-[2.5rem] lg:pt-[3.75rem] overflow-hidden default-content <?php if($background_color) { echo 'flex flex-col justify-center items-start';} ?>  lg:py-[3.75rem]  text-<?= $text_color ?>  <?php echo $content_first ? 'order-1 lg:order-1' : 'order-1 lg:order-2'; ?> <?php echo $content_margin; ?> <?= $text_width ?>">
               <div class="bg-<?php echo $background_color; ?> absolute w-full <?php echo $content_first ? 'right-0' : 'left-0'; ?> top-0 h-full"></div>
                 
                 <?php if ($label) : ?>
-                    <div class="label label-large text-primary mb-[20px]!"><?php echo $label; ?></div>
+                    <div class="label label-large text-primary mb-[1.25rem]!"><?php echo $label; ?></div>
                 <?php endif; ?>
                   <?php if ($heading) : ?>
-                 <div class="mb-[40px]">  <?php echo $heading; ?></div>
+                 <div class="mb-[2.5rem]">  <?php echo $heading; ?></div>
                 <?php endif; ?>
      
 
@@ -95,7 +95,7 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
 
                 
                 <?php if(get_sub_field('buttons')) { ?>
-                    <div class="mt-[24px]! lg:mt-[32px]!">
+                    <div class="mt-[1.5rem]! lg:mt-[2rem]!">
                       <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'))); ?>
                     </div>
                 <?php } ?>
@@ -122,7 +122,7 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
                          <?php if ($image_srcset) : ?>srcset="<?php echo esc_attr($image_srcset); ?>" sizes="<?php echo esc_attr($image_sizes ?: '(max-width: 1024px) 100vw, 50vw'); ?>"<?php endif; ?>
                          alt="<?php echo esc_attr($heading ?: 'Image'); ?>" 
                          loading="lazy"
-                         class="w-full h-full  object-cover object-center absolute inset-0 <?php if(get_sub_field('blok_variant') == 'link_list') { ?> pl-[20px] lg:pl-0 <?php } ?>">
+                         class="w-full h-full  object-cover object-center absolute inset-0 <?php if(get_sub_field('blok_variant') == 'link_list') { ?> pl-[1.25rem] lg:pl-0 <?php } ?>">
                   </div>
                 <?php else: ?>
                     <!-- Placeholder als er geen afbeelding is -->

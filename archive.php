@@ -16,15 +16,15 @@ $filter_panel_taxonomies = array(
 
 <main id="main" class="site-main">
 
-<div class="container mx-auto mb-[60px] lg:mb-[28px] pt-[60px] lg:pt-[120px]">
+<div class="container mx-auto mb-[3.75rem] lg:mb-[1.75rem] pt-[3.75rem] lg:pt-[7.5rem]">
     <div class="flex flex-col lg:flex-row lg:items-center justify-between">
 
-            <h1 class="headline-large mb-[28px]! lg:mb-0!">
+            <h1 class="headline-large mb-[1.75rem]! lg:mb-0!">
                 Onze <b><?= $title; ?>.</b>
             </h1>
 
 
-            <div class="search_filter flex items-center gap-[12px] lg:gap-[16px]">
+            <div class="search_filter flex items-center gap-[0.75rem] lg:gap-[1rem]">
                 <div class="search">
                     <?php get_search_form(); ?>
                 </div>
@@ -61,7 +61,7 @@ $filter_panel_taxonomies = array(
         <?php if (have_posts()) : ?>
             <div
                 id="archive-post-grid"
-                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-4 4xl:grid-cols-5 gap-[16px] lg:gap-[28px]"
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-4 4xl:grid-cols-5 gap-[1rem] lg:gap-[1.75rem]"
             >
             <?php while (have_posts()) : the_post(); ?>
                 <?= get_template_part('template-parts/card', get_post_type()); ?>
@@ -90,7 +90,7 @@ $filter_panel_taxonomies = array(
     </div>
 
     <?php if ($max_pages > 1) : ?>
-        <div class="mt-[30px] lg:mt-[60px] text-center">
+        <div class="mt-[1.875rem] lg:mt-[3.75rem] text-center">
             <button
                 id="archive-load-more"
                 class="btn border border-black text-black hover:bg-black hover:text-white"

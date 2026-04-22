@@ -41,10 +41,10 @@
                     <div class="card-image w-full lg:w-3/8 h-full">
                         <img src="<?= $thumbnail ?>" alt="<?php echo $name; ?>" class="w-full h-full object-cover">
                     </div>
-                    <div class="card-body p-[60px] w-full lg:w-5/8">
-                        <h3 class="card-title mb-[28px]!"><?php echo $name; ?></h3>
+                    <div class="card-body p-[3.75rem] w-full lg:w-5/8">
+                        <h3 class="card-title mb-[1.75rem]!"><?php echo $name; ?></h3>
                         <div class="card-description"><?php echo $description; ?></div>
-                        <span class="btn bg-primary mt-[40px]"><?php echo $name; ?></span>
+                        <span class="btn bg-primary mt-[2.5rem]"><?php echo $name; ?></span>
                     </div>
                 </a>
                 <?php }else {

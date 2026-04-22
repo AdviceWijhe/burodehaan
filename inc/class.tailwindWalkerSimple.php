@@ -127,9 +127,9 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         }
 
         $output = "\n$indent<div class=\"dropdown-menu expertises-dropdown fixed left-0 right-0 top-full w-screen bg-white opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-50\">\n";
-        $output .= "$indent\t<div class=\"container mx-auto py-[28px]\">\n";
-        $output .= "$indent\t<h3 class=\"mb-[28px] text-black\">Onze <b>expertises.</b></h3>";
-        $output .= "$indent\t\t<div class=\"expertises-dropdown-grid grid grid-cols-4 gap-x-[20px] gap-y-[28px]\">\n";
+        $output .= "$indent\t<div class=\"container mx-auto py-[1.75rem]\">\n";
+        $output .= "$indent\t<h3 class=\"mb-[1.75rem] text-black\">Onze <b>expertises.</b></h3>";
+        $output .= "$indent\t\t<div class=\"expertises-dropdown-grid grid grid-cols-4 gap-x-[1.25rem] gap-y-[1.75rem]\">\n";
 
         $visible_expertises = array_slice($expertises, 0, 7);
 
@@ -142,10 +142,10 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
             $term_icon = get_field('icoon', 'expertise_' . $expertise->term_id);
             $title = $expertise->name ?? '';
 
-            $output .= "$indent\t\t\t<a href=\"" . esc_url($term_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[136px] px-[32px] py-[28px] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
-            $output .= "$indent\t\t\t\t<div class=\"absolute left-[24px] top-[20px] text-[#EC663C]\">" . $this->sanitize_expertise_icon_markup((string) $term_icon) . "</div>\n";
+            $output .= "$indent\t\t\t<a href=\"" . esc_url($term_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[136px] px-[2rem] py-[1.75rem] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+            $output .= "$indent\t\t\t\t<div class=\"absolute left-[24px] top-[1.25rem] text-[#EC663C]\">" . $this->sanitize_expertise_icon_markup((string) $term_icon) . "</div>\n";
             $output .= "$indent\t\t\t\t<span class=\"pr-10 title-large text-black\">" . esc_html($title) . "</span>\n";
-            $output .= "$indent\t\t\t\t<span class=\"absolute right-[20px] bottom-[22px]\" aria-hidden=\"true\">\n";
+            $output .= "$indent\t\t\t\t<span class=\"absolute right-[20px] bottom-[1.375rem]\" aria-hidden=\"true\">\n";
             $output .= "$indent\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
             $output .= "$indent\t\t\t\t\t\t<rect width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
             $output .= "$indent\t\t\t\t\t\t<rect x=\"5.92578\" y=\"11.8521\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
@@ -160,10 +160,10 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         }
 
         $all_expertises_link = home_url('/expertises');
-        $output .= "$indent\t\t\t<a href=\"" . esc_url($all_expertises_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[136px] px-[32px] py-[28px] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+        $output .= "$indent\t\t\t<a href=\"" . esc_url($all_expertises_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[136px] px-[2rem] py-[1.75rem] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
 
         $output .= "$indent\t\t\t\t<span class=\"pr-10 title-large text-black\">Alle expertises</span>\n";
-        $output .= "$indent\t\t\t\t<span class=\"absolute right-[20px] bottom-[22px]\" aria-hidden=\"true\">\n";
+        $output .= "$indent\t\t\t\t<span class=\"absolute right-[20px] bottom-[1.375rem]\" aria-hidden=\"true\">\n";
         $output .= "$indent\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
         $output .= "$indent\t\t\t\t\t\t<rect width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
         $output .= "$indent\t\t\t\t\t\t<rect x=\"5.92578\" y=\"11.8521\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
@@ -369,8 +369,8 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         // Different styling for top-level vs dropdown items
         if ($depth == 0) {
             // Top level items - matching Figma design
-            // Font: Poppins Medium (font-medium), 15px (text-[15px]), line-height 1.8 (leading-[1.8])
-            $link_classes = 'relative px-[20px] py-[10px] transition-colors duration-300 flex items-center gap-1';
+            // Font: Poppins Medium (font-medium), 15px (text-[0.9375rem]), line-height 1.8 (leading-[1.8])
+            $link_classes = 'relative px-[1.25rem] py-[0.625rem] transition-colors duration-300 flex items-center gap-1';
             
             // Active state: light blue text (#96ACC0) and underline
             if ($is_current) {
@@ -385,7 +385,7 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
                 $link_classes = 'flex items-center w-full p-4 rounded-lg transition-all duration-300 hover:bg-gray-50 group/mega-item';
             } else {
                 // Regular dropdown items
-                $link_classes = 'flex items-center w-full px-4 py-2 text-[15px] leading-[1.8] font-medium transition-colors duration-300';
+                $link_classes = 'flex items-center w-full px-4 py-2 text-[0.9375rem] leading-[1.8] font-medium transition-colors duration-300';
             }
             
             if ($is_current) {

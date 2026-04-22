@@ -38,7 +38,7 @@ $datum = date('d M Y', strtotime($datum));
         <div class="max-w-[580px] lead prose"><?= the_content() ?></div>
         <!-- Deze knop moet een scroll down van 250px krijgen onclick -->
       
-        <div class="flex items-center gap-4 hover:cursor-pointer mt-[40px] mb-15" onclick="window.scrollTo({top: 1000, behavior: 'smooth'})">
+        <div class="flex items-center gap-4 hover:cursor-pointer mt-[2.5rem] mb-15" onclick="window.scrollTo({top: 1000, behavior: 'smooth'})">
           <div class="icon-round min-w-[50px] min-h-[50px] lg:min-w-[60px] lg:min-h-[60px] rounded-full border border-gray-300 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
               <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
@@ -90,7 +90,7 @@ $datum = date('d M Y', strtotime($datum));
                     <?php if (has_blocks()) : ?>
                         <div class="flex flex-col xl:flex-row">
                         <!-- Enhanced Gutenberg Blocks -->
-                        <div class="blocks-container max-w-none w-full lg:w-6/12 pb-[80px]">
+                        <div class="blocks-container max-w-none w-full lg:w-6/12 pb-[5rem]">
                             <?php
                             // Parse blocks for custom styling
                             $blocks = parse_blocks(get_the_content());
@@ -104,7 +104,7 @@ $datum = date('d M Y', strtotime($datum));
                                 
                                 switch ($block_name) {
                                     case 'core/heading':
-                                        $wrapper_classes .= ' heading-block lg:px-25 mb-[20px] mt-[80px]';
+                                        $wrapper_classes .= ' heading-block lg:px-25 mb-[1.25rem] mt-[5rem]';
                                         break;
                                     case 'core/paragraph':
                                         $wrapper_classes .= ' paragraph-block lg:pl-25 lg:pr-21';
@@ -144,7 +144,7 @@ $datum = date('d M Y', strtotime($datum));
                         </div>
 
                         <div class="w-full lg:w-4/12 lg:ml-auto">
-                        <div class="bg-blue p-10 sticky top-[100px]">
+                        <div class="bg-blue p-10 sticky top-[6.25rem]">
           <?= get_template_part('template-parts/card-contactpersoon', null, array('medewerker' => get_field('contactpersoon'), 'text-color' => 'white')) ?>
 
           

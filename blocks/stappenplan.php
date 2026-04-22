@@ -1,10 +1,10 @@
-<section class="stappenplan <?php echo get_spacing_bottom_class(); ?> relative text-white pt-[60px] lg:pt-0 mb-[60px] lg:mb-0" data-stappenplan-section>
+<section class="stappenplan <?php echo get_spacing_bottom_class(); ?> relative text-white pt-[3.75rem] lg:pt-0 mb-[3.75rem] lg:mb-0" data-stappenplan-section>
   <div class="absolute lg:sticky inset-0 lg:top-0 lg:left-0 w-full h-full lg:h-screen overflow-hidden pointer-events-none -z-10">
   </div>
-  <div class="container mx-auto relative pt-[60px] lg:pt-[100px]">
-    <div class="flex flex-col lg:flex-row items-start lg:gap-[60px] lg:-mt-[calc(100vh-100px)]">
-      <div class="w-full lg:w-5/12 lg:sticky lg:top-[100px] lg:self-start lg:h-[calc(100vh-260px)] mb-0 lg:mb-[160px] flex flex-col justify-between order-1" data-stappenplan-content>
-        <div class="mb-[40px] lg:mb-0 text-center lg:text-left">
+  <div class="container mx-auto relative pt-[3.75rem] lg:pt-[6.25rem]">
+    <div class="flex flex-col lg:flex-row items-start lg:gap-[3.75rem] lg:-mt-[calc(100vh-100px)]">
+      <div class="w-full lg:w-5/12 lg:sticky lg:top-[6.25rem] lg:self-start lg:h-[calc(100vh-260px)] mb-0 lg:mb-[10rem] flex flex-col justify-between order-1" data-stappenplan-content>
+        <div class="mb-[2.5rem] lg:mb-0 text-center lg:text-left">
           <h3 class="headline-medium"><?= get_sub_field('titel') ?></h3>
           <p><?= get_sub_field('content') ?></p>
         </div>
@@ -12,9 +12,9 @@
           <?php get_template_part('template-parts/core/cta-compact'); ?>
         </div>
       </div>
-      <div class="w-full lg:w-6/12 lg:ml-auto mb-0 lg:mb-[100px] lg:mt-0 order-2 h-auto lg:min-h-0">
-        <div class="sticky lg:static top-[20px] lg:translate-y-0 lg:top-auto" data-stappenplan-steps>
-          <div class="flex lg:flex-col gap-[20px] lg:gap-10 overflow-x-scroll lg:overflow-visible snap-x snap-mandatory lg:snap-none scrollbar-hide" data-stappenplan-inner>
+      <div class="w-full lg:w-6/12 lg:ml-auto mb-0 lg:mb-[6.25rem] lg:mt-0 order-2 h-auto lg:min-h-0">
+        <div class="sticky lg:static top-[1.25rem] lg:translate-y-0 lg:top-auto" data-stappenplan-steps>
+          <div class="flex lg:flex-col gap-[1.25rem] lg:gap-10 overflow-x-scroll lg:overflow-visible snap-x snap-mandatory lg:snap-none scrollbar-hide" data-stappenplan-inner>
             <?php
             $stappen = get_field('werkwijze', 'option');
 
@@ -29,7 +29,7 @@
               $content = $stap['content'];
               ?>
 
-              <div class=" w-full py-[28px] px-[28px] lg:py-[60px] lg:px-[60px] bg-white text-primary relative snap-center lg:snap-align-none flex-shrink-0 lg:flex-shrink" data-stap="<?= $count ?>">
+              <div class=" w-full py-[1.75rem] px-[1.75rem] lg:py-[3.75rem] lg:px-[3.75rem] bg-white text-primary relative snap-center lg:snap-align-none flex-shrink-0 lg:flex-shrink" data-stap="<?= $count ?>">
             <div class="flex items-start flex-col gap-5">
               <div class="badge border-light-blue!">Stap <?= $count ?></div>
               <h6 class="title-large"><?= $title ?></h6>
@@ -45,7 +45,7 @@
           </div>
         </div>
       </div>
-      <div class="w-full lg:hidden order-3 mt-[40px] mb-0 lg:mb-[60px]">
+      <div class="w-full lg:hidden order-3 mt-[2.5rem] mb-0 lg:mb-[3.75rem]">
         <?php get_template_part('template-parts/core/cta-compact'); ?>
       </div>
     </div>

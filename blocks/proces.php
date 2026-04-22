@@ -1,9 +1,9 @@
 <section class="proces <?php echo get_spacing_bottom_class(); ?> " data-proces-section>
-    <div class="proces-scroll-wrapper overflow-hidden p-[20px] lg:p-0! pt-[40px] lg:pt-[80px]! ">
+    <div class="proces-scroll-wrapper overflow-hidden p-[1.25rem] lg:p-0! pt-[2.5rem] lg:pt-[5rem]! ">
         <div class="flex flex-col lg:flex-row items-stretch flex-nowrap proces-slides-container" data-proces-slides>
-            <div class="w-full lg:min-w-[600px]  lg:w-[600px]  lg:pl-[60px] lg:pr-[100px] lg:pb-[60px] flex flex-col justify-end proces-intro-slide text-pink mb-[60px] lg:mb-0!">
-                <h4 class="mb-[24px]! lg:mb-[32px]! title-large"><?= get_sub_field('titel') ?></h4>
-                <div class="mb-[24px]! lg:mb-[32px]! max-w-[333px] body-medium font-normal"><?= get_sub_field('content', null, null) ?></div>
+            <div class="w-full lg:min-w-[600px]  lg:w-[600px]  lg:pl-[3.75rem] lg:pr-[6.25rem] lg:pb-[3.75rem] flex flex-col justify-end proces-intro-slide text-pink mb-[3.75rem] lg:mb-0!">
+                <h4 class="mb-[1.5rem]! lg:mb-[2rem]! title-large"><?= get_sub_field('titel') ?></h4>
+                <div class="mb-[1.5rem]! lg:mb-[2rem]! max-w-[333px] body-medium font-normal"><?= get_sub_field('content', null, null) ?></div>
                 <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'))) ?>
             </div>
             <?php 
@@ -12,16 +12,16 @@
             foreach($processen as $stap) { 
                 $count++;
                 ?>
-                <div class="w-full lg:w-10/12 lg:min-w-[1200px] mr-[80px]! proces-slide mb-[24px] lg:mb-0!" data-slide-index="<?= $count ?>">
+                <div class="w-full lg:w-10/12 lg:min-w-[1200px] mr-[5rem]! proces-slide mb-[1.5rem] lg:mb-0!" data-slide-index="<?= $count ?>">
                     <div class="flex flex-col lg:flex-row flex-stretch">
                         <div class="w-full lg:w-5/12 aspect-square lg:aspect-auto lg:h-[calc(100vh-200px)]">
                             <img src="<?= $stap['afbeelding']['url'] ?>" alt="<?= $stap['afbeelding']['alt'] ?>" class="w-full h-full object-cover object-center">
                         </div>
-                        <div class="w-full lg:w-7/12 bg-light-blue/25 p-[40px] lg:p-[60px] flex flex-col justify-between items-start">
-                            <div class="badge mb-[12px] lg:mb-0! label-small">Niveau <?= $count ?></div>
+                        <div class="w-full lg:w-7/12 bg-light-blue/25 p-[2.5rem] lg:p-[3.75rem] flex flex-col justify-between items-start">
+                            <div class="badge mb-[0.75rem] lg:mb-0! label-small">Niveau <?= $count ?></div>
                             <div>
                             <h4 class="title-large"><?= $stap['titel'] ?></h4>
-                            <div class="mb-[32px]! body-medium font-normal"><?= $stap['content'] ?></div>
+                            <div class="mb-[2rem]! body-medium font-normal"><?= $stap['content'] ?></div>
                             <?= get_template_part('template-parts/core/buttons', null, array('buttons' => $stap['buttons'])) ?>
                         </div>
                         </div>
@@ -62,7 +62,7 @@
         }
     </style>
 
-    <div class="py-[40px] px-[60px] steps-container overflow-hidden w-full hidden lg:block" data-steps-container>
+    <div class="py-[2.5rem] px-[3.75rem] steps-container overflow-hidden w-full hidden lg:block" data-steps-container>
         <div class="steps-wrapper flex items-center justify-between gap-2 w-full" data-steps-wrapper>
             <div class="steps-prev flex items-center gap-2 flex-1 justify-start" data-steps-prev></div>
             <div class="steps-active flex items-center justify-center flex-shrink-0" data-steps-active></div>
@@ -74,9 +74,9 @@
             foreach($processen as $stap) { 
                 $count++;
                 ?>
-                <div class="step border rounded-full border-light-blue/25 p-[4px] inline-flex items-center gap-2 transition-all duration-300" data-step-index="<?= $count ?>">
-                    <span class="bg-light-blue aspect-square w-[20px] rounded-full flex items-center justify-center text-center text-white text-[12px] font-bold step-number"><?= $count ?></span>
-                    <span class="step-text pr-[8px]"><?= $stap['proces_naam'] ?></span>
+                <div class="step border rounded-full border-light-blue/25 p-[0.25rem] inline-flex items-center gap-2 transition-all duration-300" data-step-index="<?= $count ?>">
+                    <span class="bg-light-blue aspect-square w-[20px] rounded-full flex items-center justify-center text-center text-white text-[0.75rem] font-bold step-number"><?= $count ?></span>
+                    <span class="step-text pr-[0.5rem]"><?= $stap['proces_naam'] ?></span>
                 </div>
             <?php } ?>
         </div>

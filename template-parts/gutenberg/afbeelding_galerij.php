@@ -6,7 +6,7 @@ if (empty($afbeeldingen) || !is_array($afbeeldingen)) {
     return;
 }
 ?>
-<div class="afbeelding_galerij relative w-full max-w-4xl mx-auto py-[80px]">
+<div class="afbeelding_galerij relative w-full max-w-4xl mx-auto py-[5rem]">
     <div class="swiper <?php echo esc_attr($swiper_class); ?> relative w-full">
         <div class="swiper-wrapper">
             <?php foreach ($afbeeldingen as $afbeelding) : ?>

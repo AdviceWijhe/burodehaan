@@ -13,7 +13,7 @@ if ($tekstblokken && is_array($tekstblokken) && !empty($tekstblokken)) :
     ?>
     
     <section class="meerdere-blokken <?php echo get_spacing_bottom_class(); ?>">
-        <div class="container mx-auto px-[20px] lg:px-0!">
+        <div class="container mx-auto px-[1.25rem] lg:px-0!">
             <?php if ($aantal == 3) : ?>
                 <!-- Speciale layout voor 3 blokken: flex container, eerste links, 2e en 3e rechts onder elkaar -->
                 <div class="flex flex-col lg:flex-row lg:items-stretch gap-4 lg:gap-6">
@@ -50,7 +50,7 @@ if ($tekstblokken && is_array($tekstblokken) && !empty($tekstblokken)) :
                         $is_first = ($index == 1);
                         $container_class = $is_horizontal ? 'bg-[#D8D6D466] rounded-lg overflow-hidden flex flex-col lg:flex-row h-full' : 'bg-[#D8D6D466] rounded-lg overflow-hidden flex flex-col h-full';
                         // Voor 1e blok: padding van 60px
-                        $padding_class = $is_first ? 'p-[60px]' : '';
+                        $padding_class = $is_first ? 'p-[3.75rem]' : '';
                         ?>
                         <div class="<?php echo esc_attr($container_class); ?> <?php echo esc_attr($padding_class); ?>">
                             <?php if ($afbeelding) : 
@@ -173,7 +173,7 @@ if ($tekstblokken && is_array($tekstblokken) && !empty($tekstblokken)) :
                             $block_class = '';
                         }
                     ?>
-                        <div class="<?php echo esc_attr($col_span); ?> <?php echo esc_attr($block_class); ?> bg-[#D8D6D466] rounded-lg overflow-hidden flex flex-col h-full <?php echo $aantal == 1 ? 'p-[60px]' : ''; ?>">
+                        <div class="<?php echo esc_attr($col_span); ?> <?php echo esc_attr($block_class); ?> bg-[#D8D6D466] rounded-lg overflow-hidden flex flex-col h-full <?php echo $aantal == 1 ? 'p-[3.75rem]' : ''; ?>">
                             <?php if ($afbeelding) : 
                                 // Get image ID if it's an array
                                 $image_id = is_array($afbeelding) ? $afbeelding['ID'] : attachment_url_to_postid($afbeelding);

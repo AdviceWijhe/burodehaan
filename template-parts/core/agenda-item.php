@@ -52,7 +52,7 @@ $url = $args['url'];
     <div class="text-4xl font-medium "><?= $dag_nummer ?></div>
     <div class=" "><?= $maand_nl ?></div>
   </div>
-  <div class="agenda-item__title flex-1 p-[28px] lg:p-8 bg-white">
+  <div class="agenda-item__title flex-1 p-[1.75rem] lg:p-8 bg-white">
     <h3 class="mb-5 headline-small">Onze volgende excursie</h3>
     <a href="<?= $url ?>" class="btn btn-red inline-flex items-center gap-2">Meld je aan <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none">
   <path d="M12 5.5L10.9482 6.55078L6.74316 10.7568L5.69238 9.70605L9.20801 6.19043H0V4.7041H9.10156L5.69238 1.29492L6.74316 0.243164L12 5.5Z" fill="white"/>

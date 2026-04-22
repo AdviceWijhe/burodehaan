@@ -15,36 +15,36 @@ if(get_post_type() == 'project') {
 <main id="main" class="site-main">
     
 
-    <div class="post-header bg-black pt-[60px] lg:pt-[100px] mb-[40px] lg:mb-[160px] ">
-        <div class="container pb-[80px] lg:pb-[120px]">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
+    <div class="post-header bg-black pt-[3.75rem] lg:pt-[6.25rem] mb-[2.5rem] lg:mb-[10rem] ">
+        <div class="container pb-[5rem] lg:pb-[7.5rem]">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
                 <div class="w-full lg:col-span-8 lg:col-start-3">
-                    <p class="label-large text-primary mb-[20px]!"><?= $label; ?></p>
-                    <h1 class="text-white text-4xl font-bold mb-[40px]"><?= get_the_title(); ?></h1>
+                    <p class="label-large text-primary mb-[1.25rem]!"><?= $label; ?></p>
+                    <h1 class="text-white text-4xl font-bold mb-[2.5rem]"><?= get_the_title(); ?></h1>
                     <div class="text-white body-large max-w-[790px]"><?php echo get_field('introtekst', get_the_ID()); ?></div>
                 </div>
             </div>
         </div>
         <?php if(get_post_type() == 'project') : ?>
             <div class="bg-secondary">
-                <div class="container py-[32px]!">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
-                        <div class="col-span-1 lg:col-span-8 lg:col-start-3 flex gap-y-[40px] flex-wrap lg:gap-[120px] lg:items-center">
+                <div class="container py-[2rem]!">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
+                        <div class="col-span-1 lg:col-span-8 lg:col-start-3 flex gap-y-[2.5rem] flex-wrap lg:gap-[7.5rem] lg:items-center">
                         <?php if(get_field('project_informatie', get_the_ID())['locatie']) : ?>    
                         <div class="w-1/2 lg:w-auto">
-                                <p class="label label-large mb-[20px]!">Locatie</p>
+                                <p class="label label-large mb-[1.25rem]!">Locatie</p>
                                 <p class="mb-0!"><?= get_field('project_informatie', get_the_ID())['locatie']; ?></p>
                             </div>
                             <?php endif; ?>
                             <?php if(get_field('project_informatie', get_the_ID())['opdrachtgever']) : ?>
                             <div class="w-1/2 lg:w-auto">
-                                <p class="label label-large mb-[20px]!">Opdrachtgever</p>
+                                <p class="label label-large mb-[1.25rem]!">Opdrachtgever</p>
                                 <p class="mb-0!"><?= get_field('project_informatie', get_the_ID())['opdrachtgever']; ?></p>
                             </div>
                             <?php endif; ?>
                             <?php if(get_field('project_informatie', get_the_ID())['bouwjaar']) : ?>
                             <div class="w-1/2 lg:w-auto">
-                                <p class="label label-large mb-[20px]!">Bouwjaar</p>
+                                <p class="label label-large mb-[1.25rem]!">Bouwjaar</p>
                                 <p class="mb-0!"><?= get_field('project_informatie', get_the_ID())['bouwjaar']; ?></p>
                             </div>
                             <?php endif; ?>
@@ -52,7 +52,7 @@ if(get_post_type() == 'project') {
                                 
                                 <?php foreach(get_field('project_informatie', get_the_ID())['overige'] as $overig) : ?>
                                     <div class="w-1/2 lg:w-auto">
-                                        <p class="label label-large mb-[20px]!"><?= $overig['label']; ?></p>
+                                        <p class="label label-large mb-[1.25rem]!"><?= $overig['label']; ?></p>
                                         <p class="mb-0!"><?= $overig['waarde']; ?></p>
                                     </div>
                                 <?php endforeach; ?>
@@ -60,7 +60,7 @@ if(get_post_type() == 'project') {
                             <?php endif; ?>
                         </div>
                         <div class="w-full lg:col-span-2 lg:col-start-11">
-                            <a href="#gallerij" class="btn border w-full lg:w-auto border-black text-black gap-[14px]">Direct naar gallerij <svg xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
+                            <a href="#gallerij" class="btn border w-full lg:w-auto border-black text-black gap-[0.875rem]">Direct naar gallerij <svg xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
   <rect x="19.9996" width="2.22222" height="2.22222" transform="rotate(90 19.9996 0)" fill="#161616"/>
   <rect x="8.148" y="5.92578" width="2.22222" height="2.22222" transform="rotate(90 8.148 5.92578)" fill="#161616"/>
   <rect x="5.18511" y="2.96094" width="2.22222" height="2.22222" transform="rotate(90 5.18511 2.96094)" fill="#161616"/>

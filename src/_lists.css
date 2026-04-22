@@ -6,7 +6,7 @@ ul.wp-block-list {
   list-style-type: square;
   padding-left: 1.2rem;
   li {
-    padding-bottom: 20px;
+    padding-bottom: 1.25rem;
     padding-inline-start: 10px;
     &::marker {
       color: var(--color-red);
@@ -22,10 +22,10 @@ ol.wp-block-list {
   list-style-type: decimal;
   padding-left: 1.2rem;
   li {
-    padding-bottom: 20px;
+    padding-bottom: 1.25rem;
     padding-inline-start: 10px;
     &::marker {
-      margin-right: 13px;
+      margin-right: 0.8125rem;
       color: var(--color-red);
     }
 

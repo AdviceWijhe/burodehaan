@@ -162,7 +162,7 @@ if($buttons) {
               if ($is_contact_link) {
                   echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center no-underline!' . $button_justify . '">' . $icon_svg . esc_html($button['link']['title']) . '</a>';
               } else {
-                  echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center gap-[14px] no-underline! ' . $button_justify . '"><span>' . esc_html($button['link']['title']) . '</span>' . $icon_svg . '</a>';
+                  echo '<a' . $href_attr . $target_attr . $onclick_attr . ' class="'.$class.' flex items-center gap-[0.875rem] no-underline! ' . $button_justify . '"><span>' . esc_html($button['link']['title']) . '</span>' . $icon_svg . '</a>';
               }
           }
       }

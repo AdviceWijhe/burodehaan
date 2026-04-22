@@ -24,7 +24,7 @@ get_header(); ?>
 
         <!-- Deze knop moet een scroll down van 250px krijgen onclick -->
       
-        <div class="flex items-center gap-4 hover:cursor-pointer mt-[40px] mb-15" onclick="window.scrollTo({top: 1000, behavior: 'smooth'})">
+        <div class="flex items-center gap-4 hover:cursor-pointer mt-[2.5rem] mb-15" onclick="window.scrollTo({top: 1000, behavior: 'smooth'})">
           <div class="icon-round min-w-[50px] min-h-[50px] lg:min-w-[60px] lg:min-h-[60px] rounded-full border border-gray-300 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
               <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
@@ -102,9 +102,9 @@ get_header(); ?>
                                 
                                 switch ($block_name) {
                                   case 'core/heading':
-                                      $wrapper_classes .= ' heading-block lg:px-25 mb-[20px]';
+                                      $wrapper_classes .= ' heading-block lg:px-25 mb-[1.25rem]';
                                       if($count > 0) {
-                                        $wrapper_classes .= ' mt-[80px]';
+                                        $wrapper_classes .= ' mt-[5rem]';
                                       }
                                       break;
                                   case 'core/paragraph':
@@ -151,7 +151,7 @@ get_header(); ?>
                         </div>
 
                         <div class="w-full lg:w-4/12 lg:ml-auto">
-                        <div class="bg-blue p-10 lg:sticky lg:top-[100px]">
+                        <div class="bg-blue p-10 lg:sticky lg:top-[6.25rem]">
           <?= get_template_part('template-parts/card-contactpersoon', null, array('medewerker' => get_field('contactpersoon'), 'text-color' => 'white')) ?>
         </div>
                         </div>
@@ -175,10 +175,10 @@ get_header(); ?>
     <?php endwhile; ?>
 
 
-    <div class="relative overflow-hidden py-[160px]">
+    <div class="relative overflow-hidden py-[10rem]">
 
     <div class="container mx-auto px-4">
-      <div class="flex items-center justify-center text-center flex-col mb-[40px]">
+      <div class="flex items-center justify-center text-center flex-col mb-[2.5rem]">
         <!-- <div class="label badge mb-4">Boventitel</div>  -->
         <!-- <h2>Eén van onze andere projecten</h2> -->
          <h2><?= get_field('titel_other_projects', 'option') ?></h2>

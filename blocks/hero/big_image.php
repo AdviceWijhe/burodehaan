@@ -64,13 +64,13 @@ background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%); z-in
             <?php endif; ?>
         </div>
         <div class="w-full relative z-2">
-            <div class="w-full lg:w-6/12 p-[16px] lg:px-[60px] lg:py-[60px]">
+            <div class="w-full lg:w-6/12 p-[1rem] lg:px-[3.75rem] lg:py-[3.75rem]">
                 <?php
                 $hero_title = (string) get_sub_field('titel', false, false);
                 $hero_title = preg_replace('/^\s*<p>(.*)<\/p>\s*$/si', '$1', $hero_title);
                 ?>
                 <div class="headline-large text-white !text-white [&_*]:!text-white"><?php echo wp_kses_post($hero_title); ?></div>
-                <div class="mt-[28px] lg:mt-[32px] hero-big-image-buttons">
+                <div class="mt-[1.75rem] lg:mt-[2rem] hero-big-image-buttons">
                 <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'start')) ?>
                 </div>
             </div>

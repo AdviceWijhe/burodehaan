@@ -2,7 +2,7 @@
 <section class="grote_afbeelding <?php echo get_spacing_bottom_class(); ?> overflow-hidden">
     <?php if(is_single()) : ?>
 <div class="container">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
         <?php endif; ?>
   <div class="min-h-[280px] lg:min-h-[700px] relative flex items-end max-md:p-0! <?php if(is_single()) : ?>col-span-1 lg:col-span-10 lg:col-start-2<?php endif; ?>">
     <div class="absolute h-full w-[200px] lg:w-[300px] z-1 bottom-0 left-0" style="opacity: 0.5;
@@ -43,14 +43,14 @@ background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></
       <?php } ?>
     </div>
     <div class="container">
-    <div class="w-full flex flex-col lg:flex-row relative z-2 justify-between items-end lg:pb-[100px] pb-[20px] ">
-      <div class="w-full lg:w-5/12 lg:pl-[40px] text-white">
+    <div class="w-full flex flex-col lg:flex-row relative z-2 justify-between items-end lg:pb-[6.25rem] pb-[1.25rem] ">
+      <div class="w-full lg:w-5/12 lg:pl-[2.5rem] text-white">
         
-        <div class=" mb-[40px] max-w-[595px]"><?= get_sub_field('titel') ?></div>
+        <div class=" mb-[2.5rem] max-w-[595px]"><?= get_sub_field('titel') ?></div>
         <div class="opacity-80"><?= get_sub_field('content', null) ?></div>
         
       </div>
-      <div class="w-full lg:w-6/12 px-5 lg:pr-[40px] flex lg:justify-end">
+      <div class="w-full lg:w-6/12 px-5 lg:pr-[2.5rem] flex lg:justify-end">
       <?php if(get_sub_field('buttons')) { ?>
           <div class="">
             <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'stretch')) ?>

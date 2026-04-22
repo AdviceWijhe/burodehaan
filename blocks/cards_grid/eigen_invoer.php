@@ -8,15 +8,15 @@ $cards_rand_class = $args['cards_rand_class'];
           <div class="swiper-wrapper">
             <?php foreach($items as $item) : ?>
               <div class="swiper-slide h-auto! border border-[rgba(22,22,22,0.12)]">
-                <div class="p-[40px] h-[320px] flex items-center justify-center">
+                <div class="p-[2.5rem] h-[320px] flex items-center justify-center">
                 <?php if($item['icoon']) : ?>
 
                     <?php echo wp_get_attachment_image($item['icoon']['ID'], 'large', false, array('class' => 'w-full h-full object-contain')); ?>
 
                 <?php endif ?>
                 </div>
-                <div class="p-[40px] border-t border-[rgba(22,22,22,0.12)]">
-                <h3 class="mb-[28px]!"><?php echo $item['card_title']; ?></h3>
+                <div class="p-[2.5rem] border-t border-[rgba(22,22,22,0.12)]">
+                <h3 class="mb-[1.75rem]!"><?php echo $item['card_title']; ?></h3>
                 <div class="text-black/70 mb-0!"><?= $item['content']; ?></div>
                 </div>
               </div>

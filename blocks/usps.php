@@ -20,7 +20,7 @@ if(get_sub_field('globaal')) {
     $content = get_sub_field('content');
     if ($titel || $content) : 
   ?>
-    <div class="w-full lg:w-5/12 pr-4 lg:pr-30 mb-[80px] lg:mb-[120px]">
+    <div class="w-full lg:w-5/12 pr-4 lg:pr-30 mb-[5rem] lg:mb-[7.5rem]">
       <?php if($titel) : ?> 
         <h2 class="headline-medium mb-5"><?= $titel ?></h2>
       <?php endif; ?>
@@ -30,7 +30,7 @@ if(get_sub_field('globaal')) {
     </div>
   <?php endif; ?>
 
-    <div class="flex flex-col gap-[28px] lg:gap-0 lg:flex-row w-full items-center justify-between">
+    <div class="flex flex-col gap-[1.75rem] lg:gap-0 lg:flex-row w-full items-center justify-between">
       <?php 
       $count = 0;
       $delay = 0;

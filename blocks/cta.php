@@ -9,12 +9,12 @@
 <section class="cta <?php echo get_spacing_bottom_class(); ?>">
   
   <div class=" mx-auto bg-blue relative overflow-hidden">
-    <div class="flex flex-col lg:items-center justify-center relative py-[60px] lg:py-[160px] ">
-      <div class="w-full max-w-[700px]  text-white text-center mx-auto px-[20px] lg:px-0">
-        <h2 class="headline-medium text-white mb-[32px]! max-w-[579px] mx-auto"><?= get_sub_field('titel') ?></h2>
+    <div class="flex flex-col lg:items-center justify-center relative py-[3.75rem] lg:py-[10rem] ">
+      <div class="w-full max-w-[700px]  text-white text-center mx-auto px-[1.25rem] lg:px-0">
+        <h2 class="headline-medium text-white mb-[2rem]! max-w-[579px] mx-auto"><?= get_sub_field('titel') ?></h2>
 
         <?php if(get_sub_field('usps')) { ?>
-          <div class="usps relative flex flex-col lg:flex-row flex-wrap items-center justify-center gap-[16px] lg:gap-[28px] mb-[34px]">
+          <div class="usps relative flex flex-col lg:flex-row flex-wrap items-center justify-center gap-[1rem] lg:gap-[1.75rem] mb-[2.125rem]">
             <?php foreach(get_sub_field('usps') as $usp) { ?>
               <div class="usp w-full lg:w-auto flex gap-2 items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
@@ -34,7 +34,7 @@
           </div>
         <?php } ?>
       </div>
-      <div class="w-full lg:w-6/12 flex mt-[32px] justify-center align-center">
+      <div class="w-full lg:w-6/12 flex mt-[2rem] justify-center align-center">
         <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'no_margin' => true, 'align_items' => 'start')); ?>
       </div>
     </div>

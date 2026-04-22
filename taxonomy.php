@@ -22,19 +22,19 @@ if (is_array($header_image) && !empty($header_image['url'])) {
     
 
     <?php if ($tax_slug === 'thema' && $header_image_url !== '') : ?>
-        <div class="tax-header relative mb-[160px] bg-cover bg-center bg-no-repeat" style="background-image: url('<?php echo esc_url($header_image_url); ?>');">
+        <div class="tax-header relative mb-[10rem] bg-cover bg-center bg-no-repeat" style="background-image: url('<?php echo esc_url($header_image_url); ?>');">
             <div class="absolute top-0 right-0 h-full w-1/2 pointer-events-none" style="opacity: 0.3; background: linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, #000 100%);"></div>
             <div class="container relative">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px] items-end pt-[80px] pb-[30px]">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem] items-end pt-[5rem] pb-[1.875rem]">
                     <div class="w-full lg:col-span-6 lg:col-start-3">
                         <div class="text-white body-large max-w-[790px]"><?php echo get_field('introtekst', $term_key); ?></div>
                     </div>
                     <div class="w-full lg:col-span-3 lg:col-start-10">
                         <?php if ($cta) : ?>
-                            <div class="glass rounded-lg p-[40px]">
+                            <div class="glass rounded-lg p-[2.5rem]">
                                 <div class="cta-content">
-                                    <div class="text-white text-2xl font-bold mb-[32px]"><?php echo wp_kses_post($cta['titel'] ?? ''); ?></div>
-                                    <div class="mb-[32px]">
+                                    <div class="text-white text-2xl font-bold mb-[2rem]"><?php echo wp_kses_post($cta['titel'] ?? ''); ?></div>
+                                    <div class="mb-[2rem]">
                                         <?= get_template_part('template-parts/card-contactpersoon', null, array('variant' => 'default', 'text-color' => 'white', 'medewerker' => $cta['contactpersoon'] ?? null)) ?>
                                     </div>
 
@@ -47,20 +47,20 @@ if (is_array($header_image) && !empty($header_image['url'])) {
             </div>
         </div>
     <?php else : ?>
-        <div class="tax-header bg-black pt-[60px] lg:pt-[100px] mb-[40px] lg:mb-[160px]">
+        <div class="tax-header bg-black pt-[3.75rem] lg:pt-[6.25rem] mb-[2.5rem] lg:mb-[10rem]">
             <div class="container">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-[28px]">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
                 <div class="w-full lg:col-span-6 lg:col-start-3">
-                    <p class="label-large text-primary mb-[20px]!"><?php echo esc_html($tax_slug); ?></p>
-                    <h1 class="text-white text-4xl font-bold mb-[40px]"><?php single_term_title(); ?></h1>
+                    <p class="label-large text-primary mb-[1.25rem]!"><?php echo esc_html($tax_slug); ?></p>
+                    <h1 class="text-white text-4xl font-bold mb-[2.5rem]"><?php single_term_title(); ?></h1>
                     <div class="text-white body-large max-w-[790px]"><?php echo get_field('introtekst', $term_key); ?></div>
                 </div>
                 <div class="w-full lg:col-span-3 lg:col-start-10">
-                    <div class="glass rounded-lg p-[40px] mb-[-16px]">
+                    <div class="glass rounded-lg p-[2.5rem] mb-[-1rem]">
                         <?php if($cta) : ?>
                             <div class="cta-content">
-                                <div class="text-white text-2xl font-bold mb-[32px]"><?php echo wp_kses_post($cta['titel'] ?? ''); ?></div>
-                                <div class="mb-[32px]">
+                                <div class="text-white text-2xl font-bold mb-[2rem]"><?php echo wp_kses_post($cta['titel'] ?? ''); ?></div>
+                                <div class="mb-[2rem]">
                                     <?= get_template_part('template-parts/card-contactpersoon', null, array('variant' => 'default', 'text-color' => 'white', 'medewerker' => $cta['contactpersoon'] ?? null)) ?>
                                 </div>
 

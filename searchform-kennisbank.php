@@ -10,7 +10,7 @@
         <input 
             type="search" 
             id="search-field-kennisbank"
-            class="search-field w-full h-16 px-4 pr-12 bg-white border border-[#d6dde1] rounded-[4px] text-[#092354] text-[17px] font-medium placeholder:text-[#092354] placeholder:opacity-50 focus:outline-none focus:ring-2 focus:ring-red focus:border-transparent" 
+            class="search-field w-full h-16 px-4 pr-12 bg-white border border-[#d6dde1] rounded-[4px] text-[#092354] text-[1.0625rem] font-medium placeholder:text-[#092354] placeholder:opacity-50 focus:outline-none focus:ring-2 focus:ring-red focus:border-transparent" 
             placeholder="Zoeken op product, titel of probleem" 
             value="<?php echo get_search_query(); ?>" 
             name="s"

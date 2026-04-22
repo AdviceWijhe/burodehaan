@@ -36,7 +36,7 @@
 ?>
 
 <section id="formulier" class="<?php echo get_spacing_bottom_class(); ?>">
-  <div class="formulier pt-[20px] pb-[60px] lg:py-[160px] bg-light-blue/25">
+  <div class="formulier pt-[1.25rem] pb-[3.75rem] lg:py-[10rem] bg-light-blue/25">
   <div class="container mx-auto">
     <div class="flex flex-col lg:flex-row lg:gap-10 items-center">
 
@@ -57,15 +57,15 @@
    </div>
 
 
-    <div class="w-full lg:w-5/12 ml-auto mt-[40px] lg:mt-0">
+    <div class="w-full lg:w-5/12 ml-auto mt-[2.5rem] lg:mt-0">
       <!-- <div class="absolute h-full w-[100vw] right-0 top-0 bg-gray-100"></div> -->
       <div class="relative lg:pe-5">
         <div class="">
           <div class="w-full">
-            <h2 class="mb-[32px]!"><?= $titel ?></h2>
+            <h2 class="mb-[2rem]!"><?= $titel ?></h2>
 
             <?php if($content) { ?>
-              <div class="content mb-[40px]">
+              <div class="content mb-[2.5rem]">
                 <?php echo $content; ?>
               </div>
             <?php } ?>

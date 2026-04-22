@@ -59,7 +59,7 @@ if(is_tax()) {
                     'theme_location' => 'primary',
                     'menu_id'        => 'mobile-primary-menu',
                     'container'      => false,
-                    'menu_class'     => 'mobile-menu-list px-[16px]',
+                    'menu_class'     => 'mobile-menu-list px-[1rem]',
                     'fallback_cb'    => false,
                     'walker'         => new Advice2025_Mobile_Nav_Walker(),
                     'depth'          => 3,
@@ -70,7 +70,7 @@ if(is_tax()) {
 
             <!-- Drilldown subpanel -->
             <div id="mobile-subpanel" class="absolute inset-0 bg-white z-50 opacity-0 invisible translate-x-full transition-all duration-300 ease-out overflow-y-auto">
-                <div class="flex items-center gap-3 p-4 bg-white mt-[24px]">
+                <div class="flex items-center gap-3 p-4 bg-white mt-[1.5rem]">
                     <button id="mobile-subpanel-back" type="button" class="flex gap-3 items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9" fill="none">
   <rect x="3.57129" y="2.85742" width="1.42857" height="1.42857" transform="rotate(-180 3.57129 2.85742)" fill="#161616"/>
@@ -88,17 +88,17 @@ if(is_tax()) {
                         <span>Terug</span>
                     </button>
                 </div>
-                <div class="px-[20px] pt-[20px]">
+                <div class="px-[1.25rem] pt-[1.25rem]">
                     <div class="">
-                        <a id="mobile-subpanel-title" href="#" class="headline-small mb-[20px] transition-colors flex items-center w-full justify-between"></a>
+                        <a id="mobile-subpanel-title" href="#" class="headline-small mb-[1.25rem] transition-colors flex items-center w-full justify-between"></a>
                     </div>
                 </div>
-                <div id="mobile-subpanel-content" class="space-y-[16px] px-[16px]"></div>
+                <div id="mobile-subpanel-content" class="space-y-[1rem] px-[1rem]"></div>
             </div>
         </div>
         <?php if (function_exists('yoast_breadcrumb') && !is_front_page()) { ?>
         <div class="header-breadcrumbs-bar <?= $header_background_color ?>">
-        <div class="container pb-[20px]">
+        <div class="container pb-[1.25rem]">
     <!-- yoast breadcrumbs -->
 
      <?php yoast_breadcrumb('<p id="breadcrumbs" class="header-breadcrumbs-text mb-0!">', '</p>'); ?>

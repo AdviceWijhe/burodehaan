@@ -4,7 +4,7 @@
                         <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover')); ?>
                       <?php endif; ?>
                     </div>
-                    <div class="bg-white p-[40px] flex items-end justify-between gap-4" style="border: 1px solid rgba(22, 22, 22, 0.12);">
+                    <div class="bg-white p-[2.5rem] flex items-end justify-between gap-4" style="border: 1px solid rgba(22, 22, 22, 0.12);">
                       <div class="min-w-0">
                         <h3 class="title-medium text-black mb-3!"><?php the_title(); ?></h3>
                         <div class="body-small text-black/70 mb-0!">

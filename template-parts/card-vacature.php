@@ -147,7 +147,7 @@ $wrap_classes = array_filter(
         </div>
         <div class="flex flex-1 flex-col md:flex-row md:items-center justify-between gap-4 min-w-0 px-5 py-5 md:pl-8 md:pr-6">
             <div class="min-w-0 flex-1">
-                <h3 class="text-[30px] font-light leading-[1.2] text-black mb-0">
+                <h3 class="text-[1.875rem] font-light leading-[1.2] text-black mb-0">
                     <?php echo esc_html($title); ?>
                 </h3>
                 <?php if ($locatie !== '' || $uren_display !== '') : ?>

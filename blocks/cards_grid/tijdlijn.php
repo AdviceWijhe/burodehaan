@@ -7,8 +7,8 @@
                 <?php echo wp_get_attachment_image($item['icoon']['ID'], 'large', false, array('class' => 'tijdlijn__item__bg')); ?>
                 <div class="tijdlijn__item__gradient"></div>
                 <div class="tijdlijn__item__content">
-                    <div class="label label-large text-primary mb-[16px]"><?php echo esc_html($item['jaartal']); ?></div>
-                    <h3 class="tijdlijn__item__title headline-small mb-[28px]"><?php echo $item['card_title']; ?></h3>
+                    <div class="label label-large text-primary mb-[1rem]"><?php echo esc_html($item['jaartal']); ?></div>
+                    <h3 class="tijdlijn__item__title headline-small mb-[1.75rem]"><?php echo $item['card_title']; ?></h3>
                     <div class="tijdlijn__item__desc"><?php echo $item['content']; ?></div>
                 </div>
             </article>

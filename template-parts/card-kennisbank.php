@@ -52,7 +52,7 @@ if ($item instanceof WP_Term) {
                     <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($name); ?>" class="w-full h-full object-cover">
 
                     </div>
-                    <div class="card-body p-[28px] lg:p-[40px] relative w-full lg:w-6/8">
+                    <div class="card-body p-[1.75rem] lg:p-[2.5rem] relative w-full lg:w-6/8">
                         <?php 
                         if($post_type == 'post') {
                             $category = get_the_category($id);
@@ -62,7 +62,7 @@ if ($item instanceof WP_Term) {
                             $thema_name = $thema[0]->name;
                             $expertise_name = $expertise[0]->name;
                       ?>
-                        <div class="badges flex gap-[8px] flex-wrap mb-[20px]">
+                        <div class="badges flex gap-[0.5rem] flex-wrap mb-[1.25rem]">
                             <?php if($category_name && $category_name != 'Niet gecategoriseerd') { ?>
                                 <div class="badge bg-black border font-medium! border-black text-white body-small"><?php echo esc_html($category_name); ?></div>
                             <?php } ?>
@@ -75,10 +75,10 @@ if ($item instanceof WP_Term) {
                         </div>
                     <?php } ?>
                     
-                        <h3 class="card-title mb-[28px]! mt-0!"><?php echo esc_html($name); ?></h3>
+                        <h3 class="card-title mb-[1.75rem]! mt-0!"><?php echo esc_html($name); ?></h3>
                         <div class="card-description"><?php echo wp_kses_post($description); ?></div>
                     </div>
-                    <div class="shrink-0 max-md:absolute max-md:bottom-0 max-md:w-[12px] max-md:h-[20px] max-md:right-0 flex items-center justify-center pr-[20px]">
+                    <div class="shrink-0 max-md:absolute max-md:bottom-0 max-md:w-[12px] max-md:h-[20px] max-md:right-0 flex items-center justify-center pr-[1.25rem]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
 <rect width="2.22222" height="2.22222" fill="#EC663C"/>
 <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#EC663C"/>

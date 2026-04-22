@@ -2,7 +2,7 @@
     <div class="absolute h-1/2 w-full bg-gray bottom-0 left-0"></div>
     <div class="container mx-auto">
         <div class="flex flex-col lg:flex-row">
-            <div class="w-full text-center mb-[40px]">
+            <div class="w-full text-center mb-[2.5rem]">
                 <div class="badge label mb-4"><?= get_sub_field('label') ?></div>
                 <h2><?= get_sub_field('titel') ?></h2>
             </div>
@@ -16,7 +16,7 @@
                 <?php foreach(get_field('plattegrond_punten', 'option') as $index => $punt) { ?>
                     <div class="absolute transition-opacity plattegrond-punt w-fit" data-index="<?= $index ?>" style="--base-top: <?= $punt['positie_bovenkant'] ?>%; --base-left: <?= $punt['positie_links'] ?>%; top: calc(var(--base-top) - 2%); left: var(--base-left);">
                         <div class="plattegron_punt-bullet bg-white rounded-full w-[10px] h-[10px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 outline-4 outline-white/50 cursor-pointer z-50"></div>
-                        <div class="plattegrond_punt_name pointer-events-none z-50 absolute top-1/2 -translate-y-1/2 left-[calc(50%+16px)] w-max bg-white rounded-[25px] label py-[8px] px-[18px] border-0 shadow-md opacity-0 transition-opacity duration-300">
+                        <div class="plattegrond_punt_name pointer-events-none z-50 absolute top-1/2 -translate-y-1/2 left-[calc(50%+16px)] w-max bg-white rounded-[25px] label py-[0.5rem] px-[1.125rem] border-0 shadow-md opacity-0 transition-opacity duration-300">
                         <?= $punt['titel'] ?>
                         </div>
                         <div class="svg-container pointer-events-none w-full">

@@ -16,7 +16,7 @@ $blocks = get_sub_field('blocks');
                         </div>
 
                         <!-- <div class="w-full lg:w-4/12 lg:ml-auto">
-                        <div class="bg-blue p-10 lg:sticky lg:top-[100px]">
+                        <div class="bg-blue p-10 lg:sticky lg:top-[6.25rem]">
           <?= get_template_part('template-parts/card-contactpersoon', null, array('medewerker' => get_field('contactpersoon'), 'text-color' => 'white')) ?>
         </div>
                         </div> -->
