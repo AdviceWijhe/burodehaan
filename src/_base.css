@@ -184,7 +184,7 @@ b, strong {
   font-family: var(--font-family-primary);
   font-size: max(15px, calc((100vw - 120px) * 0.011));
   font-style: normal;
-  font-weight: 300;
+  font-weight: 300 !important;
   line-height: 130%;
 }
 

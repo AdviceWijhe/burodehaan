@@ -64,7 +64,7 @@
                             <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
                                 <?php foreach ($expertises as $expertise) : ?>
                                     <li>
-                                        <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_term_link($expertise)); ?>">
+                                        <a class="text-white/70 hover:text-white transition-colors font-light" href="<?php echo esc_url(get_term_link($expertise)); ?>">
                                             <?php echo esc_html($expertise->name); ?>
                                         </a>
                                     </li>
@@ -97,7 +97,7 @@
                             <ul class="grid grid-cols-1 md:grid-cols-[max-content_max-content_max-content] gap-x-[40px] gap-y-[28px] list-medium">
                                 <?php foreach ($themas as $thema) : ?>
                                     <li>
-                                        <a class="text-white/70 hover:text-white transition-colors" href="<?php echo esc_url(get_term_link($thema)); ?>">
+                                        <a class="text-white/70 hover:text-white transition-colors font-light" href="<?php echo esc_url(get_term_link($thema)); ?>">
                                             <?php echo esc_html($thema->name); ?>
                                         </a>
                                     </li>
@@ -137,7 +137,7 @@
                             wp_nav_menu(array(
                                 'theme_location' => 'footer-menu-1',
                                 'container' => false,
-                                'menu_class' => 'space-y-[28px] list-medium text-white/70',
+                                'menu_class' => 'space-y-[28px] list-medium text-white/70 font-light [&_*]:font-light!',
                                 'fallback_cb' => false,
                             ));
                         }
@@ -160,7 +160,7 @@
                     </button>
                     <div
                         id="<?php echo esc_attr($over_ons_content_id); ?>"
-                        class="footer-accordion-content max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out md:max-h-none md:overflow-visible md:transition-none"
+                        class="footer-accordion-content max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out md:max-h-none md:overflow-visible md:transition-none font-light!"
                         aria-hidden="true"
                         data-footer-accordion-content
                     >
@@ -169,7 +169,7 @@
                             wp_nav_menu(array(
                                 'theme_location' => 'footer-menu-2',
                                 'container' => false,
-                                'menu_class' => 'space-y-[28px] list-medium text-white/70',
+                                'menu_class' => 'space-y-[28px] list-medium text-white/70 font-light! [&_*]:font-light!',
                                 'fallback_cb' => false,
                             ));
                         }
