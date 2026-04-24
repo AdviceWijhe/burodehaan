@@ -26,7 +26,7 @@ if (empty($taxonomies)) {
 >
     <button
         type="button"
-        class="filter_item_label relative overflow-visible h-[3.6875rem] px-[1.5rem] flex items-center group justify-center font-medium! gap-[0.5rem] border border-black text-black body-small hover:cursor-pointer hover:bg-black hover:text-white"
+        class="filter_item_label relative overflow-visible h-[3.6875rem] px-[1.5rem] flex items-center group justify-center font-medium! gap-[0.5rem] border border-black text-black body-medium hover:cursor-pointer hover:bg-black hover:text-white"
         data-archive-filter-open
         aria-haspopup="dialog"
         aria-controls="<?php echo esc_attr($panel_id); ?>"

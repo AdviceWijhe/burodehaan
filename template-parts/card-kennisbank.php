@@ -47,9 +47,9 @@ if ($item instanceof WP_Term) {
 
 ?>
 
-<a href="<?php echo esc_url($link); ?>" class="card border border-[rgba(22,22,22,0.12)] flex flex-col md:flex-row md:items-stretch">
-                    <div class="card-image w-full md:w-2/8">
-                    <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($name); ?>" class="w-full h-full object-cover">
+<a href="<?php echo esc_url($link); ?>" class="card group border border-[rgba(22,22,22,0.12)] overflow-hidden flex flex-col md:flex-row md:items-stretch transition-shadow duration-300 hover:border-black/25">
+                    <div class="card-image w-full md:w-2/8 overflow-hidden">
+                    <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($name); ?>" class="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-110">
 
                     </div>
                     <div class="card-body p-[1.75rem] lg:p-[2.5rem] relative w-full md:w-6/8">
@@ -78,7 +78,7 @@ if ($item instanceof WP_Term) {
                         <h3 class="card-title mb-[1.75rem]! mt-0!"><?php echo esc_html($name); ?></h3>
                         <div class="card-description"><?php echo wp_kses_post($description); ?></div>
                     </div>
-                    <div class="shrink-0 max-md:absolute max-md:bottom-0 max-md:w-[0.75rem] max-md:h-[1.25rem] max-md:right-0 flex items-center justify-center pr-[1.25rem]">
+                    <div class="shrink-0 max-md:absolute max-md:bottom-0 max-md:w-[0.75rem] max-md:h-[1.25rem] max-md:right-0 flex items-center justify-center pr-[2.5rem] transition-transform duration-300 ease-out group-hover:translate-x-[6px]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
 <rect width="2.22222" height="2.22222" fill="#EC663C"/>
 <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#EC663C"/>

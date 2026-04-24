@@ -52,7 +52,7 @@ if(is_tax()) {
         ?>
         
         <!-- Mobile Navigation (dropdown under header) -->
-        <div id="mobile-navigation" class="mobile-navigation absolute left-0 right-0 top-full z-40 bg-white xl:hidden overflow-hidden max-h-0 opacity-0 invisible transition-all duration-300 ease-out flex flex-col h-full border-t border-gray-200">
+        <div id="mobile-navigation" class="mobile-navigation absolute left-0 right-0 top-full z-40 bg-white lg:hidden overflow-hidden max-h-0 opacity-0 invisible transition-all duration-300 ease-out flex flex-col h-full border-t border-gray-200">
             <nav class="mobile-menu-nav flex-1 overflow-y-auto">
                 <?php
                 wp_nav_menu(array(

@@ -70,8 +70,8 @@ background: linear-gradient(0deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%); z-in
                 $hero_title = preg_replace('/^\s*<p>(.*)<\/p>\s*$/si', '$1', $hero_title);
                 ?>
                 <div class="headline-large text-white !text-white [&_*]:!text-white"><?php echo wp_kses_post($hero_title); ?></div>
-                <div class="mt-[1.75rem] lg:mt-[2rem] hero-big-image-buttons">
-                <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'start')) ?>
+                <div class="mt-[1.75rem] lg:mt-[2.5rem] hero-big-image-buttons">
+                <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'start', 'white_hover_primary' => true)) ?>
                 </div>
             </div>
         </div>

@@ -55,7 +55,59 @@ if (trim($cards_heading) === '') {
 }
 $cards_heading = preg_replace('/^\s*<p>(.*)<\/p>\s*$/si', '$1', $cards_heading);
 
-
+/*
+ * ACF kloon van repeater "Buttons": afhankelijk van kloon-instellingen zit de data
+ * onder o.a. `knoppen` (kloonveldnaam), `buttons` (naadloos = oorspronkelijke naam),
+ * of `knoppen_buttons` (veldnaamvoorvoegsel + repeater).
+ */
+$knoppen_buttons = array();
+$knoppen_field_names = array( 'knoppen', 'buttons', 'knoppen_buttons' );
+if ( function_exists( 'get_sub_field' ) ) {
+    foreach ( $knoppen_field_names as $fname ) {
+        $v = get_sub_field( $fname );
+        if ( ! is_array( $v ) || array() === $v ) {
+            continue;
+        }
+        if ( isset( $v['buttons'] ) && is_array( $v['buttons'] ) && $v['buttons'] !== array() ) {
+            $v = $v['buttons'];
+        }
+        if ( isset( $v['link'] ) && ! array_key_exists( 0, $v ) && ! array_key_exists( '0', $v ) ) {
+            $knoppen_buttons = array( $v );
+            break;
+        }
+        $as_rows = array_values( array_filter( $v, 'is_array' ) );
+        if ( $as_rows !== array() ) {
+            $knoppen_buttons = $as_rows;
+            break;
+        }
+    }
+}
+if ( $knoppen_buttons === array() && function_exists( 'have_rows' ) ) {
+    foreach ( $knoppen_field_names as $fname ) {
+        if ( ! have_rows( $fname ) ) {
+            continue;
+        }
+        while ( have_rows( $fname ) ) {
+            the_row();
+            $row = get_row( true );
+            if ( is_array( $row ) ) {
+                $knoppen_buttons[] = $row;
+            }
+        }
+        if ( $knoppen_buttons !== array() ) {
+            break;
+        }
+    }
+}
+$has_knoppen = $knoppen_buttons !== array();
+$has_swiper_controls = (
+    (
+        get_sub_field('soort_items') === 'posts'
+        || get_sub_field('soort_items') === 'eigen'
+        || get_sub_field('soort_items') === 'tijdlijn'
+    )
+    && get_sub_field('slider')
+);
 
 $backgroundPatroon = 'pink';
 
@@ -67,18 +119,32 @@ $backgroundPatroon = 'pink';
       <?php if($background_color) : ?><div class="absolute z-0 <?= get_sub_field('achtergrond_positie') ?>-0 left-0 w-full h-[50%] bg-<?= $background_color; ?>"></div><?php endif; ?>
     <?php endif; ?>
     <div class="container">
-      <div class="flex mb-[1.5rem] lg:mb-[2rem] justify-between items-center">
+      <div class="mb-[1.5rem] lg:mb-[2rem] flex flex-wrap items-center justify-between lg:grid lg:grid-cols-12 lg:gap-1">
        
-          <?php if(!empty($cards_heading)) : ?>
-            <div class="w-full lg:w-6/12 <?php if(get_sub_field('soort_items') == 'themas' || get_sub_field('soort_items') == 'artikelen') : ?>lg:ml-[calc(100%/12*2)]<?php endif; ?>">
-        <div class="mb-0!"><?php echo wp_kses_post($cards_heading); ?></div>
-        </div>
+          <?php if (!empty($cards_heading) || $has_knoppen) : ?>
+            <div class="flex w-full min-w-0 flex-1 flex-wrap items-center justify-between gap-4 sm:flex-nowrap <?php echo $has_swiper_controls ? 'lg:col-span-7' : 'lg:col-span-8'; ?> <?php if (get_sub_field('soort_items') == 'themas' || get_sub_field('soort_items') == 'artikelen') : ?>lg:col-start-3<?php endif; ?>">
+              <?php if (!empty($cards_heading)) : ?>
+                <div class="min-w-0 w-full sm:w-auto sm:flex-1 lg:max-w-[50%] <?php if (!$has_knoppen) : ?>lg:w-6/12<?php endif; ?>">
+                  <div class="mb-0!"><?php echo wp_kses_post($cards_heading); ?></div>
+                </div>
+              <?php endif; ?>
+              <?php if ($has_knoppen && !$has_swiper_controls) : ?>
+                <div class="shrink-0 sm:ml-0 <?php echo empty($cards_heading) ? 'ml-auto w-full sm:w-auto' : ''; ?>">
+                  <?php
+                  get_template_part('template-parts/core/buttons', null, array(
+                    'buttons'   => $knoppen_buttons,
+                    'no_margin' => true,
+                  ));
+                  ?>
+                </div>
+              <?php endif; ?>
+            </div>
           <?php endif; ?>
 
-          <?php if (get_sub_field('soort_items') == 'posts' && get_sub_field('slider') || get_sub_field('soort_items') == 'eigen' && get_sub_field('slider') || get_sub_field('soort_items') == 'tijdlijn' && get_sub_field('slider')): ?>
+          <?php if ($has_swiper_controls): ?>
           <?php $cards_rand_class = 'cards-grid-' . wp_rand(1000, 9999); ?>
-          <div class="swiper-controls hidden md:flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 <?= esc_attr($cards_rand_class); ?>-controls">
-            <div class="w-full lg:w-auto flex items-center gap-6">
+          <div class="swiper-controls hidden md:flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 lg:col-span-5 <?= esc_attr($cards_rand_class); ?>-controls">
+            <div class="w-full lg:w-auto flex items-center gap-7">
               <div class="w-[14.6875rem] h-[0.125rem] relative overflow-hidden bg-[#161616]/20">
                 <span class="<?= esc_attr($cards_rand_class); ?>-progress absolute left-0 top-0 h-full bg-primary transition-transform duration-300" style="width: 90.7336px; transform: translateX(0px);"></span>
               </div>

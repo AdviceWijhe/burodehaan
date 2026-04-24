@@ -356,8 +356,8 @@
     .gform_footer input[type="submit"]:hover,
     .gform-footer .gform_button:hover,
     .gform-footer input[type="submit"]:hover {
-      background-color: var(--color-red-600);
-      border-color: var(--color-red-600);
+      background-color: var(--color-black);
+      border-color: var(--color-black);
       color: var(--color-secondary);
     }
 

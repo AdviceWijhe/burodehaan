@@ -957,16 +957,19 @@
         filterIndicator.classList.toggle("hidden", !hasActiveFilters);
       }
 
+      // Moet exact overeenkomen met template-parts/archive-filter-panel.php (drawer translate off-screen).
+      const drawerHiddenClass = "translate-x-[calc(100%+2.5rem)]";
+
       function openDrawer() {
         overlay.classList.remove("hidden");
-        drawer.classList.remove("translate-x-[calc(100%+40px)]");
+        drawer.classList.remove(drawerHiddenClass);
         openButton.setAttribute("aria-expanded", "true");
         document.body.classList.add("overflow-hidden");
       }
 
       function closeDrawer() {
         overlay.classList.add("hidden");
-        drawer.classList.add("translate-x-[calc(100%+40px)]");
+        drawer.classList.add(drawerHiddenClass);
         openButton.setAttribute("aria-expanded", "false");
         document.body.classList.remove("overflow-hidden");
       }

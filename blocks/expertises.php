@@ -7,6 +7,7 @@ if($achtergrond != 'black') {
     $tekst_kleur = 'text-black';
     $border_kleur = 'border-[rgba(22,22,22,0.12)]';
 }
+$hover_border_kleur = $achtergrond === 'black' ? 'hover:border-white/25' : 'hover:border-white/25';
 $expertises = get_terms(
     array(
         'taxonomy' => 'expertise',
@@ -44,7 +45,7 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
                 <?php $thumbnail_url = advice2025_get_term_thumbnail_url($expertise, 'large'); ?>
                 <a
                     href="<?= get_term_link($expertise->term_id); ?>"
-                    class="expertise border <?= $border_kleur ?> p-[1.75rem] lg:p-[2rem] <?= $tekst_kleur ?> <?php if ($is_groot) { echo 'js-expertise-hover-trigger'; } ?>"
+                    class="expertise group border <?= $border_kleur ?> <?= $hover_border_kleur ?> transition-shadow duration-300 p-[1.75rem] lg:p-[2rem] <?= $tekst_kleur ?> <?php if ($is_groot) { echo 'js-expertise-hover-trigger'; } ?>"
                     <?php if ($is_groot && !empty($thumbnail_url)) : ?>
                         data-hover-image="<?= esc_url($thumbnail_url); ?>"
                     <?php endif; ?>
@@ -155,8 +156,8 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
                     </h4>
 
                     <div class="expertise_content flex items-end justify-between">
-                        <div class="opacity-70"><?= $expertise->description ?></div>
-                        <div class="expertise_content_icon shrink-0">
+                        <div class="opacity-70 body-small pr-6"><?= $expertise->description ?></div>
+                        <div class="expertise_content_icon mb-1 shrink-0 transition-transform duration-300 ease-out group-hover:translate-x-[6px]">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
                             <rect width="2.22222" height="2.22222" fill="#EC663C"/>
@@ -182,10 +183,10 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
                 </div>    
                 <h4 class="expertise_title mb-[2.5rem]! lg:mb-[8.25rem]!">Alle expertises</h4>
                 </div>
-                    <ul class="space-y-[0.625rem]">
+                    <ul>
                         <?php foreach ($remaining_expertises as $expertise) : ?>
-                            <li>
-                                <a href="<?= get_term_link($expertise->term_id); ?>" class="body-small font-medium!">
+                            <li class="mb-0! pb-[0.3rem] last:pb-0!">
+                                <a href="<?= get_term_link($expertise->term_id); ?>" class="body-small font-medium! hover:text-primary">
                                     <?= $expertise->name; ?>
                                 </a>
                             </li>

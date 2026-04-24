@@ -46,3 +46,35 @@
     }
   }
 }
+
+/* Onderbalk: copyright-tekst + copyright-menu op één basislijn (geen ul/li-inspringing) */
+.site-footer .footer-copyright-menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 2rem;
+  row-gap: 0.25rem;
+}
+
+.site-footer .footer-copyright-menu > li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer .footer-copyright-menu > li > a {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  line-height: 150%;
+  font-weight: 400;
+  vertical-align: baseline;
+}
+
+/* Bestaande #menu-copyright-menu opacity: links behoudt kleur, geen “offset” op het link-blok */
+.site-footer #menu-copyright-menu.footer-copyright-menu a {
+  line-height: 150%;
+}

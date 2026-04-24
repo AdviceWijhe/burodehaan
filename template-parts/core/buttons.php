@@ -52,6 +52,10 @@ elseif (function_exists('get_sub_field')) {
 $no_margin = $args['no_margin'] ?? false;
 $align_items = $args['align_items'] ?? 'start'; // 'start' of 'stretch'
 $full_width = $args['full_width'] ?? null; // null = auto (stretch), true = altijd w-full, false = nooit w-full
+/** Op donkere CTA-achtergrond: oranje (primary) fill krijgt witte hover i.p.v. zwart. */
+$primary_hover_on_dark = !empty($args['primary_hover_on_dark']);
+/** Contextuele override: witte fill-knop krijgt oranje hover. */
+$white_hover_primary = !empty($args['white_hover_primary']);
 
 // Icon SVG templates
 $icon_templates = [
@@ -78,7 +82,7 @@ $icon_templates = [
  
 $colors = [
   'primary' => [
-    'fill' => 'btn bg-primary text-white! border border-primary hover:bg-black hover:text-white',
+    'fill' => 'btn bg-primary text-white! border border-primary hover:bg-black hover:text-white hover:border-black',
     'outline' => 'btn border border-primary text-primary hover:bg-primary hover:text-white',
   ],
   'secondary' => [
@@ -124,6 +128,13 @@ if($buttons) {
 
         // soort_knop=true betekent outline variant.
         $class = !empty($button['soort_knop']) ? $btnStyle['outline'] : $btnStyle['fill'];
+
+        if ($primary_hover_on_dark && $button_color === 'primary' && empty($button['soort_knop'])) {
+            $class = 'btn bg-primary text-white! border border-primary hover:bg-white hover:text-black! hover:border-white';
+        }
+        if ($white_hover_primary && $button_color === 'white' && empty($button['soort_knop'])) {
+            $class = 'btn bg-white text-black border border-white hover:bg-primary hover:text-white hover:border-primary';
+        }
 
           if (!empty($button['link']['title'])) {
               $url = $button['link']['url'];

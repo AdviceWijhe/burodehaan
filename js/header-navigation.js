@@ -7,6 +7,13 @@
  * - Desktop dropdown overlays
  */
 
+/**
+ * Zelfde breekpunt als Tailwind `lg:` (64rem / 1024px): tot en met sm/md mobiel menu, vanaf `lg` desktop.
+ */
+function isDesktopHeaderNav() {
+    return window.matchMedia('(min-width: 64rem)').matches;
+}
+
 class HeaderNavigation {
     constructor() {
         this.header = document.getElementById('masthead');
@@ -553,7 +560,7 @@ class HeaderNavigation {
         parents.forEach((li) => {
             // Mouse enter on parent
             li.addEventListener('mouseenter', () => {
-                if (window.innerWidth < 1024) return;
+                if (!isDesktopHeaderNav()) return;
                 clearCloseTimer();
                 hoverCount++;
                 setActiveParent(li);
@@ -562,19 +569,19 @@ class HeaderNavigation {
             
             // Mouse leave on parent
             li.addEventListener('mouseleave', () => {
-                if (window.innerWidth < 1024) return;
+                if (!isDesktopHeaderNav()) return;
                 scheduleCloseIfNotHovered();
             });
             
             // Focus events for keyboard navigation
             li.addEventListener('focusin', () => {
-                if (window.innerWidth < 1024) return;
+                if (!isDesktopHeaderNav()) return;
                 setActiveParent(li);
                 showOverlay();
             });
             
             li.addEventListener('focusout', (e) => {
-                if (window.innerWidth < 1024) return;
+                if (!isDesktopHeaderNav()) return;
                 if (!li.contains(e.relatedTarget)) {
                     hideOverlay();
                     li.classList.remove('dropdown-active');
@@ -585,7 +592,7 @@ class HeaderNavigation {
             const dropdown = li.querySelector(':scope > .dropdown-menu');
             if (dropdown) {
                 dropdown.addEventListener('mouseenter', () => {
-                    if (window.innerWidth < 1024) return;
+                    if (!isDesktopHeaderNav()) return;
                     clearCloseTimer();
                     hoverCount++;
                     setActiveParent(li);
@@ -593,7 +600,7 @@ class HeaderNavigation {
                 });
                 
                 dropdown.addEventListener('mouseleave', () => {
-                    if (window.innerWidth < 1024) return;
+                    if (!isDesktopHeaderNav()) return;
                     scheduleCloseIfNotHovered();
                 });
             }
@@ -625,7 +632,7 @@ class HeaderNavigation {
             const isDummyLink = href === '' || href === '#' || href.toLowerCase().startsWith('javascript:');
 
             // Only prevent navigation for non-navigable parent links.
-            if (isTopLevelParent && window.innerWidth >= 1024) {
+            if (isTopLevelParent && isDesktopHeaderNav()) {
                 if (isDummyLink) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -664,12 +671,12 @@ class HeaderNavigation {
             this.updateMobileMenuMaxHeight();
             
             // Close mobile menu on desktop
-            if (window.innerWidth >= 1024 && this.mobileNavigation) {
+            if (isDesktopHeaderNav() && this.mobileNavigation) {
                 this.closeMobileMenu();
             }
             
             // Hide desktop overlay on mobile
-            if (window.innerWidth < 1024 && this.overlay && this.primaryMenu) {
+            if (!isDesktopHeaderNav() && this.overlay && this.primaryMenu) {
                 this.overlay.classList.remove('opacity-100', 'visible');
                 this.overlay.classList.add('opacity-0', 'invisible');
                 const parents = this.primaryMenu.querySelectorAll(':scope > li.has-dropdown, :scope > li[data-has-dropdown="true"]');

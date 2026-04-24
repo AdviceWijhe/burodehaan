@@ -8,12 +8,19 @@ if($cta_background_color) {
     $text_color = $cta_background_color == 'primary' ? 'black' : 'white';
     $border_color = $cta_background_color == 'primary' ? 'rgba(22,22,22,0.12)' : 'rgba(247,245,240,0.12)';
 }
+$cta_bg_class = $cta_background_color ? 'bg-' . $cta_background_color : '';
+$cta_padding_class = $cta_background_color ? 'pt-[3.75rem] lg:pt-[7.5rem]' : '';
+if (!empty($args['disable_cta_padding']) || !empty($args['footer_cta'])) {
+    $cta_padding_class = '';
+}
+// Footer: verticale ruimte loopt via de wrapper in footer.php; geen dubbele bottom-spacing op de section.
+$cta_section_bottom_spacing = !empty($args['footer_cta']) ? '' : get_spacing_bottom_class();
 
 
 
 ?>
 
-<section class="cta  <?php echo get_spacing_bottom_class(); ?> <?php echo isset($args['cta_type']) ? '' : ''; ?> bg-<?php echo $cta_background_color; ?> text-<?php echo $text_color; ?>! <?php if($cta_background_color) { echo 'pt-[3.75rem] lg:pt-[7.5rem]';} ?>">
+<section class="cta <?php echo $cta_section_bottom_spacing; ?> <?php echo $cta_bg_class; ?> text-<?php echo $text_color; ?>! <?php echo $cta_padding_class; ?>">
     <div class="container">
         <div class="w-full lg:w-10/12 mx-auto px-0 lg:px-[4.0625rem] overflow-hidden relative">
             <div class="flex flex-col items-center lg:flex-row border border-[<?php echo $border_color; ?>] rounded-[1.25rem] p-[2.25rem] lg:p-[3.75rem]">
@@ -31,7 +38,20 @@ if($cta_background_color) {
                 </div>
                 <div class="">
                 <?php if (!empty($cta_buttons)): ?>
-                        <?php get_template_part('template-parts/core/buttons', null, array('buttons' => $cta_buttons, 'no_margin' => true, 'align_items' => 'stretch', 'full_width' => false)); ?>
+                        <?php
+                        $cta_primary_dark_hover = (bool) ($cta_background_color && $cta_background_color !== 'primary');
+                        get_template_part(
+                            'template-parts/core/buttons',
+                            null,
+                            array(
+                                'buttons' => $cta_buttons,
+                                'no_margin' => true,
+                                'align_items' => 'stretch',
+                                'full_width' => false,
+                                'primary_hover_on_dark' => $cta_primary_dark_hover,
+                            )
+                        );
+                        ?>
                     <?php endif; ?>
                 </div>
             </div>

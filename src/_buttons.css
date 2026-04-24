@@ -28,3 +28,17 @@
   }
   /* End Buttons */
 }
+
+/* Firefox: knop-padding en line-height (o.a. i.c.m. text-box fallback) */
+@supports (-moz-appearance: none) {
+  .btn {
+    padding: 20px;
+    line-height: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .btn {
+      padding: 20px;
+    }
+  }
+}

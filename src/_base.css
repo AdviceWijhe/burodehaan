@@ -33,7 +33,7 @@ body {
 
 /* Headings */
 h1, h2, h3, h4, h5, h6, .display-medium, .headline-large, .headline-medium, .headline-small, .title-large, .title-medium, .title-small {
-    text-box-trim: trim-both;
+    text-box-trim: trim-end;
     overflow: visible;
     text-box-edge: cap alphabetic;
     font-family: var(--font-family-primary);
@@ -48,29 +48,38 @@ h1, h2, h3, h4, h5, h6, .display-medium, .headline-large, .headline-medium, .hea
     }
 }
 
-p, ul, ol, a span {
-    text-box-trim: trim-both;
+p, ul, ol, span {
+    text-box-trim: trim-end;
     text-box-edge: cap alphabetic;
     overflow: visible;
 }
 
+a {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+  overflow: visible;
+  span {
+    text-box-trim: trim-both;
+  }
+}
+
 h1, .headline-large {
-  font-size: 3.875rem;
+  font-size: clamp(2.8571rem, calc(100vw / 10), 3.875rem);
   font-weight: 300;
 }
 
 h2, .headline-medium {
-  font-size: 2.625rem;
+  font-size: clamp(2.2857rem, calc(100vw / 41.1429), 2.625rem);
   font-weight: 300;
 }
 
 h3, .headline-small {
-  font-size: 2rem;
+  font-size: clamp(1.8571rem, calc(24.25px + 0.4484vw), 2rem);
   font-weight: 300;
 }
 
 h4, .title-large {
-  font-size: 1.75rem;
+  font-size: clamp(1.7143rem, calc(1.4821rem + 0.0725vw), 2rem);
   font-weight: 300;
 }
 
@@ -80,7 +89,7 @@ h5, .title-medium {
 }
 
 h6, .title-small {
-  font-size: 1.125rem;
+  font-size: clamp(1.1429rem, calc(1.1071rem + 0.0112vw), 1.2857rem);
   font-weight: 400;
 }
 
@@ -103,7 +112,7 @@ h6 strong, h6 b {
 
 .label-large {
   font-family: var(--font-family-primary);
-  font-size: 1rem;
+  font-size: clamp(1rem, calc(0.8214rem + 0.1786vw), 1.1429rem);
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
@@ -113,7 +122,7 @@ h6 strong, h6 b {
 
 .label-medium {
   font-family: var(--font-family-primary);
-  font-size: 0.8125rem;
+  font-size: clamp(0.7857rem, calc(0.7449rem + 0.0128vw), 0.9286rem);
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
@@ -134,7 +143,7 @@ h6 strong, h6 b {
 /* Body Text Variants */
 .body-large, .body-large p {
   font-family: var(--font-family-primary);
-  font-size: 1.3125rem;
+  font-size: clamp(1.1429rem, calc(100vw / 82.2857), 1.3125rem);
   font-style: normal;
   line-height: 150%;
   font-weight: 300;
@@ -142,14 +151,14 @@ h6 strong, h6 b {
 
 .body-large-bold {
   font-family: var(--font-family-primary);
-  font-size: 1.3125rem;
+  font-size: clamp(1.1429rem, calc(100vw / 82.2857), 1.3125rem);
   line-height: 160%;
   font-weight: 500;
 }
 
 .body-medium, p {
   font-family: var(--font-family-primary);
-  font-size: 1rem;
+  font-size: clamp(1.0714rem, calc(0.9821rem + 0.0893vw), 1.1429rem);
 
   font-style: normal;
   line-height: 150%;
@@ -158,7 +167,7 @@ h6 strong, h6 b {
 
 .body-medium-bold {
   font-family: var(--font-family-primary);
-  font-size: 1rem;
+  font-size: clamp(1.0714rem, calc(0.9821rem + 0.0893vw), 1.1429rem);
   line-height: 160%;
   font-weight: 500;
 }
@@ -169,7 +178,7 @@ b, strong {
 
 .body-small {
   font-family: var(--font-family-primary);
-  font-size: 0.875rem;
+  font-size: clamp(0.9286rem, calc(0.9107rem + 0.0056vw), 1rem);
   font-style: normal;
   line-height: 150%;
   font-weight: 300;
@@ -177,7 +186,7 @@ b, strong {
 
 .body-small-bold {
   font-family: var(--font-family-primary);
-  font-size: 0.875rem;
+  font-size: clamp(0.9286rem, calc(0.9107rem + 0.0056vw), 1rem);
   line-height: 150%;
   font-weight: 500;
 }
@@ -193,7 +202,7 @@ b, strong {
 
 .list-medium {
   font-family: var(--font-family-primary);
-  font-size: 1rem;
+  font-size: clamp(1.0714rem, calc(0.9821rem + 0.0893vw), 1.1429rem);
   font-style: normal;
   font-weight: 300 !important;
   line-height: 130%;
@@ -201,7 +210,7 @@ b, strong {
 
 .list-small {
   font-family: var(--font-family-primary);
-  font-size: 0.875rem;
+  font-size: clamp(0.9286rem, calc(0.9107rem + 0.0056vw), 1rem);
   font-style: normal;
   font-weight: 300;
   line-height: 130%;

@@ -37,7 +37,7 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
                 </div>
 
                 <!-- Main Navigation -->
-                <nav class="main-navigation hidden xl:flex items-center gap-10">
+                <nav class="main-navigation hidden lg:flex items-center gap-10">
                     <?php
                     wp_nav_menu(array(
                         'theme_location' => 'primary',
@@ -64,19 +64,19 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
                 </a>
 
                 <!-- Mobile Menu Button -->
-                <div class="xl:hidden">
-                    <button id="mobile-menu-button" class="relative py-3 px-4 border border-[#131611] text-[#131611] hover:bg-gray-100 transition-colors" aria-expanded="false">
+                <div class="lg:hidden">
+                    <button id="mobile-menu-button" class="relative inline-flex items-center py-3 px-4 border border-[#131611] text-[#131611] hover:bg-gray-100 transition-colors" aria-expanded="false">
                         <span class="sr-only">Menu openen</span>
-                        <div class="flex items-center gap-2">
-                            <div class="hamburger-lines">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                        <div class="flex items-center gap-2 leading-none">
+                            <div class="hamburger-lines inline-flex items-center justify-center leading-none">
+                                <svg class="block" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                                     <circle cx="12.5" cy="12.5" r="12" stroke="currentColor"/>
                                     <rect x="8.25" y="9.25" width="9.5" height="0.5" fill="currentColor"/>
                                     <rect x="8.25" y="12.5074" width="9.5" height="0.5" fill="currentColor"/>
                                     <rect x="8.25" y="15.7647" width="9.5" height="0.5" fill="currentColor"/>
                                 </svg>
                             </div>
-                            <span class="mobile-menu-label font-semibold">Menu</span>
+                            <span class="mobile-menu-label font-semibold leading-none">Menu</span>
                         </div>
                     </button>
                 </div>

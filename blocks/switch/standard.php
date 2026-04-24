@@ -95,7 +95,7 @@ $usp_icon = ($background_color === '' || $background_color === 'leef') ? $usp_ic
 
                 
                 <?php if(get_sub_field('buttons')) { ?>
-                    <div class="mt-[1.5rem]! lg:mt-[2rem]!">
+                    <div class="mt-[1.5rem]! lg:mt-[2.5rem]!">
                       <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'))); ?>
                     </div>
                 <?php } ?>

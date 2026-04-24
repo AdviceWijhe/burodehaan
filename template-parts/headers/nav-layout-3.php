@@ -60,7 +60,7 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
                 $secondary_text = $secondary_button && isset($secondary_button['title']) ? $secondary_button['title'] : 'Secondary button';
                 $secondary_url = $secondary_button && isset($secondary_button['url']) ? $secondary_button['url'] : '#';
                 ?>
-                <a href="<?php echo esc_url($secondary_url); ?>" class="hidden xl:inline-block px-5 py-4 bg-[rgba(19,22,17,0.4)] backdrop-blur-[0.4375rem] text-white rounded font-medium hover:opacity-80 transition-opacity whitespace-nowrap">
+                <a href="<?php echo esc_url($secondary_url); ?>" class="hidden lg:inline-block px-5 py-4 bg-[rgba(19,22,17,0.4)] backdrop-blur-[0.4375rem] text-white rounded font-medium hover:opacity-80 transition-opacity whitespace-nowrap">
                     <?php echo esc_html($secondary_text); ?>
                 </a>
 
@@ -70,24 +70,24 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
                 $contact_text = $contact_button && isset($contact_button['title']) ? $contact_button['title'] : 'Contact';
                 $contact_url = $contact_button && isset($contact_button['url']) ? $contact_button['url'] : '/contact';
                 ?>
-                <a href="<?php echo esc_url($contact_url); ?>" class="hidden xl:inline-block px-5 py-4 bg-[#FF5822] text-[#131611] rounded font-medium hover:opacity-90 transition-opacity whitespace-nowrap">
+                <a href="<?php echo esc_url($contact_url); ?>" class="hidden lg:inline-block px-5 py-4 bg-[#FF5822] text-[#131611] rounded font-medium hover:opacity-90 transition-opacity whitespace-nowrap">
                     <?php echo esc_html($contact_text); ?>
                 </a>
 
                 <!-- Mobile Menu Button -->
-                <div class="xl:hidden">
-                    <button id="mobile-menu-button" class="relative py-3 px-4 border border-[#131611] text-[#131611] hover:bg-gray-100 transition-colors" aria-expanded="false">
+                <div class="lg:hidden">
+                    <button id="mobile-menu-button" class="relative inline-flex items-center py-3 px-4 border border-[#131611] text-[#131611] hover:bg-gray-100 transition-colors" aria-expanded="false">
                         <span class="sr-only">Menu openen</span>
-                        <div class="flex items-center gap-2">
-                            <div class="hamburger-lines">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                        <div class="flex items-center gap-2 leading-none">
+                            <div class="hamburger-lines inline-flex items-center justify-center leading-none">
+                                <svg class="block" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                                     <circle cx="12.5" cy="12.5" r="12" stroke="currentColor"/>
                                     <rect x="8.25" y="9.25" width="9.5" height="0.5" fill="currentColor"/>
                                     <rect x="8.25" y="12.5074" width="9.5" height="0.5" fill="currentColor"/>
                                     <rect x="8.25" y="15.7647" width="9.5" height="0.5" fill="currentColor"/>
                                 </svg>
                             </div>
-                            <span class="mobile-menu-label font-semibold">Menu</span>
+                            <span class="mobile-menu-label font-semibold leading-none">Menu</span>
                         </div>
                     </button>
                 </div>
@@ -98,7 +98,7 @@ $container_class = $container_width === 'contained' ? 'container mx-auto' : '';
     <!-- Bottom Row: Centered Navigation -->
     <div class="bg-[rgba(216,214,212,0.4)] py-[1.6875rem]">
         <div class="<?php echo esc_attr($container_class); ?>">
-            <nav class="main-navigation hidden xl:flex items-center justify-center gap-10">
+            <nav class="main-navigation hidden lg:flex items-center justify-center gap-10">
                 <?php
                 wp_nav_menu(array(
                     'theme_location' => 'primary',

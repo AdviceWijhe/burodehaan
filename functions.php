@@ -1070,7 +1070,7 @@ add_filter('nav_menu_css_class', 'advice2025_mark_case_archive_menu_active', 10,
  */
 function advice2025_add_vacature_counter_to_menu($items, $args) {
     // Toepassen op primary menu en footer menu's
-    $allowed_locations = array('primary', 'footer-menu-1', 'footer-menu-2', 'footer-menu-3');
+    $allowed_locations = array('primary', 'footer-menu-1', 'footer-menu-2', 'footer-menu-3', 'copyright-menu');
     
     if (!in_array($args->theme_location, $allowed_locations)) {
         return $items;

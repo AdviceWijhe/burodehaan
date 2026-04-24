@@ -61,7 +61,7 @@ $filter_panel_taxonomies = array(
         <?php if (have_posts()) : ?>
             <div
                 id="archive-post-grid"
-                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-4 4xl:grid-cols-5 gap-[1rem] lg:gap-[1.75rem]"
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-4 4xl:grid-cols-5 gap-[1rem] lg:gap-[1.75rem] pb-[5rem] lg:pb-[12.5rem]"
             >
             <?php while (have_posts()) : the_post(); ?>
                 <?= get_template_part('template-parts/card', get_post_type()); ?>

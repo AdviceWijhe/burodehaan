@@ -39,7 +39,7 @@ if(is_page()) {
 
 <?php $default_logo_theme = ($header_background_color === 'bg-black') ? 'light' : 'dark'; ?>
 <div class="navigation-wrapper <?php echo esc_attr($header_background_color); ?>" data-default-logo-theme="<?php echo esc_attr($default_logo_theme); ?>">
-    <div class="<?php echo esc_attr($container_class); ?> pt-[1rem] pb-[1rem] xl:pt-[1.75rem] <?php if(is_front_page()) { echo 'xl:pb-[1.75rem]'; } ?>">
+    <div class="<?php echo esc_attr($container_class); ?> pt-[1.5rem] pb-[1.5rem] xl:pt-[1.75rem] <?php if(is_front_page()) { echo 'xl:pb-[1.75rem]'; } ?>">
         <div class="flex items-center justify-between gap-10 xl:pl-0 xl:pr-0">
             <!-- Logo -->
             <div class="site-branding flex-shrink-0">
@@ -73,7 +73,7 @@ if(is_page()) {
             <!-- Navigation + Buttons -->
             <div class="flex items-center gap-10 flex-1 justify-end">
                 <!-- Main Navigation -->
-                <nav class="main-navigation hidden xl:flex items-center gap-10">
+                <nav class="main-navigation hidden lg:flex items-center gap-10">
                     <?php
                     $menu_text_color = 'text-black';
                     
@@ -95,7 +95,7 @@ if(is_page()) {
                 </nav>
 
                 <!-- Buttons Group -->
-                <div class="hidden xl:flex items-center gap-4">
+                <div class="hidden lg:flex items-center gap-4">
                     <!-- Search Button -->
                     <!-- <div class="relative">
                         <button id="header-search-toggle" class="w-[3.375rem] h-[3.375rem] flex items-center justify-center border border-[#131611] rounded hover:bg-gray-100 transition-colors" aria-label="Zoeken" aria-expanded="false">
@@ -144,17 +144,17 @@ if(is_page()) {
             </div>
 
             <!-- Mobile Menu Button -->
-            <div class="xl:hidden">
+            <div class="lg:hidden">
                 <button id="mobile-menu-button" class="relative inline-flex items-center gap-2 py-3 pl-[1.25rem] pr-[0.8125rem] bg-primary border border-primary text-white hover:opacity-90 transition-opacity" aria-expanded="false">
                     <span class="sr-only">Menu openen</span>
-                    <div class="hamburger-lines">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10" fill="none">
+                    <div class="hamburger-lines inline-flex items-center justify-center leading-none">
+                        <svg class="block" xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10" fill="none">
                             <rect width="14" height="1" fill="white"/>
                             <rect y="4.5" width="14" height="1" fill="white"/>
                             <rect y="9" width="14" height="1" fill="white"/>
                         </svg>
                     </div>
-                    <span class="mobile-menu-label font-medium">Menu</span>
+                    <span class="mobile-menu-label font-medium leading-none">Menu</span>
                 </button>
             </div>
         </div>

@@ -148,8 +148,8 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
             $term_icon = get_field('icoon', 'expertise_' . $expertise->term_id);
             $title = $expertise->name ?? '';
 
-            $output .= "$indent\t\t\t<a href=\"" . esc_url($term_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[8.5rem] px-[2rem] py-[1.75rem] flex flex-col items-start transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
-            $output .= "$indent\t\t\t\t<div class=\" text-[#EC663C] mb-[1.3rem]\">" . $this->sanitize_expertise_icon_markup((string) $term_icon) . "</div>\n";
+            $output .= "$indent\t\t\t<a href=\"" . esc_url($term_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[8.5rem] px-[2.25rem] py-[2rem] flex flex-col items-start transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+            $output .= "$indent\t\t\t\t<div class=\" text-[#EC663C] mb-[1.25rem]\">" . $this->sanitize_expertise_icon_markup((string) $term_icon) . "</div>\n";
             $output .= "$indent\t\t\t\t<span class=\"pr-10 title-large text-black\">" . esc_html($title) . "</span>\n";
             $output .= "$indent\t\t\t\t<span class=\"absolute right-[1.25rem] bottom-[1.375rem]\" aria-hidden=\"true\">\n";
             $output .= "$indent\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
@@ -166,7 +166,7 @@ class Advice2025_Simple_Nav_Walker extends Walker_Nav_Menu {
         }
 
         $all_expertises_link = home_url('/expertises');
-        $output .= "$indent\t\t\t<a href=\"" . esc_url($all_expertises_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[8.5rem] px-[2rem] py-[1.75rem] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+        $output .= "$indent\t\t\t<a href=\"" . esc_url($all_expertises_link) . "\" class=\"expertises-dropdown-card relative bg-white border border-[rgba(22,22,22,0.12)] h-[8.5rem] px-[2.25rem] py-[2rem] flex items-end transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
 
         $output .= "$indent\t\t\t\t<span class=\"pr-10 title-large text-black\">Alle expertises</span>\n";
         $output .= "$indent\t\t\t\t<span class=\"absolute right-[1.25rem] bottom-[1.375rem]\" aria-hidden=\"true\">\n";

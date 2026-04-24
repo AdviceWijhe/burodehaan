@@ -107,8 +107,8 @@
     }
 }
 
-/* Klein pijltje onder hoofdmenu-items met dropdown (desktop) */
-@media (min-width: 1024px) {
+/* Klein pijltje onder hoofdmenu-items met dropdown (desktop) — zelfde breekpunt als `lg` */
+@media (min-width: 64rem) {
   .main-navigation :is(.menu-item.has-dropdown, .menu-item[data-has-dropdown="true"]) {
     position: relative;
   }
@@ -140,7 +140,7 @@
 }
 
 /* Header achtergrond wit bij geopende desktop dropdown */
-@media (min-width: 1024px) {
+@media (min-width: 64rem) {
   .navigation-wrapper.is-dropdown-open #primary-menu > li > a {
     color: #161616 !important;
   }
@@ -174,7 +174,7 @@
 }
 
 /* Compacte Figma-variant voor expertises dropdown */
-@media (min-width: 1024px) {
+@media (min-width: 64rem) {
   .main-navigation .expertises-dropdown {
     border-radius: 0;
     box-shadow: none;

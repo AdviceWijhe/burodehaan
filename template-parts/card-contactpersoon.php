@@ -22,7 +22,7 @@ $text_color = $args['text-color'] ?? 'blue';
     )); ?>
   </div>
   <div class="">
-    <p class="mb-[0.75rem]! font-medium!"><?= get_the_title($contactpersoon) ?></p>
-    <p class="mb-0! list list-small"><?= get_field('functie', $contactpersoon) ?></p>
+    <p class="mb-[0.75rem]! font-medium! body-medium"><?= get_the_title($contactpersoon) ?></p>
+    <p class="mb-0! list list-small body-small"><?= get_field('functie', $contactpersoon) ?></p>
 </div>
 </div>

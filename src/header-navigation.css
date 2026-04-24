@@ -1,6 +1,7 @@
 /* Header Navigation - Mega Menu and Dropdown Styles */
 /* Ensure mega menu and dropdown hover states always work */
-@media (min-width: 1024px) {
+/* Zelfde breekpunt als `lg` (1024px): desktop-hoofdmenu + hover-dropdowns */
+@media (min-width: 64rem) {
     /* Force hover states to work properly */
     .main-navigation li.group:hover > .dropdown-menu,
     .main-navigation li.group:hover > .mega-menu {
