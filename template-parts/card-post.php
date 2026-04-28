@@ -4,7 +4,7 @@
                         <?php the_post_thumbnail('large', array('class' => 'absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-110')); ?>
                       <?php endif; ?>
                     </div>
-                    <div class="bg-white p-[2.5rem] flex flex-1 items-start justify-between gap-4 border border-black/12 transition-shadow duration-300 hover:border-black/25">
+                    <div class="bg-white p-[1.75rem] lg:p-[2.5rem] flex flex-1 items-start justify-between gap-4 border border-black/12 transition-shadow duration-300 hover:border-black/25">
                       <div class="min-w-0">
                         <h3 class="headline-small text-black mb-[1.75rem]!"><?php the_title(); ?></h3>
                         <div class="body-medium text-black/70 mb-0!">
