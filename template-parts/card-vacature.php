@@ -123,10 +123,10 @@ $wrap_classes = array_filter(
 );
 ?>
 
-<div class="<?php echo esc_attr(implode(' ', $wrap_classes)); ?>">
+<div class="<?php echo esc_attr(implode(' ', $wrap_classes)); ?> h-full">
     <a
         href="<?php echo esc_url($card_href); ?>"
-        class="vacature-item group flex flex-col md:flex-row bg-white border border-black/12 overflow-hidden transition-shadow duration-300 hover:border-black/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        class="vacature-item group flex flex-col md:flex-row bg-white border border-black/12 overflow-hidden transition-shadow duration-300 hover:border-black/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary h-full"
         <?php echo $is_external ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>
     >
         <div class="relative w-full md:w-[15.3125rem] md:min-w-[15.3125rem] h-[12.5rem] md:h-[10.5625rem] shrink-0 bg-secondary overflow-hidden">
@@ -145,13 +145,13 @@ $wrap_classes = array_filter(
                 ?>
             <?php endif; ?>
         </div>
-        <div class="flex flex-1 flex-col md:flex-row md:items-stretch justify-between gap-4 min-w-0 px-5 py-5 md:pl-8 md:pr-6 md:py-6">
+        <div class="flex flex-1 flex-col md:flex-row md:items-stretch justify-between gap-4 min-w-0 px-5 py-5 md:pl-8 md:pr-6 md:py-6 min-h-[10rem] md:min-h-0">
             <div class="min-w-0 flex-1 flex flex-col justify-between">
                 <h3 class="text-[1.875rem] font-light leading-[1.2] text-black mb-0">
                     <?php echo esc_html($title); ?>
                 </h3>
                 <?php if ($locatie !== '' || $uren_display !== '') : ?>
-                    <div class="mt-4 flex flex-wrap items-center gap-x-8 gap-y-2 text-base font-light leading-normal text-black">
+                    <div class="mt-4 flex flex-col md:flex-row md:flex-wrap md:items-center gap-2 md:gap-x-8 md:gap-y-2 text-base font-light leading-normal text-black">
                         <?php if ($locatie !== '') : ?>
                             <span class="inline-flex items-center gap-2 whitespace-nowrap">
                                 <span class="shrink-0 text-black" aria-hidden="true">

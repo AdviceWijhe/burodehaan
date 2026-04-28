@@ -43,14 +43,17 @@ background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></
       <?php } ?>
     </div>
     <div class="container">
-    <div class="w-full flex flex-col lg:flex-row relative z-2 justify-between gap-[2rem] items-end lg:pb-[6.25rem] pb-[1.25rem] ">
+    <div class="w-full flex flex-col lg:flex-row relative z-2 justify-between gap-[2rem] items-end lg:pb-[6.25rem] pb-[2.5rem] ">
       <div class="w-full lg:w-5/12 lg:pl-[2.5rem] text-white">
-        
+        <?php $label = get_sub_field('label'); ?>
+        <?php if (!empty($label)) : ?>
+          <div class="label-large text-white mb-[1rem]"><?= esc_html($label) ?></div>
+        <?php endif; ?>
         <div class=" mb-[2.5rem] max-w-[37.1875rem]"><?= get_sub_field('titel') ?></div>
         <div class="opacity-80"><?= get_sub_field('content', null) ?></div>
         
       </div>
-      <div class="w-full lg:w-6/12 px-5 lg:px-5 lg:pr-[2.5rem] flex lg:justify-end">
+      <div class="w-full lg:w-6/12 px-0 lg:px-5 lg:pr-[2.5rem] flex lg:justify-end">
       <?php if(get_sub_field('buttons')) { ?>
           <div class="">
             <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'align_items' => 'stretch')) ?>

@@ -2225,3 +2225,117 @@ function advice2025_redirect_comments_admin_page() {
     }
 }
 add_action('admin_init', 'advice2025_redirect_comments_admin_page');
+
+/**
+ * Voeg een selectievak toe bij Instellingen > Lezen voor een aangepaste 404-pagina.
+ */
+function advice2025_register_404_page_setting() {
+    register_setting(
+        'reading',
+        'advice2025_404_page_id',
+        array(
+            'type' => 'integer',
+            'sanitize_callback' => 'advice2025_sanitize_404_page_id',
+            'default' => 0,
+        )
+    );
+
+    add_settings_field(
+        'advice2025_404_page_id',
+        __('404 pagina', 'advice2025'),
+        'advice2025_render_404_page_setting_field',
+        'reading',
+        'default'
+    );
+}
+add_action('admin_init', 'advice2025_register_404_page_setting');
+
+/**
+ * Sanitize geselecteerde 404-pagina.
+ */
+function advice2025_sanitize_404_page_id($value) {
+    $page_id = absint($value);
+
+    if ($page_id === 0) {
+        return 0;
+    }
+
+    $page = get_post($page_id);
+    if (!$page || $page->post_type !== 'page' || $page->post_status !== 'publish') {
+        return 0;
+    }
+
+    return $page_id;
+}
+
+/**
+ * Render het veld in Instellingen > Lezen.
+ */
+function advice2025_render_404_page_setting_field() {
+    $selected_page_id = (int) get_option('advice2025_404_page_id', 0);
+    ?>
+    <fieldset>
+        <?php
+        wp_dropdown_pages(array(
+            'name' => 'advice2025_404_page_id',
+            'id' => 'advice2025_404_page_id',
+            'selected' => $selected_page_id,
+            'show_option_none' => __('- Standaard 404 gebruiken -', 'advice2025'),
+            'option_none_value' => '0',
+        ));
+        ?>
+        <p class="description">
+            <?php esc_html_e('Kies een pagina die wordt getoond bij een 404. De HTTP-status blijft 404.', 'advice2025'); ?>
+        </p>
+    </fieldset>
+    <?php
+}
+
+/**
+ * Toon gekozen pagina-inhoud op 404, met behoud van de 404 statuscode.
+ */
+function advice2025_render_selected_404_page() {
+    if (is_admin() || !is_404()) {
+        return;
+    }
+
+    $page_id = (int) get_option('advice2025_404_page_id', 0);
+    if ($page_id <= 0) {
+        return;
+    }
+
+    $page = get_post($page_id);
+    if (!$page || $page->post_type !== 'page' || $page->post_status !== 'publish') {
+        return;
+    }
+
+    global $post, $wp_query;
+
+    $wp_query->is_404 = true;
+    $wp_query->is_page = true;
+    $wp_query->is_singular = true;
+    $wp_query->queried_object = $page;
+    $wp_query->queried_object_id = $page_id;
+    $wp_query->post = $page;
+    $wp_query->posts = array($page);
+    $wp_query->post_count = 1;
+    $wp_query->found_posts = 1;
+    $wp_query->max_num_pages = 1;
+
+    $post = $page;
+    setup_postdata($post);
+
+    status_header(404);
+    nocache_headers();
+
+    $template = get_query_template('page');
+    if (!$template) {
+        wp_reset_postdata();
+        return;
+    }
+
+    include $template;
+    wp_reset_postdata();
+    exit;
+}
+add_action('template_redirect', 'advice2025_render_selected_404_page');
