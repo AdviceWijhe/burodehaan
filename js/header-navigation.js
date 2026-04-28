@@ -455,7 +455,7 @@ class HeaderNavigation {
             <path d="M1.06055 -4.6358e-08L5.30371 4.24219L1.06055 8.48437L-4.6358e-08 7.42383L3.18164 4.24219L-3.24506e-07 1.06055L1.06055 -4.6358e-08Z" fill="#131611"/>
         </svg>`;
         
-        subpanelTitle.innerHTML = `<span class="truncate flex-1 min-w-0">${titleText || ''}</span>${arrowSvg}`;
+        subpanelTitle.innerHTML = `<span class="truncate flex-1 min-w-0">${titleText || ''}</span>`;
         subpanelTitle.href = titleUrl || '#';
         
         // Clone content

@@ -468,9 +468,9 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
                 $title = $expertise->name ?? '';
 
                 $out .= "$indent\t\t\t<li class=\"list-none!\">\n";
-                $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $term_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item relative block min-h-[7.5rem] border border-[rgba(22,22,22,0.12)] bg-white px-[1.5rem] py-[1.25rem] transition-colors duration-300 hover:bg-[#FAFAFA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
+                $out .= "$indent\t\t\t\t<a href=\"" . esc_url( $term_link ) . "\" class=\"mobile-dropdown-link mobile-dropdown-item relative block border border-[rgba(22,22,22,0.12)] bg-white px-[1.75rem] py-[1.75rem] transition-colors duration-300 hover:bg-[#FAFAFA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC663C] focus-visible:ring-offset-2\">\n";
                 if ( ! empty( $icon ) ) {
-                    $out .= "$indent\t\t\t\t\t<span class=\"absolute left-[1.5rem] top-[1rem] text-[#EC663C]\">" . $this->sanitize_expertise_icon_markup( (string) $icon ) . "</span>\n";
+                    $out .= "$indent\t\t\t\t\t<span class=\"\">" . $this->sanitize_expertise_icon_markup( (string) $icon ) . "</span>\n";
                 }
                 $out .= "$indent\t\t\t\t\t<span class=\"absolute right-[1.5rem] top-1/2 -translate-y-1/2\" aria-hidden=\"true\">\n";
                 $out .= "$indent\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"20\" viewBox=\"0 0 12 20\" fill=\"none\">\n";
@@ -483,7 +483,7 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
                 $out .= "$indent\t\t\t\t\t\t\t<rect x=\"5.92578\" y=\"5.92578\" width=\"2.22222\" height=\"2.22222\" fill=\"#EC663C\"/>\n";
                 $out .= "$indent\t\t\t\t\t\t</svg>\n";
                 $out .= "$indent\t\t\t\t\t</span>\n";
-                $out .= "$indent\t\t\t\t\t<span class=\"flex min-h-[5rem] items-end pr-10 text-[1.5rem] font-light leading-[1.2] text-[#161616]\" style=\"font-family: 'Fira Sans', sans-serif;\">" . esc_html( $title ) . "</span>\n";
+                $out .= "$indent\t\t\t\t\t<span class=\"flex title-large mt-[1.25rem]\">" . esc_html( $title ) . "</span>\n";
                 $out .= "$indent\t\t\t\t</a>\n";
                 $out .= "$indent\t\t\t</li>\n";
             }
@@ -647,8 +647,11 @@ class Advice2025_Mobile_Nav_Walker extends Walker_Nav_Menu {
         // Different styles for different depths
         if ($depth == 0) {
             // Top level items - mobile style
+            // First item has border-t
             $link_classes = 'mobile-nav-link block border-b border-[rgba(22,22,22,0.12)] py-[1.5rem] text-black transition-all duration-300 flex items-center justify-between';
-            
+            if ($depth == 0 && $item->menu_order == 1) {
+                $link_classes .= ' border-t mt-[3.75rem]';
+            }
             if ($has_children) {
                 $link_classes .= ' cursor-pointer';
             }
