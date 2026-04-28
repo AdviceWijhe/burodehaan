@@ -63,6 +63,15 @@ a {
   }
 }
 
+.display-medium {
+  font-size: clamp(2.625rem, calc(100vw / 10), 6.25rem);
+  font-style: normal;
+  font-weight: 300;
+  line-height: 120%; /* 7.5rem */
+  letter-spacing: -0.125rem;
+  white-space: nowrap;
+}
+
 h1, .headline-large {
   font-size: clamp(2.8571rem, calc(100vw / 10), 3.875rem);
   font-weight: 300;
@@ -159,7 +168,7 @@ h6 strong, h6 b {
 .body-medium, p {
   font-family: var(--font-family-primary);
   font-size: clamp(1.0714rem, calc(0.9821rem + 0.0893vw), 1.1429rem);
-
+    opacity: 0.7;
   font-style: normal;
   line-height: 150%;
   font-weight: 300;
@@ -280,7 +289,9 @@ small, .small {
 }
 
 .marquee__text {
-  color: #161616;
+    opacity: 0.2;
+    text-box-trim: unset;
+  /* color: #161616;
   font-family: var(--font-family-primary);
   font-size: clamp(2.625rem, 9vw, 6.25rem);
   font-style: normal;
@@ -288,10 +299,13 @@ small, .small {
   letter-spacing: -0.02em;
   line-height: 1.2;
   opacity: 0.2;
-  white-space: nowrap;
+  white-space: nowrap; */
 }
 
 .marquee__separator {
+    /* text-box-trim: trim-end; */
+    overflow: visible;
+    text-box-edge: cap alphabetic;
   background-color: #EC663C;
   display: inline-block;
   flex: 0 0 auto;
@@ -299,6 +313,7 @@ small, .small {
   margin-left: clamp(1.25rem, 2.2vw, 2rem);
   margin-right: clamp(1.25rem, 2.2vw, 2rem);
   width: 12px;
+
 }
 
 @media (prefers-reduced-motion: reduce) {
