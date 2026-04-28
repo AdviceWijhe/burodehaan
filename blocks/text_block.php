@@ -173,6 +173,9 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                 <?php if (!empty($tekst_label)) : ?>
                     <div class="label-large text-primary mb-[1rem]"><?php echo esc_html($tekst_label); ?></div>
                 <?php endif; ?>
+                <div class="headline-medium mb-[1.75rem] <?php echo esc_attr($text_color_class); ?>">
+                    <?php echo wp_kses_post($titel); ?>
+                </div>
                 <?php if (!empty($tekst)) : ?>
                     <div class="body-large">
                         <?php echo wp_kses_post($tekst); ?>
