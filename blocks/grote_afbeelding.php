@@ -45,7 +45,10 @@ background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></
     <div class="container">
     <div class="w-full flex flex-col lg:flex-row relative z-2 justify-between gap-[2rem] items-end lg:pb-[6.25rem] pb-[2.5rem] ">
       <div class="w-full lg:w-5/12 lg:pl-[2.5rem] text-white">
-        
+        <?php $label = get_sub_field('label'); ?>
+        <?php if (!empty($label)) : ?>
+          <div class="label-large text-white mb-[1rem]"><?= esc_html($label) ?></div>
+        <?php endif; ?>
         <div class=" mb-[2.5rem] max-w-[37.1875rem]"><?= get_sub_field('titel') ?></div>
         <div class="opacity-80"><?= get_sub_field('content', null) ?></div>
         
