@@ -42,7 +42,7 @@
         $over_ons_content_id = $footer_accordion_prefix . '-over-ons';
         ?>
         <div
-            class="grid grid-cols-1 gap-y-[3.75rem] lg:grid-cols-2 lg:items-stretch lg:gap-x-[5rem] lg:gap-y-[7.5rem] pb-0! lg:pb-0!"
+            class="grid grid-cols-1 md:gap-y-[3.75rem] lg:grid-cols-2 lg:items-stretch lg:gap-x-[5rem] lg:gap-y-[7.5rem] pb-0! lg:pb-0!"
         >
                 <div class="order-1 min-w-0 lg:order-none lg:row-start-1 lg:col-start-1">
                 <div class="footer-accordion-item max-md:py-[1.75rem] max-md:border-b max-md:border-white/10" data-footer-accordion-item>
@@ -182,7 +182,7 @@
                 </div>
             </div>
 
-            <div class="order-4 min-w-0 grid w-full grid-cols-1 gap-x-[1.75rem] md:grid-cols-5 lg:order-none lg:row-start-2 lg:col-start-2 lg:items-start">
+            <div class="order-4 min-w-0 mt-[5rem] md:mt-0 grid w-full grid-cols-1 gap-y-[3.75rem] md:gap-y-0 gap-x-[1.75rem] md:grid-cols-5 lg:order-none lg:row-start-2 lg:col-start-2 lg:items-start">
                     <?php 
                     $query = new WP_Query(array(
                         'post_type' => 'locatie',
@@ -220,7 +220,7 @@
                             $location_phone = $location['telefoonnummer'] ?? '';
                             $location_email = $location['emailadres'] ?? '';
                             ?>
-                            <div class="mb-8 md:mb-0 last:mb-0 col-span-1 md:col-span-2">
+                            <div class="md:mb-0 last:mb-0 col-span-1 md:col-span-2">
                                 <?php if (!empty($location_title)) : ?>
                                     <h6 class="mb-[1.75rem]! text-white title-small"><?php echo esc_html($location_title); ?></h6>
                                 <?php endif; ?>
@@ -336,24 +336,24 @@
         </div>
 
         <div
-            class="my-[4.375rem] pt-6 border-t border-white/10 flex flex-col gap-4 text-left lg:flex-row lg:items-baseline lg:justify-between lg:gap-8"
+            class="mt-[3.75rem] lg:my-[4.375rem] pt-[3.75rem] lg:pt-6 border-t border-white/10 flex flex-col gap-4 text-left lg:flex-row lg:items-baseline lg:justify-between lg:gap-8"
         >
-            <div class="flex min-w-0 flex-col items-start gap-2 lg:flex-1 lg:flex-row lg:items-baseline lg:gap-8">
-                <p class="body-small m-0! !text-white !font-normal">Alle rechten voorbehouden Buro De Haan</p>
+            <div class="flex min-w-0 flex-col items-center text-center lg:text-start lg:items-start gap-2 lg:flex-1 lg:flex-row lg:items-baseline lg:gap-8">
+                <p class="body-small mb-[2rem] md:mb-0! !text-white !font-normal">Alle rechten voorbehouden Buro De Haan</p>
                 <?php
                 if (has_nav_menu('copyright-menu')) {
                     wp_nav_menu(array(
                         'theme_location' => 'copyright-menu',
                         'container' => false,
                         'menu_id' => 'menu-copyright-menu',
-                        'menu_class' => 'footer-copyright-menu body-small !text-white/70',
+                        'menu_class' => 'footer-copyright-menu flex flex-col lg:flex-row items-center! md:items-baseline! gap-y-[2rem]! md:gap-y-0! text-center lg:text-start body-small !text-white/70',
                         'fallback_cb' => false,
                     ));
                 }
                 ?>
             </div>
             <div
-                class="footer-credits flex w-full shrink-0 flex-col items-start gap-1 text-white/70 sm:flex-row sm:items-baseline sm:gap-2 lg:ml-auto lg:w-auto lg:justify-end"
+                class="footer-credits mt-[3.75rem] md:mt-0 flex w-full shrink-0 flex-col gap-y-[1rem] items-center text-center lg:text-start lg:items-start gap-1 text-white/70 sm:flex-row sm:items-baseline sm:gap-2 lg:ml-auto lg:w-auto lg:justify-end"
             >
                 <span class="body-small m-0! !font-normal">Ontworpen en ontwikkeld door</span>
                 <a
