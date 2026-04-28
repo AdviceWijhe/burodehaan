@@ -145,7 +145,7 @@ if(is_page()) {
 
             <!-- Mobile Menu Button -->
             <div class="lg:hidden">
-                <button id="mobile-menu-button" class="relative inline-flex items-center gap-2 py-3 pl-[1.25rem] pr-[0.8125rem] bg-primary border border-primary text-white hover:opacity-90 transition-opacity" aria-expanded="false">
+                <button id="mobile-menu-button" class="relative inline-flex items-center gap-2 btn bg-primary border border-primary text-white hover:opacity-90 transition-opacity" aria-expanded="false">
                     <span class="sr-only">Menu openen</span>
                     <div class="hamburger-lines inline-flex items-center justify-center leading-none">
                         <svg class="block" xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10" fill="none">
