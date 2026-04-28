@@ -5,41 +5,40 @@
 <?php if(get_sub_field('cta_type') == 'default' || isset($args['cta_type']) && $args['cta_type'] == 'default') : ?>
 <?php get_template_part('template-parts/core/cta-default', null, $args); ?>
 
-<?php elseif(get_sub_field('cta_type') == 'big') : ?>
-<div class="cta <?php echo get_spacing_bottom_class(); ?>">
-  
-  <div class=" mx-auto bg-blue relative overflow-hidden">
-    <div class="flex flex-col lg:items-center justify-center relative py-[3.75rem] lg:py-[10rem] ">
-      <div class="w-full max-w-[43.75rem]  text-white text-center mx-auto px-[1.25rem] lg:px-0">
-        <h2 class="headline-medium text-white mb-[2rem]! max-w-[36.1875rem] mx-auto"><?= get_sub_field('titel') ?></h2>
+<?php elseif(get_sub_field('cta_type') == 'small') : ?>
+<?php
+include locate_template('template-parts/core/cta-get-data.php');
+?>
+<section class="cta cta--small <?php echo get_spacing_bottom_class(); ?>">
+  <div class="container">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-[2.5rem]">
+      <div class="w-full lg:col-span-5 lg:col-start-3 text-black border border-[rgba(22,22,22,0.12)] rounded-[1.25rem] p-[2.25rem] lg:p-[2.5rem]">
+        <?php if (!empty($cta_titel)) : ?>
+          <div class="mb-[1.5rem] lg:mb-[2rem]"><?php echo $cta_titel; ?></div>
+        <?php endif; ?>
 
-        <?php if(get_sub_field('usps')) { ?>
-          <div class="usps relative flex flex-col lg:flex-row flex-wrap items-center justify-center gap-[1rem] lg:gap-[1.75rem] mb-[2.125rem]">
-            <?php foreach(get_sub_field('usps') as $usp) { ?>
-              <div class="usp w-full lg:w-auto flex gap-2 items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-  <circle cx="12.5" cy="12.5" r="12.5" fill="#96ACC0"/>
-  <rect x="7.92969" y="12.0708" width="6" height="1" transform="rotate(45 7.92969 12.0708)" fill="#0A2031"/>
-  <rect x="18.5352" y="8.53564" width="1" height="11" transform="rotate(45 18.5352 8.53564)" fill="#0A2031"/>
-</svg>
-                <?php echo $usp['usp']; ?>
-              </div>
-            <?php } ?>
+        <?php if (!empty($cta_contactpersoon)) : ?>
+          <div class="mb-[1.5rem] lg:mb-[2rem]">
+            <?php get_template_part('template-parts/card-contactpersoon', null, array(
+              'variant'    => 'default',
+              'medewerker' => $cta_contactpersoon,
+            )); ?>
           </div>
-        <?php } ?>
+        <?php endif; ?>
 
-        <?php if(get_sub_field('content')) { ?>
-          <div class="relative max-w-[36.1875rem] mx-auto body-medium font-normal">
-            <?php echo get_sub_field('content', null, null); ?>
+        <?php if (!empty($cta_buttons)) : ?>
+          <div>
+            <?php get_template_part('template-parts/core/buttons', null, array(
+              'buttons'     => $cta_buttons,
+              'no_margin'   => true,
+              'align_items' => 'start',
+              'full_width'  => false,
+            )); ?>
           </div>
-        <?php } ?>
-      </div>
-      <div class="w-full lg:w-6/12 flex mt-[2rem] justify-center align-center">
-        <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'no_margin' => true, 'align_items' => 'start')); ?>
+        <?php endif; ?>
       </div>
     </div>
   </div>
-</div>
-
+</section>
 
 <?php endif; ?>
