@@ -28,7 +28,7 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
 
 
 <section id="<?= esc_attr($block_id); ?>" class="expertises <?php echo get_spacing_bottom_class(); ?> <?php if(!is_front_page()) { echo 'pt-[3.75rem] lg:pt-[8.75rem]';} ?>">
-    <?php if($achtergrond) : ?>
+    <?php if($achtergrond && $achtergrond != 'white') : ?>
         <div class="bg-<?= $achtergrond ?> pb-[3.75rem] lg:pb-[7.5rem]">
     <?php endif; ?>
     <div class="container">
