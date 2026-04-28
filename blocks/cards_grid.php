@@ -18,8 +18,8 @@ if(get_sub_field('slider')) {
             'clickable' => true,
         ],
         'navigation' => [
-            'nextEl' => '.swiper-next',
-            'prevEl' => '.swiper-prev',
+            'nextEl' => '.cards-grid-controls .swiper-next',
+            'prevEl' => '.cards-grid-controls .swiper-prev',
         ],
         'breakpoints' => [
             640 => ['slidesPerView' => get_sub_field('aantal_slides')['aantal_slides_mobiel'] ?: 1.2, 'spaceBetween' => 16],
@@ -36,8 +36,8 @@ if(get_sub_field('slider')) {
             'clickable' => true,
         ],
         'navigation' => [
-            'nextEl' => '.swiper-next',
-            'prevEl' => '.swiper-prev',
+            'nextEl' => '.cards-grid-controls .swiper-next',
+            'prevEl' => '.cards-grid-controls .swiper-prev',
         ],
         'breakpoints' => [
             640 => ['slidesPerView' => 1.2, 'spaceBetween' => 16],
@@ -143,7 +143,7 @@ $backgroundPatroon = 'pink';
 
           <?php if ($has_swiper_controls): ?>
           <?php $cards_rand_class = 'cards-grid-' . wp_rand(1000, 9999); ?>
-          <div class="swiper-controls hidden md:flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 lg:col-span-5 <?= esc_attr($cards_rand_class); ?>-controls">
+          <div class="swiper-controls cards-grid-controls hidden md:flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 lg:col-span-5 <?= esc_attr($cards_rand_class); ?>-controls">
             <div class="w-full lg:w-auto flex items-center gap-7">
               <div class="w-[14.6875rem] h-[0.125rem] relative overflow-hidden bg-[#161616]/20">
                 <span class="<?= esc_attr($cards_rand_class); ?>-progress absolute left-0 top-0 h-full bg-primary transition-transform duration-300" style="width: 90.7336px; transform: translateX(0px);"></span>
