@@ -66,6 +66,30 @@ if(is_tax()) {
                 ));
                 ?>
             </nav>
+
+            <?php
+            $mobile_contact_button = get_field('header_contact_button', 'option');
+            $mobile_contact_text = $mobile_contact_button && isset($mobile_contact_button['title']) ? $mobile_contact_button['title'] : 'Plan een afspraak';
+            $mobile_contact_url = $mobile_contact_button && isset($mobile_contact_button['url']) ? $mobile_contact_button['url'] : '/plan-een-afspraak';
+            $mobile_contact_buttons = array(
+                array(
+                    'link' => array(
+                        'url'   => $mobile_contact_url,
+                        'title' => $mobile_contact_text,
+                    ),
+                    'knop_kleur' => 'primary',
+                    'knop_icon'  => 'none',
+                ),
+            );
+            ?>
+            <div class="mobile-menu-contact p-[16px] shrink-0">
+                <?php get_template_part('template-parts/core/buttons', null, array(
+                    'buttons'     => $mobile_contact_buttons,
+                    'no_margin'   => true,
+                    'align_items' => 'stretch',
+                    'full_width'  => true,
+                )); ?>
+            </div>
            
 
             <!-- Drilldown subpanel -->
