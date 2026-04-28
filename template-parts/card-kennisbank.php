@@ -45,14 +45,15 @@ if ($item instanceof WP_Term) {
     $post_type = get_post_type($id);
 }
 
+$has_description = $description !== '' && trim(wp_strip_all_tags((string) $description)) !== '';
+
 ?>
 
-<a href="<?php echo esc_url($link); ?>" class="card group border border-[rgba(22,22,22,0.12)] overflow-hidden flex flex-col md:flex-row md:items-stretch transition-shadow duration-300 hover:border-black/25">
-                    <div class="card-image w-full md:w-2/8 overflow-hidden">
-                    <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($name); ?>" class="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-110">
-
+<a href="<?php echo esc_url($link); ?>" class="card group border border-[rgba(22,22,22,0.12)] overflow-hidden flex flex-col md:flex-row md:items-stretch md:min-h-[240px] transition-shadow duration-300 hover:border-black/25">
+                    <div class="card-image relative w-full md:w-2/8 shrink-0 overflow-hidden h-[110px] md:min-h-[240px]">
+                    <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($name); ?>" class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110">
                     </div>
-                    <div class="card-body p-[1.75rem] lg:p-[2.5rem] relative w-full md:w-6/8">
+                    <div class="card-body p-[1.75rem] lg:p-[2.5rem] relative w-full md:w-6/8 min-h-0">
                         <?php 
                         if($post_type == 'post') {
                             $category = get_the_category($id);
@@ -75,8 +76,10 @@ if ($item instanceof WP_Term) {
                         </div>
                     <?php } ?>
                     
-                        <h3 class="card-title mb-[1.75rem]! mt-0!"><?php echo esc_html($name); ?></h3>
-                        <div class="card-description"><?php echo wp_kses_post($description); ?></div>
+                        <h3 class="card-title mt-0! <?php echo $has_description ? 'mb-[1.75rem]!' : 'mb-0!'; ?>"><?php echo esc_html($name); ?></h3>
+                        <?php if ($has_description) : ?>
+                            <div class="card-description line-clamp-3 [&_p]:mb-0"><?php echo wp_kses_post($description); ?></div>
+                        <?php endif; ?>
                     </div>
                     <div class="shrink-0 max-md:absolute max-md:bottom-0 max-md:w-[0.75rem] max-md:h-[1.25rem] max-md:right-0 flex items-center justify-center pr-[2.5rem] transition-transform duration-300 ease-out group-hover:translate-x-[6px]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
