@@ -2180,6 +2180,53 @@ add_action('admin_menu', function () {
 });
 
 /**
+ * Schakel reacties volledig uit in WordPress.
+ */
+function advice2025_disable_comments() {
+    // Sluit reacties en pingbacks op alle content.
+    add_filter('comments_open', '__return_false', 20, 2);
+    add_filter('pings_open', '__return_false', 20, 2);
+    add_filter('comments_array', '__return_empty_array', 10, 2);
+
+    // Verwijder comment support op alle post types.
+    $post_types = get_post_types(array(), 'names');
+    foreach ($post_types as $post_type) {
+        if (post_type_supports($post_type, 'comments')) {
+            remove_post_type_support($post_type, 'comments');
+            remove_post_type_support($post_type, 'trackbacks');
+        }
+    }
+}
+add_action('init', 'advice2025_disable_comments');
+
+/**
+ * Verberg comment-gerelateerde admin onderdelen.
+ */
+function advice2025_hide_comments_admin_menu() {
+    remove_menu_page('edit-comments.php');
+
+    global $wp_admin_bar;
+    if ($wp_admin_bar instanceof WP_Admin_Bar) {
+        $wp_admin_bar->remove_menu('comments');
+    }
+}
+add_action('admin_menu', 'advice2025_hide_comments_admin_menu', 999);
+add_action('wp_before_admin_bar_render', 'advice2025_hide_comments_admin_menu');
+
+/**
+ * Redirect direct bezoek aan comments-overzicht in admin.
+ */
+function advice2025_redirect_comments_admin_page() {
+    global $pagenow;
+
+    if ($pagenow === 'edit-comments.php') {
+        wp_safe_redirect(admin_url());
+        exit;
+    }
+}
+add_action('admin_init', 'advice2025_redirect_comments_admin_page');
+
+/**
  * Voeg een selectievak toe bij Instellingen > Lezen voor een aangepaste 404-pagina.
  */
 function advice2025_register_404_page_setting() {
