@@ -7,15 +7,9 @@
                       <div>
                         <?php
                         $term_label = '';
-                        $taxonomies = get_object_taxonomies(get_post_type(), 'names');
-                        if (!empty($taxonomies)) {
-                          foreach ($taxonomies as $tax) {
-                            $terms = get_the_terms(get_the_ID(), $tax);
-                            if (!empty($terms) && !is_wp_error($terms)) {
-                              $term_label = $terms[0]->name;
-                              break;
-                            }
-                          }
+                        $terms = get_the_terms(get_the_ID(), 'expertise');
+                        if (!empty($terms) && !is_wp_error($terms)) {
+                          $term_label = $terms[0]->name;
                         }
                         ?>
                         <?php if ($term_label) : ?>

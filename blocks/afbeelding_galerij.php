@@ -2,11 +2,11 @@
 $afbeeldingen = get_sub_field('afbeeldingen');
 ?>
 
-<div class="afbeelding_galerij overflow-hidden <?php echo get_spacing_bottom_class(); ?>">
+<div id="gallerij" class="afbeelding_galerij overflow-hidden <?php echo get_spacing_bottom_class(); ?>">
     <div class="container">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
             <div class="col-span-1 lg:col-span-10 lg:col-start-2">
-            <div class="swiper-galerij relative">
+            <div class="swiper-afbeeldinggalerij relative">
                 <div class="swiper-wrapper">
                     <?php foreach($afbeeldingen as $afbeelding) : ?>
                         <div class="swiper-slide">
@@ -18,7 +18,7 @@ $afbeeldingen = get_sub_field('afbeeldingen');
                 </div>
 
                 <div class="swiper-buttons flex absolute top-0 right-0" style="z-index: 2;">
-                    <div class="swiper-prev w-[3.75rem] h-[3.75rem] bg-secondary flex items-center justify-center">
+                    <div class="swiper-prev w-[3.75rem] h-[3.75rem] bg-secondary flex items-center justify-center hover:cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
                     <rect x="11.1128" y="20.0001" width="2.22222" height="2.22222" transform="rotate(-180 11.1128 20.0001)" fill="#161616"/>
                     <rect x="5.18707" y="8.14801" width="2.22222" height="2.22222" transform="rotate(-180 5.18707 8.14801)" fill="#161616"/>
@@ -34,7 +34,7 @@ $afbeeldingen = get_sub_field('afbeeldingen');
                     <line opacity="0.12" x1="0.5" y1="2.18558e-08" x2="0.499997" y2="59" stroke="#161616"/>
                   </svg>
                 </span>
-                    <div class="swiper-next w-[3.75rem] h-[3.75rem] bg-secondary flex items-center justify-center">
+                    <div class="swiper-next w-[3.75rem] h-[3.75rem] bg-secondary flex items-center justify-center hover:cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
                     <rect width="2.22222" height="2.22222" fill="#161616"/>
                     <rect x="5.92578" y="11.8521" width="2.22222" height="2.22222" fill="#161616"/>
@@ -52,7 +52,7 @@ $afbeeldingen = get_sub_field('afbeeldingen');
     </div>
     <script> 
         document.addEventListener('DOMContentLoaded', function() {
-            var swiper = new Swiper('.afbeelding_galerij .swiper-galerij', {
+            var swiper = new Swiper('.afbeelding_galerij .swiper-afbeeldinggalerij', {
                 loop: true,
                 centeredSlides: true,
                 spaceBetween: 36,
@@ -61,8 +61,8 @@ $afbeeldingen = get_sub_field('afbeeldingen');
                     disableOnInteraction: false,
                 },
                 navigation: {
-                    nextEl: '.swiper-galerij .swiper-next',
-                    prevEl: '.swiper-galerij .swiper-prev',
+                    nextEl: '.swiper-afbeeldinggalerij .swiper-next',
+                    prevEl: '.swiper-afbeeldinggalerij .swiper-prev',
                 },
             });
         });

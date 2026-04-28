@@ -5,10 +5,11 @@
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
         <?php endif; ?>
   <div class="min-h-[33.4375rem] lg:min-h-[43.75rem] relative flex items-end max-md:p-0! <?php if(is_single()) : ?>col-span-1 lg:col-span-10 lg:col-start-2<?php endif; ?>">
+    <?php if(!empty(get_sub_field('titel') || get_sub_field('content'))) : ?>
     <div class="absolute h-full w-[12.5rem] lg:w-[18.75rem] z-1 bottom-0 left-0" style="opacity: 0.5;
 background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></div>
     <div class="absolute h-[12.5rem] lg:h-[25rem] w-full z-1 bottom-0 left-0" style="background: linear-gradient(180deg, rgba(22, 22, 22, 0.00) 0%, #161616 100%);"></div>
-
+    <?php endif; ?>
     <div class="absolute h-full w-full overflow-hidden">
       <?php 
       $afbeelding = get_sub_field('afbeelding');

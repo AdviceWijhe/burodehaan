@@ -108,6 +108,40 @@ if (empty($taxonomies)) {
                         continue;
                     }
 
+                    $excluded_fallback_terms = array(
+                        'uncategorized',
+                        'nietgecategoriseerd',
+                        'nocategory',
+                        'geencategorie',
+                        'noterm',
+                        'geenterm',
+                        'none',
+                        'geen',
+                    );
+
+                    $terms = array_values(array_filter($terms, static function ($term) use ($excluded_fallback_terms) {
+                        if (!($term instanceof WP_Term)) {
+                            return false;
+                        }
+
+                        $normalized_slug = str_replace(array('-', '_', ' '), '', strtolower((string) $term->slug));
+                        $normalized_name = str_replace(array('-', '_', ' '), '', sanitize_title((string) $term->name));
+
+                        if (in_array($normalized_slug, $excluded_fallback_terms, true)) {
+                            return false;
+                        }
+
+                        if (in_array($normalized_name, $excluded_fallback_terms, true)) {
+                            return false;
+                        }
+
+                        return true;
+                    }));
+
+                    if (empty($terms)) {
+                        continue;
+                    }
+
                     $active_term_ids = isset($active_filters[$taxonomy]) && is_array($active_filters[$taxonomy])
                         ? array_map('intval', $active_filters[$taxonomy])
                         : array();
