@@ -13,9 +13,11 @@ background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></
     <div class="absolute h-full w-full overflow-hidden">
       <?php 
       $afbeelding = get_sub_field('afbeelding');
+      $is_een_logo = (bool) get_sub_field('is_een_logo');
+      $object_fit_class = $is_een_logo ? 'object-contain' : 'object-cover';
       if ($afbeelding && isset($afbeelding['ID'])) {
         echo wp_get_attachment_image($afbeelding['ID'], 'full', false, array(
-          'class' => 'h-full w-full object-cover object-center will-change-transform transform-gpu origin-center',
+          'class' => 'h-full w-full ' . $object_fit_class . ' object-center will-change-transform transform-gpu origin-center',
           'alt' => $afbeelding['alt'] ?: '',
           'data-scroll-grote-afbeelding' => '',
           'data-scroll-speed' => '2',
@@ -29,14 +31,14 @@ background: linear-gradient(90deg, #0A2031 0%, rgba(10, 32, 49, 0.00) 100%);"></
       ?>
         <img src="<?= esc_url($image_src) ?>" 
              <?php if ($image_srcset) : ?>srcset="<?= esc_attr($image_srcset) ?>" sizes="<?= esc_attr($image_sizes ?: '100vw') ?>"<?php endif; ?>
-             class="h-full w-full object-cover object-center will-change-transform transform-gpu  origin-center" 
+             class="h-full w-full <?= esc_attr($object_fit_class) ?> object-center will-change-transform transform-gpu  origin-center" 
              alt="<?= esc_attr($afbeelding['alt'] ?? '') ?>"
              loading="eager"
              data-scroll-grote-afbeelding
              data-scroll-speed="2">
       <?php } else if ($afbeelding && isset($afbeelding['url'])) { ?>
         <img src="<?= esc_url($afbeelding['url']) ?>" 
-             class="h-full w-full object-cover object-center will-change-transform transform-gpu origin-center" 
+             class="h-full w-full <?= esc_attr($object_fit_class) ?> object-center will-change-transform transform-gpu origin-center" 
              alt="<?= esc_attr($afbeelding['alt'] ?? '') ?>"
              loading="eager"
              data-scroll-grote-afbeelding
