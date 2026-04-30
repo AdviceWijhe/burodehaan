@@ -145,8 +145,7 @@ if(is_page()) {
 
             <!-- Mobile Menu Button -->
             <div class="lg:hidden">
-                <button id="mobile-menu-button" class="relative inline-flex items-center gap-2 btn bg-primary border border-primary text-white hover:opacity-90 transition-opacity" aria-expanded="false">
-                    <span class="sr-only">Menu openen</span>
+                <button id="mobile-menu-button" class="relative inline-flex items-center gap-2 btn bg-primary border border-primary text-white hover:opacity-90 transition-opacity" aria-expanded="false" aria-label="<?php echo esc_attr__('Menu openen', 'advice2025'); ?>">
                     <div class="hamburger-lines inline-flex items-center justify-center leading-none">
                         <svg class="block" xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10" fill="none">
                             <rect width="14" height="1" fill="white"/>
