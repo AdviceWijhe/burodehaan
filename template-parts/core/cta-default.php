@@ -18,15 +18,19 @@ $cta_section_bottom_spacing = !empty($args['footer_cta']) ? '' : get_spacing_bot
 
 $show_cta_contact_toggle = (bool) get_sub_field('contactpersoon_tonen');
 if (!empty($args['footer_cta'])) {
-    $cta_group_option = get_field('cta_groep', 'option');
-    if (is_array($cta_group_option)) {
-        $show_cta_contact_toggle = !empty($cta_group_option['cta_contactpersoon_tonen']);
-        if (!empty($cta_group_option['cta_contactpersoon'])) {
-            $cta_contactpersoon = $cta_group_option['cta_contactpersoon'];
-        }
+    if (array_key_exists('footer_cta_contact_toggle', $args)) {
+        $show_cta_contact_toggle = (bool) $args['footer_cta_contact_toggle'];
     } else {
-        $show_cta_contact_toggle = false;
-        $cta_contactpersoon = null;
+        $cta_group_option = get_field('cta_groep', 'option');
+        if (is_array($cta_group_option)) {
+            $show_cta_contact_toggle = !empty($cta_group_option['cta_contactpersoon_tonen']);
+            if (!empty($cta_group_option['cta_contactpersoon']) && empty($cta_contactpersoon)) {
+                $cta_contactpersoon = $cta_group_option['cta_contactpersoon'];
+            }
+        } else {
+            $show_cta_contact_toggle = false;
+            $cta_contactpersoon = null;
+        }
     }
 }
 $show_cta_contact = (bool) ($show_cta_contact_toggle && !empty($cta_contactpersoon));

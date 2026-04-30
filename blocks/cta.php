@@ -1,11 +1,12 @@
-<?php 
+<?php
 // CTA blok met verschillende types
 // Data logica zit in de template parts zelf
+$cta_type = $args['cta_type'] ?? get_sub_field('cta_type');
 ?>
-<?php if(get_sub_field('cta_type') == 'default' || isset($args['cta_type']) && $args['cta_type'] == 'default') : ?>
+<?php if($cta_type == 'default') : ?>
 <?php get_template_part('template-parts/core/cta-default', null, $args); ?>
 
-<?php elseif(get_sub_field('cta_type') == 'small') : ?>
+<?php elseif($cta_type == 'small') : ?>
 <?php
 include locate_template('template-parts/core/cta-get-data.php');
 ?>
@@ -41,7 +42,7 @@ include locate_template('template-parts/core/cta-get-data.php');
   </div>
 </section>
 
-<?php elseif(get_sub_field('cta_type') == 'center') : ?>
+<?php elseif($cta_type == 'center') : ?>
 <?php get_template_part('template-parts/core/cta-center', null, $args); ?>
 
 <?php endif; ?>
