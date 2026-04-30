@@ -213,6 +213,11 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                             <?php echo $tekst; ?>
                         </div>
                     <?php endif; ?>
+                    <?php if (get_sub_field('buttons')) : ?>
+                        <div class="mt-[1.5rem]! lg:mt-[2.5rem]!">
+                            <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'))); ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <?php if ($show_sidebar) : ?>
                     <aside class="w-full lg:mt-0 lg:col-span-3 lg:col-start-9 text-black order-first lg:order-last">
@@ -330,6 +335,11 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                 <!-- De content automatisch in 2 kolommen -->
                 <div class="content-columns title-large columns-1 lg:columns-2 lg:gap-[2.8125rem] [&>p:last-child]:mb-0! lg:[&>p:last-child]:mb-[1.75rem]!">
                     <?php echo wp_kses_post($tekst); ?>
+                </div>
+            <?php endif; ?>
+            <?php if (get_sub_field('buttons')) : ?>
+                <div class="mt-[1.5rem]! lg:mt-[2.5rem]!">
+                    <?= get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'))); ?>
                 </div>
             <?php endif; ?>
         </div>
