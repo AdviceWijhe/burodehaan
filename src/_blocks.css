@@ -120,3 +120,16 @@
     vertical-align: top !important;
   }
 }
+
+/* Video block: play-knop SVG — mobiel half formaat, vanaf md (48rem) volledig */
+.video-block-play-icon {
+  width: 60px;
+  height: 60px;
+}
+
+@media (min-width: 48rem) {
+  .video-block-play-icon {
+    width: 120px;
+    height: 120px;
+  }
+}

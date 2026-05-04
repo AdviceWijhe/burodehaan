@@ -4,6 +4,7 @@
     
     <?php 
       $video_input = trim((string) get_sub_field('video_id'));
+      $fallback_image = get_sub_field('terugval_afbeelding');
       $instance_id = uniqid('video_');
       
       // Detect video platform and extract video ID
@@ -38,6 +39,13 @@
           $thumbnail_url = 'https://vumbnail.com/' . $video_id . '.jpg';
         }
       }
+
+      // ACF fallback image gets priority over platform thumbnail.
+      if (!empty($fallback_image['url'])) {
+        $thumbnail_url = !empty($fallback_image['sizes']['1536x1536'])
+          ? $fallback_image['sizes']['1536x1536']
+          : $fallback_image['url'];
+      }
     ?>
     <div class="w-full lg:w-8/12 lg:mx-auto">
       <?php if ($video_id) : ?>
@@ -54,7 +62,7 @@
           <?php if ($thumbnail_url) : ?>
           <img 
             src="<?= esc_url($thumbnail_url) ?>" 
-            alt="Video thumbnail" 
+            alt="<?= esc_attr(!empty($fallback_image['alt']) ? $fallback_image['alt'] : 'Video thumbnail') ?>" 
             loading="lazy" 
             class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           >
@@ -73,7 +81,7 @@
             class="pointer-events-none absolute text-center left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2"
             aria-hidden="true"
           >
-          <svg xmlns="http://www.w3.org/2000/svg" class="mb-[1.25rem]!" width="120" height="120" viewBox="0 0 120 120" fill="none">
+         <svg xmlns="http://www.w3.org/2000/svg" class="video-block-play-icon mb-[0.5rem]! lg:mb-[1.25rem]!" width="120" height="120" viewBox="0 0 120 120" fill="none">
   <foreignObject x="-40" y="-40" width="200" height="200"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(20px);clip-path:url(#bgblur_0_4403_7484_clip_path);height:100%;width:100%"></div></foreignObject><g data-figma-bg-blur-radius="40">
     <circle cx="60" cy="60" r="60" fill="white" fill-opacity="0.05"/>
     <circle cx="60" cy="60" r="59.5" stroke="white" stroke-opacity="0.2"/>
@@ -83,7 +91,7 @@
     <clipPath id="bgblur_0_4403_7484_clip_path" transform="translate(40 40)"><circle cx="60" cy="60" r="60"/>
   </clipPath></defs>
 </svg>
-<span class="title-medium text-white text-center font-light! mt-[1.25rem]!">Speel af</span>
+<span class="title-medium text-white text-center font-light! mt-0! lg:mt-[1.25rem]!">Speel af</span>
           </div>
         </div>
         

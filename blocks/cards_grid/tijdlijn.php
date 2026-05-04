@@ -123,12 +123,15 @@
 
         /* ── Controls: look for prev/next + progress in parent container ── */
         var container    = root.closest('.container') || root.parentElement;
-        var prevBtn      = container ? container.querySelector('.swiper-prev') : null;
-        var nextBtn      = container ? container.querySelector('.swiper-next') : null;
         var controlsKey  = '<?php echo esc_js($args['controls_class'] ?? ''); ?>';
-        var progressEl   = controlsKey ? container.querySelector('.' + controlsKey + '-progress')  : null;
-        var currentEl    = controlsKey ? container.querySelector('.' + controlsKey + '-current')   : null;
-        var totalEl      = controlsKey ? container.querySelector('.' + controlsKey + '-total')     : null;
+        var controlsRoot = (controlsKey && container)
+            ? container.querySelector('.' + controlsKey + '-controls')
+            : null;
+        var prevBtn      = controlsRoot ? controlsRoot.querySelector('.swiper-prev') : null;
+        var nextBtn      = controlsRoot ? controlsRoot.querySelector('.swiper-next') : null;
+        var progressEl   = controlsRoot ? controlsRoot.querySelector('.' + controlsKey + '-progress') : null;
+        var currentEl    = controlsRoot ? controlsRoot.querySelector('.' + controlsKey + '-current')  : null;
+        var totalEl      = controlsRoot ? controlsRoot.querySelector('.' + controlsKey + '-total')    : null;
 
         function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -140,11 +143,24 @@
             if (totalEl)   totalEl.textContent   = pad(total);
 
             if (progressEl) {
-                var trackW     = 235; /* matches the fixed w-[14.6875rem] in cards_grid.php */
+                var trackEl   = progressEl.parentElement;
+                var trackW    = trackEl && trackEl.offsetWidth ? trackEl.offsetWidth : 235;
                 var indicatorW = progressEl.offsetWidth || 90.7336;
-                var maxMove    = trackW - indicatorW;
-                var progress   = total > 1 ? (step - 1) / (total - 1) : 0;
+                var maxMove   = Math.max(0, trackW - indicatorW);
+                var progress  = total > 1 ? (step - 1) / (total - 1) : 0;
                 progressEl.style.transform = 'translateX(' + (maxMove * progress) + 'px)';
+            }
+
+            if (prevBtn) {
+                prevBtn.style.opacity = activeIndex <= 0 ? '0.35' : '1';
+                prevBtn.style.pointerEvents = activeIndex <= 0 ? 'none' : '';
+                prevBtn.setAttribute('aria-disabled', activeIndex <= 0 ? 'true' : 'false');
+            }
+            if (nextBtn) {
+                var atEnd = activeIndex >= items.length - 1;
+                nextBtn.style.opacity = atEnd ? '0.35' : '1';
+                nextBtn.style.pointerEvents = atEnd ? 'none' : '';
+                nextBtn.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
             }
         }
 

@@ -7,6 +7,15 @@
  * https://www.beterbouwengroep.nl/wp-json/wp/v2/vacature
  */
 
+$soort_items_cards  = get_sub_field('soort_items');
+$slider_ingeschakeld = (bool) get_sub_field('slider');
+$cards_rand_class   = (
+	$slider_ingeschakeld && in_array( $soort_items_cards, array( 'posts', 'eigen', 'tijdlijn' ), true )
+)
+	? 'cards-grid-' . wp_rand( 1000, 9999 )
+	: '';
+$cards_nav_root     = $cards_rand_class ? '.' . $cards_rand_class . '-controls' : '.cards-grid-controls';
+
 $swiper_setting = [];
 
 if(get_sub_field('slider')) {
@@ -18,8 +27,8 @@ if(get_sub_field('slider')) {
             'clickable' => true,
         ],
         'navigation' => [
-            'nextEl' => '.cards-grid-controls .swiper-next',
-            'prevEl' => '.cards-grid-controls .swiper-prev',
+            'nextEl' => $cards_nav_root . ' .swiper-next',
+            'prevEl' => $cards_nav_root . ' .swiper-prev',
         ],
         'breakpoints' => [
             640 => ['slidesPerView' => get_sub_field('aantal_slides')['aantal_slides_mobiel'] ?: 1.2, 'spaceBetween' => 16],
@@ -36,8 +45,8 @@ if(get_sub_field('slider')) {
             'clickable' => true,
         ],
         'navigation' => [
-            'nextEl' => '.cards-grid-controls .swiper-next',
-            'prevEl' => '.cards-grid-controls .swiper-prev',
+            'nextEl' => $cards_nav_root . ' .swiper-next',
+            'prevEl' => $cards_nav_root . ' .swiper-prev',
         ],
         'breakpoints' => [
             640 => ['slidesPerView' => 1.2, 'spaceBetween' => 16],
@@ -101,12 +110,8 @@ if ( $knoppen_buttons === array() && function_exists( 'have_rows' ) ) {
 }
 $has_knoppen = $knoppen_buttons !== array();
 $has_swiper_controls = (
-    (
-        get_sub_field('soort_items') === 'posts'
-        || get_sub_field('soort_items') === 'eigen'
-        || get_sub_field('soort_items') === 'tijdlijn'
-    )
-    && get_sub_field('slider')
+    in_array( $soort_items_cards, array( 'posts', 'eigen', 'tijdlijn' ), true )
+    && $slider_ingeschakeld
 );
 
 $backgroundPatroon = 'pink';
@@ -122,7 +127,7 @@ $backgroundPatroon = 'pink';
       <div class="mb-[1.5rem] lg:mb-[2rem] flex flex-wrap items-center justify-between lg:grid lg:grid-cols-12 lg:gap-1">
        
           <?php if (!empty($cards_heading) || $has_knoppen) : ?>
-            <div class="flex w-full min-w-0 flex-1 flex-wrap items-center justify-between gap-4 sm:flex-nowrap <?php echo $has_swiper_controls ? 'lg:col-span-7' : 'lg:col-span-8'; ?> <?php if (get_sub_field('soort_items') == 'themas' || get_sub_field('soort_items') == 'artikelen') : ?>lg:col-start-3<?php endif; ?>">
+            <div class="flex w-full min-w-0 flex-1 flex-wrap items-center justify-between gap-4 sm:flex-nowrap <?php echo $has_swiper_controls ? 'lg:col-span-5' : 'lg:col-span-8'; ?> <?php if (get_sub_field('soort_items') == 'themas' || get_sub_field('soort_items') == 'artikelen') : ?>lg:col-start-3<?php endif; ?>">
               <?php if (!empty($cards_heading)) : ?>
                 <div class="min-w-0 w-full sm:w-auto sm:flex-1 lg:max-w-[50%] <?php if (!$has_knoppen) : ?>lg:w-6/12<?php endif; ?>">
                   <div class="mb-0!"><?php echo wp_kses_post($cards_heading); ?></div>
@@ -142,19 +147,18 @@ $backgroundPatroon = 'pink';
           <?php endif; ?>
 
           <?php if ($has_swiper_controls): ?>
-          <?php $cards_rand_class = 'cards-grid-' . wp_rand(1000, 9999); ?>
-          <div class="swiper-controls cards-grid-controls hidden md:flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 lg:col-span-5 <?= esc_attr($cards_rand_class); ?>-controls">
-            <div class="w-full lg:w-auto flex items-center gap-7">
-              <div class="w-[14.6875rem] h-[0.125rem] relative overflow-hidden bg-[#161616]/20">
+          <div class="swiper-controls cards-grid-controls hidden md:flex flex-col lg:flex-row lg:items-center lg:justify-end gap-4 lg:col-span-7 <?= esc_attr($cards_rand_class); ?>-controls">
+            <div class="w-full lg:w-auto flex items-center gap-4 xl:gap-8">
+              <div class="w-[10rem] xl:w-[14.6875rem] h-[0.125rem] relative overflow-hidden bg-[#161616]/20">
                 <span class="<?= esc_attr($cards_rand_class); ?>-progress absolute left-0 top-0 h-full bg-primary transition-transform duration-300" style="width: 90.7336px; transform: translateX(0px);"></span>
               </div>
-              <div class="title-large text-black">
+              <div class="title-large text-black whitespace-nowrap shrink-0">
                 <span class="<?= esc_attr($cards_rand_class); ?>-current font-bold">01</span> /
                 <span class="<?= esc_attr($cards_rand_class); ?>-total">00</span>
               </div>
             </div>
 
-            <div class="w-full lg:w-auto flex items-stretch gap-4 lg:ml-auto">
+            <div class="w-full lg:w-auto flex items-stretch gap-4">
               <?php if(get_sub_field('buttons')) : ?>
                 <div class="hidden lg:block">
                   <?php get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'no_margin' => true)); ?>
@@ -212,6 +216,14 @@ $backgroundPatroon = 'pink';
         'posts_per_page' => 12,
         'post_status' => 'publish',
       );
+      // Op single pagina's het huidige item uitsluiten uit dezelfde post type.
+      if (is_singular()) {
+        $current_post_id = get_queried_object_id();
+        $current_post_type = $current_post_id ? get_post_type($current_post_id) : '';
+        if ($current_post_id && $current_post_type === $selected_post_type) {
+          $args['post__not_in'] = array($current_post_id);
+        }
+      }
       // Voeg categorie-filter toe voor kennisbank indien geselecteerd in ACF
       if ($selected_post_type === 'kennisbank') {
         $selected_categories = get_sub_field('categorie');
@@ -254,33 +266,83 @@ $backgroundPatroon = 'pink';
         <script>
           document.addEventListener('DOMContentLoaded', function () {
             var swiper = new Swiper('.<?= $rand_class ?>', <?php echo json_encode($swiper_setting); ?>);
-            var currentEl = document.querySelector('.<?= esc_js($cards_rand_class); ?>-current');
-            var totalEl = document.querySelector('.<?= esc_js($cards_rand_class); ?>-total');
-            var progressEl = document.querySelector('.<?= esc_js($cards_rand_class); ?>-progress');
+            var controlsRoot = document.querySelector('.<?= esc_js($cards_rand_class); ?>-controls');
+            var currentEl = controlsRoot ? controlsRoot.querySelector('.<?= esc_js($cards_rand_class); ?>-current') : null;
+            var totalEl = controlsRoot ? controlsRoot.querySelector('.<?= esc_js($cards_rand_class); ?>-total') : null;
+            var progressEl = controlsRoot ? controlsRoot.querySelector('.<?= esc_js($cards_rand_class); ?>-progress') : null;
+            var prevBtn = controlsRoot ? controlsRoot.querySelector('.swiper-prev') : null;
+            var nextBtn = controlsRoot ? controlsRoot.querySelector('.swiper-next') : null;
 
             function formatSlideNumber(num) {
               return String(num).padStart(2, '0');
             }
 
+            function getScrollProgress(sw) {
+              if (!sw || sw.destroyed) return 0;
+              var maxT = sw.maxTranslate();
+              var minT = sw.minTranslate();
+              if (!isFinite(maxT) || !isFinite(minT) || maxT === minT) return 1;
+              var t = typeof sw.translate === 'number' ? sw.translate : 0;
+              return Math.max(0, Math.min(1, (t - maxT) / (minT - maxT)));
+            }
+
             function updateProgress() {
               if (!currentEl || !totalEl || !progressEl) return;
-              var totalSteps = (swiper.snapGrid && swiper.snapGrid.length) ? swiper.snapGrid.length : 1;
-              var currentStep = (typeof swiper.snapIndex === 'number' ? swiper.snapIndex + 1 : 1);
-              if (currentStep < 1) currentStep = 1;
-              if (currentStep > totalSteps) currentStep = totalSteps;
+              var totalSlides = (swiper.slides && swiper.slides.length) ? swiper.slides.length : 1;
+              var raw = getScrollProgress(swiper);
+              var p;
+              if (totalSlides <= 1) {
+                p = 1;
+              } else {
+                /* Omgekeerd t.o.v. ruwe translate: start = 0, einde = 1 (tijdlijn + pijlen) */
+                p = Math.max(0, Math.min(1, 1 - raw));
+              }
+              var currentStep;
+
+              if (totalSlides <= 1) {
+                currentStep = 1;
+                p = 1;
+              } else if (p <= 0.001) {
+                currentStep = 1;
+                p = 0;
+              } else if (p >= 0.999) {
+                currentStep = totalSlides;
+                p = 1;
+              } else {
+                currentStep = Math.min(totalSlides, Math.max(1, Math.round(p * (totalSlides - 1)) + 1));
+              }
 
               currentEl.textContent = formatSlideNumber(currentStep);
-              totalEl.textContent = formatSlideNumber(totalSteps);
+              totalEl.textContent = formatSlideNumber(totalSlides);
 
-              var trackWidth = 235;
-              var indicatorWidth = 90.7336;
-              var maxTranslate = trackWidth - indicatorWidth;
-              var progress = totalSteps > 1 ? (currentStep - 1) / (totalSteps - 1) : 0;
-              progressEl.style.transform = 'translateX(' + (maxTranslate * progress) + 'px)';
+              var trackEl = progressEl.parentElement;
+              var trackWidth = trackEl && trackEl.offsetWidth ? trackEl.offsetWidth : 235;
+              var indicatorWidth = progressEl.offsetWidth || 90.7336;
+              var maxTranslate = Math.max(0, trackWidth - indicatorWidth);
+              progressEl.style.transform = 'translateX(' + (maxTranslate * p) + 'px)';
+
+              var atStart = p <= 0.001;
+              var atEnd = p >= 0.999;
+              if (prevBtn) {
+                prevBtn.style.opacity = atStart ? '0.35' : '1';
+                prevBtn.style.pointerEvents = atStart ? 'none' : '';
+                prevBtn.setAttribute('aria-disabled', atStart ? 'true' : 'false');
+              }
+              if (nextBtn) {
+                nextBtn.style.opacity = atEnd ? '0.35' : '1';
+                nextBtn.style.pointerEvents = atEnd ? 'none' : '';
+                nextBtn.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
+              }
             }
 
             updateProgress();
             swiper.on('slideChange', updateProgress);
+            swiper.on('transitionEnd', updateProgress);
+            swiper.on('touchEnd', updateProgress);
+            swiper.on('progress', updateProgress);
+            window.addEventListener('resize', function () {
+              requestAnimationFrame(updateProgress);
+            });
           });
         </script>
   <?php else: 
