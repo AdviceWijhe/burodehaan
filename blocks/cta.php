@@ -1,11 +1,12 @@
-<?php 
+<?php
 // CTA blok met verschillende types
 // Data logica zit in de template parts zelf
+$cta_type = $args['cta_type'] ?? get_sub_field('cta_type');
 ?>
-<?php if(get_sub_field('cta_type') == 'default' || isset($args['cta_type']) && $args['cta_type'] == 'default') : ?>
+<?php if($cta_type == 'default') : ?>
 <?php get_template_part('template-parts/core/cta-default', null, $args); ?>
 
-<?php elseif(get_sub_field('cta_type') == 'small') : ?>
+<?php elseif($cta_type == 'small') : ?>
 <?php
 include locate_template('template-parts/core/cta-get-data.php');
 ?>
@@ -17,7 +18,7 @@ include locate_template('template-parts/core/cta-get-data.php');
           <div class="mb-[1.5rem] lg:mb-[2rem]"><?php echo $cta_titel; ?></div>
         <?php endif; ?>
 
-        <?php if (!empty($cta_contactpersoon)) : ?>
+        <?php if (get_sub_field('contactpersoon_tonen') && !empty($cta_contactpersoon)) : ?>
           <div class="mb-[1.5rem] lg:mb-[2rem]">
             <?php get_template_part('template-parts/card-contactpersoon', null, array(
               'variant'    => 'default',
@@ -40,5 +41,8 @@ include locate_template('template-parts/core/cta-get-data.php');
     </div>
   </div>
 </section>
+
+<?php elseif($cta_type == 'center') : ?>
+<?php get_template_part('template-parts/core/cta-center', null, $args); ?>
 
 <?php endif; ?>

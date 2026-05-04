@@ -7,7 +7,7 @@ if($achtergrond != 'black') {
     $tekst_kleur = 'text-black';
     $border_kleur = 'border-[rgba(22,22,22,0.12)]';
 }
-$hover_border_kleur = $achtergrond === 'black' ? 'hover:border-white/25' : 'hover:border-white/25';
+$hover_border_kleur = $achtergrond === 'black' ? 'hover:border-white/25' : 'hover:border-[rgba(22,22,22,0.25)]';
 $expertises = get_terms(
     array(
         'taxonomy' => 'expertise',
@@ -35,20 +35,11 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
         <div class="expertises_title <?= $tekst_kleur ?> mb-[1.75rem] lg:mb-[3rem]">
             <?= get_sub_field('titel') ?>
         </div>
-        <?php if ($is_groot) : ?>
-            <div class="expertises_hover_preview" aria-hidden="true">
-                <img src="" alt="" />
-            </div>
-        <?php endif; ?>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1rem] lg:gap-[1.75rem]">
             <?php foreach ($visible_expertises as $expertise) : ?>
-                <?php $thumbnail_url = advice2025_get_term_thumbnail_url($expertise, 'large'); ?>
                 <a
                     href="<?= get_term_link($expertise->term_id); ?>"
-                    class="expertise group border <?= $border_kleur ?> <?= $hover_border_kleur ?> transition-shadow duration-300 p-[1.75rem] lg:p-[2rem] <?= $tekst_kleur ?> <?php if ($is_groot) { echo 'js-expertise-hover-trigger'; } ?>"
-                    <?php if ($is_groot && !empty($thumbnail_url)) : ?>
-                        data-hover-image="<?= esc_url($thumbnail_url); ?>"
-                    <?php endif; ?>
+                    class="expertise group border <?= $border_kleur ?> <?= $hover_border_kleur ?> transition-colors duration-300 ease-out p-[1.75rem] lg:p-[2rem] <?= $tekst_kleur ?>"
                 >
                     
                 <div class="expertise__icoon mb-[1.25rem]">
@@ -206,75 +197,3 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
         </div>
     <?php endif; ?>
 </section>
-
-<?php if ($is_groot) : ?>
-    <style>
-        .expertises_hover_preview {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 50;
-            width: 500px;
-            height: 667px;
-            pointer-events: none;
-            overflow: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            will-change: opacity;
-        }
-
-        .expertises_hover_preview.is-visible {
-            opacity: 1;
-        }
-
-        .expertises_hover_preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-    </style>
-    <script>
-        (() => {
-            const block = document.getElementById('<?= esc_js($block_id); ?>');
-            if (!block) return;
-
-            const preview = block.querySelector('.expertises_hover_preview');
-            const img = preview?.querySelector('img');
-            const triggers = block.querySelectorAll('.js-expertise-hover-trigger[data-hover-image]');
-
-            if (!preview || !img || !triggers.length) return;
-
-            const W = 500;
-            const H = 667;
-            const GAP = 24;
-            let hideTimer = null;
-
-            const setPosition = (mx, my) => {
-                const x = (mx + GAP + W > window.innerWidth) ? mx - W - GAP : mx + GAP;
-                const y = (my + GAP + H > window.innerHeight) ? my - H - GAP : my + GAP;
-                preview.style.transform = `translate(${x}px, ${y}px)`;
-            };
-
-            triggers.forEach((trigger) => {
-                trigger.addEventListener('mouseenter', (e) => {
-                    const url = trigger.dataset.hoverImage;
-                    if (!url) return;
-
-                    clearTimeout(hideTimer);
-                    if (img.src !== url) img.src = url;
-
-                    setPosition(e.clientX, e.clientY);
-                    preview.classList.add('is-visible');
-                });
-
-                trigger.addEventListener('mousemove', (e) => setPosition(e.clientX, e.clientY));
-
-                trigger.addEventListener('mouseleave', () => {
-                    preview.classList.remove('is-visible');
-                    hideTimer = setTimeout(() => { img.src = ''; }, 300);
-                });
-            });
-        })();
-    </script>
-<?php endif; ?>

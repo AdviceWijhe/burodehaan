@@ -1,5 +1,57 @@
 <div class="max-md:pt-[2.5rem] pb-[3.75rem] md:pb-[6.25rem]">
-<?= get_template_part('blocks/cta', null, array('cta_type' => 'default', 'cta_buttons' => get_field('footer_cta', 'option'), 'footer_cta' => true)) ?>
+<?php
+$footer_cta_args = array(
+    'cta_type' => 'default',
+    'cta_buttons' => get_field('footer_cta', 'option'),
+    'footer_cta' => true,
+);
+
+$queried_term = get_queried_object();
+if ($queried_term instanceof WP_Term && in_array($queried_term->taxonomy, array('expertise', 'thema'), true)) {
+    $term_context = $queried_term->taxonomy . '_' . $queried_term->term_id;
+    $term_footer_group = get_field('footer', $term_context);
+
+    $is_expertise = $queried_term->taxonomy === 'expertise';
+    $cta_type_field = $is_expertise ? 'expertises_cta_type' : 'themas_cta_type';
+    $cta_toggle_field = $is_expertise ? 'expertises_aangepaste_cta' : 'themas_aangepaste_cta';
+    $cta_clone_field = $is_expertise ? 'expertise_cta_kopie' : 'themas_cta_kopie';
+
+    $term_cta_type = get_field($cta_type_field, $term_context);
+    if ((!is_string($term_cta_type) || $term_cta_type === '') && is_array($term_footer_group)) {
+        $term_cta_type = $term_footer_group[$cta_type_field] ?? '';
+    }
+    if (in_array($term_cta_type, array('default', 'center'), true)) {
+        $footer_cta_args['cta_type'] = $term_cta_type;
+    }
+
+    $use_custom_term_cta = (bool) (
+        get_field($cta_toggle_field, $term_context)
+        || (is_array($term_footer_group) && !empty($term_footer_group[$cta_toggle_field]))
+    );
+    $term_cta_clone = get_field($cta_clone_field, $term_context);
+    if ((!is_array($term_cta_clone) || empty($term_cta_clone)) && is_array($term_footer_group)) {
+        $term_cta_clone = $term_footer_group[$cta_clone_field] ?? null;
+    }
+
+    if ($use_custom_term_cta && is_array($term_cta_clone) && !empty($term_cta_clone)) {
+        // Clone kan "seamless" terugkomen (directe keys) of als geneste groep.
+        $source = $term_cta_clone;
+        if (isset($source['cta_groep']) && is_array($source['cta_groep'])) {
+            $source = $source['cta_groep'];
+        } elseif (isset($source[$cta_clone_field]) && is_array($source[$cta_clone_field])) {
+            $source = $source[$cta_clone_field];
+        }
+
+        $footer_cta_args['cta_titel'] = $source['cta_titel'] ?? null;
+        $footer_cta_args['cta_content'] = $source['cta_content'] ?? null;
+        $footer_cta_args['cta_buttons'] = $source['cta_buttons'] ?? null;
+        $footer_cta_args['cta_contactpersoon'] = $source['cta_contactpersoon'] ?? null;
+        $footer_cta_args['cta_background_color'] = $source['cta_achtergrond_kleur'] ?? null;
+        $footer_cta_args['footer_cta_contact_toggle'] = !empty($source['cta_contactpersoon_tonen']);
+    }
+}
+?>
+<?= get_template_part('blocks/cta', null, $footer_cta_args) ?>
 </div>
 <footer id="colophon" class="site-footer mt-auto relative overflow-hidden w-full bg-black text-white">
     <?php
