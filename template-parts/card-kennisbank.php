@@ -50,7 +50,7 @@ $has_description = $description !== '' && trim(wp_strip_all_tags((string) $descr
 ?>
 
 <a href="<?php echo esc_url($link); ?>" class="card group border border-[rgba(22,22,22,0.12)] overflow-hidden flex flex-col md:flex-row md:items-stretch md:min-h-[240px] transition-shadow duration-300 hover:border-black/25">
-                    <div class="card-image relative w-full md:w-2/8 shrink-0 overflow-hidden h-[110px] md:min-h-[240px]">
+                    <div class="card-image relative w-full md:w-2/8 shrink-0 overflow-hidden md:min-h-[240px]">
                     <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($name); ?>" class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110">
                     </div>
                     <div class="card-body p-[1.75rem] lg:p-[2.5rem] relative w-full md:w-6/8 min-h-0">

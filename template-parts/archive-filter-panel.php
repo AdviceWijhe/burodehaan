@@ -178,14 +178,14 @@ if (empty($taxonomies)) {
             <div class="px-6 pb-6 pt-4 lg:px-[3.75rem] lg:pb-[2.5rem] lg:pt-[1.25rem] flex flex-wrap items-stretch lg:items-center gap-[1rem]">
                 <button
                     type="button"
-                    class="bg-primary btn text-secondary  max-md:w-full"
+                    class="bg-primary btn text-secondary  max-md:w-full pb-[1.5rem] pt-[1.25rem]"
                     data-archive-filter-apply
                 >
                     <span><?php esc_html_e('Filters toepassen', 'advice2025'); ?></span> 
                 </button>
                 <button
                     type="button"
-                    class="bg-transparent border border-black btn text-black text-[1rem] leading-normal max-md:w-full font-normal py-[1.5rem] px-[2.125rem]"
+                    class="bg-transparent border border-black btn text-black text-[1rem] leading-normal max-md:w-full font-normal pb-[1.5rem] pt-[1.25rem] px-[2.125rem]"
                     data-archive-filter-reset
                 >
                    <span><?php esc_html_e('Wis alle filters', 'advice2025'); ?></span> 
