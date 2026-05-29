@@ -120,7 +120,12 @@ if(is_tax()) {
                 <div id="mobile-subpanel-content" class="space-y-[1rem] px-[1rem]"></div>
             </div>
         </div>
-        <?php if (function_exists('yoast_breadcrumb') && !is_front_page()) { ?>
+        <?php
+        $show_header_breadcrumbs = function_exists('yoast_breadcrumb')
+            && !is_front_page()
+            && !is_singular('project')
+            && !is_tax('expertise');
+        if ($show_header_breadcrumbs) { ?>
         <div class="header-breadcrumbs-bar <?= $header_background_color ?>">
         <div class="container pb-5">
     <!-- yoast breadcrumbs -->
