@@ -8,7 +8,20 @@
                       <div class="min-w-0">
                         <h3 class="headline-small text-black mb-[1.75rem]!"><?php the_title(); ?></h3>
                         <div class="">
-                            <p class="mb-2! opacity-70"><?php the_field('adres'); ?></p>
+                            <?php
+                            $adres = (string) get_field('adres');
+                            $google_maps_field = get_field('google_maps_url');
+                            $google_maps_url = is_array($google_maps_field)
+                                ? (string) ($google_maps_field['url'] ?? '')
+                                : (string) $google_maps_field;
+                            ?>
+                            <p class="mb-2! opacity-70">
+                                <?php if ($adres !== '' && $google_maps_url !== '') : ?>
+                                    <a href="<?php echo esc_url($google_maps_url); ?>" target="_blank" rel="noopener noreferrer" class="hover:text-primary"><?php echo esc_html($adres); ?></a>
+                                <?php elseif ($adres !== '') : ?>
+                                    <?php echo esc_html($adres); ?>
+                                <?php endif; ?>
+                            </p>
                             <p class="opacity-70"><?php the_field('postcode'); ?>, <?php the_field('plaats'); ?></p>
                             <p class="mb-1! font-medium!"><a class="flex items-center gap-3 hover:text-primary" href="tel:<?php the_field('telefoonnummer'); ?>"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
   <path d="M5.47656 8.24219L8.125 5.625L5 0L0 2.5V3.125C0 12.4453 7.55469 20 16.875 20H17.5L20 15L14.375 11.875L11.7578 14.5234C9.00391 13.2148 6.78516 10.9961 5.47656 8.24219ZM14.4844 12.6523L19.1719 15.2578L17.1133 19.3789H16.875C7.90234 19.375 0.625 12.1016 0.625 3.125V2.88672L4.74219 0.828125L7.34766 5.51562L5.03516 7.80078L4.71875 8.11328L4.91016 8.51562C6.28125 11.3984 8.60156 13.7227 11.4844 15.0898L11.8867 15.2812L12.1992 14.9648L14.4844 12.6523Z" fill="#161616"/>
