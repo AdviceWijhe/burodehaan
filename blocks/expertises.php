@@ -19,6 +19,7 @@ $expertises = get_terms(
 
 $is_groot = (bool) get_sub_field('groot_of_klein');
 $block_id = 'expertises-' . wp_unique_id();
+$default_image = get_sub_field('afbeelding');
 
 $visible_expertises = $is_groot ? $expertises : array_slice($expertises, 0, 5);
 $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
@@ -37,8 +38,10 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1rem] lg:gap-[1.75rem]">
             <?php foreach ($visible_expertises as $expertise) : ?>
+                <?php $expertise_hover_image = advice2025_get_term_thumbnail_url($expertise->term_id, 'full'); ?>
                 <a
                     href="<?= get_term_link($expertise->term_id); ?>"
+                    data-expertise-hover-image="<?= esc_url($expertise_hover_image); ?>"
                     class="expertise group border <?= $border_kleur ?> <?= $hover_border_kleur ?> transition-colors duration-300 ease-out p-[1.75rem] lg:p-[2rem] <?= $tekst_kleur ?>"
                 >
                     
@@ -171,7 +174,7 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
   <path d="M30.8571 1.14286V14.8571H16V1.14286H30.8571ZM30.8571 16V30.8571H16V16H30.8571ZM14.8571 14.8571H1.14286V1.14286H14.8571V14.8571ZM1.14286 16H14.8571V30.8571H1.14286V16ZM1.14286 0H0V32H32V0H1.14286Z" fill="#EC663C"/>
 </svg>
-                </div>    
+                </div>
                 <h4 class="expertise_title mb-[2.5rem]! lg:mb-[8.25rem]!">Alle expertises</h4>
                 </div>
                     <ul>
@@ -186,9 +189,23 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
                 </div>
             <?php endif; ?>
 
-            <?php if(get_sub_field('afbeelding')) : ?>
-                <div class="expertises_image lg:col-span-2 lg:row-start-2 lg:col-start-3">
-                    <?= wp_get_attachment_image(get_sub_field('afbeelding')['ID'], 'full', false, array('class' => 'w-full h-full object-cover')); ?>
+            <?php if($default_image) : ?>
+                <div class="expertises_image relative h-full min-h-[12.5rem] overflow-hidden lg:col-span-2 lg:row-start-2 lg:col-start-3">
+                    <?= wp_get_attachment_image($default_image['ID'], 'full', false, array('class' => 'expertises_image__base absolute inset-0 w-full h-full object-cover', 'id' => esc_attr($block_id . '-image-base'))); ?>
+                    <img
+                        src=""
+                        alt=""
+                        class="expertises_image__overlay absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-out pointer-events-none"
+                        data-expertise-overlay
+                        aria-hidden="true"
+                    />
+                    <img
+                        src=""
+                        alt=""
+                        class="expertises_image__overlay absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-out pointer-events-none"
+                        data-expertise-overlay
+                        aria-hidden="true"
+                    />
                 </div>
             <?php endif; ?>
         </div>
@@ -197,3 +214,73 @@ $remaining_expertises = $is_groot ? array() : array_slice($expertises, 5);
         </div>
     <?php endif; ?>
 </section>
+
+<?php if ($default_image && !empty($visible_expertises)) : ?>
+    <script>
+    (function () {
+        var root = document.getElementById('<?php echo esc_js($block_id); ?>');
+        if (!root) return;
+
+        var overlays = root.querySelectorAll('[data-expertise-overlay]');
+        if (overlays.length < 2) return;
+
+        var cards = root.querySelectorAll('[data-expertise-hover-image]');
+        var currentHoverSrc = '';
+        var activeOverlay = 0;
+
+        function showHoverImage(hoverSrc) {
+            if (!hoverSrc || currentHoverSrc === hoverSrc) return;
+
+            var nextOverlay = activeOverlay === 0 ? 1 : 0;
+            var incoming = overlays[nextOverlay];
+            var outgoing = overlays[activeOverlay];
+
+            incoming.src = hoverSrc;
+            incoming.classList.remove('opacity-0');
+            outgoing.classList.add('opacity-0');
+
+            activeOverlay = nextOverlay;
+            currentHoverSrc = hoverSrc;
+        }
+
+        function showDefaultImage() {
+            overlays.forEach(function (overlay) {
+                overlay.classList.add('opacity-0');
+            });
+            currentHoverSrc = '';
+        }
+
+        function isExpertiseCard(element) {
+            return element && element.closest && !!element.closest('[data-expertise-hover-image]');
+        }
+
+        cards.forEach(function (card) {
+            var hoverSrc = card.getAttribute('data-expertise-hover-image') || '';
+            if (hoverSrc) {
+                var preloadImage = new Image();
+                preloadImage.src = hoverSrc;
+            }
+
+            card.addEventListener('mouseenter', function () {
+                showHoverImage(hoverSrc);
+            });
+
+            card.addEventListener('focus', function () {
+                showHoverImage(hoverSrc);
+            });
+
+            card.addEventListener('blur', function (event) {
+                if (!isExpertiseCard(event.relatedTarget)) {
+                    showDefaultImage();
+                }
+            });
+        });
+
+        root.addEventListener('mouseleave', function (event) {
+            if (!root.contains(event.relatedTarget)) {
+                showDefaultImage();
+            }
+        });
+    }());
+    </script>
+<?php endif; ?>
