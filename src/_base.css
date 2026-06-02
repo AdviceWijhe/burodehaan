@@ -123,7 +123,7 @@ h6 strong, h6 b {
   font-family: var(--font-family-primary);
   font-size: clamp(1rem, calc(0.8214rem + 0.1786vw), 1.1429rem);
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 140%;
   letter-spacing: 0.1rem;
   text-transform: uppercase;

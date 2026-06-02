@@ -3,13 +3,22 @@
 <div class="tijdlijn" id="<?php echo esc_attr($tid); ?>">
     <div class="tijdlijn__track">
         <?php foreach ($args['items'] as $item) : ?>
-            <article class="tijdlijn__item" data-tl-item>
-                <?php echo wp_get_attachment_image($item['icoon']['ID'], 'large', false, array('class' => 'tijdlijn__item__bg')); ?>
-                <div class="tijdlijn__item__gradient"></div>
-                <div class="tijdlijn__item__content">
-                    <div class="label label-large text-primary mb-[1rem]"><?php echo esc_html($item['jaartal']); ?></div>
-                    <h3 class="tijdlijn__item__title headline-small mb-[1.75rem]"><?php echo $item['card_title']; ?></h3>
-                    <div class="tijdlijn__item__desc"><?php echo $item['content']; ?></div>
+            <article class="tijdlijn__item overflow-hidden flex flex-col bg-white transition-colors duration-300" data-tl-item>
+                <div class="tijdlijn__item__media relative overflow-hidden shrink-0">
+                    <?php if (!empty($item['icoon']['ID'])) : ?>
+                        <?php echo wp_get_attachment_image($item['icoon']['ID'], 'large', false, array('class' => 'tijdlijn__item__bg w-full h-full object-cover')); ?>
+                    <?php endif; ?>
+                </div>
+                <div class="tijdlijn__item__content p-[1.75rem] lg:p-[2.5rem]">
+                    <?php if (!empty($item['jaartal'])) : ?>
+                        <div class="label label-large text-primary mb-[1rem]"><?php echo esc_html($item['jaartal']); ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($item['card_title'])) : ?>
+                        <h3 class="tijdlijn__item__title headline-small text-black mb-[1.75rem]! mt-0!"><?php echo wp_kses_post($item['card_title']); ?></h3>
+                    <?php endif; ?>
+                    <?php if (!empty($item['content'])) : ?>
+                        <div class="tijdlijn__item__desc body-medium text-black/80 [&_p]:mb-0"><?php echo wp_kses_post($item['content']); ?></div>
+                    <?php endif; ?>
                 </div>
             </article>
         <?php endforeach; ?>
@@ -58,53 +67,48 @@
 
         #<?php echo esc_attr($tid); ?> .tijdlijn__item__content {
             opacity: 1 !important;
+            display: block !important;
         }
     }
 
     #<?php echo esc_attr($tid); ?> .tijdlijn__item {
         flex: 0 0 auto;
-        position: relative;
+        border: 1px solid transparent;
+        /* Width is set and animated by GSAP */
+    }
+
+    #<?php echo esc_attr($tid); ?> .tijdlijn__item.tijdlijn__item--active {
+        border-color: rgba(22, 22, 22, 0.12);
+    }
+
+    #<?php echo esc_attr($tid); ?> .tijdlijn__item__media {
         height: 580px;
-        overflow: hidden;
-        /* Width is set and animated by GSAP — no CSS transition here */
+    }
+
+    @media (max-width: 767px) {
+        #<?php echo esc_attr($tid); ?> .tijdlijn__item__media {
+            height: 320px;
+        }
     }
 
     #<?php echo esc_attr($tid); ?> .tijdlijn__item__bg {
-        position: absolute;
-        inset: 0;
+        display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        pointer-events: none;
-    }
-
-    #<?php echo esc_attr($tid); ?> .tijdlijn__item__gradient {
-        position: absolute;
-        inset: auto 0 0 0;
-        height: 280px;
-        background: linear-gradient(180deg, rgba(22,22,22,0) 0%, #161616 100%);
-        opacity: 0.8;
     }
 
     #<?php echo esc_attr($tid); ?> .tijdlijn__item__content {
-        position: absolute;
-        bottom: 40px;
-        left: 40px;
-        right: 40px;
-        color: #fff;
         opacity: 0;
-        /* Opacity animated by GSAP */
+        display: none;
+        /* Opacity/display animated by GSAP on desktop */
     }
 
     #<?php echo esc_attr($tid); ?> .tijdlijn__item__title {
-        color: #fff;
         max-width: 500px;
     }
 
     #<?php echo esc_attr($tid); ?> .tijdlijn__item__desc {
-        opacity: 0.8;
-        font-size: 16px;
-        line-height: 1.5;
         max-width: 500px;
     }
 </style>
@@ -120,6 +124,10 @@
         var track = root.querySelector('.tijdlijn__track');
         var items = Array.prototype.slice.call(root.querySelectorAll('[data-tl-item]'));
         if (!track || !items.length) return;
+
+        var isMobile = function () {
+            return window.innerWidth < 768;
+        };
 
         /* ── Controls: look for prev/next + progress in parent container ── */
         var container    = root.closest('.container') || root.parentElement;
@@ -167,19 +175,13 @@
         /* ── Dimensions ────────────────────────────────────────────── */
         var GAP         = window.innerWidth < 768 ? 16 : 28;
         var activeIndex = 0;
-        var inactiveW   = 0;   /* measured once at init from CSS */
-        var activeW     = 0;   /* calculated from container width */
-        var dragger     = null; /* kept for onComplete update call */
+        var inactiveW   = 0;
+        var activeW     = 0;
+        var dragger     = null;
 
         function calcDimensions() {
             GAP = window.innerWidth < 768 ? 16 : 28;
             var containerW = root.offsetWidth;
-            /*
-             * Target: active + 1.5 × inactive = containerW
-             * → inactive = containerW / (active_ratio/inactive_ratio + 1.5)
-             * We choose active : inactive ≈ 3.5 : 1, so:
-             * inactive = containerW / (3.5 + 1.5) = containerW / 5
-             */
             inactiveW = Math.round(containerW / 5);
             activeW   = containerW - Math.round(2 * inactiveW);
             if (containerW < 768) {
@@ -188,7 +190,6 @@
             }
         }
 
-        /* Snap X for item i = sum of all items before it at inactiveW */
         function snapXFor(i) {
             return -(i * (inactiveW + GAP));
         }
@@ -204,18 +205,23 @@
 
             var duration = animate ? 0.45 : 0;
             var ease     = 'power2.out';
-
-            /* Build a single GSAP timeline so everything moves together */
             var tl = window.gsap.timeline({ overwrite: true });
 
-            /* Animate each item's width */
             items.forEach(function (item, i) {
                 var w = (i === activeIndex) ? activeW : inactiveW;
                 tl.to(item, { width: w, duration: duration, ease: ease }, 0);
+                item.classList.toggle('tijdlijn__item--active', i === activeIndex);
 
-                /* Fade content in/out */
                 var content = item.querySelector('.tijdlijn__item__content');
+                if (!content) return;
+
+                if (isMobile()) {
+                    tl.set(content, { display: 'block', opacity: 1 }, 0);
+                    return;
+                }
+
                 if (i === activeIndex) {
+                    tl.set(content, { display: 'block' }, 0);
                     tl.to(content, {
                         opacity: 1,
                         duration: animate ? 0.3 : 0,
@@ -224,12 +230,16 @@
                     }, 0);
                 } else {
                     tl.to(content, { opacity: 0, duration: animate ? 0.15 : 0, ease: 'none' }, 0);
+                    tl.set(content, { display: 'none' }, animate ? 0.15 : 0);
                 }
             });
 
-            /* Animate track X — position calculated from KNOWN inactiveW, not from DOM */
-            var targetX = Math.max(minX(), Math.min(0, snapXFor(activeIndex)));
-            tl.to(track, { x: targetX, duration: duration, ease: ease }, 0);
+            if (!isMobile()) {
+                var targetX = Math.max(minX(), Math.min(0, snapXFor(activeIndex)));
+                tl.to(track, { x: targetX, duration: duration, ease: ease }, 0);
+            } else {
+                window.gsap.set(track, { x: 0 });
+            }
 
             updateControls();
 
@@ -249,17 +259,16 @@
         function initialize() {
             calcDimensions();
 
-            /* Set all items to inactiveW first (no animation) */
             items.forEach(function (item) {
                 window.gsap.set(item, { width: inactiveW });
-                window.gsap.set(item.querySelector('.tijdlijn__item__content'), { opacity: 0 });
+                var content = item.querySelector('.tijdlijn__item__content');
+                window.gsap.set(content, { opacity: 0, display: 'none' });
             });
 
             window.gsap.set(track, { x: 0 });
 
             initDragger();
 
-            /* Show first slide + init controls */
             if (totalEl) totalEl.textContent = pad(items.length);
             goTo(0, false);
         }
