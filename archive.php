@@ -10,6 +10,7 @@ $filter_panel_taxonomies = array(
     'category' => array('label' => __('Categorie', 'advice2025')),
     'thema' => array('label' => __('Thema', 'advice2025')),
     'expertise' => array('label' => __('Expertise', 'advice2025')),
+    'project-type' => array('label' => __('Project type', 'advice2025')),
 );
 
 ?>
