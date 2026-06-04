@@ -380,8 +380,9 @@ $backgroundPatroon = 'pink';
     } else if(get_sub_field('soort_items') == 'themas' || get_sub_field('soort_items') == 'artikelen') {
 
       $items = get_sub_field('themas') ?: get_sub_field('artikelen');
+      $zonder_uitgelicht = (bool) get_sub_field('zonder_uitgelicht_artikel');
 
-      get_template_part('blocks/cards_grid/eigen_keuze', null, array('items' => $items));
+      get_template_part('blocks/cards_grid/eigen_keuze', null, array('items' => $items, 'zonder_uitgelicht' => $zonder_uitgelicht));
       
     }else if(get_sub_field('soort_items') == 'tijdlijn') {
 

@@ -4,6 +4,7 @@
  
             <?php 
             $counter = 0;
+            $zonder_uitgelicht = !empty($args['zonder_uitgelicht']);
          
             foreach($args['items'] as $item) : 
                  
@@ -36,7 +37,7 @@
                     }
                 }
                 $counter++;
-                if($counter == 1 && count($args['items']) > 1) { ?>
+                if(!$zonder_uitgelicht && $counter == 1 && count($args['items']) > 1) { ?>
                     <a href="<?php echo $link; ?>" class="card border border-[rgba(22,22,22,0.12)] flex flex-col md:flex-row">
                     <div class="card-image w-full md:w-3/8 h-full">
                         <img src="<?= $thumbnail ?>" alt="<?php echo $name; ?>" class="w-full h-full object-cover">

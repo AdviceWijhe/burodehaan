@@ -121,10 +121,7 @@ if(is_tax()) {
             </div>
         </div>
         <?php
-        $show_header_breadcrumbs = function_exists('yoast_breadcrumb')
-            && !is_front_page()
-            && !is_singular('project')
-            && !is_tax('expertise');
+        $show_header_breadcrumbs = function_exists('yoast_breadcrumb') && !is_front_page();
         if ($show_header_breadcrumbs) { ?>
         <div class="header-breadcrumbs-bar <?= $header_background_color ?>">
         <div class="container pb-5">

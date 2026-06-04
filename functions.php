@@ -691,11 +691,90 @@ add_filter('gform_submit_button', 'advice2025_gf_submit_button', 10, 2);
 // }, 20);
 
 /**
+ * Archief-broodkruimel voor project, expertise en thema.
+ */
+function advice2025_get_breadcrumb_archive_crumb(string $type): ?array {
+    switch ($type) {
+        case 'project':
+            $url = get_post_type_archive_link('project');
+            if (!$url) {
+                $page = get_page_by_path('projecten');
+                $url = $page ? get_permalink($page->ID) : '';
+            }
+            $label = __('Projecten', 'advice2025');
+            break;
+        case 'expertise':
+            $page = get_page_by_path('expertises');
+            $url = $page ? get_permalink($page->ID) : home_url('/expertises/');
+            $label = __('Expertises', 'advice2025');
+            break;
+        case 'thema':
+            $page = get_page_by_path('themas');
+            if ($page) {
+                $url = get_permalink($page->ID);
+                $label = __("Thema's", 'advice2025');
+                break;
+            }
+            $url = get_post_type_archive_link('project');
+            if (!$url) {
+                $fallback = get_page_by_path('projecten');
+                $url = $fallback ? get_permalink($fallback->ID) : '';
+            }
+            $label = __('Projecten', 'advice2025');
+            break;
+        default:
+            return null;
+    }
+
+    if (!$url) {
+        return null;
+    }
+
+    return array(
+        'url' => $url,
+        'text' => $label,
+    );
+}
+
+/**
+ * Voeg archief-broodkruimel toe vóór de huidige pagina/term (indien nog niet aanwezig).
+ */
+function advice2025_insert_archive_breadcrumb(array $crumbs, ?array $archive_crumb): array {
+    if (!$archive_crumb || empty($archive_crumb['url'])) {
+        return $crumbs;
+    }
+
+    $archive_url = untrailingslashit((string) $archive_crumb['url']);
+    foreach ($crumbs as $crumb) {
+        if (!empty($crumb['url']) && untrailingslashit((string) $crumb['url']) === $archive_url) {
+            return $crumbs;
+        }
+    }
+
+    $insert_at = max(0, count($crumbs) - 1);
+    array_splice($crumbs, $insert_at, 0, array($archive_crumb));
+
+    return $crumbs;
+}
+
+/**
  * Yoast SEO: Aangepaste broodkruimel voor vacature post type
  * Voegt "Werken bij" toe tussen Home en de vacature titel
  * Vervangt "case" door "portfolio" in breadcrumbs
  */
 function advice2025_yoast_breadcrumb_links($crumbs) {
+    if (is_singular('project')) {
+        $crumbs = advice2025_insert_archive_breadcrumb($crumbs, advice2025_get_breadcrumb_archive_crumb('project'));
+    }
+
+    if (is_tax('expertise')) {
+        $crumbs = advice2025_insert_archive_breadcrumb($crumbs, advice2025_get_breadcrumb_archive_crumb('expertise'));
+    }
+
+    if (is_tax('thema')) {
+        $crumbs = advice2025_insert_archive_breadcrumb($crumbs, advice2025_get_breadcrumb_archive_crumb('thema'));
+    }
+
     // Alleen voor single vacature posts
     if (is_singular('vacature')) {
         // Zoek de index van de huidige post in de broodkruimel
