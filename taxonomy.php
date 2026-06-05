@@ -51,7 +51,7 @@ if (is_array($header_image) && !empty($header_image['url'])) {
             <div class="container">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
                 <div class="w-full lg:col-span-6 lg:col-start-3">
-                    <p class="label-large text-primary mb-[1.25rem]!"><?php echo esc_html($tax_slug); ?></p>
+                    <p class="label-large text-primary! mb-[1.25rem]!"><?php echo esc_html($tax_slug); ?></p>
                     <h1 class="text-white text-4xl font-bold mb-[2.5rem]"><?php single_term_title(); ?></h1>
                     <div class="text-white body-large max-w-[49.375rem]"><?php echo get_field('introtekst', $term_key); ?></div>
                 </div>

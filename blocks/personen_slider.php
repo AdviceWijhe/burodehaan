@@ -80,7 +80,7 @@ if ($personen && is_array($personen) && !empty($personen)) :
                                 
                                 <!-- Functie -->
                                 <?php if ($functie) : ?>
-                                    <p class="mb-[0.75rem]! text-base text-gray-600"><?php echo esc_html($functie); ?></p>
+                                    <p class="mb-[0.5rem]! text-base text-gray-600"><?php echo esc_html($functie); ?></p>
                                 <?php endif; ?>
                                 
                                 <!-- Telefoon -->

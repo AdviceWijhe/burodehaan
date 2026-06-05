@@ -11,7 +11,7 @@
                 </div>
                 <div class="tijdlijn__item__content p-[1.75rem] lg:p-[2.5rem]">
                     <?php if (!empty($item['jaartal'])) : ?>
-                        <div class="label label-large text-primary mb-[1rem]"><?php echo esc_html($item['jaartal']); ?></div>
+                        <div class="label label-large text-primary! mb-[1rem]!"><?php echo esc_html($item['jaartal']); ?></div>
                     <?php endif; ?>
                     <?php if (!empty($item['card_title'])) : ?>
                         <h3 class="tijdlijn__item__title headline-small text-black mb-[1.75rem]! mt-0!"><?php echo wp_kses_post($item['card_title']); ?></h3>

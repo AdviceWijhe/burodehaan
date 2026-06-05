@@ -8,7 +8,7 @@ $switch_title_lg_row = $switch_title_has_lbl ? 'lg:row-start-2' : 'lg:row-start-
     <div class="container">
         <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-[1.75rem] lg:gap-y-0">
             <?php if ($switch_title_has_lbl) : ?>
-            <p class="label label-large text-primary mb-[1.25rem]! lg:col-span-5 lg:col-start-2 lg:pr-[10%] lg:row-start-1">
+            <p class="label label-large text-primary! mb-[1.25rem]! lg:col-span-5 lg:col-start-2 lg:pr-[10%] lg:row-start-1">
                 <?php echo $switch_title_label; ?>
             </p>
             <?php endif; ?>

@@ -18,7 +18,7 @@
                             <img src="<?= $stap['afbeelding']['url'] ?>" alt="<?= $stap['afbeelding']['alt'] ?>" class="w-full h-full object-cover object-center">
                         </div>
                         <div class="w-full lg:w-7/12 bg-light-blue/25 p-[2.5rem] lg:p-[3.75rem] flex flex-col justify-between items-start">
-                            <div class="badge mb-[0.75rem] lg:mb-0! label-small">Niveau <?= $count ?></div>
+                            <div class="badge mb-[0.5rem] lg:mb-0! label-small">Niveau <?= $count ?></div>
                             <div>
                             <h4 class="title-large"><?= $stap['titel'] ?></h4>
                             <div class="mb-[2rem]! body-medium font-normal"><?= $stap['content'] ?></div>

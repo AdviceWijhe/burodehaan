@@ -171,7 +171,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
         if($soortBlock === 'intro') { ?>
             <div class="w-11/12 ml-[calc(100%/12*1)] lg:w-6/12 lg:ml-[calc(100%/12*2)] <?php echo esc_attr($text_color_class); ?>">
                 <?php if (!empty($tekst_label)) : ?>
-                    <div class="label-large text-primary mb-[1rem]"><?php echo esc_html($tekst_label); ?></div>
+                    <div class="label-large text-primary! mb-[1rem]!"><?php echo esc_html($tekst_label); ?></div>
                 <?php endif; ?>
                 <div class="headline-medium mb-[1.75rem] <?php echo esc_attr($text_color_class); ?>">
                     <?php echo wp_kses_post($titel); ?>
@@ -200,7 +200,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
             <div class="<?php echo $is_single_or_tax ? 'grid grid-cols-1 lg:grid-cols-12 gap-[2.5rem]' : ''; ?>">
                 <div class="w-full <?php echo $is_single_or_tax ? 'lg:col-span-5 lg:col-start-3' : $width . ' ml-[calc(100%/12*2)]'; ?> default-content <?php echo esc_attr($text_color_class); ?>">
                 <?php if (!empty($tekst_label)) : ?>
-                        <div class="label-large text-primary mb-[1rem] lg:mb-[1.25rem]"><?php echo esc_html($tekst_label); ?></div>
+                        <div class="label-large text-primary! mb-[1rem]! lg:mb-[1.25rem]!"><?php echo esc_html($tekst_label); ?></div>
                     <?php endif; ?>
                 <?php if (!empty($titel)) : ?>
                 <div class="headline-medium mb-[1.75rem] <?php echo esc_attr($text_color_class); ?>">
@@ -297,7 +297,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
                                                 <?php if (!empty($related_taxonomy_label)) : ?>
                                                     <span class="inline-flex body-small font-normal! border border-black text-black badge mb-[1rem]"><?php echo esc_html($related_taxonomy_label); ?></span>
                                                 <?php endif; ?>
-                                                <p class="body-medium font-normal! mb-0!"><?php echo esc_html($related_title); ?></p>
+                                                <p class="body-medium font-normal! mb-0! line-clamp-2 overflow-hidden!"><?php echo esc_html($related_title); ?></p>
                                             </div>
                                             <div class="shrink-0 flex items-center pr-[1.25rem]">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16" fill="none">
@@ -324,7 +324,7 @@ if ($show_sidebar_articles && $is_single_or_tax) {
            <div class="<?php echo esc_attr($text_color_class); ?>">
             <div class="w-full lg:w-8/12 lg:ml-[calc(100%/12*2)]">
             <?php if (!empty($tekst_label)) : ?>
-                <div class="label-large text-primary mb-[1rem] lg:mb-[1.25rem]"><?php echo esc_html($tekst_label); ?></div>
+                <div class="label-large text-primary! mb-[1rem]! lg:mb-[1.25rem]!"><?php echo esc_html($tekst_label); ?></div>
             <?php endif; ?>
             <?php if (!empty($titel)) : ?>
                 <div class="mb-[1.75rem] lg:mb-[2.5rem] max-w-[49.375rem] <?php echo esc_attr($text_color_class); ?>">

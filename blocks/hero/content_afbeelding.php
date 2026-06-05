@@ -14,7 +14,7 @@ $subtitle = get_sub_field('label');
     <div class="hero__content--content max-md:py-[2.5rem] w-full lg:w-1/2 ml-auto lg:p-[5rem]">
         <div class="hero__content--content-inner">
             <div class="hero__content--content-inner-label mb-[1.25rem]">
-                <p class="label label-large text-primary mb-0!"><?php echo $subtitle; ?></p>
+                <p class="label label-large text-primary! mb-0!"><?php echo $subtitle; ?></p>
             </div>
             <div class="hero__content--content-inner-title mb-[2.5rem]">
                 <?php echo $hero_title; ?>

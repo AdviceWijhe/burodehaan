@@ -114,6 +114,67 @@ $has_swiper_controls = (
     && $slider_ingeschakeld
 );
 
+$slider_item_count = 0;
+if ( $has_swiper_controls ) {
+    if ( 'eigen' === $soort_items_cards ) {
+        $cards = get_sub_field( 'cards' );
+        $slider_item_count = is_array( $cards ) ? count( $cards ) : 0;
+    } elseif ( 'tijdlijn' === $soort_items_cards ) {
+        $tijdlijn_items = get_sub_field( 'tijdlijn_items' );
+        $slider_item_count = is_array( $tijdlijn_items ) ? count( $tijdlijn_items ) : 0;
+    } elseif ( 'posts' === $soort_items_cards ) {
+        $count_post_type = get_sub_field( 'post_type' );
+        if ( 'bericht' === $count_post_type || 'berichten' === $count_post_type ) {
+            $count_post_type = 'post';
+        }
+        $count_args = array(
+            'post_type'      => $count_post_type,
+            'posts_per_page' => 12,
+            'post_status'    => 'publish',
+            'fields'         => 'ids',
+        );
+        if ( is_singular() ) {
+            $current_post_id   = get_queried_object_id();
+            $current_post_type = $current_post_id ? get_post_type( $current_post_id ) : '';
+            if ( $current_post_id && $current_post_type === $count_post_type ) {
+                $count_args['post__not_in'] = array( $current_post_id );
+            }
+        }
+        if ( 'kennisbank' === $count_post_type ) {
+            $selected_categories = get_sub_field( 'categorie' );
+            if ( ! empty( $selected_categories ) ) {
+                if ( ! is_array( $selected_categories ) ) {
+                    $selected_categories = array( $selected_categories );
+                }
+                $count_args['tax_query'] = array(
+                    array(
+                        'taxonomy' => 'category',
+                        'field'    => 'term_id',
+                        'terms'    => $selected_categories,
+                    ),
+                );
+            }
+        }
+        $count_query         = new WP_Query( $count_args );
+        $slider_item_count   = (int) $count_query->post_count;
+        wp_reset_postdata();
+    }
+}
+$has_swiper_nav = $has_swiper_controls && $slider_item_count > 2;
+
+if ( $has_swiper_controls && 1 === $slider_item_count && ! empty( $swiper_setting ) ) {
+    // Houd bij 1 item dezelfde kaartbreedte als een 2-koloms slider.
+    $swiper_setting['slidesPerView'] = 2;
+    if ( isset( $swiper_setting['breakpoints'] ) && is_array( $swiper_setting['breakpoints'] ) ) {
+        foreach ( $swiper_setting['breakpoints'] as $breakpoint => $breakpoint_settings ) {
+            if ( ! is_array( $breakpoint_settings ) ) {
+                continue;
+            }
+            $swiper_setting['breakpoints'][ $breakpoint ]['slidesPerView'] = 2;
+        }
+    }
+}
+
 $backgroundPatroon = 'pink';
 
 ?>
@@ -127,13 +188,13 @@ $backgroundPatroon = 'pink';
       <div class="mb-[1.5rem] lg:mb-[2rem] flex flex-wrap items-center justify-between lg:grid lg:grid-cols-12 lg:gap-1">
        
           <?php if (!empty($cards_heading) || $has_knoppen) : ?>
-            <div class="flex w-full min-w-0 flex-1 flex-wrap items-center justify-between gap-4 sm:flex-nowrap <?php echo $has_swiper_controls ? 'lg:col-span-5' : 'lg:col-span-8'; ?> <?php if (get_sub_field('soort_items') == 'themas' || get_sub_field('soort_items') == 'artikelen') : ?>lg:col-start-3<?php endif; ?>">
+            <div class="flex w-full min-w-0 flex-1 flex-wrap items-center justify-between gap-4 sm:flex-nowrap <?php echo $has_swiper_nav ? 'lg:col-span-5' : 'lg:col-span-8'; ?> <?php if (get_sub_field('soort_items') == 'themas' || get_sub_field('soort_items') == 'artikelen') : ?>lg:col-start-3<?php endif; ?>">
               <?php if (!empty($cards_heading)) : ?>
                 <div class="min-w-0 w-full sm:w-auto sm:flex-1 lg:max-w-[50%] <?php if (!$has_knoppen) : ?>lg:w-6/12<?php endif; ?>">
                   <div class="mb-0!"><?php echo wp_kses_post($cards_heading); ?></div>
                 </div>
               <?php endif; ?>
-              <?php if ($has_knoppen && !$has_swiper_controls) : ?>
+              <?php if ($has_knoppen && !$has_swiper_nav) : ?>
                 <div class="shrink-0 sm:ml-0 <?php echo empty($cards_heading) ? 'ml-auto w-full sm:w-auto' : ''; ?>">
                   <?php
                   get_template_part('template-parts/core/buttons', null, array(
@@ -146,8 +207,9 @@ $backgroundPatroon = 'pink';
             </div>
           <?php endif; ?>
 
-          <?php if ($has_swiper_controls): ?>
-          <div class="swiper-controls cards-grid-controls hidden md:flex flex-col lg:flex-row lg:items-center lg:justify-end gap-4 lg:col-span-7 <?= esc_attr($cards_rand_class); ?>-controls">
+          <?php if ($has_swiper_nav || ($has_swiper_controls && get_sub_field('buttons'))) : ?>
+          <div class="swiper-controls cards-grid-controls hidden md:flex flex-col lg:flex-row lg:items-center lg:justify-end gap-4 <?= $has_swiper_nav ? 'lg:col-span-7' : 'lg:col-span-4 lg:col-start-9'; ?> <?= esc_attr($cards_rand_class); ?>-controls">
+            <?php if ($has_swiper_nav) : ?>
             <div class="w-full lg:w-auto flex items-center gap-4 xl:gap-8">
               <div class="w-[10rem] xl:w-[14.6875rem] h-[0.125rem] relative overflow-hidden bg-[#161616]/20">
                 <span class="<?= esc_attr($cards_rand_class); ?>-progress absolute left-0 top-0 h-full bg-primary transition-transform duration-300" style="width: 90.7336px; transform: translateX(0px);"></span>
@@ -157,6 +219,7 @@ $backgroundPatroon = 'pink';
                 <span class="<?= esc_attr($cards_rand_class); ?>-total">00</span>
               </div>
             </div>
+            <?php endif; ?>
 
             <div class="w-full lg:w-auto flex items-stretch gap-4">
               <?php if(get_sub_field('buttons')) : ?>
@@ -164,6 +227,7 @@ $backgroundPatroon = 'pink';
                   <?php get_template_part('template-parts/core/buttons', null, array('buttons' => get_sub_field('buttons'), 'no_margin' => true)); ?>
                 </div>
               <?php endif; ?>
+              <?php if ($has_swiper_nav) : ?>
               <div class="swiper-arrows cards-grid-nav hidden lg:flex items-center gap-0">
                 <div class="swiper-prev cards-grid-nav-btn">
                   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">
@@ -193,6 +257,7 @@ $backgroundPatroon = 'pink';
                   </svg>
                 </div>
               </div>
+              <?php endif; ?>
             </div>
           </div>
           <?php endif; ?>

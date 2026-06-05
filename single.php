@@ -19,7 +19,7 @@ if(get_post_type() == 'project') {
         <div class="container pb-[5rem] lg:pb-[7.5rem]">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
                 <div class="w-full lg:col-span-8 lg:col-start-3">
-                    <p class="label-large text-primary mb-[1.25rem]!"><?= $label; ?></p>
+                    <p class="label-large text-primary! mb-[1.25rem]!"><?= $label; ?></p>
                     <h1 class="text-white text-4xl font-bold mb-[2.5rem]"><?= get_the_title(); ?></h1>
                     <div class="text-white body-large max-w-[49.375rem]"><?php echo get_field('introtekst', get_the_ID()); ?></div>
                 </div>

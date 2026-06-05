@@ -1,3 +1,11 @@
+<?php
+$title_text       = wp_strip_all_tags( get_the_title() );
+$title_truncated  = wp_trim_words( $title_text, 9, '...' );
+$excerpt_source   = get_the_excerpt() ?: wp_strip_all_tags( get_the_content() );
+$excerpt_text     = wp_strip_all_tags( (string) $excerpt_source );
+$excerpt_truncated = wp_trim_words( $excerpt_text, 20, '...' );
+?>
+
 <a href="<?php the_permalink(); ?>" class="flex flex-col h-full group">
                     <div class="relative overflow-hidden aspect-[517/320] shrink-0">
                       <?php if (has_post_thumbnail()) : ?>
@@ -6,9 +14,9 @@
                     </div>
                     <div class="bg-white p-[1.75rem] lg:p-[2.5rem] flex flex-1 items-start justify-between gap-4 border border-black/12 transition-shadow duration-300 hover:border-black/25">
                       <div class="min-w-0">
-                        <h3 class="headline-small text-black mb-[1.75rem]!"><?php the_title(); ?></h3>
+                        <h3 class="headline-small text-black mb-[1.75rem]!"><?php echo esc_html( $title_truncated ); ?></h3>
                         <div class="body-medium text-black/70 mb-0!">
-                          <?php echo esc_html(wp_trim_words(get_the_excerpt() ?: wp_strip_all_tags(get_the_content()), 20, '...')); ?>
+                          <?php echo esc_html( $excerpt_truncated ); ?>
                         </div>
                       </div>
                       <span class="shrink-0 self-end transition-transform duration-300 ease-out group-hover:translate-x-[6px]">
