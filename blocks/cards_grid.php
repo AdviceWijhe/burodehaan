@@ -155,15 +155,51 @@ if ( $has_swiper_controls ) {
                 );
             }
         }
+        // Op een project-single alleen projecten met hetzelfde project-type tonen.
+        if ( 'project' === $count_post_type && is_singular( 'project' ) ) {
+            $current_project_id = get_queried_object_id();
+            $project_type_terms = $current_project_id ? wp_get_post_terms( $current_project_id, 'project-type', array( 'fields' => 'ids' ) ) : array();
+            if ( ! is_wp_error( $project_type_terms ) && ! empty( $project_type_terms ) ) {
+                $count_args['tax_query'] = array(
+                    array(
+                        'taxonomy' => 'project-type',
+                        'field'    => 'term_id',
+                        'terms'    => $project_type_terms,
+                    ),
+                );
+            }
+        }
         $count_query         = new WP_Query( $count_args );
         $slider_item_count   = (int) $count_query->post_count;
         wp_reset_postdata();
     }
 }
-$has_swiper_nav = $has_swiper_controls && $slider_item_count > 2;
+// Gewenste slides-per-view op desktop volgens de instellingen (default 4).
+$desktop_spv = 4;
+if ( ! empty( $swiper_setting['breakpoints'][1024]['slidesPerView'] ) ) {
+    $desktop_spv = (int) $swiper_setting['breakpoints'][1024]['slidesPerView'];
+}
 
-if ( $has_swiper_controls && 1 === $slider_item_count && ! empty( $swiper_setting ) ) {
-    // Houd bij 1 item dezelfde kaartbreedte als een 2-koloms slider.
+$slider_post_type = get_sub_field( 'post_type' );
+if ( 'bericht' === $slider_post_type || 'berichten' === $slider_post_type ) {
+    $slider_post_type = 'post';
+}
+$is_project_slider = ( 'posts' === $soort_items_cards && 'project' === $slider_post_type );
+
+if ( $has_swiper_controls && $is_project_slider && $slider_item_count > 0 && $slider_item_count < 3 && ! empty( $swiper_setting ) ) {
+    // Projecten: bij 1 of 2 items de kaartbreedte aanhouden alsof er 3 staan.
+    $swiper_setting['slidesPerView'] = 3;
+    if ( isset( $swiper_setting['breakpoints'] ) && is_array( $swiper_setting['breakpoints'] ) ) {
+        foreach ( $swiper_setting['breakpoints'] as $breakpoint => $breakpoint_settings ) {
+            if ( ! is_array( $breakpoint_settings ) || $breakpoint < 768 ) {
+                continue;
+            }
+            $swiper_setting['breakpoints'][ $breakpoint ]['slidesPerView'] = 3;
+        }
+    }
+    $desktop_spv = 3;
+} elseif ( $has_swiper_controls && 1 === $slider_item_count && ! empty( $swiper_setting ) ) {
+    // Overige sliders: bij 1 item de kaartbreedte aanhouden alsof er 2 staan.
     $swiper_setting['slidesPerView'] = 2;
     if ( isset( $swiper_setting['breakpoints'] ) && is_array( $swiper_setting['breakpoints'] ) ) {
         foreach ( $swiper_setting['breakpoints'] as $breakpoint => $breakpoint_settings ) {
@@ -174,6 +210,10 @@ if ( $has_swiper_controls && 1 === $slider_item_count && ! empty( $swiper_settin
         }
     }
 }
+
+// Teller + vorige/volgende alleen tonen als er meer items zijn dan in de slider passen.
+$nav_threshold = ( 'posts' === $soort_items_cards ) ? $desktop_spv : 2;
+$has_swiper_nav = $has_swiper_controls && $slider_item_count > $nav_threshold;
 
 $backgroundPatroon = 'pink';
 
@@ -301,6 +341,20 @@ $backgroundPatroon = 'pink';
               'taxonomy' => 'category',
               'field' => 'term_id',
               'terms' => $selected_categories,
+            ),
+          );
+        }
+      }
+      // Op een project-single alleen projecten met hetzelfde project-type tonen.
+      if ($selected_post_type === 'project' && is_singular('project')) {
+        $current_project_id = get_queried_object_id();
+        $project_type_terms = $current_project_id ? wp_get_post_terms($current_project_id, 'project-type', array('fields' => 'ids')) : array();
+        if (!is_wp_error($project_type_terms) && !empty($project_type_terms)) {
+          $args['tax_query'] = array(
+            array(
+              'taxonomy' => 'project-type',
+              'field' => 'term_id',
+              'terms' => $project_type_terms,
             ),
           );
         }
