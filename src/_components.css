@@ -4,11 +4,11 @@
 
 @layer components {
   .container {
-    @apply min-sm:max-w-[100%]!;
-    @apply min-md:max-w-[100%]!;
-    @apply min-lg:max-w-[100%]!;
-    @apply min-xl:max-w-[100%]!;
-    @apply min-2xl:max-w-[100%]!;
+    /* Content begrenzen tot de site-max-breedte en centreren.
+       Achtergronden/achtergrondafbeeldingen zitten op de buitenste
+       wrappers en behouden zo hun volledige breedte. */
+    @apply w-full mx-auto;
+    max-width: var(--site-max-width) !important;
     @apply px-[1rem] lg:px-[3.75rem]!;
   }
 }

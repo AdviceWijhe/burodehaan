@@ -7,7 +7,6 @@ get_header();
 
 $title = 'projecten';
 $filter_panel_taxonomies = array(
-    'category' => array('label' => __('Categorie', 'advice2025')),
     'thema' => array('label' => __('Thema', 'advice2025')),
     'expertise' => array('label' => __('Expertise', 'advice2025')),
     'project-type' => array('label' => __('Project type', 'advice2025')),
@@ -52,6 +51,8 @@ $filter_panel_taxonomies = array(
     $max_pages = (int) $wp_query->max_num_pages;
     $archive_query_vars = $wp_query->query_vars;
     $archive_query_vars['advice2025_filters'] = array();
+    $total_posts = (int) $wp_query->found_posts;
+    $loaded_posts = (int) $wp_query->post_count;
     ?>
     <div
         class="container  "
@@ -62,7 +63,7 @@ $filter_panel_taxonomies = array(
         <?php if (have_posts()) : ?>
             <div
                 id="archive-post-grid"
-                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-4 4xl:grid-cols-5 gap-[1rem] lg:gap-[1.75rem] pb-[5rem] lg:pb-[12.5rem]"
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-4 4xl:grid-cols-5 gap-[1rem] lg:gap-[1.75rem]"
             >
             <?php while (have_posts()) : the_post(); ?>
                 <?= get_template_part('template-parts/card', get_post_type()); ?>
@@ -87,24 +88,35 @@ $filter_panel_taxonomies = array(
             </section>
             
         <?php endif; ?>
+
+        <?php if ($total_posts > 0) : ?>
+            <div class="mt-[1.25rem] lg:mt-[1.875rem] pb-[5rem] lg:pb-[12.5rem] text-center">
+                <?php if ($max_pages > 1) : ?>
+                    <button
+                        id="archive-load-more"
+                        class="btn border border-black text-black hover:bg-black hover:text-white"
+                        type="button"
+                        data-post-type="<?php echo esc_attr(get_post_type()); ?>"
+                        data-current-page="<?php echo esc_attr($current_page); ?>"
+                        data-max-pages="<?php echo esc_attr($max_pages); ?>"
+                        data-query-vars="<?php echo esc_attr(wp_json_encode($archive_query_vars)); ?>"
+                    >
+                        Laad meer <?= $title; ?>
+                    </button>
+                <?php endif; ?>
+                <p
+                    id="archive-load-more-status"
+                    class="body-medium text-black/60 <?php echo $max_pages > 1 ? 'mt-[1rem]' : ''; ?>"
+                    data-loaded="<?php echo esc_attr($loaded_posts); ?>"
+                    data-total="<?php echo esc_attr($total_posts); ?>"
+                    data-label="<?php echo esc_attr($title); ?>"
+                >
+                    <?php echo esc_html(sprintf('%d van de %d %s getoond', $loaded_posts, $total_posts, $title)); ?>
+                </p>
+            </div>
+        <?php endif; ?>
         
     </div>
-
-    <?php if ($max_pages > 1) : ?>
-        <div class="mt-[1.875rem] lg:mt-[3.75rem] text-center">
-            <button
-                id="archive-load-more"
-                class="btn border border-black text-black hover:bg-black hover:text-white"
-                type="button"
-                data-post-type="<?php echo esc_attr(get_post_type()); ?>"
-                data-current-page="<?php echo esc_attr($current_page); ?>"
-                data-max-pages="<?php echo esc_attr($max_pages); ?>"
-                data-query-vars="<?php echo esc_attr(wp_json_encode($archive_query_vars)); ?>"
-            >
-                Laad meer <?= $title; ?>
-            </button>
-        </div>
-    <?php endif; ?>
 </main>
 
 <?php

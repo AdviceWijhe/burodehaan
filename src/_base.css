@@ -10,8 +10,10 @@
 
 /* Base Styles */
 html {
-    /* 16px at 1728px viewport width, with practical min/max bounds */
-    font-size: clamp(0.875rem, calc(100vw / 108), 1.375rem);
+    /* 16px at 1728px viewport width, with practical min/max bounds.
+       Boven de site-max-width stopt de schaling zodat de content niet
+       verder groeit dan de vastgezette breedte. */
+    font-size: clamp(0.875rem, calc(min(100vw, var(--site-max-width)) / 108), 1.375rem);
 }
 
 body {

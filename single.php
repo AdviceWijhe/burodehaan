@@ -78,11 +78,26 @@ if(get_post_type() == 'project') {
         <?php
         $header_afbeelding = get_field('header_afbeelding', get_the_ID());
         $volledige_breedte = (bool) get_field('volledige_breedte', get_the_ID());
+        $header_image_object_class = 'object-center';
+
+        if (get_post_type() === 'project') {
+            switch (get_field('headerafbeelding_positie', get_the_ID())) {
+                case 'boven':
+                    $header_image_object_class = 'object-top';
+                    break;
+                case 'onder':
+                    $header_image_object_class = 'object-bottom';
+                    break;
+                default:
+                    $header_image_object_class = 'object-center';
+                    break;
+            }
+        }
         ?>
         <?php if ($volledige_breedte) : ?>
         <div class="post-header-image h-[12.5rem] lg:h-[40.625rem]">
             <?php if ($header_afbeelding && !empty($header_afbeelding['sizes']['1536x1536'])) : ?>
-            <img src="<?= esc_url($header_afbeelding['sizes']['1536x1536']); ?>" alt="<?= esc_attr($header_afbeelding['alt'] ?? ''); ?>" class="w-full h-full object-cover">
+            <img src="<?= esc_url($header_afbeelding['sizes']['1536x1536']); ?>" alt="<?= esc_attr($header_afbeelding['alt'] ?? ''); ?>" class="w-full h-full object-cover <?php echo esc_attr($header_image_object_class); ?>">
             <?php endif; ?>
         </div>
         <?php else : ?>
@@ -91,7 +106,7 @@ if(get_post_type() == 'project') {
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem]">
                 <div class="post-header-image col-span-1 lg:col-span-10 lg:col-start-2 h-[12.5rem] lg:h-[40.625rem] overflow-hidden">
                     <?php if ($header_afbeelding && !empty($header_afbeelding['sizes']['1536x1536'])) : ?>
-                    <img src="<?= esc_url($header_afbeelding['sizes']['1536x1536']); ?>" alt="<?= esc_attr($header_afbeelding['alt'] ?? ''); ?>" class="w-full h-full object-cover">
+                    <img src="<?= esc_url($header_afbeelding['sizes']['1536x1536']); ?>" alt="<?= esc_attr($header_afbeelding['alt'] ?? ''); ?>" class="w-full h-full object-cover <?php echo esc_attr($header_image_object_class); ?>">
                     <?php endif; ?>
                 </div>
             </div>

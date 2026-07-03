@@ -1075,11 +1075,22 @@ function advice2025_archive_load_more_ajax() {
 
     $query = new WP_Query($query_vars);
 
+    $found_posts = (int) $query->found_posts;
+    $posts_per_page = (int) $query->get('posts_per_page');
+    if ($posts_per_page <= 0) {
+        $posts_per_page = (int) get_option('posts_per_page');
+    }
+    $loaded_count = min((($page - 1) * $posts_per_page) + (int) $query->post_count, $found_posts);
+    $max_num_pages = (int) $query->max_num_pages;
+
     if (!$query->have_posts()) {
         wp_send_json_success(array(
             'html' => '',
             'nextPage' => $page,
-            'hasMore' => false
+            'hasMore' => false,
+            'foundPosts' => $found_posts,
+            'loadedCount' => 0,
+            'maxPages' => $max_num_pages,
         ));
         return;
     }
@@ -1100,7 +1111,10 @@ function advice2025_archive_load_more_ajax() {
     wp_send_json_success(array(
         'html' => ob_get_clean(),
         'nextPage' => $page + 1,
-        'hasMore' => $page < (int) $query->max_num_pages
+        'hasMore' => $page < $max_num_pages,
+        'foundPosts' => $found_posts,
+        'loadedCount' => $loaded_count,
+        'maxPages' => $max_num_pages,
     ));
 }
 add_action('wp_ajax_archive_load_more', 'advice2025_archive_load_more_ajax');

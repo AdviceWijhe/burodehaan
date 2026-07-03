@@ -654,6 +654,40 @@
     });
   }
 
+  function getArchivePostGridCount() {
+    const grid = document.getElementById("archive-post-grid");
+    if (!grid) {
+      return 0;
+    }
+
+    return grid.children.length;
+  }
+
+  /**
+   * Archive load more status text
+   */
+  function updateArchiveLoadMoreStatus(loaded, total) {
+    const status = document.getElementById("archive-load-more-status");
+    if (!status) {
+      return;
+    }
+
+    const label = status.dataset.label || "projecten";
+    const loadedCount = Math.max(0, parseInt(String(loaded), 10) || 0);
+    const totalCount = Math.max(0, parseInt(String(total), 10) || 0);
+
+    status.dataset.loaded = String(loadedCount);
+    status.dataset.total = String(totalCount);
+
+    if (totalCount <= 0) {
+      status.classList.add("hidden");
+      return;
+    }
+
+    status.classList.remove("hidden");
+    status.textContent = loadedCount + " van de " + totalCount + " " + label;
+  }
+
   /**
    * Archive Load More
    */
@@ -667,10 +701,13 @@
 
     const ajaxUrl = window.advice2025ArchiveLoadMore.ajaxUrl;
     const nonce = window.advice2025ArchiveLoadMore.nonce;
-    const maxPages = parseInt(button.dataset.maxPages || "1", 10);
     const originalLabel = button.textContent;
     let currentPage = parseInt(button.dataset.currentPage || "1", 10);
     let isLoading = false;
+
+    function getMaxPages() {
+      return parseInt(button.dataset.maxPages || "1", 10);
+    }
 
     function setLoadingState(loading) {
       isLoading = loading;
@@ -685,6 +722,8 @@
 
     button.addEventListener("click", function () {
       if (isLoading) return;
+
+      const maxPages = getMaxPages();
       if (currentPage >= maxPages) {
         hideButton();
         return;
@@ -722,7 +761,14 @@
           currentPage = nextPage;
           button.dataset.currentPage = String(currentPage);
 
-          if (!result.data.hasMore || currentPage >= maxPages) {
+          const statusEl = document.getElementById("archive-load-more-status");
+          const totalCount = typeof result.data.foundPosts !== "undefined"
+            ? result.data.foundPosts
+            : parseInt(statusEl && statusEl.dataset.total ? statusEl.dataset.total : "0", 10);
+
+          updateArchiveLoadMoreStatus(getArchivePostGridCount(), totalCount);
+
+          if (!result.data.hasMore || currentPage >= getMaxPages()) {
             hideButton();
             return;
           }
@@ -818,6 +864,17 @@
           if (loadMoreButton) {
             loadMoreButton.dataset.currentPage = "1";
             loadMoreButton.dataset.queryVars = JSON.stringify(queryVars);
+
+            if (typeof result.data.maxPages !== "undefined") {
+              loadMoreButton.dataset.maxPages = String(result.data.maxPages);
+            }
+          }
+
+          if (typeof result.data.loadedCount !== "undefined" && typeof result.data.foundPosts !== "undefined") {
+            updateArchiveLoadMoreStatus(
+              result.data.foundPosts > 0 ? getArchivePostGridCount() : 0,
+              result.data.foundPosts
+            );
           }
 
           setButtonVisibility(Boolean(result.data.hasMore));
@@ -826,6 +883,7 @@
           if (requestId === activeRequestId) {
             grid.innerHTML = '<p class="col-span-full text-[18px]">Geen resultaten gevonden.</p>';
             setButtonVisibility(false);
+            updateArchiveLoadMoreStatus(0, 0);
           }
         })
         .finally(function () {

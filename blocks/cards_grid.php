@@ -155,8 +155,8 @@ if ( $has_swiper_controls ) {
                 );
             }
         }
-        // Op een project-single alleen projecten met hetzelfde project-type tonen.
-        if ( 'project' === $count_post_type && is_singular( 'project' ) ) {
+        // Op een project-single alleen projecten met hetzelfde project-type tonen (indien aangevinkt).
+        if ( 'project' === $count_post_type && is_singular( 'project' ) && get_sub_field( 'hetzelfde_project_type' ) ) {
             $current_project_id = get_queried_object_id();
             $project_type_terms = $current_project_id ? wp_get_post_terms( $current_project_id, 'project-type', array( 'fields' => 'ids' ) ) : array();
             if ( ! is_wp_error( $project_type_terms ) && ! empty( $project_type_terms ) ) {
@@ -366,8 +366,8 @@ $backgroundPatroon = 'pink';
           );
         }
       }
-      // Op een project-single alleen projecten met hetzelfde project-type tonen.
-      if ($selected_post_type === 'project' && is_singular('project')) {
+      // Op een project-single alleen projecten met hetzelfde project-type tonen (indien aangevinkt).
+      if ($selected_post_type === 'project' && is_singular('project') && get_sub_field('hetzelfde_project_type')) {
         $current_project_id = get_queried_object_id();
         $project_type_terms = $current_project_id ? wp_get_post_terms($current_project_id, 'project-type', array('fields' => 'ids')) : array();
         if (!is_wp_error($project_type_terms) && !empty($project_type_terms)) {

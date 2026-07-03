@@ -12,6 +12,9 @@
 	/* END AUTO-GENERATED COLORS */
 
     --font-family-primary: "Fira Sans", "Open Sans", "Roboto", sans-serif;
+
+    /* Maximale breedte van de volledige site; alle content valt hierbinnen */
+    --site-max-width: 1440px;
 /* 
     --color-black: rgb(0 0 0);
       --color-white: rgb(255 255 255);

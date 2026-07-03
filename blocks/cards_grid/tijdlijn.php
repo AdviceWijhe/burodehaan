@@ -73,16 +73,19 @@
 
     #<?php echo esc_attr($tid); ?> .tijdlijn__item {
         flex: 0 0 auto;
-        border: 1px solid transparent;
         /* Width is set and animated by GSAP */
     }
 
-    #<?php echo esc_attr($tid); ?> .tijdlijn__item.tijdlijn__item--active {
+    #<?php echo esc_attr($tid); ?> .tijdlijn__item.tijdlijn__item--active .tijdlijn__item__content {
         border-color: rgba(22, 22, 22, 0.12);
     }
 
     #<?php echo esc_attr($tid); ?> .tijdlijn__item__media {
-        height: 580px;
+        height: 480px;
+    }
+
+    #<?php echo esc_attr($tid); ?> .tijdlijn__item:not(.tijdlijn__item--active) .tijdlijn__item__media {
+        cursor: pointer;
     }
 
     @media (max-width: 767px) {
@@ -101,6 +104,9 @@
     #<?php echo esc_attr($tid); ?> .tijdlijn__item__content {
         opacity: 0;
         display: none;
+        border: 1px solid transparent;
+        border-top: none;
+        transition: border-color 0.3s;
         /* Opacity/display animated by GSAP on desktop */
     }
 
@@ -182,8 +188,8 @@
         function calcDimensions() {
             GAP = window.innerWidth < 768 ? 16 : 28;
             var containerW = root.offsetWidth;
-            inactiveW = Math.round(containerW / 5);
-            activeW   = containerW - Math.round(2 * inactiveW);
+            inactiveW = Math.round(containerW / 4);   // 25% per inactief item
+            activeW   = containerW - Math.round(2 * inactiveW); // 50% actief
             if (containerW < 768) {
                 inactiveW = Math.round(containerW * 0.15);
                 activeW   = Math.round(containerW * 0.82);
@@ -286,6 +292,20 @@
                 goTo(activeIndex + 1, true);
             });
         }
+
+        /* ── Item clicks (inactieve afbeeldingen) ─────────────────── */
+        items.forEach(function (item, i) {
+            var media = item.querySelector('.tijdlijn__item__media');
+            if (!media) return;
+
+            media.addEventListener('click', function () {
+                if (i === activeIndex) return;
+                if (isMobile()) {
+                    item.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+                }
+                goTo(i, true);
+            });
+        });
 
         /* ── Resize ─────────────────────────────────────────────────── */
         var resizeTimer;
