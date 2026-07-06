@@ -76,7 +76,7 @@ $has_description = $description !== '' && trim(wp_strip_all_tags((string) $descr
                         </div>
                     <?php } ?>
                     
-                        <h3 class="card-title mt-0! line-clamp-2 overflow-hidden! <?php echo $has_description ? 'mb-[1.75rem]!' : 'mb-0!'; ?>"><?php echo esc_html($name); ?></h3>
+                        <h3 class="card-title mt-0! line-clamp-2 overflow-visible! <?php echo $has_description ? 'mb-[1.75rem]!' : 'mb-0!'; ?>"><?php echo esc_html($name); ?></h3>
                         <?php if ($has_description) : ?>
                             <div class="card-description line-clamp-3 [&_p]:mb-0"><?php echo wp_kses_post($description); ?></div>
                         <?php endif; ?>

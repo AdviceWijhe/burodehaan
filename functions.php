@@ -2205,6 +2205,31 @@ function advice2025_enqueue_term_thumbnail_admin_scripts($hook) {
 add_action('admin_enqueue_scripts', 'advice2025_enqueue_term_thumbnail_admin_scripts');
 
 /**
+ * Tailwind class voor headerafbeelding_positie (boven, midden, onder).
+ *
+ * @param string $position ACF-waarde: boven, midden of onder.
+ * @param string $type     'object' voor <img>, 'bg' voor background-image.
+ */
+function advice2025_get_header_image_position_class(string $position = '', string $type = 'object'): string {
+    $maps = array(
+        'object' => array(
+            'boven'  => 'object-top',
+            'onder'  => 'object-bottom',
+            'midden' => 'object-center',
+        ),
+        'bg' => array(
+            'boven'  => 'bg-top',
+            'onder'  => 'bg-bottom',
+            'midden' => 'bg-center',
+        ),
+    );
+
+    $map = $maps[ $type ] ?? $maps['object'];
+
+    return $map[ $position ] ?? $map['midden'];
+}
+
+/**
  * Get taxonomy term thumbnail URL.
  */
 function advice2025_get_term_thumbnail_url($term = null, $size = 'full') {

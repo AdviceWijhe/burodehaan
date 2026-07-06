@@ -15,7 +15,7 @@
                         <?php if ($term_label) : ?>
                           <div class="label-medium text-white mb-[0.75rem] lg:mb-[1rem]"><?php echo esc_html($term_label); ?></div>
                         <?php endif; ?>
-                        <h3 class="headline-small text-white mb-0! w-2/3"><?php the_title(); ?></h3>
+                        <h3 class="text-[16px]! lg:text-[20px]! font-light text-white mb-0! w-full"><?php the_title(); ?></h3>
                       </div>
                       <span class="shrink-0 text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20" fill="none">

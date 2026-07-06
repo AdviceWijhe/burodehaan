@@ -52,9 +52,11 @@ $filter_panel_taxonomies = array(
     $archive_query_vars = $wp_query->query_vars;
     $archive_query_vars['advice2025_template'] = 'card_kennisbank';
     $archive_query_vars['advice2025_filters'] = array();
+    $total_posts = (int) $wp_query->found_posts;
+    $loaded_posts = (int) $wp_query->post_count;
     ?>
     <div
-        class="container mx-auto pb-[2.5rem]! lg:pb-[5rem]!"
+        class="container mx-auto"
         data-posts-archive-search
         data-query-vars="<?php echo esc_attr(wp_json_encode($archive_query_vars)); ?>"
     >
@@ -93,24 +95,35 @@ $filter_panel_taxonomies = array(
             </section>
             
         <?php endif; ?>
+
+        <?php if ($total_posts > 0) : ?>
+            <div class="mt-[1.25rem] lg:mt-[1.875rem] pb-[5rem] lg:pb-[12.5rem] text-center">
+                <?php if ($max_pages > 1) : ?>
+                    <button
+                        id="archive-load-more"
+                        class="btn border border-black text-black hover:bg-black hover:text-white"
+                        type="button"
+                        data-post-type="<?php echo esc_attr(get_post_type()); ?>"
+                        data-current-page="<?php echo esc_attr($current_page); ?>"
+                        data-max-pages="<?php echo esc_attr($max_pages); ?>"
+                        data-query-vars="<?php echo esc_attr(wp_json_encode($archive_query_vars)); ?>"
+                    >
+                        Laad meer <?= $title; ?>
+                    </button>
+                <?php endif; ?>
+                <p
+                    id="archive-load-more-status"
+                    class="body-medium text-black/60 <?php echo $max_pages > 1 ? 'mt-[1rem]' : ''; ?>"
+                    data-loaded="<?php echo esc_attr($loaded_posts); ?>"
+                    data-total="<?php echo esc_attr($total_posts); ?>"
+                    data-label="<?php echo esc_attr($title); ?>"
+                >
+                    <?php echo esc_html(sprintf('%d van de %d %s getoond', $loaded_posts, $total_posts, $title)); ?>
+                </p>
+            </div>
+        <?php endif; ?>
         
     </div>
-
-    <?php if ($max_pages > 1) : ?>
-        <div class="mt-[1.875rem] lg:mt-[3.75rem] text-center">
-            <button
-                id="archive-load-more"
-                class="btn border border-black text-black hover:bg-black hover:text-white"
-                type="button"
-                data-post-type="<?php echo esc_attr(get_post_type()); ?>"
-                data-current-page="<?php echo esc_attr($current_page); ?>"
-                data-max-pages="<?php echo esc_attr($max_pages); ?>"
-                data-query-vars="<?php echo esc_attr(wp_json_encode($archive_query_vars)); ?>"
-            >
-                Laad meer <?= $title; ?>
-            </button>
-        </div>
-    <?php endif; ?>
 </main>
 
 <?php

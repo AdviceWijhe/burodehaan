@@ -78,21 +78,10 @@ if(get_post_type() == 'project') {
         <?php
         $header_afbeelding = get_field('header_afbeelding', get_the_ID());
         $volledige_breedte = (bool) get_field('volledige_breedte', get_the_ID());
-        $header_image_object_class = 'object-center';
-
-        if (get_post_type() === 'project') {
-            switch (get_field('headerafbeelding_positie', get_the_ID())) {
-                case 'boven':
-                    $header_image_object_class = 'object-top';
-                    break;
-                case 'onder':
-                    $header_image_object_class = 'object-bottom';
-                    break;
-                default:
-                    $header_image_object_class = 'object-center';
-                    break;
-            }
-        }
+        $header_image_object_class = advice2025_get_header_image_position_class(
+            (string) get_field('headerafbeelding_positie', get_the_ID()),
+            'object'
+        );
         ?>
         <?php if ($volledige_breedte) : ?>
         <div class="post-header-image h-[12.5rem] lg:h-[40.625rem]">

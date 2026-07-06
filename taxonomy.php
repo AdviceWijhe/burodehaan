@@ -15,6 +15,10 @@ if (is_array($header_image) && !empty($header_image['url'])) {
 } elseif (is_numeric($header_image)) {
     $header_image_url = (string) wp_get_attachment_image_url((int) $header_image, 'full');
 }
+$header_image_bg_class = advice2025_get_header_image_position_class(
+    (string) get_field('headerafbeelding_positie', $term_key),
+    'bg'
+);
 ?>
 
 
@@ -22,7 +26,7 @@ if (is_array($header_image) && !empty($header_image['url'])) {
     
 
     <?php if ($tax_slug === 'thema' && $header_image_url !== '') : ?>
-        <div class="tax-header relative mb-[10rem] bg-cover bg-center bg-no-repeat" style="background-image: url('<?php echo esc_url($header_image_url); ?>');">
+        <div class="tax-header relative mb-[10rem] bg-cover <?php echo esc_attr($header_image_bg_class); ?> bg-no-repeat" style="background-image: url('<?php echo esc_url($header_image_url); ?>');">
             <div class="absolute top-0 right-0 h-full w-1/2 pointer-events-none" style="opacity: 0.3; background: linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, #000 100%);"></div>
             <div class="container relative">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-[1.75rem] items-end pt-[5rem] pb-[1.875rem]">

@@ -214,6 +214,7 @@ if ( $has_swiper_controls && $is_project_slider && $slider_item_count > 0 && $sl
 // Teller + vorige/volgende alleen tonen als er meer items zijn dan in de slider passen.
 $nav_threshold = ( 'posts' === $soort_items_cards ) ? $desktop_spv : 2;
 $has_swiper_nav = $has_swiper_controls && $slider_item_count > $nav_threshold;
+$show_swiper_counter = ! is_tax( 'expertise' );
 
 $is_themas_artikelen        = in_array( $soort_items_cards, array( 'themas', 'artikelen' ), true );
 $header_no_title            = empty( $cards_heading );
@@ -251,7 +252,7 @@ $backgroundPatroon = 'pink';
           <?php if ($show_title_knoppen_row) : ?>
             <div class="flex w-full min-w-0 flex-wrap items-center gap-4 sm:flex-nowrap <?php echo esc_attr( $title_knoppen_flex_class ); ?> <?php echo esc_attr( $title_knoppen_col_class ); ?> <?php echo esc_attr( $title_knoppen_start_class ); ?>">
               <?php if (!empty($cards_heading)) : ?>
-                <div class="min-w-0 w-full sm:w-auto sm:flex-1 lg:max-w-[50%] <?php if (!$has_knoppen) : ?>lg:w-6/12<?php endif; ?>">
+                <div class="min-w-0 w-full sm:w-auto sm:flex-1 lg:max-w-[95%] <?php if (!$has_knoppen) : ?>lg:w-6/12<?php endif; ?>">
                   <div class="mb-0!"><?php echo wp_kses_post($cards_heading); ?></div>
                 </div>
               <?php endif; ?>
@@ -275,10 +276,12 @@ $backgroundPatroon = 'pink';
               <div class="w-[10rem] xl:w-[14.6875rem] h-[0.125rem] relative overflow-hidden bg-[#161616]/20">
                 <span class="<?= esc_attr($cards_rand_class); ?>-progress absolute left-0 top-0 h-full bg-primary transition-transform duration-300" style="width: 90.7336px; transform: translateX(0px);"></span>
               </div>
+              <?php if ( $show_swiper_counter ) : ?>
               <div class="title-large text-black whitespace-nowrap shrink-0">
                 <span class="<?= esc_attr($cards_rand_class); ?>-current font-bold">01</span> /
                 <span class="<?= esc_attr($cards_rand_class); ?>-total">00</span>
               </div>
+              <?php endif; ?>
             </div>
             <?php endif; ?>
 
@@ -427,7 +430,7 @@ $backgroundPatroon = 'pink';
             }
 
             function updateProgress() {
-              if (!currentEl || !totalEl || !progressEl) return;
+              if (!progressEl) return;
               var totalSlides = (swiper.slides && swiper.slides.length) ? swiper.slides.length : 1;
               var raw = getScrollProgress(swiper);
               var p;
@@ -452,8 +455,12 @@ $backgroundPatroon = 'pink';
                 currentStep = Math.min(totalSlides, Math.max(1, Math.round(p * (totalSlides - 1)) + 1));
               }
 
-              currentEl.textContent = formatSlideNumber(currentStep);
-              totalEl.textContent = formatSlideNumber(totalSlides);
+              if (currentEl) {
+                currentEl.textContent = formatSlideNumber(currentStep);
+              }
+              if (totalEl) {
+                totalEl.textContent = formatSlideNumber(totalSlides);
+              }
 
               var trackEl = progressEl.parentElement;
               var trackWidth = trackEl && trackEl.offsetWidth ? trackEl.offsetWidth : 235;
