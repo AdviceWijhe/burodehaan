@@ -56,6 +56,8 @@ $full_width = $args['full_width'] ?? null; // null = auto (stretch), true = alti
 $primary_hover_on_dark = !empty($args['primary_hover_on_dark']);
 /** Contextuele override: witte fill-knop krijgt oranje hover. */
 $white_hover_primary = !empty($args['white_hover_primary']);
+/** Geen automatisch tel/mail-icoon op basis van link-URL. */
+$hide_contact_icons = !empty($args['hide_contact_icons']);
 
 // Icon SVG templates
 $icon_templates = [
@@ -141,10 +143,10 @@ if($buttons) {
               $is_contact_link = false;
               
               // Check of het een tel: of mailto: link is
-              if (str_starts_with($url, 'tel:')) {
+              if (!$hide_contact_icons && str_starts_with($url, 'tel:')) {
                   $knop_icon = 'tel';
                   $is_contact_link = true;
-              } elseif (str_starts_with($url, 'mailto:')) {
+              } elseif (!$hide_contact_icons && str_starts_with($url, 'mailto:')) {
                   $knop_icon = 'email';
                   $is_contact_link = true;
               } else {

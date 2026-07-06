@@ -64,7 +64,17 @@ if (is_array($header_image) && !empty($header_image['url'])) {
                                     <?= get_template_part('template-parts/card-contactpersoon', null, array('variant' => 'default', 'text-color' => 'white', 'medewerker' => $cta['contactpersoon'] ?? null)) ?>
                                 </div>
 
-                                <?= get_template_part('template-parts/core/buttons', null, array('buttons' => $cta['buttons'] ?? array(), 'align_items' => 'stretch', 'full_width' => true)) ?>
+                                <?php
+                                $cta_button_args = array(
+                                    'buttons' => $cta['buttons'] ?? array(),
+                                    'align_items' => 'stretch',
+                                    'full_width' => true,
+                                );
+                                if ($tax_slug === 'expertise') {
+                                    $cta_button_args['hide_contact_icons'] = true;
+                                }
+                                ?>
+                                <?= get_template_part('template-parts/core/buttons', null, $cta_button_args) ?>
                             </div>
                         <?php endif; ?>
                     </div>
