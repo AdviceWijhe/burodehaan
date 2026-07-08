@@ -169,6 +169,19 @@ if ( $has_swiper_controls ) {
                 );
             }
         }
+        // Op een expertise-detailpagina alleen projecten met dezelfde expertise tonen (indien aangevinkt).
+        if ( 'project' === $count_post_type && is_tax( 'expertise' ) && get_sub_field( 'dezelfde_expertise' ) ) {
+            $current_expertise_id = get_queried_object_id();
+            if ( $current_expertise_id ) {
+                $count_args['tax_query'] = array(
+                    array(
+                        'taxonomy' => 'expertise',
+                        'field'    => 'term_id',
+                        'terms'    => array( $current_expertise_id ),
+                    ),
+                );
+            }
+        }
         $count_query         = new WP_Query( $count_args );
         $slider_item_count   = (int) $count_query->post_count;
         wp_reset_postdata();
@@ -187,8 +200,8 @@ if ( 'bericht' === $slider_post_type || 'berichten' === $slider_post_type ) {
 $is_project_slider = ( 'posts' === $soort_items_cards && 'project' === $slider_post_type );
 
 if ( $has_swiper_controls && $is_project_slider && $slider_item_count > 0 && $slider_item_count < 3 && ! empty( $swiper_setting ) ) {
-    // Projecten: bij 1 of 2 items de kaartbreedte aanhouden alsof er 3 staan.
-    $swiper_setting['slidesPerView'] = 3;
+    // Projecten: bij 1 of 2 items de kaartbreedte op tablet/desktop aanhouden alsof er 3 staan.
+    // Mobiel (root + < 768) houdt de ingestelde aantal_slides_mobiel aan.
     if ( isset( $swiper_setting['breakpoints'] ) && is_array( $swiper_setting['breakpoints'] ) ) {
         foreach ( $swiper_setting['breakpoints'] as $breakpoint => $breakpoint_settings ) {
             if ( ! is_array( $breakpoint_settings ) || $breakpoint < 768 ) {
@@ -199,11 +212,11 @@ if ( $has_swiper_controls && $is_project_slider && $slider_item_count > 0 && $sl
     }
     $desktop_spv = 3;
 } elseif ( $has_swiper_controls && 1 === $slider_item_count && ! empty( $swiper_setting ) ) {
-    // Overige sliders: bij 1 item de kaartbreedte aanhouden alsof er 2 staan.
-    $swiper_setting['slidesPerView'] = 2;
+    // Overige sliders: bij 1 item de kaartbreedte op tablet/desktop aanhouden alsof er 2 staan.
+    // Mobiel (root + < 768) houdt de ingestelde aantal_slides_mobiel aan.
     if ( isset( $swiper_setting['breakpoints'] ) && is_array( $swiper_setting['breakpoints'] ) ) {
         foreach ( $swiper_setting['breakpoints'] as $breakpoint => $breakpoint_settings ) {
-            if ( ! is_array( $breakpoint_settings ) ) {
+            if ( ! is_array( $breakpoint_settings ) || $breakpoint < 768 ) {
                 continue;
             }
             $swiper_setting['breakpoints'][ $breakpoint ]['slidesPerView'] = 2;
@@ -256,8 +269,17 @@ $backgroundPatroon = 'pink';
                   <div class="mb-0!"><?php echo wp_kses_post($cards_heading); ?></div>
                 </div>
               <?php endif; ?>
-              <?php if ($has_knoppen && !$has_swiper_nav) : ?>
-                <div class="shrink-0">
+              <?php
+              $render_header_knoppen = $has_knoppen && !$has_swiper_nav;
+              // Bij posts staan de knoppen al apart (desktop in de slider-controls en/of mobiel onderaan),
+              // dus voorkom dat dezelfde knop dubbel in de header verschijnt.
+              $header_knoppen_mobile_hidden = ( $soort_items_cards === 'posts' );
+              if ( $soort_items_cards === 'posts' && $has_swiper_controls && get_sub_field('buttons') ) {
+                  $render_header_knoppen = false;
+              }
+              ?>
+              <?php if ($render_header_knoppen) : ?>
+                <div class="shrink-0 <?php echo $header_knoppen_mobile_hidden ? 'hidden lg:block' : ''; ?>">
                   <?php
                   get_template_part('template-parts/core/buttons', null, array(
                     'buttons'   => $knoppen_buttons,
@@ -379,6 +401,19 @@ $backgroundPatroon = 'pink';
               'taxonomy' => 'project-type',
               'field' => 'term_id',
               'terms' => $project_type_terms,
+            ),
+          );
+        }
+      }
+      // Op een expertise-detailpagina alleen projecten met dezelfde expertise tonen (indien aangevinkt).
+      if ($selected_post_type === 'project' && is_tax('expertise') && get_sub_field('dezelfde_expertise')) {
+        $current_expertise_id = get_queried_object_id();
+        if ($current_expertise_id) {
+          $args['tax_query'] = array(
+            array(
+              'taxonomy' => 'expertise',
+              'field' => 'term_id',
+              'terms' => array($current_expertise_id),
             ),
           );
         }

@@ -42,7 +42,7 @@ $header_image_bg_class = advice2025_get_header_image_position_class(
                                         <?= get_template_part('template-parts/card-contactpersoon', null, array('variant' => 'default', 'text-color' => 'white', 'medewerker' => $cta['contactpersoon'] ?? null)) ?>
                                     </div>
 
-                                    <?= get_template_part('template-parts/core/buttons', null, array('buttons' => $cta['buttons'] ?? array(), 'align_items' => 'stretch', 'full_width' => true)) ?>
+                                    <?= get_template_part('template-parts/core/buttons', null, array('buttons' => $cta['buttons'] ?? array(), 'align_items' => 'stretch', 'full_width' => true, 'hide_contact_icons' => true)) ?>
                                 </div>
                             </div>
                         <?php endif; ?>
@@ -74,7 +74,7 @@ $header_image_bg_class = advice2025_get_header_image_position_class(
                                     'align_items' => 'stretch',
                                     'full_width' => true,
                                 );
-                                if ($tax_slug === 'expertise') {
+                                if (in_array($tax_slug, array('expertise', 'thema'), true)) {
                                     $cta_button_args['hide_contact_icons'] = true;
                                 }
                                 ?>

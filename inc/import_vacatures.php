@@ -513,6 +513,68 @@ function advice2025_fetch_bbg_vacature_page(int $page)
 }
 
 /**
+ * Map remote BBG vacature status to local post_status.
+ */
+function advice2025_map_bbg_vacature_status(string $remote_status): string
+{
+    if ($remote_status === 'publish') {
+        return 'publish';
+    }
+
+    return 'draft';
+}
+
+/**
+ * Zet lokale BBG-vacatures op concept als ze niet meer gepubliceerd zijn op de bron.
+ *
+ * @param array<int, int> $published_remote_ids Remote IDs die in deze import-run publish zijn.
+ */
+function advice2025_unpublish_stale_bbg_vacatures(array $published_remote_ids): int
+{
+    $published_remote_ids = array_values(array_unique(array_map('intval', $published_remote_ids)));
+    $unpublished          = 0;
+
+    $local_posts = get_posts(
+        array(
+            'post_type'              => 'vacature',
+            'post_status'            => 'publish',
+            'posts_per_page'         => -1,
+            'fields'                 => 'ids',
+            'no_found_rows'          => true,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+            'meta_key'               => '_bbg_vacature_id',
+            'meta_compare'           => 'EXISTS',
+        )
+    );
+
+    foreach ($local_posts as $local_id) {
+        $local_id  = (int) $local_id;
+        $remote_id = (int) get_post_meta($local_id, '_bbg_vacature_id', true);
+
+        if ($remote_id <= 0 || in_array($remote_id, $published_remote_ids, true)) {
+            continue;
+        }
+
+        $updated = wp_update_post(
+            array(
+                'ID'          => $local_id,
+                'post_status' => 'draft',
+            ),
+            true
+        );
+
+        if (! is_wp_error($updated)) {
+            ++$unpublished;
+        } elseif (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log('[advice2025 vacature import] unpublish stale failed: ' . $updated->get_error_message());
+        }
+    }
+
+    return $unpublished;
+}
+
+/**
  * Import or update a single remote vacature item.
  *
  * @param array<string, mixed> $item
@@ -526,7 +588,7 @@ function advice2025_import_single_bbg_vacature(array $item): array
         'skipped' => false,
     );
 
-    if (empty($item['id']) || ($item['status'] ?? '') !== 'publish') {
+    if (empty($item['id'])) {
         $result['skipped'] = true;
 
         return $result;
@@ -538,7 +600,8 @@ function advice2025_import_single_bbg_vacature(array $item): array
         return $result;
     }
 
-    $remote_id = (int) $item['id'];
+    $remote_id    = (int) $item['id'];
+    $local_status = advice2025_map_bbg_vacature_status((string) ($item['status'] ?? ''));
     $title     = isset($item['title']['rendered'])
         ? wp_strip_all_tags((string) $item['title']['rendered'])
         : '';
@@ -557,7 +620,7 @@ function advice2025_import_single_bbg_vacature(array $item): array
 
     $post_data = array(
         'post_type'    => 'vacature',
-        'post_status'  => 'publish',
+        'post_status'  => $local_status,
         'post_title'   => $title,
         'post_name'    => $post_name,
         'post_content' => '',
@@ -622,14 +685,15 @@ function advice2025_import_single_bbg_vacature(array $item): array
 /**
  * Run full import; returns aggregate counts.
  *
- * @return array{created: int, updated: int, skipped: int, pages: int}|WP_Error
+ * @return array{created: int, updated: int, skipped: int, unpublished: int, pages: int}|WP_Error
  */
 function advice2025_run_bbg_vacature_import()
 {
-    $created = 0;
-    $updated = 0;
-    $skipped = 0;
-    $pages   = 0;
+    $created          = 0;
+    $updated          = 0;
+    $skipped          = 0;
+    $pages            = 0;
+    $published_remote_ids = array();
 
     $first = advice2025_fetch_bbg_vacature_page(1);
     if (is_wp_error($first)) {
@@ -659,16 +723,23 @@ function advice2025_run_bbg_vacature_import()
             } else {
                 ++$skipped;
             }
+
+            if (! $r['skipped'] && advice2025_map_bbg_vacature_status((string) ($item['status'] ?? '')) === 'publish') {
+                $published_remote_ids[] = (int) $item['id'];
+            }
         }
 
         ++$page;
     }
 
+    $unpublished = advice2025_unpublish_stale_bbg_vacatures($published_remote_ids);
+
     return array(
-        'created' => $created,
-        'updated' => $updated,
-        'skipped' => $skipped,
-        'pages'   => $pages,
+        'created'      => $created,
+        'updated'      => $updated,
+        'skipped'      => $skipped,
+        'unpublished'  => $unpublished,
+        'pages'        => $pages,
     );
 }
 
@@ -704,14 +775,16 @@ function advice2025_vacature_import_tools_page(): void
         $c = isset($_GET['c']) ? (int) $_GET['c'] : 0;
         $u = isset($_GET['u']) ? (int) $_GET['u'] : 0;
         $s = isset($_GET['s']) ? (int) $_GET['s'] : 0;
+        $d = isset($_GET['d']) ? (int) $_GET['d'] : 0;
         echo '<div class="notice notice-success is-dismissible"><p>';
         echo esc_html(
             sprintf(
-                /* translators: 1: created count, 2: updated count, 3: skipped count */
-                __('Vacature-import voltooid: %1$d nieuw, %2$d bijgewerkt, %3$d overgeslagen.', 'advice2025'),
+                /* translators: 1: created count, 2: updated count, 3: skipped count, 4: unpublished count */
+                __('Vacature-import voltooid: %1$d nieuw, %2$d bijgewerkt, %3$d overgeslagen, %4$d naar concept gezet.', 'advice2025'),
                 $c,
                 $u,
-                $s
+                $s,
+                $d
             )
         );
         echo '</p></div>';
@@ -724,7 +797,7 @@ function advice2025_vacature_import_tools_page(): void
     ?>
     <div class="wrap">
         <h1><?php echo esc_html__('Import vacatures (Beter Bouwen Groep)', 'advice2025'); ?></h1>
-        <p><?php echo esc_html__('Haalt gepubliceerde vacatures op via de REST API en slaat titel, doel-URL en taxonomieën lokaal op.', 'advice2025'); ?></p>
+        <p><?php echo esc_html__('Haalt gepubliceerde vacatures op via de REST API en synchroniseert titel, status, doel-URL en taxonomieën lokaal.', 'advice2025'); ?></p>
         <p>
             <a class="button button-primary" href="<?php echo esc_url($url); ?>">
                 <?php echo esc_html__('Nu importeren', 'advice2025'); ?>
@@ -771,6 +844,7 @@ function advice2025_handle_admin_vacature_import(): void
                 'c'                                => $stats['created'],
                 'u'                                => $stats['updated'],
                 's'                                => $stats['skipped'],
+                'd'                                => $stats['unpublished'],
             ),
             admin_url('tools.php')
         )
@@ -794,10 +868,11 @@ if (defined('WP_CLI') && WP_CLI) {
             }
             WP_CLI::success(
                 sprintf(
-                    'Done. Created: %d, updated: %d, skipped: %d (pages: %d).',
+                    'Done. Created: %d, updated: %d, skipped: %d, unpublished: %d (pages: %d).',
                     $stats['created'],
                     $stats['updated'],
                     $stats['skipped'],
+                    $stats['unpublished'],
                     $stats['pages']
                 )
             );
