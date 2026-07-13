@@ -60,6 +60,7 @@ $show_cta_contact = (bool) ($show_cta_contact_toggle && !empty($cta_contactperso
                 <?php if (!empty($cta_buttons)): ?>
                         <?php
                         $cta_primary_dark_hover = (bool) ($cta_background_color && $cta_background_color !== 'primary');
+                        $cta_black_bg = $cta_background_color === 'black';
                         get_template_part(
                             'template-parts/core/buttons',
                             null,
@@ -69,6 +70,7 @@ $show_cta_contact = (bool) ($show_cta_contact_toggle && !empty($cta_contactperso
                                 'align_items' => $show_cta_contact ? 'stretch' : 'start',
                                 'full_width' => false,
                                 'primary_hover_on_dark' => $cta_primary_dark_hover,
+                                'black_to_white_on_dark' => $cta_black_bg,
                             )
                         );
                         ?>

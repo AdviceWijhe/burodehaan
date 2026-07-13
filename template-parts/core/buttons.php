@@ -54,6 +54,8 @@ $align_items = $args['align_items'] ?? 'start'; // 'start' of 'stretch'
 $full_width = $args['full_width'] ?? null; // null = auto (stretch), true = altijd w-full, false = nooit w-full
 /** Op donkere CTA-achtergrond: oranje (primary) fill krijgt witte hover i.p.v. zwart. */
 $primary_hover_on_dark = !empty($args['primary_hover_on_dark']);
+/** Op zwarte CTA-achtergrond: zwarte knop wordt witte variant. */
+$black_to_white_on_dark = !empty($args['black_to_white_on_dark']);
 /** Contextuele override: witte fill-knop krijgt oranje hover. */
 $white_hover_primary = !empty($args['white_hover_primary']);
 /** Geen automatisch tel/mail-icoon op basis van link-URL. */
@@ -123,6 +125,9 @@ if($buttons) {
       echo '<div class="relative flex flex-col lg:flex-row gap-4 flex-wrap ' . $align_class . ' ' . $width_class . '">';
       foreach ($buttons as $button) {
         $button_color = $button['knop_kleur'] ?? 'primary';
+        if ($black_to_white_on_dark && $button_color === 'black') {
+            $button_color = 'white';
+        }
         if (!isset($colors[$button_color])) {
             $button_color = 'primary';
         }
