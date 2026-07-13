@@ -105,3 +105,30 @@
     background-position: right center;
   }
 }
+
+/* CTA default: knoppen onderaan uitlijnen t.o.v. tekstkolom (desktop) */
+@media (min-width: 1024px) {
+  .cta-default__panel {
+    align-items: stretch;
+  }
+
+  .cta-default__actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-self: stretch;
+  }
+
+  .cta-default__actions--with-contact {
+    justify-content: flex-start;
+  }
+
+  .cta-default__actions--with-contact .cta-default__buttons {
+    margin-top: auto;
+  }
+
+  .cta-default__buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
